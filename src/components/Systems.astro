@@ -1,0 +1,362 @@
+---
+import { systems } from '../content';
+import SectionHead from './SectionHead.astro';
+import Plate from './Plate.astro';
+---
+
+<section class="section" id="systemy" aria-labelledby="systemy-title">
+  <div class="wrap">
+    <SectionHead index="02" name="Systémy" id="systemy-title" title={systems.title} lead={systems.lead} />
+
+    <div class="sys reveal" data-tabs>
+      <div class="sys__tabs" role="tablist" aria-label="Systémy" aria-orientation="vertical">
+        {
+          systems.items.map((s, i) => (
+            <button
+              class="sys__tab"
+              type="button"
+              role="tab"
+              id={`tab-${s.id}`}
+              aria-controls={`panel-${s.id}`}
+              aria-selected={i === 0 ? 'true' : 'false'}
+              tabindex={i === 0 ? 0 : -1}
+            >
+              <span class="sys__num num" aria-hidden="true">
+                0{i + 1}
+              </span>
+              <span class="sys__name">
+                <span class="sys__long">{s.name}</span>
+                <span class="sys__short" aria-hidden="true">
+                  {s.short}
+                </span>
+              </span>
+              <span class="sys__arrow" aria-hidden="true">
+                →
+              </span>
+            </button>
+          ))
+        }
+      </div>
+
+      <div class="sys__stage">
+        <!-- Všech šest vizuálů je v DOMu ve stejné buňce mřížky: přepnutí je jen
+             změna průhlednosti, nic se nenačítá ani nepřepočítává za běhu. -->
+        <Plate class="sys__plate">
+          {
+            systems.items.map((s, i) => (
+              <picture class="sys__img" data-img={s.id} data-active={i === 0 ? '' : undefined}>
+                <source srcset={`/media/${s.img}.webp`} type="image/webp" />
+                <img
+                  src={`/media/${s.img}.png`}
+                  alt=""
+                  width="800"
+                  height="800"
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
+                  fetchpriority={i === 0 ? 'auto' : 'low'}
+                />
+              </picture>
+            ))
+          }
+        </Plate>
+
+        <div class="sys__panels">
+          {
+            systems.items.map((s, i) => (
+              <div
+                class="sys__panel"
+                role="tabpanel"
+                id={`panel-${s.id}`}
+                aria-labelledby={`tab-${s.id}`}
+                data-active={i === 0 ? '' : undefined}
+                inert={i !== 0}
+              >
+                <p class="label sys__panel-num num">
+                  Systém 0{i + 1} / 06
+                </p>
+                <h3 class="sys__title">{s.name}</h3>
+                <p class="sys__text">{s.text}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .sys {
+    display: grid;
+    gap: 20px;
+  }
+
+  /* záložky: na mobilu mřížka 2×3, na desktopu svislý seznam */
+  .sys__tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .sys__tab {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 52px;
+    padding: 10px 12px;
+    text-align: left;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    cursor: pointer;
+    color: var(--ink-2);
+    transition:
+      color 120ms,
+      border-color 120ms,
+      background-color 120ms;
+  }
+  .sys__tab:hover {
+    color: var(--ink);
+    border-color: var(--line-strong);
+  }
+  .sys__tab[aria-selected='true'] {
+    color: var(--ink);
+    border-color: var(--ink);
+    background: var(--brand-wash);
+  }
+  .sys__num {
+    font-size: 0.78rem;
+    font-weight: 650;
+    letter-spacing: 0.04em;
+    color: var(--ink-3);
+  }
+  .sys__tab[aria-selected='true'] .sys__num {
+    color: var(--accent-text);
+  }
+  .sys__name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.2;
+  }
+  /* na mobilu krátký název; plný zůstává pro čtečky obrazovky */
+  .sys__long {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+  .sys__arrow {
+    display: none;
+  }
+
+  .sys__stage {
+    display: grid;
+    gap: 24px;
+  }
+  .sys__plate {
+    display: grid;
+    aspect-ratio: 1;
+    width: 100%;
+  }
+  .sys__img {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: scale(0.985);
+    transition:
+      opacity 180ms var(--ease-out),
+      transform 260ms var(--ease-out);
+  }
+  .sys__img[data-active] {
+    opacity: 1;
+    transform: none;
+  }
+  .sys__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .sys__panels {
+    display: grid;
+  }
+  .sys__panel {
+    grid-area: 1 / 1;
+    opacity: 0;
+    visibility: hidden;
+  }
+  .sys__panel[data-active] {
+    opacity: 1;
+    visibility: visible;
+  }
+  .sys__title {
+    margin-top: 10px;
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    font-weight: 620;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+  }
+  .sys__text {
+    margin-top: 12px;
+    color: var(--ink-2);
+    max-width: 52ch;
+    text-wrap: pretty;
+  }
+
+  @media (min-width: 560px) {
+    .sys__tabs {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 900px) {
+    .sys {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: 48px;
+      align-items: start;
+    }
+    .sys__tabs {
+      grid-template-columns: 1fr;
+      gap: 0;
+      border-top: 1px solid var(--line);
+    }
+    .sys__tab {
+      min-height: 72px;
+      padding: 16px 4px;
+      gap: 18px;
+      background: none;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      border-radius: 0;
+    }
+    .sys__tab:hover,
+    .sys__tab[aria-selected='true'] {
+      background: none;
+    }
+    .sys__tab::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 2px;
+      background: var(--brand);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 220ms var(--ease-out);
+    }
+    .sys__tab[aria-selected='true']::before {
+      transform: scaleX(1);
+    }
+    .sys__num {
+      font-size: 0.85rem;
+      width: 2ch;
+    }
+    .sys__name {
+      font-family: var(--font-display);
+      font-size: var(--step-1);
+      font-weight: 560;
+      letter-spacing: -0.012em;
+      flex: 1;
+      transition: transform 140ms var(--ease-out);
+    }
+    .sys__tab:hover .sys__name {
+      transform: translateX(4px);
+    }
+    .sys__long {
+      position: static;
+      width: auto;
+      height: auto;
+      overflow: visible;
+      clip: auto;
+      white-space: normal;
+    }
+    .sys__short {
+      display: none;
+    }
+    .sys__arrow {
+      display: block;
+      opacity: 0;
+      transform: translateX(-6px);
+      transition:
+        opacity 140ms,
+        transform 140ms var(--ease-out);
+      color: var(--accent-text);
+    }
+    .sys__tab[aria-selected='true'] .sys__arrow {
+      opacity: 1;
+      transform: none;
+    }
+    .sys__stage {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .sys__plate {
+      aspect-ratio: 5 / 4;
+    }
+    .sys__panels {
+      max-width: 56ch;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sys__img,
+    .sys__tab::before,
+    .sys__arrow,
+    .sys__name {
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-tabs]');
+  if (root) {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const panels = [...root.querySelectorAll<HTMLElement>('[role="tabpanel"]')];
+    const imgs = [...root.querySelectorAll<HTMLElement>('[data-img]')];
+
+    const select = (i: number, focus = false) => {
+      tabs.forEach((t, j) => {
+        const on = i === j;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        panels[j].toggleAttribute('data-active', on);
+        panels[j].inert = !on;
+        imgs[j].toggleAttribute('data-active', on);
+      });
+      if (focus) tabs[i].focus();
+    };
+
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => select(i));
+      // Na hover/focus si prohlížeč obrázek předem dekóduje → přepnutí bez probliknutí.
+      const warm = () => imgs[i].querySelector('img')?.decode().catch(() => {});
+      t.addEventListener('pointerenter', warm, { once: true });
+      t.addEventListener('focus', warm, { once: true });
+    });
+
+    root.querySelector('[role="tablist"]')!.addEventListener('keydown', (e) => {
+      const ev = e as KeyboardEvent;
+      const cur = tabs.findIndex((t) => t.getAttribute('aria-selected') === 'true');
+      const n = tabs.length;
+      const map: Record<string, number> = {
+        ArrowDown: (cur + 1) % n,
+        ArrowRight: (cur + 1) % n,
+        ArrowUp: (cur - 1 + n) % n,
+        ArrowLeft: (cur - 1 + n) % n,
+        Home: 0,
+        End: n - 1,
+      };
+      if (ev.key in map) {
+        ev.preventDefault();
+        select(map[ev.key], true);
+      }
+    });
+  }
+</script>

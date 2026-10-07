@@ -1,0 +1,95 @@
+---
+import '../styles/tokens.css';
+import '../styles/fallback.css';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#f8f6f3" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#151413" media="(prefers-color-scheme: dark)" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="cs_CZ" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/media/hero-poster.jpg', Astro.site)} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <link rel="preload" href="/fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/bricolage-grotesque-latin-ext-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/instrument-sans-latin-ext-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- Před prvním vykreslením: téma a uložené ladění barev, aby nic neprobliklo. -->
+    <script is:inline>
+      (function () {
+        var d = document.documentElement;
+        d.classList.add('js');
+        try {
+          var t = localStorage.getItem('theme');
+          if (t === 'light' || t === 'dark') d.dataset.theme = t;
+          var b = JSON.parse(localStorage.getItem('brand') || 'null');
+          if (b && typeof b.h === 'number') {
+            d.style.setProperty('--brand-h', b.h);
+            d.style.setProperty('--brand-c', b.c);
+            if (b.on) d.style.setProperty('--on-brand', b.on);
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#obsah">Přeskočit na obsah</a>
+    <slot />
+
+    <script>
+      // Reveal při scrollu: jednou, s předstihem před vstupem do pohledu.
+      const els = document.querySelectorAll<HTMLElement>('.reveal');
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) {
+        els.forEach((el) => el.classList.add('is-in'));
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (!e.isIntersecting) continue;
+              const el = e.target as HTMLElement;
+              el.style.willChange = 'opacity, transform';
+              el.classList.add('is-in');
+              el.addEventListener('transitionend', () => (el.style.willChange = ''), { once: true });
+              io.unobserve(el);
+            }
+          },
+          { rootMargin: '0px 0px 6% 0px', threshold: 0.01 },
+        );
+        els.forEach((el) => io.observe(el));
+      }
+
+      // Panel pro ladění barev — jen pro zadavatele (?tweak=1 nebo klávesa C).
+      // Kód panelu se stahuje až na vyžádání, návštěvníci ho nikdy nenačtou.
+      const openTweak = () => import('../scripts/tweak-panel').then((m) => m.open());
+      if (new URLSearchParams(location.search).get('tweak') === '1') openTweak();
+      addEventListener('keydown', (e) => {
+        if (e.key !== 'c' && e.key !== 'C') return;
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+        const t = e.target as HTMLElement;
+        if (t.closest('input, textarea, select, [contenteditable]')) return;
+        openTweak();
+      });
+    </script>
+  </body>
+</html>

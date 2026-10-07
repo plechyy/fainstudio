@@ -1,0 +1,83 @@
+---
+import { CAL_URL, EMAIL } from '../config';
+import { cta } from '../content';
+---
+
+<section class="section" id="rezervace" aria-labelledby="cta-title">
+  <div class="wrap">
+    <div class="cta reveal">
+      <div class="cta__grid" aria-hidden="true"></div>
+      <h2 class="display cta__title" id="cta-title">{cta.title}</h2>
+      <p class="cta__text">{cta.text}</p>
+      <div class="cta__actions">
+        <a class="btn btn--primary cta__btn" href={CAL_URL}>{cta.button} <span class="btn__arrow" aria-hidden="true">→</span></a>
+        <p class="cta__mail">
+          Nebo napište na <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(40px, 8vw, 104px) clamp(20px, 6vw, 80px);
+    border-radius: var(--radius);
+    background: var(--brand-ink);
+    color: oklch(0.97 0.01 var(--brand-h));
+    isolation: isolate;
+  }
+  /* výkresová mřížka v pozadí */
+  .cta__grid {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(oklch(1 0 0 / 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(1 0 0 / 0.06) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(120% 90% at 100% 0%, #000 10%, transparent 70%);
+    -webkit-mask-image: radial-gradient(120% 90% at 100% 0%, #000 10%, transparent 70%);
+  }
+  .cta__title {
+    font-size: var(--step-4);
+    max-width: 16ch;
+  }
+  .cta__text {
+    margin-top: 24px;
+    font-size: var(--step-1);
+    line-height: 1.5;
+    max-width: 46ch;
+    color: oklch(0.86 0.015 var(--brand-h));
+    text-wrap: pretty;
+  }
+  .cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 28px;
+    margin-top: 36px;
+  }
+  .cta__btn {
+    --h: 56px;
+    font-size: var(--step-1);
+    padding: 0 26px;
+  }
+  .cta__mail {
+    color: oklch(0.86 0.015 var(--brand-h));
+    user-select: text;
+  }
+  .cta__mail a {
+    color: oklch(0.97 0.01 var(--brand-h));
+    font-weight: 600;
+    text-underline-offset: 4px;
+    text-decoration-color: var(--brand);
+    text-decoration-thickness: 1.5px;
+    overflow-wrap: anywhere;
+  }
+  .cta__mail a:hover {
+    text-decoration-thickness: 3px;
+  }
+</style>

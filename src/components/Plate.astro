@@ -1,0 +1,26 @@
+---
+/** Signature prvek: tmavý výřez s rohovými značkami a popiskem jako ve výkresu. */
+interface Props {
+  fig?: string;
+  caption?: string;
+  class?: string;
+  [key: string]: unknown;
+}
+const { fig, caption, class: cls, ...rest } = Astro.props;
+---
+
+<figure class:list={['plate', cls]} {...rest}>
+  <slot />
+  <span class="plate__corner plate__corner--tl" aria-hidden="true"></span>
+  <span class="plate__corner plate__corner--tr" aria-hidden="true"></span>
+  <span class="plate__corner plate__corner--bl" aria-hidden="true"></span>
+  <span class="plate__corner plate__corner--br" aria-hidden="true"></span>
+  {
+    (fig || caption) && (
+      <figcaption class="plate__cap">
+        <span>{fig}</span>
+        <span>{caption}</span>
+      </figcaption>
+    )
+  }
+</figure>

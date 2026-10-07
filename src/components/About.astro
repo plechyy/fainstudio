@@ -1,0 +1,105 @@
+---
+import { about } from '../content';
+import Plate from './Plate.astro';
+
+// Reference se zobrazí jen ty, u kterých je doložený souhlas (show: true).
+const refs = about.references.filter((r) => r.show);
+---
+
+<section class="section" id="kdo" aria-labelledby="kdo-title">
+  <div class="wrap about">
+    <Plate class="about__photo reveal" fig="Obr. 08" caption="Portrét">
+      <!--
+        ZÁSTUPNÝ PRVEK. Nahradit fotkou:
+        public/media/matyas.webp (+ .jpg), 960 × 1200 px (4:5), max 200 KB.
+        Pak sem: <img src="/media/matyas.webp" width="960" height="1200" alt="Matyáš Plecháč" loading="lazy" />
+      -->
+      <div class="about__ph">
+        <span class="label">Sem patří fotka</span>
+        <span>Portrét 4 : 5, 960 × 1200 px, přirozené světlo, pohled do kamery.</span>
+      </div>
+    </Plate>
+
+    <div class="about__copy">
+      <p class="label shead__index reveal" aria-hidden="true"><b>07</b>Kdo to staví</p>
+      <h2 class="h2 reveal" id="kdo-title">{about.name}</h2>
+      <p class="about__text reveal">{about.text}</p>
+
+      {
+        refs.length > 0 && (
+          <div class="refs reveal">
+            <h3 class="label">Pro koho jsem pracoval</h3>
+            <ul>
+              {refs.map((r) => (
+                <li>
+                  <b>{r.name}</b>
+                  <span>{r.text}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    display: grid;
+    gap: 36px;
+  }
+  .about__photo {
+    aspect-ratio: 4 / 5;
+    width: 100%;
+    max-width: 440px;
+    display: grid;
+    place-items: center;
+  }
+  .about__ph {
+    display: grid;
+    gap: 10px;
+    max-width: 24ch;
+    text-align: center;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    color: var(--plate-ink);
+  }
+  .about__ph .label {
+    color: var(--plate-ink);
+  }
+  .about__copy .shead__index {
+    margin-bottom: 20px;
+  }
+  .about__text {
+    margin-top: 20px;
+    font-size: var(--step-1);
+    line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 44ch;
+    text-wrap: pretty;
+  }
+  .refs {
+    margin-top: 40px;
+  }
+  .refs ul {
+    margin-top: 12px;
+    border-top: 1px solid var(--line);
+  }
+  .refs li {
+    display: grid;
+    gap: 2px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .refs span {
+    color: var(--ink-2);
+  }
+  @media (min-width: 900px) {
+    .about {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: 48px;
+      align-items: end;
+    }
+  }
+</style>

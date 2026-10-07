@@ -1,0 +1,39 @@
+---
+import { NAME, CITY, EMAIL } from '../config';
+---
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <span>{NAME}, FainStudio</span>
+    <span>{CITY}</span>
+    <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+  </div>
+</footer>
+
+<style>
+  .foot {
+    margin-top: var(--section);
+    border-top: 1px solid var(--line);
+  }
+  .foot__in {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 28px;
+    padding-block: 28px 36px;
+    font-size: 0.92rem;
+    color: var(--ink-2);
+  }
+  .foot__in a {
+    margin-left: auto;
+    color: var(--ink);
+    text-underline-offset: 3px;
+  }
+  @media (max-width: 560px) {
+    .foot__in {
+      flex-direction: column;
+    }
+    .foot__in a {
+      margin-left: 0;
+    }
+  }
+</style>

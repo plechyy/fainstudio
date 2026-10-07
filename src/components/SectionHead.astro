@@ -1,0 +1,16 @@
+---
+interface Props {
+  index: string;
+  name: string;
+  title: string;
+  lead?: string;
+  id: string;
+}
+const { index, name, title, lead, id } = Astro.props;
+---
+
+<header class="shead reveal">
+  <p class="shead__index label" aria-hidden="true"><b>{index}</b>{name}</p>
+  <h2 class="h2" id={id}>{title}</h2>
+  {lead && <p class="lead">{lead}</p>}
+</header>

@@ -1,0 +1,49 @@
+/* Vygenerováno: npm test (scripts/contrast-test.mjs). Neupravovat ručně.
+   sRGB hodnoty pro výchozí odstín 48 / chroma 0.14 pro prohlížeče bez oklch(). */
+@supports not (color: oklch(0 0 0)) {
+  :root {
+  --brand: #e3814a;
+  --brand-strong: #c16229;
+  --brand-ink: #3b1500;
+  --brand-wash: #e3814a1a;
+  --on-brand: #1e130e;
+  --plate-ink: #d6d3cf;
+  --plate-line: #ffffff24;
+  --bg: #faf6f3;
+  --surface: #fffdfc;
+  --sunk: #f3ece9;
+  --ink: #1b1411;
+  --ink-2: #58514d;
+  --ink-3: #7a736f;
+  --line: #dad2cf;
+  --line-strong: #b8afab;
+  --accent-text: #9f4500;
+  --tick: #c16229;
+  }
+  :root[data-theme='dark'] {
+  --bg: #120e0c;
+  --surface: #1b1614;
+  --sunk: #0d0907;
+  --ink: #f3edea;
+  --ink-2: #b8afab;
+  --ink-3: #938a86;
+  --line: #302a27;
+  --line-strong: #48413d;
+  --accent-text: #ffa475;
+  --tick: #ea8751;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+  --bg: #120e0c;
+  --surface: #1b1614;
+  --sunk: #0d0907;
+  --ink: #f3edea;
+  --ink-2: #b8afab;
+  --ink-3: #938a86;
+  --line: #302a27;
+  --line-strong: #48413d;
+  --accent-text: #ffa475;
+  --tick: #ea8751;
+    }
+  }
+}

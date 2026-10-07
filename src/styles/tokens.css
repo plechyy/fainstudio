@@ -1,0 +1,139 @@
+/*
+ * Barevný systém. Celá paleta vychází z jednoho čísla: --brand-h.
+ * Neutrály mají stejný odstín s chromatem ~0.01, takže ladí s akcentem.
+ * Hodnoty --brand-h / --brand-c přepisuje tweak panel (?tweak=1 nebo klávesa C).
+ */
+
+@font-face {
+  font-family: 'Bricolage';
+  src: url('/fonts/bricolage-grotesque-latin-wght-normal.woff2') format('woff2-variations');
+  font-weight: 200 800;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Bricolage';
+  src: url('/fonts/bricolage-grotesque-latin-ext-wght-normal.woff2') format('woff2-variations');
+  font-weight: 200 800;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Instrument';
+  src: url('/fonts/instrument-sans-latin-wght-normal.woff2') format('woff2-variations');
+  font-weight: 400 700;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Instrument';
+  src: url('/fonts/instrument-sans-latin-ext-wght-normal.woff2') format('woff2-variations');
+  font-weight: 400 700;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* Záložní písma s upravenou metrikou, aby výměna fontu neposunula layout. */
+@font-face {
+  font-family: 'Bricolage Fallback';
+  src: local('Arial'), local('Helvetica Neue'), local('Roboto');
+  size-adjust: 107.3%;
+  ascent-override: 90%;
+  descent-override: 24%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Instrument Fallback';
+  src: local('Arial'), local('Helvetica Neue'), local('Roboto');
+  size-adjust: 100.5%;
+  ascent-override: 98%;
+  descent-override: 26%;
+  line-gap-override: 0%;
+}
+
+:root {
+  --brand-h: 48;
+  --brand-c: 0.14;
+
+  --brand: oklch(0.7 var(--brand-c) var(--brand-h));
+  --brand-strong: oklch(0.6 var(--brand-c) var(--brand-h));
+  --brand-ink: oklch(0.25 calc(var(--brand-c) * 0.5) var(--brand-h));
+  --brand-wash: oklch(0.7 var(--brand-c) var(--brand-h) / 0.1);
+  /* Text na akcentu. Výchozí volbu přepočítává JS (src/lib/color.ts → onBrand),
+     protože L akcentu je pevné 0.70, vychází tmavý text na celém rozsahu. */
+  --on-brand: oklch(0.2 0.02 var(--brand-h));
+
+  /* Světlé téma */
+  --bg: oklch(0.975 0.006 var(--brand-h));
+  --surface: oklch(0.995 0.004 var(--brand-h));
+  --sunk: oklch(0.948 0.009 var(--brand-h));
+  --ink: oklch(0.2 0.012 var(--brand-h));
+  --ink-2: oklch(0.44 0.012 var(--brand-h));
+  --ink-3: oklch(0.56 0.01 var(--brand-h));
+  --line: oklch(0.87 0.01 var(--brand-h));
+  --line-strong: oklch(0.76 0.012 var(--brand-h));
+  --accent-text: oklch(0.5 var(--brand-c) var(--brand-h));
+  --tick: oklch(0.6 var(--brand-c) var(--brand-h));
+
+  /* Výřezy s rendery mají pevné studiové pozadí — stejné jako pozadí
+     předrenderovaného videa, takže na sebe navazují v obou tématech. */
+  --plate-top: #1b1a18;
+  --plate-bot: #0f0e0e;
+  --plate-ink: oklch(0.86 0.008 var(--brand-h));
+  --plate-line: oklch(1 0 0 / 0.14);
+
+  --shadow: 0 1px 0 oklch(0.2 0.02 var(--brand-h) / 0.04), 0 12px 32px -16px oklch(0.2 0.02 var(--brand-h) / 0.22);
+
+  color-scheme: light;
+
+  /* typografie a rozestupy */
+  --font-display: 'Bricolage', 'Bricolage Fallback', system-ui, sans-serif;
+  --font-text: 'Instrument', 'Instrument Fallback', system-ui, sans-serif;
+
+  --step--1: clamp(0.8rem, 0.78rem + 0.1vw, 0.86rem);
+  --step-0: clamp(1rem, 0.97rem + 0.15vw, 1.09rem);
+  --step-1: clamp(1.18rem, 1.1rem + 0.35vw, 1.4rem);
+  --step-2: clamp(1.45rem, 1.3rem + 0.7vw, 1.9rem);
+  --step-3: clamp(1.85rem, 1.5rem + 1.6vw, 2.9rem);
+  --step-4: clamp(2.3rem, 1.6rem + 3.3vw, 4.6rem);
+
+  --u: 8px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --max: 1240px;
+  --section: clamp(88px, 12vw, 168px);
+  --radius: 4px;
+
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: oklch(0.17 0.008 var(--brand-h));
+    --surface: oklch(0.205 0.009 var(--brand-h));
+    --sunk: oklch(0.145 0.008 var(--brand-h));
+    --ink: oklch(0.95 0.008 var(--brand-h));
+    --ink-2: oklch(0.76 0.012 var(--brand-h));
+    --ink-3: oklch(0.64 0.012 var(--brand-h));
+    --line: oklch(0.29 0.01 var(--brand-h));
+    --line-strong: oklch(0.38 0.012 var(--brand-h));
+    --accent-text: oklch(0.8 var(--brand-c) var(--brand-h));
+    --tick: oklch(0.72 var(--brand-c) var(--brand-h));
+    --brand-wash: oklch(0.7 var(--brand-c) var(--brand-h) / 0.13);
+    --shadow: 0 1px 0 oklch(1 0 0 / 0.04), 0 16px 40px -20px oklch(0 0 0 / 0.6);
+    color-scheme: dark;
+  }
+}
+:root[data-theme='dark'] {
+  --bg: oklch(0.17 0.008 var(--brand-h));
+  --surface: oklch(0.205 0.009 var(--brand-h));
+  --sunk: oklch(0.145 0.008 var(--brand-h));
+  --ink: oklch(0.95 0.008 var(--brand-h));
+  --ink-2: oklch(0.76 0.012 var(--brand-h));
+  --ink-3: oklch(0.64 0.012 var(--brand-h));
+  --line: oklch(0.29 0.01 var(--brand-h));
+  --line-strong: oklch(0.38 0.012 var(--brand-h));
+  --accent-text: oklch(0.8 var(--brand-c) var(--brand-h));
+  --tick: oklch(0.72 var(--brand-c) var(--brand-h));
+  --brand-wash: oklch(0.7 var(--brand-c) var(--brand-h) / 0.13);
+  --shadow: 0 1px 0 oklch(1 0 0 / 0.04), 0 16px 40px -20px oklch(0 0 0 / 0.6);
+  color-scheme: dark;
+}

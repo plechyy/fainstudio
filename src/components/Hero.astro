@@ -1,0 +1,182 @@
+---
+import { CAL_URL } from '../config';
+import { hero, facts } from '../content';
+import Plate from './Plate.astro';
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="wrap hero__grid">
+    <div class="hero__copy">
+      <p class="label hero__eyebrow seq" style="--i:0">
+        <span class="hero__dot" aria-hidden="true"></span>{hero.eyebrow}
+      </p>
+      <h1 id="hero-title" class="display hero__title seq" style="--i:1">{hero.title}</h1>
+      <p class="lead hero__lead seq" style="--i:2">{hero.lead}</p>
+      <div class="hero__actions seq" style="--i:3">
+        <a class="btn btn--primary" href={CAL_URL}>{hero.primary} <span class="btn__arrow" aria-hidden="true">→</span></a>
+        <a class="btn btn--ghost" href="#systemy">{hero.secondary}</a>
+      </div>
+    </div>
+
+    <Plate class="hero__plate seq seq--fade" style="--i:2" fig="Obr. 01" caption="Systém v provozu">
+      <video
+        class="hero__video"
+        data-hero-video
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        poster="/media/hero-poster.webp"
+        width="640"
+        height="640"
+        aria-hidden="true"
+        tabindex="-1"
+      >
+        <source src="/media/hero-loop.webm" type="video/webm" />
+        <source src="/media/hero-loop.mp4" type="video/mp4" />
+      </video>
+    </Plate>
+  </div>
+
+  <div class="wrap">
+    <dl class="facts">
+      {
+        facts.map((f, i) => (
+          <div class="fact seq" style={`--i:${4 + i * 0.5}`}>
+            <dt class="fact__value num">{f.value}</dt>
+            <dd class="fact__label">{f.label}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-top: clamp(28px, 6vw, 72px);
+  }
+  .hero__grid {
+    display: grid;
+    gap: 36px;
+    align-items: center;
+  }
+  .hero__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+  .hero__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--brand);
+    box-shadow: 0 0 0 4px var(--brand-wash);
+  }
+  .hero__title {
+    font-size: var(--step-4);
+    max-width: 17ch;
+  }
+  .hero__lead {
+    margin-top: 24px;
+  }
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 32px;
+  }
+  .hero__plate {
+    aspect-ratio: 1;
+    width: 100%;
+    max-width: 560px;
+    justify-self: center;
+  }
+  .hero__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: clamp(48px, 8vw, 96px);
+    border-top: 1px solid var(--line);
+  }
+  .fact {
+    padding: 22px 16px 22px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .fact:nth-child(odd) {
+    border-right: 1px solid var(--line);
+  }
+  .fact:nth-child(even) {
+    padding-left: 16px;
+  }
+  .fact__value {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    font-weight: 620;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    text-wrap: balance;
+  }
+  .fact__label {
+    margin-top: 8px;
+    font-size: 0.93rem;
+    line-height: 1.4;
+    color: var(--ink-2);
+  }
+
+  @media (min-width: 900px) {
+    .hero__grid {
+      grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+      gap: 56px;
+    }
+    .hero__plate {
+      justify-self: end;
+    }
+  }
+  @media (min-width: 1100px) {
+    .facts {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border-bottom: 1px solid var(--line);
+    }
+    .fact {
+      border-bottom: 0;
+      padding: 28px 24px;
+      border-right: 1px solid var(--line);
+    }
+    .fact:first-child {
+      padding-left: 0;
+    }
+    .fact:last-child {
+      border-right: 0;
+    }
+    .fact:nth-child(even) {
+      padding-left: 24px;
+    }
+  }
+</style>
+
+<script>
+  // Smyčka se spouští z JS, aby šla vypnout při prefers-reduced-motion
+  // (pak zůstane jen poster) a aby se nepřehrávala mimo obrazovku.
+  const v = document.querySelector<HTMLVideoElement>('[data-hero-video]');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  if (v) {
+    let visible = true;
+    const sync = () => {
+      if (reduce.matches || !visible || document.hidden) v.pause();
+      else v.play().catch(() => {});
+    };
+    new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+      sync();
+    }).observe(v);
+    reduce.addEventListener('change', sync);
+    document.addEventListener('visibilitychange', sync);
+  }
+</script>

@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Systems from '../components/Systems.astro';
+import Process from '../components/Process.astro';
+import BeforeAfter from '../components/BeforeAfter.astro';
+import Compare from '../components/Compare.astro';
+import Faq from '../components/Faq.astro';
+import About from '../components/About.astro';
+import Cta from '../components/Cta.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base
+  title="FainStudio — automatizace procesů, interní nástroje a AI video"
+  description="Postavím vám systém, který dělá tu práci, co u vás dneska dělá někdo rukou. Do provozu do 10 dní, od 18 000 Kč. Matyáš Plecháč, Praha."
+>
+  <span id="top"></span>
+  <Nav />
+  <main id="obsah">
+    <Hero />
+    <Systems />
+    <Process />
+    <BeforeAfter />
+    <Compare />
+    <Faq />
+    <About />
+    <Cta />
+  </main>
+  <Footer />
+</Base>

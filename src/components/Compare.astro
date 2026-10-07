@@ -1,0 +1,173 @@
+---
+import { compare } from '../content';
+import SectionHead from './SectionHead.astro';
+
+const good = (v: string) => v === 'Ano' || v.startsWith('Do ');
+---
+
+<section class="section" id="srovnani" aria-labelledby="srovnani-title">
+  <div class="wrap">
+    <SectionHead index="05" name="Srovnání" id="srovnani-title" title={compare.title} />
+
+    <!-- Desktop: tabulka -->
+    <div class="cmp-table reveal">
+      <table>
+        <caption class="sr-only">{compare.title}</caption>
+        <thead>
+          <tr>
+            <td></td>
+            {compare.columns.map((c, i) => <th scope="col" class:list={{ us: i === 0 }}>{c}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {
+            compare.rows.map((r) => (
+              <tr>
+                <th scope="row">{r.label}</th>
+                {r.values.map((v, i) => (
+                  <td class:list={{ us: i === 0, yes: good(v) }}>{v}</td>
+                ))}
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mobil: svislé bloky, jeden sloupec = jeden blok -->
+    <div class="cmp-cards">
+      {
+        compare.columns.map((c, ci) => (
+          <section class:list={['cmp-card reveal', { us: ci === 0 }]} aria-label={c}>
+            <h3 class="cmp-card__title">{c}</h3>
+            <dl>
+              {compare.rows.map((r) => (
+                <div class="cmp-card__row">
+                  <dt>{r.label}</dt>
+                  <dd class:list={{ yes: good(r.values[ci]) }}>{r.values[ci]}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        ))
+      }
+    </div>
+
+    <p class="cmp-note">{compare.note}</p>
+  </div>
+</section>
+
+<style>
+  .cmp-table {
+    display: none;
+  }
+  .cmp-cards {
+    display: grid;
+    gap: 12px;
+  }
+  .cmp-card {
+    padding: 20px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+  .cmp-card.us {
+    border-color: var(--ink);
+    background: var(--brand-wash);
+  }
+  .cmp-card__title {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    font-weight: 620;
+    letter-spacing: -0.015em;
+    margin-bottom: 8px;
+  }
+  .cmp-card__row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px 0;
+    border-top: 1px solid var(--line);
+    font-size: 0.95rem;
+  }
+  .cmp-card__row dt {
+    color: var(--ink-2);
+  }
+  .cmp-card__row dd {
+    font-weight: 600;
+    text-align: right;
+  }
+  .cmp-card.us dd.yes {
+    color: var(--accent-text);
+  }
+
+  .cmp-note {
+    margin-top: 20px;
+    font-size: var(--step--1);
+    color: var(--ink-2);
+  }
+
+  @media (min-width: 900px) {
+    .cmp-cards {
+      display: none;
+    }
+    .cmp-table {
+      display: block;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+    th,
+    td {
+      text-align: left;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: middle;
+    }
+    thead th {
+      font-family: var(--font-display);
+      font-size: var(--step-1);
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      padding-bottom: 20px;
+    }
+    tbody th {
+      font-weight: 500;
+      color: var(--ink-2);
+      width: 28%;
+      padding-left: 0;
+    }
+    td {
+      color: var(--ink-2);
+    }
+    .us {
+      background: var(--brand-wash);
+      color: var(--ink);
+      font-weight: 600;
+    }
+    thead .us {
+      position: relative;
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+    thead .us::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 3px;
+      background: var(--brand);
+    }
+    td.us.yes {
+      color: var(--accent-text);
+    }
+    tbody tr {
+      transition: background-color 120ms;
+    }
+    tbody tr:hover {
+      background: var(--sunk);
+    }
+  }
+</style>

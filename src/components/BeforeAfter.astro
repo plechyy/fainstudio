@@ -1,0 +1,119 @@
+---
+import { CAL_URL } from '../config';
+import { beforeAfter as ba } from '../content';
+import SectionHead from './SectionHead.astro';
+---
+
+<section class="section" aria-labelledby="ba-title">
+  <div class="wrap">
+    <SectionHead index="04" name="Před a po" id="ba-title" title={ba.title} />
+
+    <div class="ba">
+      <div class="ba__col ba__col--before reveal">
+        <h3 class="label ba__label">{ba.before.label}</h3>
+        <ul class="ba__list">
+          {
+            ba.before.items.map((t) => (
+              <li>
+                <span class="ba__mark" aria-hidden="true">
+                  –
+                </span>
+                {t}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="ba__col ba__col--after reveal" style="--i:1">
+        <h3 class="label ba__label">{ba.after.label}</h3>
+        <ul class="ba__list">
+          {
+            ba.after.items.map((t) => (
+              <li>
+                <span class="ba__mark" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" width="16" height="16">
+                    <path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+                {t}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="ba__cta reveal">
+      <a class="btn btn--primary" href={CAL_URL}>{ba.cta} <span class="btn__arrow" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ba {
+    display: grid;
+    gap: 16px;
+  }
+  .ba__col {
+    padding: clamp(24px, 4vw, 40px);
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+  }
+  .ba__col--before {
+    background: var(--sunk);
+    border-color: transparent;
+  }
+  .ba__col--after {
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    position: relative;
+  }
+  .ba__col--after::before {
+    content: '';
+    position: absolute;
+    left: -1px;
+    right: -1px;
+    top: -1px;
+    height: 3px;
+    background: var(--brand);
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+  .ba__label {
+    margin-bottom: 20px;
+  }
+  .ba__col--after .ba__label {
+    color: var(--accent-text);
+  }
+  .ba__list {
+    display: grid;
+  }
+  .ba__list li {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 6px;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+    font-size: var(--step-1);
+    line-height: 1.4;
+    text-wrap: pretty;
+  }
+  .ba__col--before li {
+    color: var(--ink-2);
+  }
+  .ba__mark {
+    padding-top: 4px;
+    color: var(--ink-3);
+  }
+  .ba__col--after .ba__mark {
+    color: var(--accent-text);
+  }
+  .ba__cta {
+    margin-top: 32px;
+  }
+  @media (min-width: 900px) {
+    .ba {
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+  }
+</style>

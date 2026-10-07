@@ -1,0 +1,281 @@
+---
+import { CAL_URL } from '../config';
+const links = [
+  { href: '#systemy', label: 'Systémy' },
+  { href: '#postup', label: 'Jak to probíhá' },
+  { href: '#cena', label: 'Cena' },
+  { href: '#faq', label: 'FAQ' },
+];
+---
+
+<header class="nav" data-nav>
+  <div class="wrap nav__in">
+    <a class="logo" href="#top" aria-label="FainStudio, na začátek stránky">
+      <span class="logo__mark" aria-hidden="true"></span>
+      <span class="logo__word"><b>Fain</b>Studio</span>
+    </a>
+
+    <nav class="nav__links" aria-label="Hlavní">
+      <ul>
+        {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <div class="nav__end">
+      <button class="theme" type="button" data-theme-toggle aria-label="Přepnout na tmavé téma">
+        <svg class="theme__sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.6"></circle>
+          <g stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+            <path d="M12 2.8v2.1M12 19.1v2.1M2.8 12h2.1M19.1 12h2.1M5.5 5.5 7 7M17 17l1.5 1.5M5.5 18.5 7 17M17 7l1.5-1.5"></path>
+          </g>
+        </svg>
+        <svg class="theme__moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path d="M19.5 14.6A8 8 0 0 1 9.4 4.5a8 8 0 1 0 10.1 10.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path>
+        </svg>
+      </button>
+      <a class="btn btn--primary btn--sm" href={CAL_URL}>
+        <span class="nav__cta-long">Rezervovat hovor</span><span class="nav__cta-short">Rezervovat</span>
+      </a>
+      <details class="menu">
+        <summary aria-label="Menu">
+          <span aria-hidden="true"></span>
+        </summary>
+        <ul class="menu__list">
+          {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+        </ul>
+      </details>
+    </div>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in oklab, var(--bg) 86%, transparent);
+    -webkit-backdrop-filter: saturate(1.4) blur(12px);
+    backdrop-filter: saturate(1.4) blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 200ms;
+  }
+  .nav[data-stuck] {
+    border-bottom-color: var(--line);
+  }
+  .nav__in {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    height: 68px;
+  }
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-size: 1.22rem;
+    letter-spacing: -0.02em;
+    font-weight: 450;
+    margin-right: auto;
+  }
+  .logo b {
+    font-weight: 720;
+  }
+  .logo__mark {
+    width: 12px;
+    height: 12px;
+    background: var(--brand);
+    border-radius: 2px;
+    transform: rotate(45deg);
+  }
+  .nav__links {
+    display: none;
+  }
+  .nav__links ul {
+    display: flex;
+    gap: 4px;
+  }
+  .nav__links a,
+  .menu__list a {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: var(--ink-2);
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-radius: var(--radius);
+    transition: color 140ms;
+  }
+  .nav__links a:hover {
+    color: var(--ink);
+  }
+  .nav__end {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .theme {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--line);
+    background: transparent;
+    border-radius: var(--radius);
+    cursor: pointer;
+    color: var(--ink-2);
+    transition: color 140ms, border-color 140ms;
+  }
+  .theme:hover {
+    color: var(--ink);
+    border-color: var(--line-strong);
+  }
+  .theme svg {
+    grid-area: 1 / 1;
+    transition: transform 200ms var(--ease-out), opacity 150ms;
+  }
+  .theme__moon {
+    opacity: 0;
+    transform: rotate(-40deg) scale(0.6);
+  }
+  :global(:root[data-theme='dark']) .theme__sun {
+    opacity: 0;
+    transform: rotate(40deg) scale(0.6);
+  }
+  :global(:root[data-theme='dark']) .theme__moon {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) .theme__sun {
+      opacity: 0;
+      transform: rotate(40deg) scale(0.6);
+    }
+    :global(:root:not([data-theme='light'])) .theme__moon {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .nav__cta-long {
+    display: none;
+  }
+
+  /* mobilní menu */
+  .menu {
+    position: relative;
+  }
+  .menu summary {
+    list-style: none;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    cursor: pointer;
+  }
+  .menu summary::-webkit-details-marker {
+    display: none;
+  }
+  .menu summary span,
+  .menu summary span::before {
+    display: block;
+    width: 16px;
+    height: 1.5px;
+    background: var(--ink);
+    transition: transform 150ms var(--ease-out);
+  }
+  .menu summary span {
+    transform: translateY(-3px);
+  }
+  .menu summary span::before {
+    content: '';
+    transform: translateY(6px);
+  }
+  .menu[open] summary span {
+    transform: rotate(45deg);
+  }
+  .menu[open] summary span::before {
+    transform: rotate(-90deg);
+  }
+  .menu__list {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 10px);
+    min-width: 220px;
+    padding: 8px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .menu__list a {
+    display: block;
+    padding: 12px;
+    color: var(--ink);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .menu[open] .menu__list {
+      animation: drop 150ms var(--ease-out);
+    }
+  }
+  @keyframes drop {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+  }
+
+  @media (min-width: 420px) {
+    .nav__cta-long {
+      display: inline;
+    }
+    .nav__cta-short {
+      display: none;
+    }
+  }
+  @media (min-width: 900px) {
+    .nav__links {
+      display: block;
+    }
+    .menu {
+      display: none;
+    }
+    .nav__end {
+      gap: 12px;
+    }
+  }
+</style>
+
+<script>
+  const root = document.documentElement;
+  const btn = document.querySelector<HTMLButtonElement>('[data-theme-toggle]')!;
+  const dark = matchMedia('(prefers-color-scheme: dark)');
+  const isDark = () => root.dataset.theme === 'dark' || (!root.dataset.theme && dark.matches);
+  const sync = () => btn.setAttribute('aria-label', isDark() ? 'Přepnout na světlé téma' : 'Přepnout na tmavé téma');
+  sync();
+  dark.addEventListener('change', sync);
+  btn.addEventListener('click', () => {
+    const next = isDark() ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem('theme', next);
+    } catch {}
+    sync();
+    document.dispatchEvent(new CustomEvent('themechange'));
+  });
+
+  // Linka pod navigací až po odscrollování.
+  const nav = document.querySelector<HTMLElement>('[data-nav]')!;
+  const sentinel = document.getElementById('top');
+  if (sentinel) {
+    new IntersectionObserver(([e]) => nav.toggleAttribute('data-stuck', !e.isIntersecting)).observe(sentinel);
+  }
+
+  // Mobilní menu: zavřít po kliknutí na odkaz.
+  const menu = document.querySelector<HTMLDetailsElement>('.menu');
+  menu?.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).closest('a')) menu.open = false;
+  });
+</script>
