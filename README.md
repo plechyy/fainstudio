@@ -120,11 +120,25 @@ Všechno v `public/media/` jsou **zástupné clay rendery**. Generuje je `script
 
 ## Výkon a přístupnost
 
-Výsledky Lighthouse na produkčním buildu: viz sekce níže (doplní se po měření).
+Lighthouse 12, produkční build (`npm run build && npm run preview`), měřeno 7. 10. 2026:
+
+| Profil | Výkon | Přístupnost | Best practices | SEO | LCP | FCP | CLS | TBT |
+|---|---|---|---|---|---|---|---|---|
+| Mobil, výchozí „Slow 4G" (1,6 Mb/s, RTT 150 ms, CPU 4×) | 100 | 100 | 100 | 100 | 1,8 s | 1,1 s | 0 | 0 ms |
+| Mobil, 4G (9 Mb/s, RTT 60 ms, CPU 4×) | 100 | 100 | 100 | 100 | 0,5 s | 0,4 s | 0 | 0 ms |
+| Desktop | 100 | 100 | 100 | 100 | 0,4 s | 0,2 s | 0 | 0 ms |
+
+**LCP pod 1,5 s:** splněno na 4G. Na výchozím profilu Lighthouse („Slow 4G", ten je přísnější než běžné 4G) vychází 1,8 s. LCP je titulek a čeká na nadpisové písmo. Co jsem udělal:
+- Fonty jsem zmenšil podmnožinou jen na latinku a češtinu a omezil osu `wght` na použité řezy (`scripts/subset-fonts.sh`). Nadpisové písmo kleslo z 60 na 39 KB, všechny fonty ze 100 na 71 KB.
+- Přednačítá se jen nadpisové písmo, textové se načte samo.
+- Titulek při načtení jen vyjede (`transform`) a nezprůhledňuje se, protože prvky s `opacity: 0` se do LCP nepočítají.
+- Zbývající cesta k 1,5 s i na Slow 4G je `font-display: optional` pro nadpisy. Brief ale chce `swap`, takže to nechávám na rozhodnutí.
+
+JS v prohlížeči: ~5 KB gzip (limit 60 KB). Ladicí panel má dalších 2,5 KB a stahuje se jen na vyžádání. Celá stránka při prvním načtení: ~230 KB včetně videa.
 
 Opatření:
 - CSS je inlinované v HTML (`inlineStylesheets: 'always'`), takže žádný blokující požadavek.
-- 4 woff2 soubory (~100 KB) se přednačítají. Záložní písma mají změřený `size-adjust`, aby výměna fontu neposouvala layout.
+- Fonty jsou podmnožina (71 KB celkem), přednačítá se jen nadpisové písmo (39 KB). Záložní písma mají změřený `size-adjust`, aby výměna fontu neposouvala layout.
 - Každý obrázek a video má `width`/`height` nebo `aspect-ratio`, takže CLS je 0.
 - Záložky mají ARIA `tablist` a ovládání šipkami, Home a End. FAQ je nativní `<details>`. Je tu skip link, viditelné focus stavy a srovnávací tabulka s `<caption>` a `scope`.
 

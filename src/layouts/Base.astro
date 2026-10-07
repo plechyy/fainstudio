@@ -29,10 +29,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:image" content={new URL('/media/hero-poster.jpg', Astro.site)} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
-    <link rel="preload" href="/fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/bricolage-grotesque-latin-ext-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/instrument-sans-latin-ext-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/bricolage-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/bricolage-cz.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- Před prvním vykreslením: téma a uložené ladění barev, aby nic neprobliklo. -->
     <script is:inline>

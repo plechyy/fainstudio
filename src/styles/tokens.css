@@ -1,4 +1,6 @@
 /*
+ * Fonty: podmnožina latinka + čeština/slovenština (scripts/subset-fonts.sh).
+ *
  * Barevný systém. Celá paleta vychází z jednoho čísla: --brand-h.
  * Neutrály mají stejný odstín s chromatem ~0.01, takže ladí s akcentem.
  * Hodnoty --brand-h / --brand-c přepisuje tweak panel (?tweak=1 nebo klávesa C).
@@ -6,31 +8,31 @@
 
 @font-face {
   font-family: 'Bricolage';
-  src: url('/fonts/bricolage-grotesque-latin-wght-normal.woff2') format('woff2-variations');
-  font-weight: 200 800;
+  src: url('/fonts/bricolage-latin.woff2') format('woff2-variations');
+  font-weight: 450 720;
   font-display: swap;
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2027, U+2030-203A, U+20AC, U+2122, U+2190-2193, U+2212;
 }
 @font-face {
   font-family: 'Bricolage';
-  src: url('/fonts/bricolage-grotesque-latin-ext-wght-normal.woff2') format('woff2-variations');
-  font-weight: 200 800;
+  src: url('/fonts/bricolage-cz.woff2') format('woff2-variations');
+  font-weight: 450 720;
   font-display: swap;
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range: U+0100-0101, U+010C-0111, U+011A-011B, U+0139-013E, U+0147-0148, U+0150-0155, U+0158-0161, U+0164-0165, U+016E-0171, U+017D-017E;
 }
 @font-face {
   font-family: 'Instrument';
-  src: url('/fonts/instrument-sans-latin-wght-normal.woff2') format('woff2-variations');
-  font-weight: 400 700;
+  src: url('/fonts/instrument-latin.woff2') format('woff2-variations');
+  font-weight: 400 650;
   font-display: swap;
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2027, U+2030-203A, U+20AC, U+2122, U+2190-2193, U+2212;
 }
 @font-face {
   font-family: 'Instrument';
-  src: url('/fonts/instrument-sans-latin-ext-wght-normal.woff2') format('woff2-variations');
-  font-weight: 400 700;
+  src: url('/fonts/instrument-cz.woff2') format('woff2-variations');
+  font-weight: 400 650;
   font-display: swap;
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range: U+0100-0101, U+010C-0111, U+011A-011B, U+0139-013E, U+0147-0148, U+0150-0155, U+0158-0161, U+0164-0165, U+016E-0171, U+017D-017E;
 }
 /* Záložní písma s upravenou metrikou, aby výměna fontu neposunula layout. */
 @font-face {

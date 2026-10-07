@@ -305,6 +305,14 @@ button {
     transform: none;
   }
 }
+@keyframes rise-only {
+  from {
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    transform: none;
+  }
+}
 @keyframes fade {
   from {
     opacity: 0;
@@ -318,6 +326,11 @@ button {
   .seq {
     animation: rise 420ms var(--ease-out) both;
     animation-delay: calc(var(--i, 0) * 60ms);
+  }
+  /* Titulek jen vyjede, průhlednost zůstává 1 — je to LCP prvek a prohlížeč
+     nepočítá prvky s opacity 0 do LCP. */
+  .seq--rise-only {
+    animation-name: rise-only;
   }
   .seq--fade {
     animation-name: fade;
