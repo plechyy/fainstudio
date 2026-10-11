@@ -13,6 +13,7 @@ import Footer from '@/components/Footer';
 import Enhance from '@/components/Enhance';
 import ColorStudio from '@/components/ColorStudio';
 import ButtonSmoke from '@/components/ButtonSmoke';
+import Editor from '@/components/Editor';
 
 export default function Home() {
   return (
@@ -35,6 +36,7 @@ export default function Home() {
       <ColorStudio />
       <Enhance />
       <ButtonSmoke />
+      <Editor />
     </>
   );
 }
