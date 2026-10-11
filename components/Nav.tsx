@@ -8,7 +8,7 @@ const LINKS = [
   { href: '#postup', label: 'Postup' },
   { href: '#pred-po', label: 'Před a po' },
   { href: '#srovnani', label: 'Srovnání' },
-  { href: '#proof', label: 'Čísla' },
+  { href: '#proof', label: 'Cena' },
   { href: '#faq', label: 'FAQ' },
   { href: '#kdo', label: 'O nás' },
 ];

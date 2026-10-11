@@ -225,6 +225,7 @@ html.is-loading .seq {
   position: relative;
   z-index: 1;
   display: inline-block;
+  white-space: nowrap;
   padding: 9px 12px;
   text-decoration: none;
   color: var(--ink-2);
