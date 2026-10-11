@@ -5,12 +5,14 @@ import { CAL_URL } from '@/lib/config';
 
 const LINKS = [
   { href: '#systemy', label: 'Systémy' },
-  { href: '#postup', label: 'Jak to probíhá' },
-  { href: '#cena', label: 'Cena' },
+  { href: '#postup', label: 'Postup' },
+  { href: '#pred-po', label: 'Před a po' },
+  { href: '#srovnani', label: 'Srovnání' },
+  { href: '#proof', label: 'Čísla' },
   { href: '#faq', label: 'FAQ' },
+  { href: '#kdo', label: 'O nás' },
 ];
-// #cena je otázka uvnitř #faq, samostatná sekce to není
-const TRACKED = LINKS.map((l) => l.href.slice(1)).filter((id) => id !== 'cena');
+const TRACKED = LINKS.map((l) => l.href.slice(1));
 
 type Lens = { x: number; w: number; on: boolean; snap: boolean };
 

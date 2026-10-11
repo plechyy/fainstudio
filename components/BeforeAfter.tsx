@@ -4,7 +4,7 @@ import ShaderBackground from './ShaderBackground';
 
 export default function BeforeAfter() {
   return (
-    <section className="section section--tight" aria-labelledby="ba-title">
+    <section className="section section--tight" id="pred-po" aria-labelledby="ba-title">
       <div className="wrap">
         <div className="ba reveal">
           <header className="ba-head">
