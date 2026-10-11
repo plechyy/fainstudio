@@ -11,8 +11,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
  * Hodnoty se ukládají do localStorage a obnovují před prvním vykreslením (layout.tsx).
  */
 
-const KEY = 'brand-v4';
-const DEF = { h: 239, c: 0.135, l: 0.08 };
+const KEY = 'brand-v5';
+const DEF = { h: 48, c: 0.16, l: 0.035 };
 type Brand = typeof DEF;
 
 const PRESETS: { name: string; h: number; c: number; l?: number }[] = [
