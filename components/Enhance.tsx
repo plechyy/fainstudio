@@ -23,7 +23,7 @@ export default function Enhance() {
             io.unobserve(el);
           }
         },
-        { rootMargin: '0px 0px 6% 0px', threshold: 0.01 },
+        { rootMargin: '0px 0px -14% 0px', threshold: 0.08 },
       );
       els.forEach((el) => io.observe(el));
     }

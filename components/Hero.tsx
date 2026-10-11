@@ -20,7 +20,7 @@ export default function Hero() {
         </p>
 
         <h1 id="hero-title" className="display hero__title seq seq--rise-only" style={{ ['--i' as string]: 1 }}>
-          <span className="silver silver--block">Postavím vám systém, který dělá tu práci,</span>
+          <span className="silver silver--block">Postavíme vám systém, který dělá tu práci,</span>
           <span className="hero__accent">co u vás dneska dělá někdo rukou.</span>
         </h1>
 

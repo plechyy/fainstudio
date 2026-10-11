@@ -5,10 +5,10 @@
 
 export const hero = {
   eyebrow: 'Digitalizace a automatizace procesů',
-  title: 'Postavím vám systém, který dělá tu práci, co u vás dneska dělá někdo rukou.',
-  lead: 'Navrhnu to, postavím, pustím do provozu a zaučím lidi, kteří v tom budou dělat.',
+  title: 'Postavíme vám systém, který dělá tu práci, co u vás dneska dělá někdo rukou.',
+  lead: 'Navrhneme to, postavíme, pustíme do provozu a zaučíme lidi, kteří v tom budou dělat.',
   primary: 'Rezervovat 20 minut',
-  secondary: 'Co stavím',
+  secondary: 'Co stavíme',
 };
 
 /*
@@ -16,10 +16,10 @@ export const hero = {
  * ani nezaokrouhlovat. Popisky pod čísly přebírají formulace z FAQ.
  */
 export const facts = [
-  { value: '10 dní', label: 'Od podpisu do provozu', text: 'Když to z nějakého důvodu nejde, řeknu to dřív, než se cokoli podepíše.' },
+  { value: '10 dní', label: 'Od podpisu do provozu', text: 'Když to z nějakého důvodu nejde, řekneme to dřív, než se cokoli podepíše.' },
   { value: 'od 18\u00a0000\u00a0Kč', label: 'Nejmenší projekt, bez DPH', text: 'Větší projekty jsou mezi 28 a 45 tisíci. Cenu znáte po prvním hovoru.' },
-  { value: '1 člověk', label: 'Mluvíte přímo s tím, kdo to staví', text: 'FainStudio je jeden člověk, ne agentura.' },
-  { value: 'Týž den', label: 'Odpověď na mail nebo telefon', text: 'Napište nebo zavolejte, ozvu se ten samý den.' },
+  { value: 'Bez agentury', label: 'Mluvíte přímo s tím, kdo to staví', text: 'FainStudio není agentura.' },
+  { value: 'Týž den', label: 'Odpověď na mail nebo telefon', text: 'Napište nebo zavolejte, ozveme se ten samý den.' },
 ];
 
 /*
@@ -30,19 +30,19 @@ export const facts = [
 export const proof = {
   title: 'Čísla, která platí',
   stats: [
-    { value: '10 dní', label: 'Od podpisu do provozu', text: 'Když to z nějakého důvodu nejde, řeknu to dřív, než se cokoli podepíše.' },
-    { value: '14 dní', label: 'Ladění v ceně', text: 'Prvních 14 dní po nasazení to ladím na vašich skutečných datech.' },
+    { value: '10 dní', label: 'Od podpisu do provozu', text: 'Když to z nějakého důvodu nejde, řekneme to dřív, než se cokoli podepíše.' },
+    { value: '14 dní', label: 'Ladění v ceně', text: 'Prvních 14 dní po nasazení to ladíme na vašich skutečných datech.' },
     { value: 'od 18\u00a0000\u00a0Kč', label: 'Nejmenší projekt, bez DPH', text: 'Větší projekty jsou mezi 28 a 45 tisíci. Cenu znáte po prvním hovoru.' },
     { value: '0\u00a0Kč', label: 'Měsíční paušál', text: 'Platíte jednorázově a doplatek až po předání, ne dopředu.' },
   ],
   strip: {
-    title: 'Jeden člověk',
-    text: 'FainStudio je jeden člověk, ne agentura. Mluvíte přímo s tím, kdo to staví, a odpověď na mail nebo telefon dostanete týž den.',
+    title: 'Bez prostředníků',
+    text: 'FainStudio není agentura. Mluvíte přímo s tím, kdo to staví, a odpověď na mail nebo telefon dostanete týž den.',
   },
 };
 
 export const systems = {
-  title: 'Šest věcí, které stavím',
+  title: 'Šest věcí, které stavíme',
   lead: 'Každá řeší jeden konkrétní proces. Nemíchá se to a nedělá se to všechno najednou.',
   items: [
     {
@@ -70,7 +70,7 @@ export const systems = {
       id: 'data',
       name: 'Sběr dat a monitoring',
       short: 'Sběr dat',
-      text: 'Sbírám veřejná data o cenách, konkurenci a trhu a hlídám, co se změnilo. Dostanete to v jednom přehledu, ne v tisíci mailů.',
+      text: 'Sbíráme veřejná data o cenách, konkurenci a trhu a hlídáme, co se změnilo. Dostanete to v jednom přehledu, ne v tisíci mailů.',
       img: 'system-04-data',
     },
     {
@@ -95,9 +95,9 @@ export const process = {
   lead: 'Čtyři kroky. Výstupem každého je něco, co existuje, ne prezentace.',
   steps: [
     { name: 'Hovor, 20 minut', text: 'Projdeme proces, který vás stojí nejvíc času. Na konci máte cenu a termín.' },
-    { name: 'Návrh na jednu stránku', text: 'Co systém udělá, co od vás potřebuju a kdy to bude. Podpis a zálohová faktura.' },
-    { name: 'Nasazení do 10 dní', text: 'Napojím to na nástroje a data, která už máte, a pustím do provozu.' },
-    { name: 'Zaučení a ladění', text: 'Projdu to s lidmi, kteří v tom budou dělat. Prvních 14 dní ladím na vašich datech v ceně.' },
+    { name: 'Návrh na jednu stránku', text: 'Co systém udělá, co od vás potřebujeme a kdy to bude. Podpis a zálohová faktura.' },
+    { name: 'Nasazení do 10 dní', text: 'Napojíme to na nástroje a data, která už máte, a pustíme do provozu.' },
+    { name: 'Zaučení a ladění', text: 'Projdeme to s lidmi, kteří v tom budou dělat. Prvních 14 dní ladíme na vašich datech v ceně.' },
   ],
 };
 
@@ -145,7 +145,7 @@ export const faq = [
   },
   {
     q: 'Co když to nebude fungovat?',
-    a: 'Prvních 14 dní po nasazení to ladím na vašich skutečných datech a je to v ceně. Doplatek platíte po předání, ne dopředu.',
+    a: 'Prvních 14 dní po nasazení to ladíme na vašich skutečných datech a je to v ceně. Doplatek platíte po předání, ne dopředu.',
   },
   {
     q: 'Kolik to stojí?',
@@ -153,7 +153,7 @@ export const faq = [
   },
   {
     q: 'Jak dlouho to trvá?',
-    a: 'Do deseti dní od podpisu. Když to z nějakého důvodu nejde, řeknu to dřív, než se cokoli podepíše.',
+    a: 'Do deseti dní od podpisu. Když to z nějakého důvodu nejde, řekneme to dřív, než se cokoli podepíše.',
   },
   {
     q: 'Musíme u sebe něco měnit?',
@@ -161,13 +161,13 @@ export const faq = [
   },
   {
     q: 'Napojíte to na náš systém?',
-    a: 'Na mail, web, tabulky a běžné cloudové nástroje ano. Starší podnikové systémy a migrace dat ze starého softwaru neberu a řeknu to hned na hovoru.',
+    a: 'Na mail, web, tabulky a běžné cloudové nástroje ano. Starší podnikové systémy a migrace dat ze starého softwaru nebereme a řekneme to hned na hovoru.',
   },
 ];
 
 export const about = {
   name: 'Matyáš Plecháč',
-  text: 'FainStudio je jeden člověk, ne agentura. Stavím automatizace, interní nástroje, sběr dat a AI video. Pracuju sám, takže mluvíte přímo s tím, kdo to dělá, a odpověď dostanete týž den.',
+  text: 'FainStudio není agentura. Stavíme automatizace, interní nástroje, sběr dat a AI video. Mluvíte přímo s tím, kdo to dělá, a odpověď dostanete týž den.',
   /*
    * REFERENCE — ZATÍM SKRYTÉ.
    * Nezobrazovat, dokud zadavatel nemá od každého klienta písemný souhlas
@@ -183,6 +183,6 @@ export const about = {
 
 export const cta = {
   title: 'Dvacet minut a budete vědět, jestli to má smysl',
-  text: 'Projdeme proces, který vás stojí nejvíc času, a spočítáme, co by vám změna přinesla. Když to pro vás nemá smysl, řeknu vám to taky.',
+  text: 'Projdeme proces, který vás stojí nejvíc času, a spočítáme, co by vám změna přinesla. Když to pro vás nemá smysl, řekneme vám to taky.',
   button: 'Rezervovat termín',
 };

@@ -527,9 +527,9 @@ button {
   .seq--fade { animation-name: fade; animation-duration: 600ms; }
   .reveal {
     opacity: 0;
-    transform: translate3d(0, 22px, 0);
-    transition: opacity 560ms var(--ease-out), transform 560ms var(--ease-out);
-    transition-delay: calc(var(--i, 0) * 70ms);
+    transform: translate3d(0, 40px, 0);
+    transition: opacity 1100ms var(--ease-out), transform 1300ms var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 120ms);
   }
   .reveal.is-in { opacity: 1; transform: none; }
 }

@@ -133,7 +133,7 @@ export default function Systems() {
           </p>
           <h2 className="h2 sys-head__title" id="systemy-title">
             <span className="silver silver--block">Šest věcí,</span>
-            <span className="sys-head__accent">které stavím.</span>
+            <span className="sys-head__accent">které stavíme.</span>
           </h2>
           <p className="sys-head__lead">{systems.lead}</p>
         </header>
