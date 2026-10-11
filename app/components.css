@@ -157,7 +157,7 @@ html.is-loading .seq {
 /* Po přejetí hero tlačítek: kompaktní, skoro černý, jen nepatrně průhledný.
    Záměrně BEZ blur/backdrop-filter, bez lesku a bez světlých hran. */
 .nav__pill--solid {
-  max-width: 860px;
+  max-width: 960px;
   height: 54px;
   padding: 0 8px 0 20px;
   background: oklch(0.1 0.004 var(--brand-h) / 0.93);

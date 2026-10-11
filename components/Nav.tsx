@@ -8,9 +8,8 @@ const LINKS = [
   { href: '#postup', label: 'Postup' },
   { href: '#pred-po', label: 'Před a po' },
   { href: '#srovnani', label: 'Srovnání' },
-  { href: '#proof', label: 'Cena' },
+  { href: '#proof', label: 'Čísla' },
   { href: '#faq', label: 'FAQ' },
-  { href: '#kdo', label: 'O nás' },
 ];
 const TRACKED = LINKS.map((l) => l.href.slice(1));
 
