@@ -22,11 +22,15 @@ export default function Nav() {
   const [active, setActive] = useState<string | null>(null);
   const [lens, setLens] = useState<Lens>({ x: 0, w: 0, on: false, snap: true });
   const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  // po kliknutí drží aktivní odkaz, dokud se stránka neposune na cíl (jinak čočka skáče přes sekce cestou)
+  const lockRef = useRef(false);
+  const lockTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   useEffect(() => {
     // Aktivní sekce = ta, která je uprostřed obrazovky.
     const io = new IntersectionObserver(
       (entries) => {
+        if (lockRef.current) return;
         for (const e of entries) if (e.isIntersecting) setActive('#' + e.target.id);
       },
       { rootMargin: '-45% 0px -50% 0px' },
@@ -40,7 +44,7 @@ export default function Nav() {
     let ticking = false;
     const check = () => {
       ticking = false;
-      if (window.scrollY < 240) setActive(null);
+      if (window.scrollY < 240 && !lockRef.current) setActive(null);
       if (actions) setCompact(actions.getBoundingClientRect().bottom < 86);
     };
     const onScroll = () => {
@@ -51,12 +55,28 @@ export default function Nav() {
     check();
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
+    // zámek se uvolní až po doběhnutí scrollu (180 ms bez pohybu)
+    const release = () => {
+      if (!lockRef.current) return;
+      clearTimeout(lockTimer.current);
+      lockTimer.current = setTimeout(() => (lockRef.current = false), 180);
+    };
+    window.addEventListener('scroll', release, { passive: true });
     return () => {
+      clearTimeout(lockTimer.current);
+      window.removeEventListener('scroll', release);
       io.disconnect();
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
     };
   }, []);
+
+  const go = (href: string) => {
+    lockRef.current = true;
+    clearTimeout(lockTimer.current);
+    lockTimer.current = setTimeout(() => (lockRef.current = false), 1500); // pojistka, kdyby se nescrollovalo
+    setActive(href);
+  };
 
   // Čočka sedí pod hoverovaným odkazem, jinak pod aktivní sekcí.
   const activeIdx = LINKS.findIndex((l) => l.href === active);
@@ -95,6 +115,7 @@ export default function Nav() {
                     linkRefs.current[i] = el;
                   }}
                   aria-current={active === l.href ? 'location' : undefined}
+                  onClick={() => go(l.href)}
                   onMouseEnter={() => setHover(i)}
                   onFocus={() => setHover(i)}
                   onBlur={() => setHover(null)}
@@ -129,7 +150,9 @@ export default function Nav() {
           <ul>
             {LINKS.map((l) => (
               <li key={l.href}>
-                <a href={l.href}>{l.label}</a>
+                <a href={l.href} onClick={() => go(l.href)}>
+                  {l.label}
+                </a>
               </li>
             ))}
           </ul>
