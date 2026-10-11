@@ -1,6 +1,10 @@
 node_modules/
-dist/
-.astro/
+.next/
+out/
 .vercel/
 .DS_Store
 .lighthouse/
+*.tsbuildinfo
+next-env.d.ts
+.vercel
+.env*
