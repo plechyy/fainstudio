@@ -50,7 +50,15 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    // 1) výchozí barva v CSS a v Color studiu
+    // 1) soubory z formuláře — nejdřív zkontrolovat, teprve potom cokoli zapisovat
+    const buf = new Map<string, Buffer>();
+    for (const [name, v] of form.entries()) {
+      if (typeof v !== 'string' && /^[\w.-]+\.png$/.test(name)) buf.set(name, Buffer.from(await v.arrayBuffer()));
+    }
+    const need = ['icon-512.png', 'apple-icon.png', 'favicon-16.png', 'favicon-32.png', 'favicon-48.png'];
+    if (need.some((n) => !buf.has(n))) throw new Error('Chybí vygenerované ikony.');
+
+    // 2) výchozí barva v CSS a v Color studiu
     const cssPath = abs('app/globals.css');
     let css = await readFile(cssPath, 'utf8');
     css = css
@@ -64,20 +72,14 @@ export async function POST(req: NextRequest) {
     cs = cs.replace(/const DEF = \{[^}]*\};/, `const DEF = { h: ${h}, c: ${c}, l: ${l} };`);
     await writeFile(csPath, cs);
 
-    // 2) ikony a sada log
+    // 3) ikony a sada log
     await mkdir(abs('brand'), { recursive: true });
-    const buf = new Map<string, Buffer>();
-    for (const [name, v] of form.entries()) {
-      if (typeof v !== 'string' && /^[\w.-]+\.png$/.test(name)) buf.set(name, Buffer.from(await v.arrayBuffer()));
-    }
-    const need = ['icon-512.png', 'apple-icon.png', 'favicon-16.png', 'favicon-32.png', 'favicon-48.png'];
-    if (need.some((n) => !buf.has(n))) throw new Error('Chybí vygenerované ikony.');
     for (const [name, b] of buf) await writeFile(abs(`brand/${name}`), b);
     await writeFile(abs('app/icon.png'), buf.get('icon-512.png')!);
     await writeFile(abs('app/apple-icon.png'), buf.get('apple-icon.png')!);
     await writeFile(abs('app/favicon.ico'), ico([16, 32, 48].map((s) => buf.get(`favicon-${s}.png`)!), [16, 32, 48]));
 
-    // 3) commit + push
+    // 4) commit + push
     const git = (...a: string[]) => run('git', a, { cwd: root, timeout: 60000 });
     await git('add', 'app/globals.css', 'components/ColorStudio.tsx', 'app/icon.png', 'app/apple-icon.png', 'app/favicon.ico', 'brand');
     const msg = `Primary colour h ${h}, c ${c}, l ${l} (Color studio)\n\nCo-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`;
