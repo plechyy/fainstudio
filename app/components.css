@@ -933,7 +933,7 @@ html.is-loading .seq {
   }
 }
 
-/* ── postup: čtyři karty v „vlně“ + drát přes všechny ──────────────── */
+/* ── postup: čtyři kroky v jedné řadě, jen text na kouři ─────────── */
 .proc-section {
   position: relative;
   isolation: isolate;
@@ -944,9 +944,8 @@ html.is-loading .seq {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.42; /* hero má plnou sílu; tady jen jemně v pozadí */
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 72%, transparent 100%);
-  mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 72%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%);
 }
 .proc-bg canvas.is-fallback {
   display: none;
@@ -969,40 +968,17 @@ html.is-loading .seq {
   line-height: 1.55;
   text-wrap: pretty;
 }
-
-.proc {
-  position: relative;
-  isolation: isolate;
-}
-.proc__wires {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  overflow: visible;
-  pointer-events: none;
-}
 .proc__list {
   display: grid;
-  gap: 56px;
+  gap: 44px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 .pcard {
-  position: relative;
   display: grid;
   align-content: start;
   gap: 12px;
-  max-width: 88%;
-  padding: 24px 24px 28px;
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  background: linear-gradient(180deg, var(--surface) 0%, var(--sunk) 100%);
-  animation: proc-hit var(--cycle) linear var(--d) infinite;
-}
-.pcard:nth-child(even) {
-  margin-left: 12%;
 }
 .pcard__top {
   display: flex;
@@ -1035,114 +1011,14 @@ html.is-loading .seq {
   line-height: 1.55;
   text-wrap: pretty;
 }
-
-/* drát */
-.proc__wires path {
-  fill: none;
-  stroke-linecap: square;
-}
-.pwire {
-  stroke: var(--brand-deep);
-  stroke-width: 1.25;
-}
-.pwire__glow {
-  stroke: var(--brand);
-  stroke-width: 5;
-  opacity: 0;
-  animation: proc-glow var(--cycle) linear var(--d) infinite;
-}
-.pwire__pulse {
-  stroke: oklch(0.97 calc(var(--brand-c) * 0.5) var(--brand-h));
-  stroke-width: 2.4;
-  stroke-linecap: round;
-  stroke-dasharray: 70 1000;
-  stroke-dashoffset: 70;
-  filter: drop-shadow(0 0 4px var(--brand)) drop-shadow(0 0 10px var(--brand));
-  animation: proc-pulse var(--cycle) cubic-bezier(0.55, 0.05, 0.35, 1) var(--d) infinite;
-}
-.pport {
-  fill: var(--bg);
-  stroke: var(--brand-deep);
-  stroke-width: 1.25;
-  animation: proc-port var(--cycle) linear var(--d) infinite;
-}
-.proc:not([data-live]) .pcard,
-.proc:not([data-live]) .proc__wires * {
-  animation-play-state: paused;
-}
-
-/* úsek trvá TRAVEL/CYCLE ≈ 13.5 % cyklu */
-@keyframes proc-pulse {
-  0% {
-    stroke-dashoffset: 70;
-  }
-  13.5%,
-  100% {
-    stroke-dashoffset: -1000;
-  }
-}
-@keyframes proc-glow {
-  0%, 16%, 100% { opacity: 0; }
-  7% { opacity: 0.45; }
-}
-@keyframes proc-port {
-  0% {
-    fill: var(--brand);
-    stroke: var(--brand);
-    filter: drop-shadow(0 0 5px var(--brand));
-  }
-  30%,
-  100% {
-    fill: var(--bg);
-    filter: none;
-  }
-}
-@keyframes proc-hit {
-  0% {
-    border-color: var(--brand-deep);
-    box-shadow: 0 0 0 1px color-mix(in oklab, var(--brand) 20%, transparent),
-      0 14px 44px -14px var(--glow), inset 0 0 40px -18px var(--glow);
-  }
-  32%,
-  100% {
-    border-color: var(--line);
-    box-shadow: 0 0 0 1px transparent, 0 14px 44px -14px transparent, inset 0 0 40px -18px transparent;
-  }
-}
-
 @media (min-width: 900px) {
   .proc__list {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    column-gap: 56px;
+    column-gap: 40px;
     align-items: start;
+    max-width: 980px; /* text zůstává mezi mraky po stranách */
+    margin-inline: auto;
     padding-bottom: 24px;
-  }
-  .pcard {
-    max-width: none;
-    min-height: 230px;
-  }
-  .pcard:nth-child(even) {
-    margin-left: 0;
-  }
-  /* rozházení jako v náčrtu: nahoře, dole, nahoře, uprostřed */
-  .pcard:nth-child(2) {
-    margin-top: 120px;
-  }
-  .pcard:nth-child(3) {
-    margin-top: 20px;
-  }
-  .pcard:nth-child(4) {
-    margin-top: 76px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pcard,
-  .proc__wires * {
-    animation: none;
-  }
-  .pwire__pulse {
-    display: none;
   }
 }
 
