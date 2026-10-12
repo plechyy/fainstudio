@@ -18,7 +18,6 @@ export const metadata: Metadata = {
       'Postavíme vám systém, který dělá tu práci, co u vás dneska dělá někdo rukou. Do provozu do 10 dní, od 18 000 Kč.',
     images: ['/media/hero-poster.jpg'],
   },
-  icons: { icon: '/favicon.svg' },
 };
 
 export const viewport: Viewport = {

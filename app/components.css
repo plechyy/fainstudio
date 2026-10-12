@@ -39,7 +39,7 @@ html.is-loading .seq {
 .loader__sub {
   margin-left: 0.14em;
   font-weight: 400;
-  color: oklch(0.7 0.004 var(--brand-h));
+  color: var(--brand);
 }
 .loader__wire {
   position: relative;
@@ -180,7 +180,7 @@ html.is-loading .seq {
   font-size: 1em;
   font-weight: 400;
   letter-spacing: 0.02em;
-  color: oklch(0.7 0.004 var(--brand-h));
+  color: var(--brand);
 }
 @media (prefers-reduced-motion: no-preference) {
   .nav__pill {
