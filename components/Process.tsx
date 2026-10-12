@@ -2,16 +2,16 @@ import { process } from '@/lib/content';
 import ShaderBackground from './ShaderBackground';
 
 /*
- * Postup: čtyři kroky v jedné řadě, jen text na kouři jako v hero (žádné karty ani vodič).
+ * Postup: čtyři kroky v jedné řadě, jen typografie na kouři (žádné karty ani vodič).
  */
 export default function Process() {
   const steps = process.steps;
 
   return (
     <section className="section proc-section" id="postup" aria-labelledby="postup-title">
-      {/* stejný mrak po stranách jako v hero */}
+      {/* jeden mrak uprostřed, plná síla jako v hero */}
       <div className="proc-bg" aria-hidden="true">
-        <ShaderBackground sides phase={70} />
+        <ShaderBackground center phase={70} />
       </div>
       <div className="wrap">
         <header className="proc-head reveal">
