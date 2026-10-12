@@ -4,43 +4,215 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { makePack, updateFavicon } from '@/lib/brandAssets';
 
 /*
- * Color studio — ladění primární barvy v rohu webu.
- *  • odstín (0–360), sytost, jas akcentu (±0.08)
- *  • sedm předvoleb, náhodná barva
- *  • kopírování hotového CSS, reset
- *  • klávesy: C = otevřít/zavřít panel, R = náhodná barva, Esc = zavřít
- * Na localhostu je v liště tlačítko „Uložit na web“: přepíše výchozí barvu, vygeneruje znovu
- * favicon a sadu log a pushne to (viz app/api/brand/save). Favicon se při ladění mění živě.
- * Hodnoty se ukládají do localStorage a obnovují před prvním vykreslením (layout.tsx).
+ * Color studio — dvě barvy webu: primární (hlavní) a sekundární (decentní doplněk).
+ *  • klasický výběr: čtverec sytost × jas + pruh odstínu + pole pro hex
+ *  • primární se přepočítá na OKLCH (--brand-h / --brand-c / --brand-l-adj), sekundární je --sec
+ *  • klávesy: C = otevřít/zavřít panel, R = náhodná primární, Esc = zavřít
+ * Na localhostu je v liště „Uložit na web“: přepíše výchozí barvy, znovu vygeneruje favicon
+ * a sadu log a pushne to (app/api/brand/save). Hodnoty se drží v localStorage (layout.tsx
+ * je obnoví před prvním vykreslením).
  */
 
-const KEY = 'brand-v5';
-const DEF = { h: 48, c: 0.16, l: 0.035 };
-type Brand = typeof DEF;
+const KEY = 'brand-v6';
+type Brand = { p: string; s: string; h: number; c: number; l: number };
+const DEF: Brand = { p: '#ff9f5f', s: '#6aa7ff', h: 48, c: 0.16, l: 0.035 };
 
-const PRESETS: { name: string; h: number; c: number; l?: number }[] = [
-  { name: 'Ledová', h: 239, c: 0.135, l: 0.08 },
-  { name: 'Fialová', h: 267, c: 0.2 },
-  { name: 'Tyrkys', h: 185, c: 0.15 },
-  { name: 'Limetka', h: 128, c: 0.19 },
-  { name: 'Jantar', h: 55, c: 0.17 },
-  { name: 'Korál', h: 28, c: 0.19 },
-  { name: 'Magenta', h: 330, c: 0.21 },
-];
-
-const HUE_TRACK = `linear-gradient(90deg, ${Array.from({ length: 13 }, (_, i) => `oklch(0.78 0.15 ${i * 30})`).join(', ')})`;
 const round = (n: number, d = 3) => +n.toFixed(d);
+const clamp = (n: number, a: number, b: number) => Math.min(b, Math.max(a, n));
+
+// ── barevná matematika ──────────────────────────────────────────────
+type Hsv = { h: number; s: number; v: number };
+
+function hexToRgb(hex: string): [number, number, number] {
+  const n = parseInt(hex.slice(1), 16);
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+}
+function rgbToHex(r: number, g: number, b: number) {
+  return '#' + [r, g, b].map((v) => Math.round(clamp(v, 0, 255)).toString(16).padStart(2, '0')).join('');
+}
+function hexToHsv(hex: string): Hsv {
+  const [r, g, b] = hexToRgb(hex).map((v) => v / 255);
+  const max = Math.max(r, g, b);
+  const d = max - Math.min(r, g, b);
+  let h = 0;
+  if (d) {
+    if (max === r) h = ((g - b) / d) % 6;
+    else if (max === g) h = (b - r) / d + 2;
+    else h = (r - g) / d + 4;
+    h *= 60;
+    if (h < 0) h += 360;
+  }
+  return { h, s: max ? d / max : 0, v: max };
+}
+function hsvToHex({ h, s, v }: Hsv) {
+  const f = (n: number) => {
+    const k = (n + h / 60) % 6;
+    return v - v * s * Math.max(0, Math.min(k, 4 - k, 1));
+  };
+  return rgbToHex(f(5) * 255, f(3) * 255, f(1) * 255);
+}
+/** hex → OKLCH, aby primární barva seděla na stávající systém (--brand = hex). */
+function hexToOklch(hex: string) {
+  const lin = (c: number) => ((c /= 255) <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
+  const [r, g, b] = hexToRgb(hex).map(lin);
+  const l = Math.cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b);
+  const m = Math.cbrt(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b);
+  const s = Math.cbrt(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b);
+  const L = 0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s;
+  const A = 1.9779984951 * l - 2.428592205 * m + 0.4505937099 * s;
+  const B = 0.0259040371 * l + 0.7827717662 * m - 0.808675766 * s;
+  const C = Math.hypot(A, B);
+  let h = (Math.atan2(B, A) * 180) / Math.PI;
+  if (h < 0) h += 360;
+  return { L, C, h };
+}
+const isHex = (v: string) => /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i.test(v.trim());
+function normHex(v: string) {
+  let x = v.trim().replace('#', '').toLowerCase();
+  if (x.length === 3) x = x.split('').map((ch) => ch + ch).join('');
+  return '#' + x;
+}
+
+function withPrimary(b: Brand, hex: string): Brand {
+  const { L, C, h } = hexToOklch(hex);
+  return {
+    ...b,
+    p: hex,
+    h: C < 0.012 ? b.h : round(h, 1),
+    c: round(C, 4),
+    l: round(clamp(L - 0.78, -0.3, 0.2), 4),
+  };
+}
 
 function load(): Brand {
   try {
     const v = JSON.parse(localStorage.getItem(KEY) || 'null');
-    if (v && typeof v.h === 'number') return { h: v.h, c: v.c ?? DEF.c, l: v.l ?? 0 };
+    if (v && typeof v.p === 'string' && typeof v.s === 'string') return { ...DEF, ...v };
   } catch {}
   return { ...DEF };
 }
 
+// ── výběr barvy: čtverec + pruh odstínu ─────────────────────────────
+function Picker({ hex, onChange, label }: { hex: string; onChange: (hex: string) => void; label: string }) {
+  const [hsv, setHsv] = useState<Hsv>(() => hexToHsv(hex));
+  const [text, setText] = useState(hex);
+  const drag = useRef<'sv' | 'h' | null>(null);
+  const sv = useRef<HTMLDivElement>(null);
+  const hue = useRef<HTMLDivElement>(null);
+
+  // vnější změna (náhoda, výchozí, načtení) → přepsat; šedé zachová odstín
+  useEffect(() => {
+    if (hsvToHex(hsv) !== hex) {
+      const n = hexToHsv(hex);
+      setHsv((o) => ({ h: n.s === 0 || n.v === 0 ? o.h : n.h, s: n.s, v: n.v }));
+    }
+    setText(hex);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hex]);
+
+  const apply = (n: Hsv) => {
+    setHsv(n);
+    onChange(hsvToHex(n));
+  };
+
+  const pointSv = (e: React.PointerEvent) => {
+    const r = sv.current!.getBoundingClientRect();
+    apply({ ...hsv, s: clamp((e.clientX - r.left) / r.width, 0, 1), v: 1 - clamp((e.clientY - r.top) / r.height, 0, 1) });
+  };
+  const pointHue = (e: React.PointerEvent) => {
+    const r = hue.current!.getBoundingClientRect();
+    apply({ ...hsv, h: clamp((e.clientX - r.left) / r.width, 0, 1) * 360 });
+  };
+
+  const onSvKey = (e: React.KeyboardEvent) => {
+    const d = 0.02;
+    const m: Record<string, Partial<Hsv>> = {
+      ArrowLeft: { s: clamp(hsv.s - d, 0, 1) },
+      ArrowRight: { s: clamp(hsv.s + d, 0, 1) },
+      ArrowUp: { v: clamp(hsv.v + d, 0, 1) },
+      ArrowDown: { v: clamp(hsv.v - d, 0, 1) },
+    };
+    if (m[e.key]) {
+      e.preventDefault();
+      apply({ ...hsv, ...m[e.key] });
+    }
+  };
+  const onHueKey = (e: React.KeyboardEvent) => {
+    const d = e.key === 'ArrowLeft' || e.key === 'ArrowDown' ? -3 : e.key === 'ArrowRight' || e.key === 'ArrowUp' ? 3 : 0;
+    if (d) {
+      e.preventDefault();
+      apply({ ...hsv, h: (hsv.h + d + 360) % 360 });
+    }
+  };
+
+  return (
+    <div className="cp">
+      <div
+        ref={sv}
+        className="cp__sv"
+        style={{ ['--cp-h' as string]: hsv.h }}
+        role="slider"
+        tabIndex={0}
+        aria-label={`${label}: sytost a jas`}
+        aria-valuetext={hex}
+        onKeyDown={onSvKey}
+        onPointerDown={(e) => {
+          drag.current = 'sv';
+          e.currentTarget.setPointerCapture(e.pointerId);
+          pointSv(e);
+        }}
+        onPointerMove={(e) => drag.current === 'sv' && pointSv(e)}
+        onPointerUp={() => (drag.current = null)}
+      >
+        <span className="cp__thumb" style={{ left: `${hsv.s * 100}%`, top: `${(1 - hsv.v) * 100}%`, background: hex }} />
+      </div>
+      <div
+        ref={hue}
+        className="cp__hue"
+        role="slider"
+        tabIndex={0}
+        aria-label={`${label}: odstín`}
+        aria-valuemin={0}
+        aria-valuemax={360}
+        aria-valuenow={Math.round(hsv.h)}
+        onKeyDown={onHueKey}
+        onPointerDown={(e) => {
+          drag.current = 'h';
+          e.currentTarget.setPointerCapture(e.pointerId);
+          pointHue(e);
+        }}
+        onPointerMove={(e) => drag.current === 'h' && pointHue(e)}
+        onPointerUp={() => (drag.current = null)}
+      >
+        <span className="cp__thumb cp__thumb--h" style={{ left: `${(hsv.h / 360) * 100}%` }} />
+      </div>
+      <label className="cp__hex">
+        <span>Hex</span>
+        <input
+          type="text"
+          spellCheck={false}
+          autoComplete="off"
+          maxLength={7}
+          value={text}
+          aria-label={`${label}: hex`}
+          onChange={(e) => {
+            setText(e.target.value);
+            if (isHex(e.target.value)) {
+              const h = normHex(e.target.value);
+              setHsv(hexToHsv(h));
+              onChange(h);
+            }
+          }}
+          onBlur={() => setText(hex)}
+        />
+      </label>
+    </div>
+  );
+}
+
 export default function ColorStudio() {
   const [b, setB] = useState<Brand>(DEF);
+  const [which, setWhich] = useState<'p' | 's'>('p');
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -58,11 +230,12 @@ export default function ColorStudio() {
     d.style.setProperty('--brand-h', String(b.h));
     d.style.setProperty('--brand-c', String(b.c));
     d.style.setProperty('--brand-l-adj', String(b.l));
+    d.style.setProperty('--sec', b.s);
     try {
       localStorage.setItem(KEY, JSON.stringify(b));
     } catch {}
     setSave('idle');
-    // favicon sleduje barvu (po krátké pauze, ať se nerenderuje při každém pixelu posuvníku)
+    // favicon sleduje primární barvu (po krátké pauze, ať se nerenderuje při každém pixelu)
     const t = setTimeout(updateFavicon, 350);
     return () => clearTimeout(t);
   }, [b, loaded]);
@@ -73,12 +246,13 @@ export default function ColorStudio() {
     setLocal(/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname));
   }, []);
 
+  const setPrimary = useCallback((hex: string) => setB((o) => withPrimary(o, hex)), []);
+  const setSecondary = useCallback((hex: string) => setB((o) => ({ ...o, s: hex })), []);
+
   const random = useCallback(() => {
-    setB({
-      h: Math.floor(Math.random() * 360),
-      c: round(0.12 + Math.random() * 0.1, 3),
-      l: round((Math.random() - 0.5) * 0.08, 3),
-    });
+    const h = Math.random() * 360;
+    const x = hsvToHex({ h, s: 0.45 + Math.random() * 0.4, v: 0.88 + Math.random() * 0.12 });
+    setB((o) => withPrimary(o, x));
   }, []);
 
   useEffect(() => {
@@ -95,7 +269,7 @@ export default function ColorStudio() {
   }, [random]);
 
   const copy = async () => {
-    const css = `--brand-h: ${b.h};\n--brand-c: ${b.c};\n--brand-l-adj: ${b.l};`;
+    const css = `--brand-h: ${b.h};\n--brand-c: ${b.c};\n--brand-l-adj: ${b.l};\n--sec: ${b.s};`;
     try {
       await navigator.clipboard.writeText(css);
       setCopied(true);
@@ -103,7 +277,7 @@ export default function ColorStudio() {
     } catch {}
   };
 
-  const changed = b.h !== DEF.h || b.c !== DEF.c || b.l !== DEF.l;
+  const changed = b.p !== DEF.p || b.s !== DEF.s;
 
   const saveToWeb = async () => {
     setSave('busy');
@@ -111,6 +285,8 @@ export default function ColorStudio() {
     try {
       const files = await makePack();
       const fd = new FormData();
+      fd.set('p', b.p);
+      fd.set('s', b.s);
       fd.set('h', String(b.h));
       fd.set('c', String(b.c));
       fd.set('l', String(b.l));
@@ -126,30 +302,42 @@ export default function ColorStudio() {
     }
   };
 
-  const isPreset = (p: { h: number; c: number; l?: number }) => b.h === p.h && b.c === p.c && b.l === (p.l ?? 0);
+  const showSave = local && (changed || save !== 'idle');
 
   return (
     <aside
       className="cs glass"
       data-open={open || undefined}
-      data-save={local && (changed || save !== 'idle') ? '' : undefined}
+      data-save={showSave ? '' : undefined}
       aria-label="Color studio"
     >
       <div className="cs__bar">
-        <span className="cs__swatch" aria-hidden="true" />
-        <label className="cs__hue">
-          <span className="sr-only">Primární barva — odstín</span>
-          <input
-            type="range"
-            min={0}
-            max={360}
-            step={1}
-            value={b.h}
-            onChange={(e) => setB((p) => ({ ...p, h: +e.target.value }))}
-            style={{ background: HUE_TRACK }}
-          />
-        </label>
-        {local && (changed || save !== 'idle') && (
+        <button
+          type="button"
+          className="cs__sw"
+          aria-label="Primární barva"
+          aria-pressed={open && which === 'p'}
+          title="Primární barva"
+          style={{ background: b.p }}
+          onClick={() => {
+            setWhich('p');
+            setOpen(true);
+          }}
+        />
+        <button
+          type="button"
+          className="cs__sw"
+          aria-label="Sekundární barva"
+          aria-pressed={open && which === 's'}
+          title="Sekundární barva"
+          style={{ background: b.s }}
+          onClick={() => {
+            setWhich('s');
+            setOpen(true);
+          }}
+        />
+        <span className="cs__title">Barvy</span>
+        {showSave && (
           <button type="button" className="cs__save" data-state={save} onClick={saveToWeb} disabled={save === 'busy'} title={saveMsg || undefined}>
             {save === 'busy' ? 'Ukládám…' : save === 'ok' ? '✓ Uloženo' : save === 'err' ? 'Chyba, znovu' : 'Uložit na web'}
           </button>
@@ -170,54 +358,23 @@ export default function ColorStudio() {
 
       {open && (
         <div className="cs__panel">
-          <div className="cs__presets" role="group" aria-label="Předvolby barev">
-            {PRESETS.map((p) => (
-              <button
-                key={p.name}
-                type="button"
-                className="cs__preset"
-                aria-label={p.name}
-                title={p.name}
-                aria-pressed={isPreset(p)}
-                style={{ background: `oklch(0.78 ${p.c} ${p.h})` }}
-                onClick={() => setB({ h: p.h, c: p.c, l: p.l ?? 0 })}
-              />
-            ))}
+          <div className="cs__tabs" role="tablist" aria-label="Která barva">
+            <button type="button" role="tab" aria-selected={which === 'p'} onClick={() => setWhich('p')}>
+              <i style={{ background: b.p }} /> Primární
+            </button>
+            <button type="button" role="tab" aria-selected={which === 's'} onClick={() => setWhich('s')}>
+              <i style={{ background: b.s }} /> Sekundární
+            </button>
           </div>
 
-          <label className="cs__row">
-            <span>Sytost</span>
-            <input
-              type="range"
-              min={0}
-              max={0.26}
-              step={0.005}
-              value={b.c}
-              onChange={(e) => setB((p) => ({ ...p, c: +e.target.value }))}
-              style={{ background: `linear-gradient(90deg, oklch(0.78 0 ${b.h}), oklch(0.78 0.26 ${b.h}))` }}
-            />
-          </label>
-          <label className="cs__row">
-            <span>Jas</span>
-            <input
-              type="range"
-              min={-0.08}
-              max={0.08}
-              step={0.005}
-              value={b.l}
-              onChange={(e) => setB((p) => ({ ...p, l: +e.target.value }))}
-              style={{ background: `linear-gradient(90deg, oklch(0.62 ${b.c} ${b.h}), oklch(0.9 ${b.c} ${b.h}))` }}
-            />
-          </label>
+          {which === 'p' ? (
+            <Picker key="p" hex={b.p} onChange={setPrimary} label="Primární" />
+          ) : (
+            <Picker key="s" hex={b.s} onChange={setSecondary} label="Sekundární" />
+          )}
 
           <div className="cs__actions">
-            <button type="button" className="cs__btn" onClick={random} title="Náhodná barva (R)">
-              <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
-                <rect x="2" y="2" width="12" height="12" rx="3" fill="none" stroke="currentColor" strokeWidth="1.4" />
-                <circle cx="5.5" cy="5.5" r="1" fill="currentColor" />
-                <circle cx="10.5" cy="10.5" r="1" fill="currentColor" />
-                <circle cx="8" cy="8" r="1" fill="currentColor" />
-              </svg>
+            <button type="button" className="cs__btn" onClick={random} title="Náhodná primární (R)">
               Náhoda
             </button>
             <button type="button" className="cs__btn" onClick={copy}>
@@ -233,10 +390,6 @@ export default function ColorStudio() {
               {saveMsg}
             </p>
           )}
-          <p className="cs__read num">
-            h {b.h} · c {b.c.toFixed(3)} · jas {b.l >= 0 ? '+' : ''}
-            {b.l.toFixed(3)}
-          </p>
           <p className="cs__hint">
             <kbd>C</kbd> panel · <kbd>R</kbd> náhoda · <kbd>Esc</kbd> zavřít
           </p>

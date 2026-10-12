@@ -45,7 +45,13 @@ export async function POST(req: NextRequest) {
   const h = Number(form.get('h'));
   const c = Number(form.get('c'));
   const l = Number(form.get('l'));
-  if (![h, c, l].every(Number.isFinite) || h < 0 || h > 360 || c < 0 || c > 0.4 || Math.abs(l) > 0.2) {
+  const hexOf = (k: string) => {
+    const v = String(form.get(k) ?? '');
+    return /^#[0-9a-f]{6}$/.test(v) ? v : null;
+  };
+  const p = hexOf('p');
+  const sec = hexOf('s');
+  if (!p || !sec || ![h, c, l].every(Number.isFinite) || h < 0 || h > 360 || c < 0 || c > 0.4 || l < -0.4 || l > 0.4) {
     return NextResponse.json({ ok: false, error: 'Neplatná barva.' }, { status: 400 });
   }
 
@@ -64,12 +70,13 @@ export async function POST(req: NextRequest) {
     css = css
       .replace(/--brand-h:\s*[\d.]+;/, `--brand-h: ${h};`)
       .replace(/--brand-c:\s*[\d.]+;/, `--brand-c: ${c};`)
-      .replace(/--brand-l-adj:\s*-?[\d.]+;/, `--brand-l-adj: ${l};`);
+      .replace(/--brand-l-adj:\s*-?[\d.]+;/, `--brand-l-adj: ${l};`)
+      .replace(/--sec:\s*#[0-9a-f]{6};/i, `--sec: ${sec};`);
     await writeFile(cssPath, css);
 
     const csPath = abs('components/ColorStudio.tsx');
     let cs = await readFile(csPath, 'utf8');
-    cs = cs.replace(/const DEF = \{[^}]*\};/, `const DEF = { h: ${h}, c: ${c}, l: ${l} };`);
+    cs = cs.replace(/const DEF: Brand = \{[^}]*\};/, `const DEF: Brand = { p: '${p}', s: '${sec}', h: ${h}, c: ${c}, l: ${l} };`);
     await writeFile(csPath, cs);
 
     // 3) ikony a sada log
@@ -82,7 +89,7 @@ export async function POST(req: NextRequest) {
     // 4) commit + push
     const git = (...a: string[]) => run('git', a, { cwd: root, timeout: 60000 });
     await git('add', 'app/globals.css', 'components/ColorStudio.tsx', 'app/icon.png', 'app/apple-icon.png', 'app/favicon.ico', 'brand');
-    const msg = `Primary colour h ${h}, c ${c}, l ${l} (Color studio)\n\nCo-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`;
+    const msg = `Colours: primary ${p}, secondary ${sec} (Color studio)\n\nCo-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`;
     await git('commit', '-m', msg);
     let pushed = true;
     try {

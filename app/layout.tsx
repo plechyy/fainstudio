@@ -26,7 +26,7 @@ export const viewport: Viewport = {
 };
 
 // Obnoví uloženou barvu před prvním vykreslením → nic neprobliká.
-const noFlash = `(function(){try{var d=document.documentElement;d.classList.add('is-loading');var b=JSON.parse(localStorage.getItem('brand-v5')||'null');if(b&&typeof b.h==='number'){d.style.setProperty('--brand-h',b.h);d.style.setProperty('--brand-c',b.c);d.style.setProperty('--brand-l-adj',b.l||0);}}catch(e){}})();`;
+const noFlash = `(function(){try{var d=document.documentElement;d.classList.add('is-loading');var b=JSON.parse(localStorage.getItem('brand-v6')||'null');if(b&&typeof b.h==='number'){d.style.setProperty('--brand-h',b.h);d.style.setProperty('--brand-c',b.c);d.style.setProperty('--brand-l-adj',b.l||0);}if(b&&typeof b.s==='string'){d.style.setProperty('--sec',b.s);}}catch(e){}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

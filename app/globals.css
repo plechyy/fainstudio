@@ -74,6 +74,11 @@
   --brand-wash: oklch(calc(0.78 + var(--brand-l-adj)) var(--brand-c) var(--brand-h) / 0.12);
   --on-brand: oklch(0.2 0.02 var(--brand-h));
 
+  /* Sekundární barva: jen decentní doplněk (čísla sekcí, hover šedých tlačítek, FAQ ikona,
+     výběr textu). Nikdy ve stejném prvku jako primární. */
+  --sec: #6aa7ff;
+  --sec-deep: color-mix(in oklab, var(--sec) 70%, black);
+
   /* Tmavé téma (výchozí) */
   --bg: oklch(0.145 0.006 var(--brand-h));
   --bg-deep: oklch(0.11 0.006 var(--brand-h));
@@ -215,8 +220,8 @@ button {
   color: inherit;
 }
 ::selection {
-  background: var(--brand);
-  color: var(--on-brand);
+  background: var(--sec);
+  color: #0b0b0d;
 }
 :focus-visible {
   outline: 2px solid var(--brand);
@@ -446,7 +451,7 @@ button {
 }
 .btn--ghost:hover {
   background: var(--surface-2);
-  box-shadow: inset 0 0 0 1px oklch(0.5 0.012 var(--brand-h));
+  box-shadow: inset 0 0 0 1px var(--sec-deep);
 }
 .btn--sm {
   --h: 42px;
