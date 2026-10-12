@@ -2,16 +2,17 @@ import { process } from '@/lib/content';
 import ShaderBackground from './ShaderBackground';
 
 /*
- * Postup: čtyři kroky v jedné řadě, jen text na kouři jako v hero (žádné karty ani vodič).
+ * Postup: časová osa. Jedna tenká linka přes všechny kroky, na ní čtvercové uzly
+ * (stejný motiv jako vodiče v Systémech, ale klidný, bez výbojů). Mrak je atmosféra
+ * za nadpisem a k řadě kroků se rozpustí, aby text ležel na klidném podkladu.
  */
 export default function Process() {
   const steps = process.steps;
 
   return (
     <section className="section proc-section" id="postup" aria-labelledby="postup-title">
-      {/* stejný mrak po stranách jako v hero */}
       <div className="proc-bg" aria-hidden="true">
-        <ShaderBackground sides phase={70} />
+        <ShaderBackground center phase={70} />
       </div>
       <div className="wrap">
         <header className="proc-head reveal">
@@ -25,19 +26,15 @@ export default function Process() {
           <p className="proc-head__lead">{process.lead}</p>
         </header>
 
-        <ol className="proc__list reveal">
+        <ol className="tl reveal">
           {steps.map((s, i) => (
-            <li key={i} className="pcard">
-              <div className="pcard__top">
-                <span className="pcard__num num" aria-hidden="true">
-                  0{i + 1}
-                </span>
-                <span className="pcard__of num" aria-hidden="true">
-                  / 04
-                </span>
+            <li key={i} className="tl__step" style={{ ['--i' as string]: i }}>
+              <div className="tl__mark" aria-hidden="true">
+                <i className="tl__node" />
+                <span className="tl__num num">0{i + 1}</span>
               </div>
-              <h3 className="pcard__name">{s.name}</h3>
-              <p className="pcard__text">{s.text}</p>
+              <h3 className="tl__name">{s.name}</h3>
+              <p className="tl__text">{s.text}</p>
             </li>
           ))}
         </ol>
