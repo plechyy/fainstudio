@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { makePack, updateFavicon } from '@/lib/brandAssets';
 
 /*
  * Color studio — ladění primární barvy v rohu webu.
@@ -8,6 +9,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
  *  • sedm předvoleb, náhodná barva
  *  • kopírování hotového CSS, reset
  *  • klávesy: C = otevřít/zavřít panel, R = náhodná barva, Esc = zavřít
+ * Na localhostu je v liště tlačítko „Uložit na web“: přepíše výchozí barvu, vygeneruje znovu
+ * favicon a sadu log a pushne to (viz app/api/brand/save). Favicon se při ladění mění živě.
  * Hodnoty se ukládají do localStorage a obnovují před prvním vykreslením (layout.tsx).
  */
 
@@ -41,6 +44,9 @@ export default function ColorStudio() {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [local, setLocal] = useState(false);
+  const [save, setSave] = useState<'idle' | 'busy' | 'ok' | 'err'>('idle');
+  const [saveMsg, setSaveMsg] = useState('');
   const openRef = useRef(open);
   openRef.current = open;
 
@@ -55,11 +61,16 @@ export default function ColorStudio() {
     try {
       localStorage.setItem(KEY, JSON.stringify(b));
     } catch {}
+    setSave('idle');
+    // favicon sleduje barvu (po krátké pauze, ať se nerenderuje při každém pixelu posuvníku)
+    const t = setTimeout(updateFavicon, 350);
+    return () => clearTimeout(t);
   }, [b, loaded]);
 
   useEffect(() => {
     setB(load());
     setLoaded(true);
+    setLocal(/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname));
   }, []);
 
   const random = useCallback(() => {
@@ -92,10 +103,38 @@ export default function ColorStudio() {
     } catch {}
   };
 
+  const changed = b.h !== DEF.h || b.c !== DEF.c || b.l !== DEF.l;
+
+  const saveToWeb = async () => {
+    setSave('busy');
+    setSaveMsg('');
+    try {
+      const files = await makePack();
+      const fd = new FormData();
+      fd.set('h', String(b.h));
+      fd.set('c', String(b.c));
+      fd.set('l', String(b.l));
+      for (const [name, blob] of Object.entries(files)) fd.set(name, blob, name);
+      const res = await fetch('/api/brand/save', { method: 'POST', body: fd });
+      const j = (await res.json().catch(() => ({}))) as { ok?: boolean; pushed?: boolean; error?: string };
+      if (!j.ok) throw new Error(j.error || 'Uložení se nepovedlo.');
+      setSave('ok');
+      setSaveMsg(j.pushed ? 'Uloženo, web se nasazuje' : 'Uloženo, push se nepovedl');
+    } catch (e) {
+      setSave('err');
+      setSaveMsg(e instanceof Error ? e.message : 'Uložení se nepovedlo.');
+    }
+  };
+
   const isPreset = (p: { h: number; c: number; l?: number }) => b.h === p.h && b.c === p.c && b.l === (p.l ?? 0);
 
   return (
-    <aside className="cs glass" data-open={open || undefined} aria-label="Color studio">
+    <aside
+      className="cs glass"
+      data-open={open || undefined}
+      data-save={local && (changed || save !== 'idle') ? '' : undefined}
+      aria-label="Color studio"
+    >
       <div className="cs__bar">
         <span className="cs__swatch" aria-hidden="true" />
         <label className="cs__hue">
@@ -110,6 +149,11 @@ export default function ColorStudio() {
             style={{ background: HUE_TRACK }}
           />
         </label>
+        {local && (changed || save !== 'idle') && (
+          <button type="button" className="cs__save" data-state={save} onClick={saveToWeb} disabled={save === 'busy'} title={saveMsg || undefined}>
+            {save === 'busy' ? 'Ukládám…' : save === 'ok' ? '✓ Uloženo' : save === 'err' ? 'Chyba, znovu' : 'Uložit na web'}
+          </button>
+        )}
         <button
           type="button"
           className="cs__more"
@@ -184,6 +228,11 @@ export default function ColorStudio() {
             </button>
           </div>
 
+          {saveMsg && (
+            <p className="cs__hint" role="status">
+              {saveMsg}
+            </p>
+          )}
           <p className="cs__read num">
             h {b.h} · c {b.c.toFixed(3)} · jas {b.l >= 0 ? '+' : ''}
             {b.l.toFixed(3)}

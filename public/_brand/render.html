@@ -1,0 +1,171 @@
+<!doctype html><meta charset="utf-8"><title>render</title>
+<style>@font-face{font-family:'FingerPaint';src:url(/fonts/finger-paint-logo.woff2) format('woff2');font-display:block}</style>
+<body style="margin:0;background:#18181b;color:#ddd;font:13px system-ui;padding:16px">
+<div id="out" style="display:flex;flex-wrap:wrap;gap:14px"></div>
+<script>
+const FRAG=`#version 300 es
+precision highp float;
+uniform vec2 u_res;
+uniform float u_time;
+uniform vec3 u_brand;
+uniform vec3 u_bg;
+uniform float u_motion;
+uniform float u_sides;
+uniform float u_zoom; // 0 = volně, 1 = boky (hero), 2 = jeden mrak uprostřed
+out vec4 outColor;
+
+float hash(vec2 p){ p = fract(p*vec2(123.34, 456.21)); p += dot(p, p+45.32); return fract(p.x*p.y); }
+float noise(vec2 p){
+  vec2 i = floor(p), f = fract(p);
+  float a = hash(i), b = hash(i+vec2(1.,0.)), c = hash(i+vec2(0.,1.)), d = hash(i+vec2(1.,1.));
+  vec2 u = f*f*(3.-2.*f);
+  return mix(mix(a,b,u.x), mix(c,d,u.x), u.y);
+}
+float fbm(vec2 p){
+  float v = 0., a = 0.5;
+  mat2 m = mat2(1.6, 1.2, -1.2, 1.6);
+  for(int i=0;i<3;i++){ v += a*noise(p); p = m*p; a *= 0.5; }
+  return v;
+}
+
+void main(){
+  vec2 p = (gl_FragCoord.xy - 0.5*u_res) / u_res.y * u_zoom;   // y-normalizované, střed = 0
+  float t = u_time * 0.08 * u_motion;
+
+  // Jemnozrnný šum + prahování smoothstepem → tvar je rozmanitý a bohatý.
+  // POZOR: pole šumu se pohybuje po UZAVŘENÝCH drahách (sin/cos), ne lineárně v čase.
+  // Lineární posun (dřív) pole po čase vynesl do oblasti se slabým šumem a mrak
+  // zhasl; takhle se pole vrací a vzhled zůstává stejný celé hodiny.
+  vec2 w = vec2(
+    fbm(p*2.0 + vec2(0.9*sin(t*1.0), 0.9*cos(t*0.86))),
+    fbm(p*2.0 + vec2(3.3 + 0.8*cos(t*0.74), -0.8*sin(t*1.04)))
+  );
+  float n = fbm(p*2.4 + 2.1*(w - 0.5) + vec2(0.5*sin(t*0.62), 0.5*cos(t*0.54)));
+  float f = smoothstep(0.28, 0.72, n);
+
+  // Dva body s původními širokými drahami přes CELÝ hero (dráhy jsou periodické,
+  // takže se opakují do nekonečna bez nabobtnávání).
+  vec2 c1 = vec2(0.52*sin(t*0.65), 0.30*cos(t*0.8));
+  vec2 c2 = vec2(0.58*cos(t*0.45 + 2.0), 0.34*sin(t*0.55 + 1.0));
+  // Režim „boky": stejné pomalé dráhy, ale každý bod je vázaný na jednu polovinu hera
+  // (levý/pravý okraj). A = polovina šířky v jednotkách výšky.
+  float A = 0.5 * u_res.x / u_res.y;
+  if (u_sides > 1.5) {
+    // jeden bod, který se jen pomalu potuluje kolem středu
+    c1 = vec2(A * 0.22 * sin(t*0.65), 0.12 * cos(t*0.8));
+  } else if (u_sides > 0.5) {
+    c1 = vec2(-A * (0.74 + 0.16*sin(t*0.65)), 0.30*cos(t*0.8));
+    c2 = vec2( A * (0.74 + 0.16*cos(t*0.45 + 2.0)), 0.34*sin(t*0.55 + 1.0));
+  }
+  float g1 = exp(-dot(p - c1, p - c1) * 2.2);
+  float g2 = exp(-dot(p - c2, p - c2) * 2.7);
+  // probabilistic union — překryv dvou bodů nesčítá jas
+  float gm = g1 + g2 - g1*g2;
+  float d = clamp(f * (0.35 + 1.6 * gm), 0.0, 1.0);
+  if (u_sides > 1.5) {
+    // jeden široký mrak (do šířky protažený), se stejným stálým základem jako boky v hero
+    vec2 q = (p - c1) * vec2(0.9, 1.0);
+    float gc = exp(-dot(q, q) * 2.4);
+    d = clamp(mix(0.25, 1.0, f) * (1.9 * gc - 0.14), 0.0, 1.0);
+  }
+  // Střed s textem zůstává volný: mrak jen u okrajů, plynule zeslabený směrem ke středu.
+  if (u_sides > 0.5 && u_sides < 1.5) {
+    // Šum jen tvaruje okraje, základ mraku na obou bocích je tu VŽDY (min. 45 % šumu),
+    // takže žádná strana nikdy nezmizí, když je šum zrovna slabý
+    // (změřeno: na 2 h animace nejslabší moment 0.45, nikdy pod čtvrtinou jasu).
+    d = clamp(mix(0.45, 1.0, f) * (0.18 + 1.7 * gm), 0.0, 1.0);
+    float ax = abs(gl_FragCoord.x / u_res.x - 0.5);
+    d *= smoothstep(0.17, 0.40, ax);
+  }
+
+  // Strop = jasná verze brand barvy; v nejvyšších špičkách lehce k bílé (ne na plno).
+  vec3 peak = u_brand * 0.95;
+  vec3 col = u_bg;
+  col = mix(col, u_brand * 0.38, smoothstep(0.08, 0.55, d));
+  col = mix(col, peak, smoothstep(0.50, 0.92, d));
+  col = mix(col, mix(peak, vec3(1.0), 0.35), smoothstep(0.86, 1.0, d));
+  col = mix(col, u_bg, smoothstep(0.80, 1.5, length(p)));
+  col = mix(col, u_bg, smoothstep(0.43, 0.50, length(gl_FragCoord.xy/u_res - 0.5)));
+
+  // film grain
+  float gr = hash(gl_FragCoord.xy * 1.3 + fract(u_time) * 180.0);
+  col += (gr - 0.5) * 0.0;
+
+  outColor = vec4(max(col, 0.0), 1.0);
+}`;
+const VERT=`#version 300 es
+in vec2 a; void main(){ gl_Position = vec4(a, 0.0, 1.0); }`;
+const hex=h=>{const n=parseInt(h.replace('#',''),16);return [((n>>16)&255)/255,((n>>8)&255)/255,(n&255)/255]};
+function renderCloud(size,phase,zoom,brandHex){
+  const c=document.createElement('canvas'); c.width=c.height=size;
+  const gl=c.getContext('webgl2',{antialias:false,alpha:false,preserveDrawingBuffer:true});
+  const sh=(t,s)=>{const x=gl.createShader(t);gl.shaderSource(x,s);gl.compileShader(x);if(!gl.getShaderParameter(x,gl.COMPILE_STATUS))console.error(gl.getShaderInfoLog(x));return x};
+  const pr=gl.createProgram();gl.attachShader(pr,sh(gl.VERTEX_SHADER,VERT));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,FRAG));gl.linkProgram(pr);gl.useProgram(pr);
+  const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+  const l=gl.getAttribLocation(pr,'a');gl.enableVertexAttribArray(l);gl.vertexAttribPointer(l,2,gl.FLOAT,false,0,0);
+  gl.viewport(0,0,size,size);
+  const u=n=>gl.getUniformLocation(pr,n);
+  gl.uniform2f(u('u_res'),size,size);gl.uniform1f(u('u_time'),phase);
+  const br=hex(brandHex);gl.uniform3f(u('u_brand'),br[0],br[1],br[2]);gl.uniform3f(u('u_bg'),0,0,0);
+  gl.uniform1f(u('u_motion'),1);gl.uniform1f(u('u_sides'),2);gl.uniform1f(u('u_zoom'),zoom);
+  gl.drawArrays(gl.TRIANGLES,0,3);
+  const px=new Uint8Array(size*size*4);gl.readPixels(0,0,size,size,gl.RGBA,gl.UNSIGNED_BYTE,px);
+  // černá = průhledná: alpha z jasu, barva se odděluje (unpremultiply)
+  const out=document.createElement('canvas');out.width=out.height=size;const cx=out.getContext('2d');
+  const img=cx.createImageData(size,size);
+  for(let y=0;y<size;y++)for(let x=0;x<size;x++){
+    const i=((size-1-y)*size+x)*4,o=(y*size+x)*4;
+    const r=px[i],g=px[i+1],bl=px[i+2];const m=Math.max(r,g,bl);
+    const a=Math.min(255,m*1.15);
+    if(a<=0){img.data[o+3]=0;continue}
+    const k=255/a; img.data[o]=Math.min(255,r*k);img.data[o+1]=Math.min(255,g*k);img.data[o+2]=Math.min(255,bl*k);img.data[o+3]=a;
+  }
+  cx.putImageData(img,0,0);return out;
+}
+window.renderCloud=renderCloud;
+const q=new URLSearchParams(location.search);
+const brand=q.get('brand')||'#ff8a3d';
+if(!q.get('only')&&!q.get('pack')){
+ for(const ph of [10,25,40,55,70,90,110,140]){
+  const w=document.createElement('div');const c=renderCloud(300,ph,1.55,brand);c.style.background='#0c0c0e';c.style.borderRadius='12px';
+  w.appendChild(c);const t=document.createElement('div');t.textContent='phase '+ph;w.appendChild(t);document.getElementById('out').appendChild(w);
+ }
+}
+
+async function post(name,canvas){
+  const blob=await new Promise(r=>canvas.toBlob(r,'image/png'));
+  await fetch('http://localhost:4999/?name='+encodeURIComponent(name),{method:'POST',body:blob});
+}
+function scaled(src,size){const c=document.createElement('canvas');c.width=c.height=size;const x=c.getContext('2d');x.imageSmoothingQuality='high';x.drawImage(src,0,0,size,size);return c}
+function textCanvas(parts,px,pad){
+  const m=document.createElement('canvas').getContext('2d');
+  let w=0;const gap=px*0.14;
+  parts.forEach((p,i)=>{m.font=p.w+' '+px+'px FingerPaint';p.width=m.measureText(p.t).width;w+=p.width+(i?gap:0)});
+  const c=document.createElement('canvas');c.width=Math.ceil(w+pad*2);c.height=Math.ceil(px*1.3+pad*2);
+  const x=c.getContext('2d');x.textBaseline='alphabetic';let cur=pad;
+  parts.forEach((p,i)=>{x.font=p.w+' '+px+'px FingerPaint';x.fillStyle=p.c;x.fillText(p.t,cur,pad+px*1.0);cur+=p.width+gap});
+  return c;
+}
+async function pack(){
+  await document.fonts.load("700 200px FingerPaint");await document.fonts.load("400 200px FingerPaint");
+  const icon=renderCloud(1024,70,1.55,'#ff9f5f');
+  await post('1-ikona-kour.png',icon);
+  await post('icon-512.png',scaled(icon,512));
+  await post('apple-icon.png',scaled(icon,180));
+  for(const s of [16,32,48,64,192]) await post('favicon-'+s+'.png',scaled(icon,s));
+  // 2: jen slovo FaiN, šedobílé
+  const fain=textCanvas([{t:'FaiN',w:'700',c:'#e4e4e7'}],360,40);
+  await post('2-fain-slovo.png',fain);
+  // 3: ikona + FaiN Studio (Studio oranžově)
+  const word=textCanvas([{t:'FaiN',w:'700',c:'#f2f2f4'},{t:'Studio',w:'400',c:'#ff9f5f'}],300,20);
+  const H=word.height, I=Math.round(H*1.25);
+  const lock=document.createElement('canvas');lock.width=I+Math.round(H*0.1)+word.width;lock.height=Math.max(I,H);
+  const lx=lock.getContext('2d');lx.drawImage(scaled(icon,I),0,(lock.height-I)/2);lx.drawImage(word,I+Math.round(H*0.1),(lock.height-H)/2);
+  await post('3-logo-fain-studio.png',lock);
+  const w2=textCanvas([{t:'FaiN',w:'700',c:'#f2f2f4'},{t:'Studio',w:'400',c:'#ff9f5f'}],360,40);
+  await post('fain-studio-slovo.png',w2);
+  document.title='PACK DONE';
+  const o=document.getElementById('out');o.innerHTML='';[icon,fain,lock,w2].forEach(c=>{c.style.cssText='max-width:380px;max-height:200px;background:#0c0c0e;border-radius:10px;padding:8px';o.appendChild(c)});
+}
+if(q.get('pack')) pack();
+</script>

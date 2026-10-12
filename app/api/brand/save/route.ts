@@ -1,0 +1,96 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import path from 'node:path';
+
+/*
+ * Uložení primární barvy z Color studia na web. JEN pro lokální vývoj (localhost):
+ * přepíše výchozí barvu v CSS, vygeneruje znovu ikony a sadu log a udělá commit + push.
+ * Na produkci tahle cesta vrací 404.
+ */
+
+const run = promisify(execFile);
+const root = /*turbopackIgnore: true*/ process.cwd();
+const abs = (p: string) => path.join(/*turbopackIgnore: true*/ root, p);
+
+function ico(pngs: Buffer[], sizes: number[]) {
+  const head = Buffer.alloc(6);
+  head.writeUInt16LE(1, 2);
+  head.writeUInt16LE(pngs.length, 4);
+  let offset = 6 + 16 * pngs.length;
+  const entries: Buffer[] = [];
+  pngs.forEach((png, i) => {
+    const e = Buffer.alloc(16);
+    e[0] = sizes[i];
+    e[1] = sizes[i];
+    e.writeUInt16LE(1, 4);
+    e.writeUInt16LE(32, 6);
+    e.writeUInt32LE(png.length, 8);
+    e.writeUInt32LE(offset, 12);
+    offset += png.length;
+    entries.push(e);
+  });
+  return Buffer.concat([head, ...entries, ...pngs]);
+}
+
+export async function POST(req: NextRequest) {
+  const host = req.headers.get('host') ?? '';
+  const local = /^(localhost|127\.0\.0\.1|\[::1\])(:\d+)?$/.test(host);
+  if (process.env.NODE_ENV !== 'development' || !local) return new NextResponse(null, { status: 404 });
+  const origin = req.headers.get('origin');
+  if (origin && new URL(origin).host !== host) return NextResponse.json({ ok: false, error: 'Špatný původ.' }, { status: 403 });
+
+  const form = await req.formData();
+  const h = Number(form.get('h'));
+  const c = Number(form.get('c'));
+  const l = Number(form.get('l'));
+  if (![h, c, l].every(Number.isFinite) || h < 0 || h > 360 || c < 0 || c > 0.4 || Math.abs(l) > 0.2) {
+    return NextResponse.json({ ok: false, error: 'Neplatná barva.' }, { status: 400 });
+  }
+
+  try {
+    // 1) výchozí barva v CSS a v Color studiu
+    const cssPath = abs('app/globals.css');
+    let css = await readFile(cssPath, 'utf8');
+    css = css
+      .replace(/--brand-h:\s*[\d.]+;/, `--brand-h: ${h};`)
+      .replace(/--brand-c:\s*[\d.]+;/, `--brand-c: ${c};`)
+      .replace(/--brand-l-adj:\s*-?[\d.]+;/, `--brand-l-adj: ${l};`);
+    await writeFile(cssPath, css);
+
+    const csPath = abs('components/ColorStudio.tsx');
+    let cs = await readFile(csPath, 'utf8');
+    cs = cs.replace(/const DEF = \{[^}]*\};/, `const DEF = { h: ${h}, c: ${c}, l: ${l} };`);
+    await writeFile(csPath, cs);
+
+    // 2) ikony a sada log
+    await mkdir(abs('brand'), { recursive: true });
+    const buf = new Map<string, Buffer>();
+    for (const [name, v] of form.entries()) {
+      if (typeof v !== 'string' && /^[\w.-]+\.png$/.test(name)) buf.set(name, Buffer.from(await v.arrayBuffer()));
+    }
+    const need = ['icon-512.png', 'apple-icon.png', 'favicon-16.png', 'favicon-32.png', 'favicon-48.png'];
+    if (need.some((n) => !buf.has(n))) throw new Error('Chybí vygenerované ikony.');
+    for (const [name, b] of buf) await writeFile(abs(`brand/${name}`), b);
+    await writeFile(abs('app/icon.png'), buf.get('icon-512.png')!);
+    await writeFile(abs('app/apple-icon.png'), buf.get('apple-icon.png')!);
+    await writeFile(abs('app/favicon.ico'), ico([16, 32, 48].map((s) => buf.get(`favicon-${s}.png`)!), [16, 32, 48]));
+
+    // 3) commit + push
+    const git = (...a: string[]) => run('git', a, { cwd: root, timeout: 60000 });
+    await git('add', 'app/globals.css', 'components/ColorStudio.tsx', 'app/icon.png', 'app/apple-icon.png', 'app/favicon.ico', 'brand');
+    const msg = `Primary colour h ${h}, c ${c}, l ${l} (Color studio)\n\nCo-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`;
+    await git('commit', '-m', msg);
+    let pushed = true;
+    try {
+      await git('push');
+    } catch {
+      pushed = false;
+    }
+    return NextResponse.json({ ok: true, pushed });
+  } catch (e) {
+    const err = e as { stderr?: string; message?: string };
+    return NextResponse.json({ ok: false, error: (err.stderr || err.message || 'Uložení selhalo.').slice(0, 300) }, { status: 500 });
+  }
+}

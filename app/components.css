@@ -117,18 +117,6 @@ html.is-loading .seq {
 }
 /* „Studio": stejná velikost jako „FaiN", ale šedé a tenčí (běžný řez místo syntetického
    boldu; Finger Paint má jen Regular, tenčí než regular už nejde) */
-.logo__orb {
-  width: 40px;
-  height: 40px;
-  margin-right: 8px;
-  flex: none;
-  object-fit: contain;
-  transition: width 320ms var(--ease-out), height 320ms var(--ease-out);
-}
-.nav__pill--solid .logo__orb {
-  width: 34px;
-  height: 34px;
-}
 .logo__word {
   display: inline-flex;
   align-items: baseline; /* „Studio" sedí na stejném účaří jako „FaiN" */
@@ -344,13 +332,7 @@ html.is-loading .seq {
     height: 56px;
   }
   .logo {
-    font-size: 1.35rem;
-  }
-  .logo__orb,
-  .nav__pill--solid .logo__orb {
-    width: 26px;
-    height: 26px;
-    margin-right: 5px;
+    font-size: 1.55rem;
   }
   .nav__end {
     gap: 4px;
@@ -2059,6 +2041,34 @@ html.is-loading .seq {
   border-radius: 50%;
   background: #fff;
   border: 2px solid oklch(0.2 0 0);
+}
+.cs[data-save]:not([data-open]) {
+  width: min(360px, calc(100vw - 32px));
+}
+.cs__save {
+  flex: none;
+  height: 30px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--brand-deep);
+  color: #fff;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.3);
+}
+.cs__save:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+.cs__save[data-state='ok'] {
+  background: oklch(0.55 0.13 150);
+}
+.cs__save[data-state='err'] {
+  background: oklch(0.55 0.17 25);
 }
 .cs__more {
   flex: none;

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512"><defs>
+<radialGradient id="sph" cx="36%" cy="30%" r="75%"><stop offset="0" stop-color="#ffc08a"/><stop offset=".38" stop-color="#e2762c"/><stop offset=".8" stop-color="#9a4515"/><stop offset="1" stop-color="#6e2f0e"/></radialGradient>
+<filter id="clh" x="-30%" y="-30%" width="160%" height="160%"><feTurbulence type="fractalNoise" baseFrequency=".012" numOctaves="3" seed="8" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="80" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation="14"/></filter>
+<filter id="glh" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="18"/></filter>
+<clipPath id="cph"><circle cx="256" cy="256" r="170"/></clipPath>
+</defs><circle cx="256" cy="256" r="190" fill="#ff8a3d" opacity=".35" filter="url(#glh)"/>
+<path fill="url(#sph)" fill-rule="evenodd" d="M256 86a170 170 0 1 0 0 340a170 170 0 1 0 0-340zM206 206h100v100H206z"/>
+<rect x="228" y="228" width="56" height="56" fill="#ffd9b3"/></svg>
