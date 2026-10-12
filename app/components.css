@@ -180,7 +180,9 @@ html.is-loading .seq {
   border-radius: var(--radius-pill);
   transition: color 160ms;
 }
-.nav__links a:hover,
+.nav__links a:hover {
+  color: var(--sec);
+}
 .nav__links a[aria-current] {
   color: var(--ink);
 }
@@ -865,8 +867,8 @@ html.is-loading .seq {
     transform: translate3d(0, 8px, 0);
   }
 }
-.sys__meta {
-  color: var(--accent-text);
+.label.sys__meta {
+  color: var(--sec);
 }
 .sys__meta span {
   color: var(--ink-3);
@@ -1572,15 +1574,15 @@ html.is-loading .seq {
   top: -5px;
   width: 9px;
   height: 9px;
-  background: var(--brand);
-  box-shadow: 0 0 10px var(--brand);
+  background: var(--sec);
+  box-shadow: 0 0 10px var(--sec);
 }
 .proof-strip__title {
   font-family: var(--font-display);
   font-size: var(--step-2);
   font-weight: 620;
   letter-spacing: -0.02em;
-  color: var(--accent-text);
+  color: var(--sec);
 }
 .proof-strip__text {
   max-width: 64ch;
@@ -1689,6 +1691,10 @@ html.is-loading .seq {
 }
 .faq summary:hover .faq__q {
   transform: translateX(4px);
+  color: var(--sec);
+}
+.faq summary:hover .faq__icon {
+  border-color: var(--sec-deep);
 }
 .faq__icon {
   position: relative;
@@ -1955,6 +1961,9 @@ html.is-loading .seq {
   margin-left: auto;
   color: var(--ink);
   text-underline-offset: 3px;
+}
+.foot__in a:hover {
+  color: var(--sec);
 }
 @media (max-width: 560px) {
   .foot__in {
