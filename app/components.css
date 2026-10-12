@@ -175,6 +175,22 @@ html.is-loading .seq {
 }
 /* „Studio": stejná velikost jako „FaiN", ale šedé a tenčí (běžný řez místo syntetického
    boldu; Finger Paint má jen Regular, tenčí než regular už nejde) */
+.logo__orb {
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
+  flex: none;
+  object-fit: contain;
+  transition: width 320ms var(--ease-out), height 320ms var(--ease-out);
+}
+.nav__pill--solid .logo__orb {
+  width: 34px;
+  height: 34px;
+}
+.logo__word {
+  display: inline-flex;
+  align-items: baseline; /* „Studio" sedí na stejném účaří jako „FaiN" */
+}
 .logo__sub {
   margin-left: 0.14em;
   font-size: 1em;
@@ -199,7 +215,7 @@ html.is-loading .seq {
 }
 .logo {
   display: inline-flex;
-  align-items: baseline; /* „Studio" sedí na stejné účaří jako „FaiN" */
+  align-items: center;
   text-decoration: none;
   font-family: 'FingerPaint', var(--font-display);
   font-size: 1.85rem;
@@ -386,7 +402,13 @@ html.is-loading .seq {
     height: 56px;
   }
   .logo {
-    font-size: 1.55rem;
+    font-size: 1.35rem;
+  }
+  .logo__orb,
+  .nav__pill--solid .logo__orb {
+    width: 26px;
+    height: 26px;
+    margin-right: 5px;
   }
   .nav__end {
     gap: 4px;

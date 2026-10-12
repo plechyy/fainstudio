@@ -95,7 +95,11 @@ export default function Nav() {
     <header className="nav">
       <div className={`nav__pill${compact ? ' nav__pill--solid' : ''}`}>
         <a className="logo" href="#top" aria-label="FainStudio, na začátek stránky">
-          FaiN<span className="logo__sub">Studio</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="logo__orb" src="/logo-orb.png" alt="" width="40" height="40" />
+          <span className="logo__word">
+            FaiN<span className="logo__sub">Studio</span>
+          </span>
         </a>
 
         <nav className="nav__links" aria-label="Hlavní" onMouseLeave={() => setHover(null)}>
