@@ -1117,10 +1117,10 @@ html.is-loading .seq {
   grid-area: after;
   isolation: isolate;
   overflow: hidden;
-  border-color: var(--brand-deep);
+  border-color: transparent;
   background: linear-gradient(180deg, color-mix(in oklab, var(--brand) 12%, var(--surface)) 0%, var(--surface) 55%, var(--sunk) 100%);
   color: var(--ink);
-  box-shadow: 0 0 0 1px color-mix(in oklab, var(--brand) 10%, transparent), 0 24px 70px -30px var(--glow);
+  box-shadow: 0 24px 70px -30px var(--glow);
 }
 .ba__smoke {
   position: absolute;
