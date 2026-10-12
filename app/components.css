@@ -978,123 +978,88 @@ html.is-loading .seq {
   text-wrap: pretty;
 }
 
-/* časová osa */
-.tl {
-  --node: 11px;
-  position: relative;
+/* kroky jako segmentovaný progress bar */
+.steps {
   display: grid;
   gap: 40px;
   margin: 0;
-  padding: 0 0 0 34px;
+  padding: 0;
   list-style: none;
 }
-/* linka: na mobilu svisle vlevo, na desktopu vodorovně přes uzly */
-.tl::before {
-  content: '';
-  position: absolute;
-  left: calc(var(--node) / 2);
-  top: 6px;
-  bottom: 6px;
-  width: 1px;
-  background: linear-gradient(180deg, var(--brand-deep), var(--line-strong) 40%, var(--line-strong));
-  transform-origin: top;
-}
-.tl__step {
-  position: relative;
+.step {
   display: grid;
   align-content: start;
-  gap: 10px;
+  gap: 12px;
+  outline: none;
+  cursor: default;
 }
-.tl__mark {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 6px;
+.step__bar {
+  position: relative;
+  display: block;
+  height: 3px;
+  margin-bottom: 18px;
+  border-radius: 3px;
+  background: var(--line);
+  overflow: visible;
 }
-.tl__node {
+.step__fill {
   position: absolute;
-  left: -34px;
-  top: 4px;
-  width: var(--node);
-  height: var(--node);
-  border: 1px solid var(--brand-deep);
-  background: var(--bg);
+  inset: 0;
+  border-radius: inherit;
+  transform-origin: left;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, var(--brand-deep), var(--brand));
 }
-.tl__step:first-child .tl__node {
-  background: var(--brand);
-  border-color: var(--brand);
-  box-shadow: 0 0 12px var(--glow);
+.step[data-state='done'] .step__fill {
+  transform: none;
+  background: var(--brand-deep);
 }
-.tl__num {
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: var(--accent-text);
+.step[data-state='now'] .step__fill {
+  transform: none;
+  box-shadow: 0 0 14px -2px var(--glow);
 }
-.tl__name {
+.step__fill[data-run] {
+  animation: step-fill var(--step) linear both;
+}
+@keyframes step-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.step__name {
   font-family: var(--font-display);
   font-size: var(--step-1);
   font-weight: 600;
   letter-spacing: -0.012em;
   line-height: 1.15;
+  color: var(--ink);
+  transition: color 400ms var(--ease-out);
 }
-.tl__text {
+.step__text {
   max-width: 34ch;
   color: var(--ink-2);
   font-size: 0.95rem;
   line-height: 1.55;
   text-wrap: pretty;
+  transition: color 400ms var(--ease-out);
+}
+/* budoucí kroky ztlumené, aktivní plně rozsvícený */
+.step[data-state='next'] .step__name {
+  color: var(--ink-3);
+}
+.step[data-state='next'] .step__text {
+  color: color-mix(in oklab, var(--ink-3) 70%, transparent);
+}
+.step:focus-visible .step__bar {
+  outline: 2px solid var(--ink);
+  outline-offset: 6px;
 }
 @media (min-width: 900px) {
-  .tl {
+  .steps {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    column-gap: 40px;
-    padding: 0;
+    column-gap: 14px;
   }
-  .tl::before {
-    left: 0;
-    right: 0;
-    top: calc(var(--node) / 2);
-    bottom: auto;
-    width: auto;
-    height: 1px;
-    background: linear-gradient(90deg, var(--brand-deep), var(--line-strong) 30%, var(--line-strong) 85%, transparent);
-    transform-origin: left;
-  }
-  .tl__mark {
-    margin-bottom: 18px;
-  }
-  .tl__node {
-    position: static;
-  }
-}
-/* při vjetí do obrazu: linka se natáhne, uzly a kroky naskočí jeden po druhém */
-@media (prefers-reduced-motion: no-preference) {
-  .tl.reveal {
-    opacity: 1;
-    transform: none;
-  }
-  .tl::before {
-    transform: scaleY(0);
-    transition: transform 1100ms var(--ease-out);
-  }
-  .tl__step {
-    opacity: 0;
-    transform: translate3d(0, 14px, 0);
-    transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
-    transition-delay: calc(200ms + var(--i) * 160ms);
-  }
-  .tl.is-in::before {
-    transform: none;
-  }
-  .tl.is-in .tl__step {
-    opacity: 1;
-    transform: none;
-  }
-}
-@media (prefers-reduced-motion: no-preference) and (min-width: 900px) {
-  .tl::before {
-    transform: scaleX(0);
+  .step {
+    padding-right: 26px;
   }
 }
 
