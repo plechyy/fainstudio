@@ -809,6 +809,7 @@ html.is-loading .seq {
   position: relative;
   display: flex;
   flex-direction: column;
+  min-height: 420px;
   border-radius: 20px;
   background: linear-gradient(180deg, var(--surface) 0%, var(--sunk) 100%);
   overflow: hidden;
@@ -846,9 +847,10 @@ html.is-loading .seq {
   100% { opacity: 0.45; transform: none; }
 }
 .sys__visual {
-  aspect-ratio: 1 / 1; /* čtvercový prostor pro vizuál */
+  flex: 1;
   display: grid;
   place-items: center;
+  min-height: 220px;
   /* jemná tečková mřížka jako podklad, než dorazí vizuály */
   background-image: radial-gradient(circle, color-mix(in oklab, var(--ink) 14%, transparent) 1px, transparent 1.5px);
   background-size: 22px 22px;
@@ -914,6 +916,10 @@ html.is-loading .seq {
     --entry-x: 0%;
     --entry-y: 50%;
     grid-column: 3;
+    /* okno je vyšší směrem nahoru; záporný okraj drží výšku celé sekce beze změny */
+    align-self: end;
+    min-height: 560px;
+    margin-top: -80px;
   }
   .sys__copy {
     padding: 28px 32px 32px;
