@@ -666,23 +666,21 @@ html.is-loading .seq {
   text-align: left;
   color: var(--ink-2);
   background: color-mix(in oklab, var(--surface) 80%, transparent);
-  border: 1px solid var(--line);
+  border: 0;
   border-radius: 14px;
   cursor: pointer;
   overflow: hidden;
-  transition: color 160ms, border-color 160ms, background-color 160ms, box-shadow 220ms;
+  transition: color 160ms, background-color 160ms, box-shadow 220ms;
 }
 .sys__tab:hover {
   color: var(--ink);
-  border-color: var(--line-strong);
+  background: color-mix(in oklab, var(--surface) 92%, var(--ink) 4%);
 }
 .sys__tab[aria-selected='true'] {
   color: var(--ink);
-  border-color: var(--brand-deep);
   background: linear-gradient(90deg, transparent 0%, var(--brand-wash) 100%),
     color-mix(in oklab, var(--surface) 80%, transparent);
-  box-shadow: 0 0 0 1px color-mix(in oklab, var(--brand) 12%, transparent),
-    0 10px 34px -16px var(--glow);
+  box-shadow: 0 10px 34px -16px var(--glow);
 }
 .sys__num {
   width: 2ch;
