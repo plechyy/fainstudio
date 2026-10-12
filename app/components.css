@@ -11,7 +11,7 @@ html.is-loading .seq {
   z-index: 200;
   display: grid;
   place-items: center;
-  background: #050505;
+  background: var(--bg-deep);
   transition: opacity 600ms var(--ease-out), visibility 0s linear 600ms;
 }
 .loader.is-done {
@@ -37,7 +37,7 @@ html.is-loading .seq {
   font-weight: 700;
   font-size: clamp(4.4rem, 2.4rem + 9vw, 8.5rem);
   line-height: 1;
-  color: #2a2a2e;
+  color: color-mix(in oklab, var(--ink) 14%, var(--bg-deep));
   transition: color 300ms;
 }
 .loader__word.is-gl .loader__text {
@@ -107,6 +107,8 @@ html.is-loading .seq {
   /* uvnitř černého pruhu vždy světlé písmo, i ve světlém tématu */
   --ink: oklch(0.98 0.004 var(--brand-h));
   --ink-2: oklch(0.8 0.008 var(--brand-h));
+  --sec-text: var(--sec);
+  --accent-text: var(--brand);
   --chip: oklch(1 0 0 / 0.08);
   --chip-hover: oklch(1 0 0 / 0.16);
   --glass-top: oklch(1 0 0 / 0.22);
@@ -114,6 +116,7 @@ html.is-loading .seq {
 }
 .nav__pill--solid .logo {
   font-size: 1.5rem;
+  color: #fff;
 }
 /* „Studio": stejná velikost jako „FaiN", ale šedé a tenčí (běžný řez místo syntetického
    boldu; Finger Paint má jen Regular, tenčí než regular už nejde) */
@@ -126,7 +129,7 @@ html.is-loading .seq {
   font-size: 1em;
   font-weight: 400;
   letter-spacing: 0.02em;
-  color: var(--brand);
+  color: var(--accent-text);
 }
 @media (prefers-reduced-motion: no-preference) {
   .nav__pill {
@@ -152,7 +155,7 @@ html.is-loading .seq {
   line-height: 1;
   font-weight: 700; /* Finger Paint má jen Regular → syntetický bold */
   letter-spacing: 0.01em;
-  color: #fff;
+  color: var(--ink);
   text-shadow: 0 1px 8px oklch(0 0 0 / 0.5);
   margin-right: auto;
   transition: font-size 320ms var(--ease-out);
@@ -181,7 +184,7 @@ html.is-loading .seq {
   transition: color 160ms;
 }
 .nav__links a:hover {
-  color: var(--sec);
+  color: var(--sec-text);
 }
 .nav__links a[aria-current] {
   color: var(--ink);
@@ -484,7 +487,7 @@ html.is-loading .seq {
   margin-top: 36px;
 }
 .hero__down {
-  color: var(--sec);
+  color: var(--sec-text);
 }
 
 /* animace pozadí hera */
@@ -553,7 +556,7 @@ html.is-loading .seq {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  color: #c3c8ce;
+  color: var(--ink-3);
   opacity: 0.85;
 }
 .logos__ph {
@@ -593,7 +596,7 @@ html.is-loading .seq {
   color: var(--ink-2);
 }
 .shead__index b {
-  color: var(--sec);
+  color: var(--sec-text);
   font-weight: 650;
 }
 .shead__lead {
@@ -868,7 +871,7 @@ html.is-loading .seq {
   }
 }
 .label.sys__meta {
-  color: var(--sec);
+  color: var(--sec-text);
 }
 .sys__meta span {
   color: var(--ink-3);
@@ -1582,7 +1585,7 @@ html.is-loading .seq {
   font-size: var(--step-2);
   font-weight: 620;
   letter-spacing: -0.02em;
-  color: var(--sec);
+  color: var(--sec-text);
 }
 .proof-strip__text {
   max-width: 64ch;
@@ -1691,7 +1694,7 @@ html.is-loading .seq {
 }
 .faq summary:hover .faq__q {
   transform: translateX(4px);
-  color: var(--sec);
+  color: var(--sec-text);
 }
 .faq summary:hover .faq__icon {
   border-color: var(--sec-deep);
@@ -1963,7 +1966,7 @@ html.is-loading .seq {
   text-underline-offset: 3px;
 }
 .foot__in a:hover {
-  color: var(--sec);
+  color: var(--sec-text);
 }
 @media (max-width: 560px) {
   .foot__in {
@@ -2229,4 +2232,54 @@ html.is-loading .seq {
   .cs:not([data-open]) {
     width: 168px;
   }
+}
+
+/* ── přepínač motivu ───────────────────────────────────────────── */
+.theme-toggle {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--chip);
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 var(--glass-top), inset 0 0 0 1px var(--glass-edge-lo);
+  transition: background-color 140ms, transform 160ms var(--ease-out);
+}
+.theme-toggle:hover {
+  background: var(--chip-hover);
+  transform: rotate(12deg);
+}
+.theme-toggle--nav {
+  display: none;
+}
+.theme-toggle--menu {
+  width: 100%;
+  height: 44px;
+  border-radius: 12px;
+  margin-top: 8px;
+}
+@media (min-width: 1100px) {
+  .theme-toggle--nav {
+    display: grid;
+  }
+  .theme-toggle--menu {
+    display: none;
+  }
+}
+
+:root[data-theme='light'] .logo {
+  text-shadow: none;
+}
+:root[data-theme='light'] .nav__pill--solid .logo {
+  text-shadow: 0 1px 8px oklch(0 0 0 / 0.5);
+}
+:root[data-theme='light'] .proof__value {
+  background: linear-gradient(180deg, color-mix(in oklab, var(--accent-text) 75%, black) 0%, var(--accent-text) 85%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: var(--accent-text);
 }

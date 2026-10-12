@@ -19,6 +19,7 @@ uniform vec2 u_res;
 uniform float u_time;
 uniform float u_fill;
 uniform vec3 u_brand;
+uniform vec3 u_base;
 uniform sampler2D u_tex;
 out vec4 outColor;
 
@@ -56,7 +57,7 @@ void main(){
 
   vec3 smoke = mix(u_brand*0.78, u_brand*1.0, smoothstep(0.15, 0.9, f));
   smoke = mix(smoke, vec3(1.0), 0.2*smoothstep(0.85, 1.0, f));
-  vec3 base = vec3(0.165, 0.165, 0.18);
+  vec3 base = u_base;
   vec3 col = mix(base, smoke, k);
   outColor = vec4(col*a, a);
 }`;
@@ -193,6 +194,9 @@ export default function Loader() {
       gl.uniform2f(gl.getUniformLocation(prog, 'u_res'), canvas.width, canvas.height);
       const [r, g, b] = brandRgb();
       gl.uniform3f(gl.getUniformLocation(prog, 'u_brand'), r, g, b);
+      const light = root.dataset.theme === 'light';
+      if (light) gl.uniform3f(gl.getUniformLocation(prog, 'u_base'), 0.86, 0.855, 0.85);
+      else gl.uniform3f(gl.getUniformLocation(prog, 'u_base'), 0.165, 0.165, 0.18);
       const uTime = gl.getUniformLocation(prog, 'u_time');
       const uFill = gl.getUniformLocation(prog, 'u_fill');
 

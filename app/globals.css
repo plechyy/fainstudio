@@ -78,6 +78,7 @@
      výběr textu). Nikdy ve stejném prvku jako primární. */
   --sec: #6aa7ff;
   --sec-deep: color-mix(in oklab, var(--sec) 70%, black);
+  --sec-text: var(--sec);
 
   /* Tmavé téma (výchozí) */
   --bg: oklch(0.145 0.006 var(--brand-h));
@@ -137,8 +138,58 @@
   --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-/* Světlé téma: explicitní přepnutí, nebo systémová preference bez override. */
-/* Web je záměrně jen v tmavém tématu (světlé bylo odstraněno). */
+/* Světlé téma: přepínač v navigaci (html[data-theme='light']). Tmavé je výchozí. */
+:root[data-theme='light'] {
+  --bg: oklch(0.985 0.005 var(--brand-h));
+  --bg-deep: oklch(0.955 0.009 var(--brand-h));
+  --surface: oklch(0.997 0.002 var(--brand-h));
+  --surface-2: oklch(0.965 0.006 var(--brand-h));
+  --sunk: oklch(0.94 0.008 var(--brand-h));
+  --ink: oklch(0.2 0.012 var(--brand-h));
+  --ink-2: oklch(0.42 0.015 var(--brand-h));
+  --ink-3: oklch(0.55 0.014 var(--brand-h));
+  --line: oklch(0.9 0.008 var(--brand-h));
+  --line-strong: oklch(0.8 0.01 var(--brand-h));
+  --accent-text: oklch(calc(0.56 + var(--brand-l-adj)) calc(var(--brand-c) * 1.1) var(--brand-h));
+  --tick: oklch(calc(0.6 + var(--brand-l-adj)) var(--brand-c) var(--brand-h));
+  --sec-text: color-mix(in oklab, var(--sec) 62%, black);
+
+  --plate-top: oklch(0.975 0.006 var(--brand-h));
+  --plate-bot: oklch(0.925 0.008 var(--brand-h));
+  --plate-ink: oklch(0.35 0.012 var(--brand-h));
+  --plate-line: oklch(0 0 0 / 0.1);
+
+  --glow: oklch(calc(0.78 + var(--brand-l-adj)) var(--brand-c) var(--brand-h) / 0.32);
+
+  --glass-a: oklch(1 0 0 / 0.7);
+  --glass-b: oklch(1 0 0 / 0.38);
+  --glass-top: oklch(1 0 0 / 0.95);
+  --glass-bottom: oklch(0 0 0 / 0.04);
+  --glass-glow-in: oklch(1 0 0 / 0.4);
+  --glass-edge-hi: oklch(1 0 0 / 0.95);
+  --glass-edge-lo: oklch(0 0 0 / 0.1);
+  --glass-sheen: oklch(1 0 0 / 0.6);
+  --glass-shadow: 0 12px 40px -14px oklch(0 0 0 / 0.22), 0 2px 10px oklch(0 0 0 / 0.08);
+  --chip: oklch(0 0 0 / 0.05);
+  --chip-hover: oklch(0 0 0 / 0.1);
+  --shadow: 0 1px 0 oklch(1 0 0 / 0.7), 0 24px 60px -24px oklch(0 0 0 / 0.22);
+  color-scheme: light;
+}
+/* karty, které jsou záměrně tmavé i ve světlém motivu (závěrečné CTA) */
+:root[data-theme='light'] .cta {
+  --ink: oklch(0.97 0.006 var(--brand-h));
+  --ink-2: oklch(0.73 0.012 var(--brand-h));
+  --ink-3: oklch(0.56 0.012 var(--brand-h));
+  --line: oklch(0.27 0.01 var(--brand-h));
+  --line-strong: oklch(0.36 0.012 var(--brand-h));
+  --accent-text: var(--brand);
+  --sec-text: var(--sec);
+  --chip: oklch(1 0 0 / 0.08);
+  --chip-hover: oklch(1 0 0 / 0.16);
+  --glass-top: oklch(1 0 0 / 0.38);
+  --glass-edge-lo: oklch(1 0 0 / 0.07);
+  color-scheme: dark;
+}
 
 /* Mapování na Tailwind utility (bg-bg, text-ink, border-line, text-brand, …). */
 @theme inline {
@@ -281,6 +332,26 @@ button {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
+  }
+}
+/* světlý motiv: tmavý přechod místo bílého; CTA karta zůstává stříbrná */
+:root[data-theme='light'] .silver {
+  color: var(--ink);
+}
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  :root[data-theme='light'] .silver,
+  :root[data-theme='light'] .silver--block {
+    background: linear-gradient(180deg, oklch(0.17 0.012 var(--brand-h)) 0%, oklch(0.28 0.014 var(--brand-h)) 45%, oklch(0.48 0.016 var(--brand-h)) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  :root[data-theme='light'] .cta .silver,
+  :root[data-theme='light'] .cta .silver--block {
+    background: linear-gradient(180deg, #ffffff 0%, #e4e7ea 42%, #b6bcc4 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
   }
 }
 /* v titulku se přechod rozkládá přes celý blok bílé části (2 řádky) */

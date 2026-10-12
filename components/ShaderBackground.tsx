@@ -18,6 +18,7 @@ uniform vec3 u_brand;
 uniform vec3 u_bg;
 uniform float u_motion;
 uniform float u_sides; // 0 = volně, 1 = boky (hero), 2 = jeden mrak uprostřed
+uniform float u_light; // 1 = světlý motiv: mrak je sytě barevný na světlém podkladu
 out vec4 outColor;
 
 float hash(vec2 p){ p = fract(p*vec2(123.34, 456.21)); p += dot(p, p+45.32); return fract(p.x*p.y); }
@@ -87,9 +88,15 @@ void main(){
   // Strop = jasná verze brand barvy; v nejvyšších špičkách lehce k bílé (ne na plno).
   vec3 peak = u_brand * 0.95;
   vec3 col = u_bg;
-  col = mix(col, u_brand * 0.38, smoothstep(0.08, 0.55, d));
-  col = mix(col, peak, smoothstep(0.50, 0.92, d));
-  col = mix(col, mix(peak, vec3(1.0), 0.35), smoothstep(0.86, 1.0, d));
+  if (u_light > 0.5) {
+    // světlý podklad: mlha jde z bledého nádechu do sytější barvy, nikdy do bílé
+    col = mix(col, mix(u_bg, u_brand, 0.5), smoothstep(0.08, 0.55, d) * 0.85);
+    col = mix(col, u_brand * 0.9, smoothstep(0.45, 0.95, d) * 0.9);
+  } else {
+    col = mix(col, u_brand * 0.38, smoothstep(0.08, 0.55, d));
+    col = mix(col, peak, smoothstep(0.50, 0.92, d));
+    col = mix(col, mix(peak, vec3(1.0), 0.35), smoothstep(0.86, 1.0, d));
+  }
   col = mix(col, u_bg, smoothstep(0.80, 1.5, length(p)));
 
   // film grain
@@ -182,6 +189,8 @@ export default function ShaderBackground({
     const uBg = gl.getUniformLocation(prog, 'u_bg');
     const uMotion = gl.getUniformLocation(prog, 'u_motion');
     const uSides = gl.getUniformLocation(prog, 'u_sides');
+    const uLight = gl.getUniformLocation(prog, 'u_light');
+    const isLight = () => !bgHex && document.documentElement.dataset.theme === 'light';
 
     let brand = srgb('--brand');
     let bg = bgHex ? hex(bgHex) : srgb('--bg-deep');
@@ -192,7 +201,7 @@ export default function ShaderBackground({
     refreshColors();
     // color studio mění style na <html>
     const mo = new MutationObserver(refreshColors);
-    mo.observe(document.documentElement, { attributes: true, attributeFilter: ['style'] });
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ['style', 'data-theme'] });
 
     // Mlha je rozmazaná → stačí nízké rozlišení. Backing store ~0.42× CSS px,
     // CSS ho roztáhne. Výrazně míň fragmentů = plynulé i na slabším GPU.
@@ -227,6 +236,7 @@ export default function ShaderBackground({
       gl.uniform3f(uBg, bg[0], bg[1], bg[2]);
       gl.uniform1f(uMotion, reduce.matches ? 0 : 1);
       gl.uniform1f(uSides, center ? 2 : sides ? 1 : 0);
+      gl.uniform1f(uLight, isLight() ? 1 : 0);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     };
     const render = () => draw((performance.now() - start) / 1000);

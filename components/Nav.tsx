@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { CAL_URL } from '@/lib/config';
+import ThemeToggle from './ThemeToggle';
 
 const LINKS = [
   { href: '#systemy', label: 'Systémy' },
@@ -130,6 +131,7 @@ export default function Nav() {
         </nav>
 
         <div className="nav__end">
+          <ThemeToggle className="theme-toggle--nav" />
           <a className="nav__cta" href={CAL_URL}>
             <span className="nav__cta-long">Rezervovat hovor</span>
             <span className="nav__cta-short">Rezervovat</span>
@@ -158,6 +160,7 @@ export default function Nav() {
               </li>
             ))}
           </ul>
+          <ThemeToggle className="theme-toggle--menu" />
         </div>
       )}
     </header>
