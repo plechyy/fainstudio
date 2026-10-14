@@ -15,7 +15,7 @@ import { makePack, updateFavicon } from '@/lib/brandAssets';
 
 const KEY = 'brand-v6';
 type Brand = { p: string; s: string; h: number; c: number; l: number };
-const DEF: Brand = { p: '#ff9f5f', s: '#6aa7ff', h: 48, c: 0.16, l: 0.035 };
+const DEF: Brand = { p: '#dc8d18', s: '#ffffff', h: 68.8, c: 0.149, l: -0.0717 };
 
 const round = (n: number, d = 3) => +n.toFixed(d);
 const clamp = (n: number, a: number, b: number) => Math.min(b, Math.max(a, n));

@@ -62,9 +62,9 @@
  * Dark-first: výchozí je tmavé téma. Slider v rohu mění --brand-h / --brand-c.
  */
 :root {
-  --brand-h: 48;
-  --brand-c: 0.16;
-  --brand-l-adj: 0.035; /* ±0.08: posun světlosti akcentu (tlačítka, výplně, glow) */
+  --brand-h: 68.8;
+  --brand-c: 0.149;
+  --brand-l-adj: -0.0717; /* ±0.08: posun světlosti akcentu (tlačítka, výplně, glow) */
 
   --brand: oklch(calc(0.78 + var(--brand-l-adj)) var(--brand-c) var(--brand-h));
   --brand-strong: oklch(calc(0.7 + var(--brand-l-adj)) var(--brand-c) var(--brand-h));
@@ -76,7 +76,7 @@
 
   /* Sekundární barva: jen decentní doplněk (čísla sekcí, hover šedých tlačítek, FAQ ikona,
      výběr textu). Nikdy ve stejném prvku jako primární. */
-  --sec: #6aa7ff;
+  --sec: #ffffff;
   --sec-deep: color-mix(in oklab, var(--sec) 70%, black);
   --sec-text: var(--sec);
 
