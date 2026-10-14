@@ -62,9 +62,9 @@
  * Dark-first: výchozí je tmavé téma. Slider v rohu mění --brand-h / --brand-c.
  */
 :root {
-  --brand-h: 68.8;
-  --brand-c: 0.149;
-  --brand-l-adj: -0.0717; /* ±0.08: posun světlosti akcentu (tlačítka, výplně, glow) */
+  --brand-h: 78.8;
+  --brand-c: 0.1522;
+  --brand-l-adj: -0.0184; /* ±0.08: posun světlosti akcentu (tlačítka, výplně, glow) */
 
   --brand: oklch(calc(0.78 + var(--brand-l-adj)) var(--brand-c) var(--brand-h));
   --brand-strong: oklch(calc(0.7 + var(--brand-l-adj)) var(--brand-c) var(--brand-h));
@@ -82,9 +82,9 @@
 
   /* Tmavé téma (výchozí) */
   /* Pozadí: světlost / sytost / odstín jedné barvy (Color studio), ostatní neutrály jsou její odvozeniny */
-  --bgd-l: 0.145;
-  --bgd-c: 0.006;
-  --bgd-h: var(--brand-h);
+  --bgd-l: 0.2058;
+  --bgd-c: 0.0066;
+  --bgd-h: 78.2;
   --bgl-l: 0.985;
   --bgl-c: 0.005;
   --bgl-h: var(--brand-h);
@@ -490,13 +490,6 @@ button {
 .btn--primary {
   box-shadow: 0 0 0 1px color-mix(in oklab, var(--brand-deep) 70%, transparent),
     0 8px 30px -12px var(--glow);
-  /* obrys kolem tlačítka s mezerou; outline neořízne overflow a mezera zůstane průhledná */
-  outline: 1.5px solid var(--brand-strong);
-  outline-offset: 7px;
-}
-.btn--primary:focus-visible {
-  outline: 2px solid oklch(0.97 calc(var(--brand-c) * 0.35) var(--brand-h));
-  outline-offset: 7px;
 }
 .btn--primary::after {
   content: '';

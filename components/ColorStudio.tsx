@@ -15,7 +15,7 @@ import { makePack, updateFavicon } from '@/lib/brandAssets';
 
 const KEY = 'brand-v6';
 type Brand = { p: string; s: string; h: number; c: number; l: number; bd: string; bl: string };
-const DEF: Brand = { p: '#dc8d18', s: '#ffffff', h: 68.8, c: 0.149, l: -0.0717, bd: '', bl: '' };
+const DEF: Brand = { p: '#e5a41d', s: '#ffffff', h: 78.8, c: 0.1522, l: -0.0184, bd: '#191714', bl: '' };
 const BG_KEY = 'brand-bg-v1'; // spočítané CSS proměnné pozadí; layout.tsx je obnoví před prvním vykreslením
 
 const round = (n: number, d = 3) => +n.toFixed(d);
