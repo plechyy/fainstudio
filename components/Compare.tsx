@@ -1,5 +1,4 @@
-import { compare, cta } from '@/lib/content';
-import CtaRow from './CtaRow';
+import { compare } from '@/lib/content';
 import ShaderBackground from './ShaderBackground';
 
 const good = (v: string) => v === 'Ano' || v.startsWith('Do ');
@@ -105,7 +104,6 @@ export default function Compare() {
         </div>
 
         <p className="cmp-note">{compare.note}</p>
-        <CtaRow label={cta.button} />
       </div>
     </section>
   );
