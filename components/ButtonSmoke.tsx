@@ -37,7 +37,7 @@ float fbm(vec2 p){
 void main(){
   // jemnější měřítko než v hero → i v malém tlačítku je vidět struktura mraku
   vec2 p = (gl_FragCoord.xy - 0.5*u_res) / u_res.y * 9.0;
-  float t = u_time * 0.3;                       // ≈3× rychlejší než hero → pohyb je vidět i v malém okně
+  float t = u_time * 0.15;                      // ≈1,5× rychlejší než hero (zpomaleno o 50 %)
   p += vec2(t * 0.55, t * 0.2);                 // plynulý driftem posun celého pole
   vec2 w = vec2(fbm(p*0.9 + vec2(0.0, t)), fbm(p*0.9 + vec2(3.3, -t*0.8)));
   float n = fbm(p*1.2 + 2.2*(w - 0.5) + 0.25*t);
