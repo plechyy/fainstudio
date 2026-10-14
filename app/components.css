@@ -1140,7 +1140,7 @@ html.is-loading .seq {
   background: rgb(5 5 5 / 0.58);
 }
 .cmp-smoke--card::after {
-  background: linear-gradient(90deg, rgb(5 5 5 / 0.82) 0%, rgb(5 5 5 / 0.45) 45%, transparent 85%);
+  background: rgb(5 5 5 / 0.5);
 }
 .ba__smoke {
   position: absolute;
@@ -1288,6 +1288,7 @@ html.is-loading .seq {
   display: none;
 }
 .cmp-smoke--card {
+  z-index: -1;
   inset: 0;
   left: 0;
   width: auto;
@@ -2219,4 +2220,11 @@ html.is-loading .seq {
   -webkit-background-clip: text;
   background-clip: text;
   color: var(--accent-text);
+}
+
+/* mobil: bez štítku nad nadpisem v hero */
+@media (max-width: 700px) {
+  .hero__eyebrow {
+    display: none;
+  }
 }

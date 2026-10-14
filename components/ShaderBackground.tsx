@@ -57,12 +57,19 @@ void main(){
   // Režim „boky": stejné pomalé dráhy, ale každý bod je vázaný na jednu polovinu hera
   // (levý/pravý okraj). A = polovina šířky v jednotkách výšky.
   float A = 0.5 * u_res.x / u_res.y;
+  bool portrait = u_res.y > u_res.x;
   if (u_sides > 1.5) {
     // jeden bod, který se jen pomalu potuluje kolem středu
     c1 = vec2(A * 0.22 * sin(t*0.65), 0.12 * cos(t*0.8));
   } else if (u_sides > 0.5) {
-    c1 = vec2(-A * (0.74 + 0.16*sin(t*0.65)), 0.30*cos(t*0.8));
-    c2 = vec2( A * (0.74 + 0.16*cos(t*0.45 + 2.0)), 0.34*sin(t*0.55 + 1.0));
+    if (portrait) {
+      // mobil na výšku: mrak nahoře a dole místo po stranách
+      c1 = vec2(0.12*sin(t*0.65), -0.5 * (0.74 + 0.16*sin(t*0.65)));
+      c2 = vec2(0.12*cos(t*0.45 + 2.0),  0.5 * (0.74 + 0.16*cos(t*0.45 + 2.0)));
+    } else {
+      c1 = vec2(-A * (0.74 + 0.16*sin(t*0.65)), 0.30*cos(t*0.8));
+      c2 = vec2( A * (0.74 + 0.16*cos(t*0.45 + 2.0)), 0.34*sin(t*0.55 + 1.0));
+    }
   }
   float g1 = exp(-dot(p - c1, p - c1) * 2.2);
   float g2 = exp(-dot(p - c2, p - c2) * 2.7);
@@ -81,7 +88,7 @@ void main(){
     // takže žádná strana nikdy nezmizí, když je šum zrovna slabý
     // (změřeno: na 2 h animace nejslabší moment 0.45, nikdy pod čtvrtinou jasu).
     d = clamp(mix(0.45, 1.0, f) * (0.18 + 1.7 * gm), 0.0, 1.0);
-    float ax = abs(gl_FragCoord.x / u_res.x - 0.5);
+    float ax = portrait ? abs(gl_FragCoord.y / u_res.y - 0.5) : abs(gl_FragCoord.x / u_res.x - 0.5);
     d *= smoothstep(0.17, 0.40, ax);
   }
 
