@@ -621,7 +621,7 @@ html.is-loading .seq {
   margin-bottom: clamp(40px, 6vw, 72px);
 }
 .sys-head__title {
-  font-size: clamp(2.4rem, 1.5rem + 3.4vw, 4.4rem);
+  font-size: clamp(2.2rem, 1.4rem + 3vw, 3.8rem);
 }
 .sys-head__accent {
   display: block;
@@ -978,7 +978,7 @@ html.is-loading .seq {
   text-align: center;
 }
 .proc-head__title {
-  font-size: clamp(2.4rem, 1.5rem + 3.4vw, 4.4rem);
+  font-size: clamp(2.2rem, 1.4rem + 3vw, 3.8rem);
   padding-bottom: 0.06em;
 }
 .proc-head__lead {
@@ -1090,7 +1090,7 @@ html.is-loading .seq {
   margin-bottom: 20px;
 }
 .ba-head__title {
-  font-size: clamp(2.4rem, 1.5rem + 3.4vw, 4.4rem);
+  font-size: clamp(2.2rem, 1.4rem + 3vw, 3.8rem);
 }
 .ba-head__accent {
   display: block;
@@ -1224,7 +1224,7 @@ html.is-loading .seq {
   margin-bottom: clamp(36px, 5vw, 64px);
 }
 .hd__title {
-  font-size: clamp(2.4rem, 1.5rem + 3.4vw, 4.4rem);
+  font-size: clamp(2.2rem, 1.4rem + 3vw, 3.8rem);
 }
 .hd__lead {
   max-width: 44ch;
