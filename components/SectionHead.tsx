@@ -7,7 +7,7 @@ export default function SectionHead({
 }: {
   index: string;
   name: string;
-  title: string;
+  title: React.ReactNode;
   lead?: string;
   id: string;
 }) {
