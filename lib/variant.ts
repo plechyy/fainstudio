@@ -5,18 +5,15 @@
  * vynutit odkazem (?sys=b). Až si jednu variantu vybereme, zbytek i tenhle soubor zmizí.
  */
 
-export type SysVariant = 'now' | 'a' | 'b' | 'c' | 'd';
+export type SysVariant = 'now' | 'c';
 
 export const VARIANTS: { id: SysVariant; label: string; note: string }[] = [
-  { id: 'now', label: 'Teď', note: 'Současná sekce s vodiči' },
-  { id: 'a', label: 'A', note: 'Výstupy — všech šest vedle sebe' },
-  { id: 'b', label: 'B', note: 'Rejstřík — seznam, který se otevírá' },
-  { id: 'c', label: 'C', note: 'Dílna — jeden výstup přes celou šířku' },
-  { id: 'd', label: 'D', note: 'Posuv — výstup se mění při scrollu' },
+  { id: 'now', label: 'Teď', note: 'Původní sekce s vodiči' },
+  { id: 'c', label: 'C', note: 'Dílna — jména nahoře, jeden vizuál' },
 ];
 
 const KEY = 'sys-variant';
-const DEF: SysVariant = 'a';
+const DEF: SysVariant = 'c';
 const isVariant = (v: unknown): v is SysVariant => VARIANTS.some((x) => x.id === v);
 
 let current: SysVariant = DEF;

@@ -55,6 +55,10 @@ export default function VariantC() {
           <h3 className="sv-c__title">{s.name}</h3>
           <p className="sv-c__text">{s.text}</p>
         </div>
+        {/* na počítači čeká prázdné místo na grafiku, na mobilu zůstává kreslený výstup */}
+        <div className="sv-c__ph" key={`p${active}`} aria-hidden="true">
+          <span>Vizuál · {s.short}</span>
+        </div>
         <Artifact id={s.id} className="sv-c__art" key={`a${active}`} />
       </div>
     </div>

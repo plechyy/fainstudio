@@ -4,10 +4,7 @@ import { useEffect, useRef } from 'react';
 import { hero, systems } from '@/lib/content';
 import CtaRow from './CtaRow';
 import Board from './systems/Board';
-import VariantA from './systems/VariantA';
-import VariantB from './systems/VariantB';
 import VariantC from './systems/VariantC';
-import VariantD from './systems/VariantD';
 import VariantSwitch, { useSysVariant } from './systems/VariantSwitch';
 
 /*
@@ -56,11 +53,7 @@ export default function Systems() {
           <p className="sys-head__lead">{systems.lead}</p>
         </header>
 
-        {v === 'now' && <Board />}
-        {v === 'a' && <VariantA />}
-        {v === 'b' && <VariantB />}
-        {v === 'c' && <VariantC />}
-        {v === 'd' && <VariantD />}
+        {v === 'now' ? <Board /> : <VariantC />}
 
         <CtaRow label={hero.primary} />
       </div>
