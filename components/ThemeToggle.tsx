@@ -13,6 +13,9 @@ export default function ThemeToggle({ className = '' }: { className?: string }) 
   const toggle = () => {
     const next = light ? 'dark' : 'light';
     document.documentElement.dataset.theme = next;
+    // lišta prohlížeče na iOS má držet barvu pozadí
+    const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+    if (meta) meta.content = next === 'light' ? '#fcfaf6' : '#191714';
     try {
       localStorage.setItem('theme', next);
     } catch {}
