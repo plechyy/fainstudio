@@ -482,18 +482,51 @@ button {
   transform: translateY(0);
 }
 /* hlavní tlačítko: kouř v primární barvě + „elektrický“ výboj, který obíhá po obvodu */
+@property --ang {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
 .btn--primary {
-  /* dva zlaté obrysy: silnější po obvodu a tenká linka kousek pod ním */
-  box-shadow: 0 0 0 2px var(--brand-strong), 0 10px 34px -14px var(--glow);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--brand-deep) 70%, transparent),
+    0 8px 30px -12px var(--glow);
+  /* obrys kolem tlačítka s mezerou; outline neořízne overflow a mezera zůstane průhledná */
+  outline: 1.5px solid var(--brand-strong);
+  outline-offset: 7px;
+}
+.btn--primary:focus-visible {
+  outline: 2px solid oklch(0.97 calc(var(--brand-c) * 0.35) var(--brand-h));
+  outline-offset: 7px;
 }
 .btn--primary::after {
   content: '';
   position: absolute;
-  inset: 6px;
+  inset: 0;
   z-index: 1;
-  border: 1px solid color-mix(in oklab, var(--brand) 45%, transparent);
+  padding: 1.6px;
   border-radius: inherit;
   pointer-events: none;
+  background: conic-gradient(
+    from var(--ang),
+    transparent 0 62%,
+    color-mix(in oklab, var(--brand) 70%, transparent) 80%,
+    oklch(0.98 calc(var(--brand-c) * 0.4) var(--brand-h)) 94%,
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  filter: drop-shadow(0 0 3px var(--brand));
+}
+@media (prefers-reduced-motion: no-preference) {
+  .btn--primary::after {
+    animation: btn-orbit 3.2s linear infinite;
+  }
+}
+@keyframes btn-orbit {
+  to {
+    --ang: 360deg;
+  }
 }
 /* vedlejší tlačítko: šedé, bez kouře, jen obyčejný šedý obrys */
 .btn--ghost {

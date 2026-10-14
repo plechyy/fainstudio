@@ -488,7 +488,7 @@ html.is-loading .seq {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 12px;
+  gap: 24px; /* obrys hlavního tlačítka přesahuje o 8,5 px na každou stranu */
   margin-top: 36px;
 }
 .hero__down {
