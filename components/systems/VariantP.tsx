@@ -11,9 +11,9 @@ import SysHead from './SysHead';
  * vypadalo jako šablona: žádná čísla, žádné karty pod každou položkou,
  * žádné vodiče, výboje ani automatické přepínání.
  *
- * Na počítači jsou dva sloupce stejné výšky: vlevo nadpis, jména a popis,
- * vpravo vizuál od horní hrany nadpisu až po spodek textu. Na mobilu je
- * z toho nekonečný carousel.
+ * Na počítači jsou dva sloupce stejné výšky: vlevo nadpis a jména, vpravo
+ * vizuál od horní hrany nadpisu a pod ním popis vybraného systému.
+ * Na mobilu je z toho nekonečný carousel.
  */
 
 export default function VariantP() {
@@ -77,17 +77,16 @@ export default function VariantP() {
             </button>
           ))}
         </div>
-
-        <div className="sp__copy" id="sp-panel" role="tabpanel" aria-labelledby={`sp-tab-${s.id}`} key={`c${active}`}>
-          <h3 className="sp__title">{s.name}</h3>
-          <p className="sp__text">{s.text}</p>
-        </div>
       </div>
 
-      {/* místo na grafiku, kterou teprve doplníme */}
-      <div className="sp__visual reveal">
+      <div className="sp__right reveal" id="sp-panel" role="tabpanel" aria-labelledby={`sp-tab-${s.id}`}>
+        {/* místo na grafiku, kterou teprve doplníme */}
         <div className="sp__ph" key={`p${active}`} aria-hidden="true">
           <span>Vizuál · {s.short}</span>
+        </div>
+        <div className="sp__copy" key={`c${active}`}>
+          <h3 className="sp__title">{s.name}</h3>
+          <p className="sp__text">{s.text}</p>
         </div>
       </div>
     </div>

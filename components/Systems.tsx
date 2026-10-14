@@ -5,7 +5,6 @@ import { hero } from '@/lib/content';
 import CtaRow from './CtaRow';
 import Board from './systems/Board';
 import SysHead from './systems/SysHead';
-import VariantC from './systems/VariantC';
 import VariantP from './systems/VariantP';
 import VariantSwitch, { useSysVariant } from './systems/VariantSwitch';
 
@@ -43,12 +42,10 @@ export default function Systems() {
   return (
     <section className="section" id="systemy" aria-labelledby="systemy-title" ref={root}>
       <div className="wrap">
-        {/* varianta P si hlavičku sází sama — má ji ve svém levém sloupci */}
-        {v !== 'p' && <SysHead />}
+        {/* nová varianta si hlavičku sází sama — má ji ve svém levém sloupci */}
+        {v === 'now' && <SysHead />}
 
-        {v === 'now' && <Board />}
-        {v === 'c' && <VariantC />}
-        {v === 'p' && <VariantP />}
+        {v === 'now' ? <Board /> : <VariantP />}
 
         <CtaRow label={hero.primary} />
       </div>
