@@ -3,21 +3,17 @@
 import { useEffect, useRef } from 'react';
 import { hero } from '@/lib/content';
 import CtaRow from './CtaRow';
-import Board from './systems/Board';
-import SysHead from './systems/SysHead';
-import VariantP from './systems/VariantP';
-import VariantSwitch, { useSysVariant } from './systems/VariantSwitch';
+import Panel from './systems/Panel';
 
 /*
- * Sekce „Systémy“. Hlavička a tlačítko jsou společné, vnitřek se přepíná mezi
- * variantami (dočasné — po výběru zůstane jedna a zbytek zmizí).
+ * Sekce „Systémy“. Hlavičku i obsah sází Panel, tady zůstává jen rám sekce
+ * a tlačítko pod ním.
  */
 
 export default function Systems() {
-  const v = useSysVariant();
   const root = useRef<HTMLElement>(null);
 
-  // varianty se mountují až po hydrataci, takže je společný reveal v Enhance minul
+  // na mobilu se obsah přemountuje až po hydrataci, takže ho společný reveal v Enhance minul
   useEffect(() => {
     const els = root.current?.querySelectorAll<HTMLElement>('.reveal:not(.is-in)');
     if (!els?.length) return;
@@ -37,19 +33,15 @@ export default function Systems() {
     );
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, [v]);
+  }, []);
 
   return (
     <section className="section section--tight" id="systemy" aria-labelledby="systemy-title" ref={root}>
       <div className="wrap">
-        {/* nová varianta si hlavičku sází sama — má ji ve svém levém sloupci */}
-        {v === 'now' && <SysHead />}
-
-        {v === 'now' ? <Board /> : <VariantP />}
+        <Panel />
 
         <CtaRow label={hero.primary} />
       </div>
-      <VariantSwitch />
     </section>
   );
 }
