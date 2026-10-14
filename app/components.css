@@ -2520,7 +2520,7 @@ html.is-loading .seq {
   gap: 26px;
   padding: clamp(20px, 2.6vw, 36px);
   border-radius: 20px;
-  background: var(--surface-2);
+  background: var(--surface);
 }
 .sv-c__copy {
   animation: sys-copy 420ms var(--ease-out) both;
