@@ -36,27 +36,25 @@ float fbm(vec2 p){
 
 void main(){
   // jemnější měřítko než v hero → i v malém tlačítku je vidět struktura mraku
-  vec2 p = (gl_FragCoord.xy - 0.5*u_res) / u_res.y * 4.2;
+  vec2 p = (gl_FragCoord.xy - 0.5*u_res) / u_res.y * 9.0;
   float t = u_time * 0.3;                       // ≈3× rychlejší než hero → pohyb je vidět i v malém okně
   p += vec2(t * 0.55, t * 0.2);                 // plynulý driftem posun celého pole
   vec2 w = vec2(fbm(p*0.9 + vec2(0.0, t)), fbm(p*0.9 + vec2(3.3, -t*0.8)));
   float n = fbm(p*1.2 + 2.2*(w - 0.5) + 0.25*t);
-  float d = clamp(0.4 + 0.95 * smoothstep(0.2, 0.8, n), 0.0, 1.0);
-
-  // Sytost: barvu odtlačíme od šedé kolem STEJNÉHO jasu (luma) → víc barevná, ne světlejší.
-  float l = dot(u_brand, vec3(0.299, 0.587, 0.114));
-  vec3 rich = u_brand; // odstín držíme věrný primární barvě (bez sytostního posunu)
-
-  // Strop barvy: sytá barva, ale s OMEZENÝM relativním jasem (Y ≤ 0.165) → bílý text
-  // má v nejsvětlejším místě kontrast ≥ 4.5:1 pro jakýkoli odstín. Škáluje se v lineárním
-  // prostoru, takže odstín i sytost zůstanou. Žádná bílá, žádný přepal.
-  vec3 peak = rich * 0.9;
+  // stejná barevná rampa jako mrak v sekcích (hero, před/po, srovnání, CTA):
+  // černá → tlumená barva → plná barva, jen s nižším stropem jasu, ať je bílý text čitelný
+  float d = clamp(0.2 + 1.0 * smoothstep(0.2, 0.75, n), 0.0, 1.0);
+  vec3 peak = u_brand * 0.95;
   vec3 lin = pow(peak, vec3(2.2));
   float Y = dot(lin, vec3(0.2126, 0.7152, 0.0722));
-  lin *= min(1.0, 0.165 / max(Y, 1e-4));
+  lin *= min(1.0, 0.24 / max(Y, 1e-4));
   peak = pow(lin, vec3(1.0 / 2.2));
-  vec3 col = mix(u_bg, peak, smoothstep(0.05, 0.92, d));
-  col += peak * 0.05 * pow(d, 3.0);
+  vec3 col = u_bg;
+  col = mix(col, u_brand * 0.38, smoothstep(0.08, 0.55, d));
+  col = mix(col, peak, smoothstep(0.50, 0.92, d));
+  // film grain jako v sekcích
+  float gr = hash(gl_FragCoord.xy * 1.3 + fract(u_time) * 180.0);
+  col += (gr - 0.5) * 0.045;
   o = vec4(max(col, 0.0), 1.0);
 }`;
 
@@ -128,7 +126,7 @@ export default function ButtonSmoke() {
 
     const reduce = matchMedia('(prefers-reduced-motion: reduce)');
     const SCALE = 0.3; // sdílený mrak = 0.3× okna; je rozmazaný, stačí
-    let brand = srgb('--brand-deep');
+    let brand = srgb('--brand');
     const resize = () => {
       src.width = Math.max(160, Math.round(innerWidth * SCALE));
       src.height = Math.max(90, Math.round(innerHeight * SCALE));
@@ -246,7 +244,7 @@ export default function ButtonSmoke() {
     entries.forEach((e) => io.observe(e.btn));
 
     const mo = new MutationObserver(() => {
-      brand = srgb('--brand-deep');
+      brand = srgb('--brand');
       if (reduce.matches && anyVisible()) render();
     });
     mo.observe(document.documentElement, { attributes: true, attributeFilter: ['style'] });
