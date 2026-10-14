@@ -1,20 +1,34 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { systems } from '@/lib/content';
 import Artifact from './Artifact';
+import Carousel from './Carousel';
+import SysHead from './SysHead';
 
 /*
  * P — původní rozvržení (seznam vlevo, vizuál vpravo) bez toho, co na něm
  * vypadalo jako šablona: žádná čísla, žádné karty pod každou položkou,
- * žádné vodiče, výboje ani automatické přepínání. Vybraná položka se pozná
- * podle bílého textu a oranžové značky.
+ * žádné vodiče, výboje ani automatické přepínání.
+ *
+ * Na počítači jsou dva sloupce stejné výšky: vlevo nadpis, jména a popis,
+ * vpravo vizuál od horní hrany nadpisu až po spodek textu. Na mobilu je
+ * z toho nekonečný carousel.
  */
 
 export default function VariantP() {
   const items = systems.items;
   const [active, setActive] = useState(0);
+  const [mobile, setMobile] = useState(false);
   const s = items[active];
+
+  useEffect(() => {
+    const mq = matchMedia('(max-width: 899px)');
+    const sync = () => setMobile(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
 
   const onKey = (e: React.KeyboardEvent) => {
     const n = items.length;
@@ -32,35 +46,48 @@ export default function VariantP() {
     }
   };
 
-  return (
-    <div className="sp reveal">
-      <div className="sp__list" role="tablist" aria-label="Systémy" aria-orientation="vertical" onKeyDown={onKey}>
-        {items.map((it, i) => (
-          <button
-            key={it.id}
-            type="button"
-            role="tab"
-            id={`sp-tab-${it.id}`}
-            aria-selected={i === active}
-            aria-controls="sp-panel"
-            tabIndex={i === active ? 0 : -1}
-            className="sp__item"
-            onClick={() => setActive(i)}
-          >
-            {it.name}
-          </button>
-        ))}
-      </div>
+  if (mobile) {
+    return (
+      <>
+        <SysHead />
+        <Carousel />
+      </>
+    );
+  }
 
-      <div className="sp__panel" id="sp-panel" role="tabpanel" aria-labelledby={`sp-tab-${s.id}`}>
-        {/* na počítači čeká prázdné místo na grafiku, na mobilu zůstává kreslený výstup */}
-        <div className="sp__ph" key={`p${active}`} aria-hidden="true">
-          <span>Vizuál · {s.short}</span>
+  return (
+    <div className="sp">
+      <div className="sp__left reveal">
+        <SysHead />
+
+        <div className="sp__list" role="tablist" aria-label="Systémy" aria-orientation="vertical" onKeyDown={onKey}>
+          {items.map((it, i) => (
+            <button
+              key={it.id}
+              type="button"
+              role="tab"
+              id={`sp-tab-${it.id}`}
+              aria-selected={i === active}
+              aria-controls="sp-panel"
+              tabIndex={i === active ? 0 : -1}
+              className="sp__item"
+              onClick={() => setActive(i)}
+            >
+              {it.name}
+            </button>
+          ))}
         </div>
-        <Artifact id={s.id} className="sp__art" key={`a${active}`} />
-        <div className="sp__copy" key={`c${active}`}>
+
+        <div className="sp__copy" id="sp-panel" role="tabpanel" aria-labelledby={`sp-tab-${s.id}`} key={`c${active}`}>
           <h3 className="sp__title">{s.name}</h3>
           <p className="sp__text">{s.text}</p>
+        </div>
+      </div>
+
+      {/* místo na grafiku, kterou teprve doplníme */}
+      <div className="sp__visual reveal">
+        <div className="sp__ph" key={`p${active}`} aria-hidden="true">
+          <span>Vizuál · {s.short}</span>
         </div>
       </div>
     </div>

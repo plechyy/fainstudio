@@ -1,9 +1,10 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { hero, systems } from '@/lib/content';
+import { hero } from '@/lib/content';
 import CtaRow from './CtaRow';
 import Board from './systems/Board';
+import SysHead from './systems/SysHead';
 import VariantC from './systems/VariantC';
 import VariantP from './systems/VariantP';
 import VariantSwitch, { useSysVariant } from './systems/VariantSwitch';
@@ -42,17 +43,8 @@ export default function Systems() {
   return (
     <section className="section" id="systemy" aria-labelledby="systemy-title" ref={root}>
       <div className="wrap">
-        <header className="sys-head reveal">
-          <p className="label shead__index" aria-hidden="true">
-            <b>02</b>
-            Systémy
-          </p>
-          <h2 className="h2 sys-head__title" id="systemy-title">
-            <span className="silver silver--block">Šest věcí,</span>
-            <span className="sys-head__accent">které stavíme.</span>
-          </h2>
-          <p className="sys-head__lead">{systems.lead}</p>
-        </header>
+        {/* varianta P si hlavičku sází sama — má ji ve svém levém sloupci */}
+        {v !== 'p' && <SysHead />}
 
         {v === 'now' && <Board />}
         {v === 'c' && <VariantC />}
