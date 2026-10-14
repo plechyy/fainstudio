@@ -37,9 +37,9 @@ export default function BeforeAfter() {
           </div>
 
           <div className="ba__card ba__card--after">
-            {/* stejný kouř jako v hero, jen jako tlumený podkres */}
+            {/* stejná karta jako závěrečné CTA: černá, kouř vpravo */}
             <div className="ba__smoke" aria-hidden="true">
-              <ShaderBackground center phase={40} />
+              <ShaderBackground bg="#050505" phase={95} />
             </div>
             <h3 className="ba__label">
               <span className="ba__led" aria-hidden="true" />
