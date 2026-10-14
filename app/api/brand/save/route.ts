@@ -51,6 +51,17 @@ export async function POST(req: NextRequest) {
   };
   const p = hexOf('p');
   const sec = hexOf('s');
+  const bdHex = String(form.get('bgd') ?? '');
+  const blHex = String(form.get('bgl') ?? '');
+  const bgOk = (hex: string) => hex === '' || /^#[0-9a-f]{6}$/.test(hex);
+  if (!bgOk(bdHex) || !bgOk(blHex)) return NextResponse.json({ ok: false, error: 'Neplatné pozadí.' }, { status: 400 });
+  // spočítané hodnoty pozadí (světlost / sytost / odstín) pro každé téma, nebo výchozí
+  const bgNum = (key: string, name: 'l' | 'c' | 'h', hex: string, fallback: string) => {
+    if (!hex) return fallback;
+    const v = Number(form.get(`${key}-${name}`));
+    if (!Number.isFinite(v) || v < 0 || v > 360) throw new Error('Neplatné pozadí.');
+    return String(v);
+  };
   if (!p || !sec || ![h, c, l].every(Number.isFinite) || h < 0 || h > 360 || c < 0 || c > 0.4 || l < -0.4 || l > 0.4) {
     return NextResponse.json({ ok: false, error: 'Neplatná barva.' }, { status: 400 });
   }
@@ -71,12 +82,18 @@ export async function POST(req: NextRequest) {
       .replace(/--brand-h:\s*[\d.]+;/, `--brand-h: ${h};`)
       .replace(/--brand-c:\s*[\d.]+;/, `--brand-c: ${c};`)
       .replace(/--brand-l-adj:\s*-?[\d.]+;/, `--brand-l-adj: ${l};`)
-      .replace(/--sec:\s*#[0-9a-f]{6};/i, `--sec: ${sec};`);
+      .replace(/--sec:\s*#[0-9a-f]{6};/i, `--sec: ${sec};`)
+      .replace(/--bgd-l:\s*[^;]+;/, `--bgd-l: ${bgNum('bgd', 'l', bdHex, '0.145')};`)
+      .replace(/--bgd-c:\s*[^;]+;/, `--bgd-c: ${bgNum('bgd', 'c', bdHex, '0.006')};`)
+      .replace(/--bgd-h:\s*[^;]+;/, `--bgd-h: ${bgNum('bgd', 'h', bdHex, 'var(--brand-h)')};`)
+      .replace(/--bgl-l:\s*[^;]+;/, `--bgl-l: ${bgNum('bgl', 'l', blHex, '0.985')};`)
+      .replace(/--bgl-c:\s*[^;]+;/, `--bgl-c: ${bgNum('bgl', 'c', blHex, '0.005')};`)
+      .replace(/--bgl-h:\s*[^;]+;/, `--bgl-h: ${bgNum('bgl', 'h', blHex, 'var(--brand-h)')};`);
     await writeFile(cssPath, css);
 
     const csPath = abs('components/ColorStudio.tsx');
     let cs = await readFile(csPath, 'utf8');
-    cs = cs.replace(/const DEF: Brand = \{[^}]*\};/, `const DEF: Brand = { p: '${p}', s: '${sec}', h: ${h}, c: ${c}, l: ${l} };`);
+    cs = cs.replace(/const DEF: Brand = \{[^}]*\};/, `const DEF: Brand = { p: '${p}', s: '${sec}', h: ${h}, c: ${c}, l: ${l}, bd: '${bdHex}', bl: '${blHex}' };`);
     await writeFile(csPath, cs);
 
     // 3) ikony a sada log

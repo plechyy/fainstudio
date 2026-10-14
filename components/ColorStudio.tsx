@@ -14,8 +14,9 @@ import { makePack, updateFavicon } from '@/lib/brandAssets';
  */
 
 const KEY = 'brand-v6';
-type Brand = { p: string; s: string; h: number; c: number; l: number };
-const DEF: Brand = { p: '#dc8d18', s: '#ffffff', h: 68.8, c: 0.149, l: -0.0717 };
+type Brand = { p: string; s: string; h: number; c: number; l: number; bd: string; bl: string };
+const DEF: Brand = { p: '#dc8d18', s: '#ffffff', h: 68.8, c: 0.149, l: -0.0717, bd: '', bl: '' };
+const BG_KEY = 'brand-bg-v1'; // spočítané CSS proměnné pozadí; layout.tsx je obnoví před prvním vykreslením
 
 const round = (n: number, d = 3) => +n.toFixed(d);
 const clamp = (n: number, a: number, b: number) => Math.min(b, Math.max(a, n));
@@ -82,6 +83,27 @@ function withPrimary(b: Brand, hex: string): Brand {
     c: round(C, 4),
     l: round(clamp(L - 0.78, -0.3, 0.2), 4),
   };
+}
+
+/** Libovolná CSS barva → hex (přes canvas), aby šlo ukázat výchozí pozadí v pickeru. */
+function cssToHex(color: string) {
+  const cv = document.createElement('canvas');
+  cv.width = cv.height = 1;
+  const cx = cv.getContext('2d')!;
+  cx.fillStyle = color;
+  cx.fillRect(0, 0, 1, 1);
+  const [r, g, b] = cx.getImageData(0, 0, 1, 1).data;
+  return rgbToHex(r, g, b);
+}
+
+/** Pozadí jedné barvy → světlost / sytost / odstín, ze kterých CSS odvodí všechny neutrály. */
+function bgVars(hex: string, key: 'bgd' | 'bgl') {
+  const { L, C, h } = hexToOklch(hex);
+  return {
+    [`--${key}-l`]: String(round(clamp(L, key === 'bgd' ? 0.04 : 0.8, key === 'bgd' ? 0.35 : 1), 4)),
+    [`--${key}-c`]: String(round(Math.min(C, 0.06), 4)),
+    [`--${key}-h`]: String(round(C < 0.004 ? 0 : h, 1)),
+  } as Record<string, string>;
 }
 
 function load(): Brand {
@@ -212,7 +234,9 @@ function Picker({ hex, onChange, label }: { hex: string; onChange: (hex: string)
 
 export default function ColorStudio() {
   const [b, setB] = useState<Brand>(DEF);
-  const [which, setWhich] = useState<'p' | 's'>('p');
+  const [which, setWhich] = useState<'p' | 's' | 'b'>('p');
+  const [theme, setTheme] = useState<'d' | 'l'>('d');
+  const [bgDefault, setBgDefault] = useState('#0f0e0d');
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -231,14 +255,40 @@ export default function ColorStudio() {
     d.style.setProperty('--brand-c', String(b.c));
     d.style.setProperty('--brand-l-adj', String(b.l));
     d.style.setProperty('--sec', b.s);
+    // pozadí: nastavené hodnoty přebijí výchozí z CSS, prázdné se vrátí na výchozí
+    const bgs: Record<string, string> = {};
+    for (const [hex, key] of [[b.bd, 'bgd'], [b.bl, 'bgl']] as const) {
+      const names = [`--${key}-l`, `--${key}-c`, `--${key}-h`];
+      if (hex) Object.assign(bgs, bgVars(hex, key));
+      else names.forEach((n) => d.style.removeProperty(n));
+    }
+    for (const [k, v] of Object.entries(bgs)) d.style.setProperty(k, v);
     try {
       localStorage.setItem(KEY, JSON.stringify(b));
+      localStorage.setItem(BG_KEY, JSON.stringify(bgs));
     } catch {}
     setSave('idle');
     // favicon sleduje primární barvu (po krátké pauze, ať se nerenderuje při každém pixelu)
     const t = setTimeout(updateFavicon, 350);
     return () => clearTimeout(t);
   }, [b, loaded]);
+
+  // téma, které se právě edituje v záložce Pozadí (světlé a tmavé mají každé vlastní pozadí)
+  useEffect(() => {
+    const read = () => setTheme(document.documentElement.dataset.theme === 'light' ? 'l' : 'd');
+    read();
+    const mo = new MutationObserver(read);
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    return () => mo.disconnect();
+  }, []);
+
+  // výchozí barva pozadí pro picker, když není nic nastaveno
+  useEffect(() => {
+    if (!loaded) return;
+    if (theme === 'd' ? b.bd : b.bl) return;
+    const t = setTimeout(() => setBgDefault(cssToHex(getComputedStyle(document.body).backgroundColor)), 50);
+    return () => clearTimeout(t);
+  }, [loaded, theme, b.bd, b.bl, which]);
 
   useEffect(() => {
     setB(load());
@@ -248,6 +298,7 @@ export default function ColorStudio() {
 
   const setPrimary = useCallback((hex: string) => setB((o) => withPrimary(o, hex)), []);
   const setSecondary = useCallback((hex: string) => setB((o) => ({ ...o, s: hex })), []);
+  const setBg = useCallback((hex: string) => setB((o) => ({ ...o, [theme === 'l' ? 'bl' : 'bd']: hex })), [theme]);
 
   const random = useCallback(() => {
     const h = Math.random() * 360;
@@ -269,7 +320,10 @@ export default function ColorStudio() {
   }, [random]);
 
   const copy = async () => {
-    const css = `--brand-h: ${b.h};\n--brand-c: ${b.c};\n--brand-l-adj: ${b.l};\n--sec: ${b.s};`;
+    let css = `--brand-h: ${b.h};\n--brand-c: ${b.c};\n--brand-l-adj: ${b.l};\n--sec: ${b.s};`;
+    for (const [hex, key] of [[b.bd, 'bgd'], [b.bl, 'bgl']] as const) {
+      if (hex) css += '\n' + Object.entries(bgVars(hex, key)).map(([k, v]) => `${k}: ${v};`).join('\n');
+    }
     try {
       await navigator.clipboard.writeText(css);
       setCopied(true);
@@ -277,7 +331,8 @@ export default function ColorStudio() {
     } catch {}
   };
 
-  const changed = b.p !== DEF.p || b.s !== DEF.s;
+  const changed = b.p !== DEF.p || b.s !== DEF.s || b.bd !== DEF.bd || b.bl !== DEF.bl;
+  const bgHex = (theme === 'l' ? b.bl : b.bd) || bgDefault;
 
   const saveToWeb = async () => {
     setSave('busy');
@@ -290,6 +345,10 @@ export default function ColorStudio() {
       fd.set('h', String(b.h));
       fd.set('c', String(b.c));
       fd.set('l', String(b.l));
+      for (const [hex, key] of [[b.bd, 'bgd'], [b.bl, 'bgl']] as const) {
+        fd.set(key, hex);
+        if (hex) for (const [k, v] of Object.entries(bgVars(hex, key))) fd.set(k.slice(2), v);
+      }
       for (const [name, blob] of Object.entries(files)) fd.set(name, blob, name);
       const res = await fetch('/api/brand/save', { method: 'POST', body: fd });
       const j = (await res.json().catch(() => ({}))) as { ok?: boolean; pushed?: boolean; error?: string };
@@ -336,6 +395,18 @@ export default function ColorStudio() {
             setOpen(true);
           }}
         />
+        <button
+          type="button"
+          className="cs__sw cs__sw--bg"
+          aria-label="Barva pozadí"
+          aria-pressed={open && which === 'b'}
+          title="Barva pozadí"
+          style={{ background: bgHex }}
+          onClick={() => {
+            setWhich('b');
+            setOpen(true);
+          }}
+        />
         <span className="cs__title">Barvy</span>
         {showSave && (
           <button type="button" className="cs__save" data-state={save} onClick={saveToWeb} disabled={save === 'busy'} title={saveMsg || undefined}>
@@ -365,12 +436,22 @@ export default function ColorStudio() {
             <button type="button" role="tab" aria-selected={which === 's'} onClick={() => setWhich('s')}>
               <i style={{ background: b.s }} /> Sekundární
             </button>
+            <button type="button" role="tab" aria-selected={which === 'b'} onClick={() => setWhich('b')}>
+              <i style={{ background: bgHex }} /> Pozadí
+            </button>
           </div>
 
           {which === 'p' ? (
             <Picker key="p" hex={b.p} onChange={setPrimary} label="Primární" />
-          ) : (
+          ) : which === 's' ? (
             <Picker key="s" hex={b.s} onChange={setSecondary} label="Sekundární" />
+          ) : (
+            <>
+              <Picker key={`b-${theme}`} hex={bgHex} onChange={setBg} label="Pozadí" />
+              <p className="cs__hint">
+                Edituje se {theme === 'l' ? 'světlé' : 'tmavé'} téma, druhé má vlastní pozadí. Ostatní plochy a linky se dopočítají.
+              </p>
+            </>
           )}
 
           <div className="cs__actions">
