@@ -298,7 +298,7 @@ button {
 }
 .h2 {
   font-family: var(--font-display);
-  font-size: var(--step-3);
+  font-size: clamp(2.4rem, 1.5rem + 3.4vw, 4.4rem);
   font-weight: 620;
   letter-spacing: -0.022em;
   line-height: 1.04;
