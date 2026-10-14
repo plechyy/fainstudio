@@ -54,7 +54,7 @@ void main(){
   col = mix(col, peak, smoothstep(0.50, 0.92, d));
   // film grain jako v sekcích
   float gr = hash(gl_FragCoord.xy * 1.3 + fract(u_time) * 180.0);
-  col += (gr - 0.5) * 0.045;
+  col += (gr - 0.5) * 0.016;
   o = vec4(max(col, 0.0), 1.0);
 }`;
 
@@ -125,7 +125,10 @@ export default function ButtonSmoke() {
     const uBg = gl.getUniformLocation(prog, 'u_bg');
 
     const reduce = matchMedia('(prefers-reduced-motion: reduce)');
-    const SCALE = 0.3; // sdílený mrak = 0.3× okna; je rozmazaný, stačí
+    // sdílený mrak v rozlišení displeje (strop 2600 px): výřez do tlačítka se pak
+    // nemusí zvětšovat, takže kouř není rozmazaný ani zrnitý
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const SCALE = Math.min(dpr, 2600 / Math.max(innerWidth, 1));
     let brand = srgb('--brand');
     const resize = () => {
       src.width = Math.max(160, Math.round(innerWidth * SCALE));
@@ -160,16 +163,16 @@ export default function ButtonSmoke() {
       const k = src.width / innerWidth; // stejné měřítko jako dřív: 1 px tlačítka = k px mraku
       for (const e of entries) {
         if (!e.visible) continue;
-        const w = Math.max(1, e.btn.offsetWidth);
-        const h = Math.max(1, e.btn.offsetHeight);
+        const w = Math.max(1, Math.round(e.btn.offsetWidth * dpr));
+        const h = Math.max(1, Math.round(e.btn.offsetHeight * dpr));
         if (e.cv.width !== w || e.cv.height !== h) {
           e.cv.width = w;
           e.cv.height = h;
           e.ctx.imageSmoothingQuality = 'high';
         }
         // pevný výřez: poloha je dána jen indexem tlačítka, ne scrollem
-        const sw = Math.min(src.width, w * k);
-        const sh = Math.min(src.height, h * k);
+        const sw = Math.min(src.width, (w / dpr) * k);
+        const sh = Math.min(src.height, (h / dpr) * k);
         const ox = e.fx * (src.width - sw);
         const oy = e.fy * (src.height - sh);
         e.ctx.drawImage(src, ox, oy, sw, sh, 0, 0, w, h);

@@ -40,7 +40,7 @@ export default function Systems() {
   }, [v]);
 
   return (
-    <section className="section" id="systemy" aria-labelledby="systemy-title" ref={root}>
+    <section className="section section--tight" id="systemy" aria-labelledby="systemy-title" ref={root}>
       <div className="wrap">
         {/* nová varianta si hlavičku sází sama — má ji ve svém levém sloupci */}
         {v === 'now' && <SysHead />}

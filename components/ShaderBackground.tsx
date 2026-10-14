@@ -108,7 +108,7 @@ void main(){
 
   // film grain
   float gr = hash(gl_FragCoord.xy * 1.3 + fract(u_time) * 180.0);
-  col += (gr - 0.5) * 0.045;
+  col += (gr - 0.5) * 0.02;
 
   outColor = vec4(max(col, 0.0), 1.0);
 }`;
@@ -212,7 +212,7 @@ export default function ShaderBackground({
 
     // Mlha je rozmazaná → stačí nízké rozlišení. Backing store ~0.42× CSS px,
     // CSS ho roztáhne. Výrazně míň fragmentů = plynulé i na slabším GPU.
-    const SCALE = 0.42;
+    const SCALE = 0.62; // vyšší rozlišení mraku — po roztažení není vidět zrno
     const resize = () => {
       const w = Math.max(1, Math.round(canvas.clientWidth * SCALE));
       const h = Math.max(1, Math.round(canvas.clientHeight * SCALE));

@@ -393,7 +393,7 @@ html.is-loading .seq {
   flex-direction: column;
   justify-content: center;
   padding-top: calc(clamp(40px, 9vw, 110px) + 78px);
-  padding-bottom: 40px;
+  padding-bottom: 16px; /* zbytek mezery k sekci 2 dělá odsazení sekce */
   overflow: clip;
   isolation: isolate;
 }
@@ -2560,7 +2560,7 @@ html.is-loading .seq {
 }
 .sp__item {
   position: relative;
-  padding: 13px 0 13px 18px;
+  padding: 14px 20px 14px 24px;
   text-align: left;
   font-family: var(--font-display);
   font-size: clamp(1.05rem, 0.98rem + 0.4vw, 1.3rem);
@@ -2579,16 +2579,33 @@ html.is-loading .seq {
 .sp__item[aria-selected='true'] {
   color: var(--ink);
 }
-/* vybraná položka: plná značka místo karty a rámečku */
+/* vybraná položka: zlatá značka vlevo a rámeček, který se k dolní hraně ztrácí */
 .sp__item[aria-selected='true']::before {
   content: '';
   position: absolute;
-  left: 0;
-  top: 14px;
-  bottom: 14px;
+  left: 12px;
+  top: 15px;
+  bottom: 15px;
   width: 3px;
   border-radius: 2px;
   background: var(--brand);
+}
+.sp__item[aria-selected='true']::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: 16px;
+  background: linear-gradient(
+    150deg,
+    var(--brand) 0%,
+    color-mix(in oklab, var(--brand) 62%, transparent) 42%,
+    color-mix(in oklab, var(--brand) 22%, transparent) 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  pointer-events: none;
 }
 .sp__right {
   display: flex;
