@@ -1,0 +1,3251 @@
+{
+ "url": "http://localhost:4321/?sys=a",
+ "at": "2026-10-14T14:59:29.786Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 10,
+   "filled": [
+    1,
+    0.53,
+    0.79,
+    0.25,
+    0.53,
+    0.62,
+    0.33,
+    0.29,
+    0.56,
+    0.63
+   ],
+   "motion": {
+    "elements": 54,
+    "css": 12,
+    "transitions": 15,
+    "scripted": 27,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 8627,
+     "screens": 9.6,
+     "words": 920,
+     "img": 0,
+     "video": 0,
+     "canvas": 11,
+     "svg": 66,
+     "sections": 13,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 6,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 6,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "Postavíme vám systém, který dělá tu práci, co u vás dneska dělá někdo rukou.",
+     "words": 14,
+     "chars": 76,
+     "lines": 4,
+     "size": 76.8,
+     "vw": 5.3,
+     "font": "CalSans",
+     "weight": 640,
+     "tracking": -0.025,
+     "leading": 1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "center",
+     "position": "center",
+     "widthRatio": 0.56,
+     "top": 255,
+     "gradientText": true,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Postavíme vám systém, který dělá tu práci, co u vás dneska dělá někdo rukou.",
+     "words": 14,
+     "lines": 4,
+     "size": 76.8,
+     "font": "CalSans"
+    },
+    "headings": [
+     {
+      "text": "FaiN Studio",
+      "words": 2,
+      "chars": 11,
+      "lines": 1,
+      "size": 29.6,
+      "vw": 2.1,
+      "font": "FingerPaint",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.12,
+      "top": 31,
+      "tag": "a",
+      "kind": "heading"
+     },
+     {
+      "text": "Postavíme vám systém, který dělá tu práci, co u vás dneska dělá někdo rukou.",
+      "words": 14,
+      "chars": 76,
+      "lines": 4,
+      "size": 76.8,
+      "vw": 5.3,
+      "font": "CalSans",
+      "weight": 640,
+      "tracking": -0.025,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.56,
+      "top": 255,
+      "gradientText": true,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Logo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 28.8,
+      "vw": 2,
+      "font": "Inter",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.08,
+      "top": 810,
+      "gradientText": true,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Logo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 28.8,
+      "vw": 2,
+      "font": "Inter",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.08,
+      "top": 810,
+      "gradientText": true,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Logo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 28.8,
+      "vw": 2,
+      "font": "Inter",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.08,
+      "top": 810,
+      "gradientText": true,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Logo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 28.8,
+      "vw": 2,
+      "font": "Inter",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.08,
+      "top": 810,
+      "gradientText": true,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Logo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 28.8,
+      "vw": 2,
+      "font": "Inter",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.08,
+      "top": 810,
+      "gradientText": true,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Logo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 28.8,
+      "vw": 2,
+      "font": "Inter",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.08,
+      "top": 810,
+      "gradientText": true,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Logo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 28.8,
+      "vw": 2,
+      "font": "Inter",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.08,
+      "top": 810,
+      "gradientText": true,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Logo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 28.8,
+      "vw": 2,
+      "font": "Inter",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.08,
+      "top": 810,
+      "gradientText": true,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Logo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 28.8,
+      "vw": 2,
+      "font": "Inter",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.08,
+      "top": 810,
+      "gradientText": true,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Logo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 28.8,
+      "vw": 2,
+      "font": "Inter",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.08,
+      "top": 810,
+      "gradientText": true,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Logo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 28.8,
+      "vw": 2,
+      "font": "Inter",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.08,
+      "top": 810,
+      "gradientText": true,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Logo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 28.8,
+      "vw": 2,
+      "font": "Inter",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.08,
+      "top": 810,
+      "gradientText": true,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Logo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 28.8,
+      "vw": 2,
+      "font": "Inter",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.08,
+      "top": 810,
+      "gradientText": true,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Logo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 28.8,
+      "vw": 2,
+      "font": "Inter",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.08,
+      "top": 810,
+      "gradientText": true,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Logo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 28.8,
+      "vw": 2,
+      "font": "Inter",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.08,
+      "top": 810,
+      "gradientText": true,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Logo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 28.8,
+      "vw": 2,
+      "font": "Inter",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.08,
+      "top": 810,
+      "gradientText": true,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Logo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 28.8,
+      "vw": 2,
+      "font": "Inter",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.08,
+      "top": 810,
+      "gradientText": true,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Logo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 28.8,
+      "vw": 2,
+      "font": "Inter",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.08,
+      "top": 810,
+      "gradientText": true,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Logo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 28.8,
+      "vw": 2,
+      "font": "Inter",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.08,
+      "top": 810,
+      "gradientText": true,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Logo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 28.8,
+      "vw": 2,
+      "font": "Inter",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.08,
+      "top": 810,
+      "gradientText": true,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Logo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 28.8,
+      "vw": 2,
+      "font": "Inter",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.08,
+      "top": 810,
+      "gradientText": true,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Logo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 28.8,
+      "vw": 2,
+      "font": "Inter",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.08,
+      "top": 810,
+      "gradientText": true,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Logo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 28.8,
+      "vw": 2,
+      "font": "Inter",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.08,
+      "top": 810,
+      "gradientText": true,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Logo",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 28.8,
+      "vw": 2,
+      "font": "Inter",
+      "weight": 900,
+      "tracking": -0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.08,
+      "top": 810,
+      "gradientText": true,
+      "tag": "li",
+      "kind": "statement"
+     },
+     {
+      "text": "Šest věcí, které stavíme.",
+      "words": 4,
+      "chars": 25,
+      "lines": 2,
+      "size": 60.8,
+      "vw": 4.2,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.022,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.44,
+      "top": 1095,
+      "gradientText": true,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Zpracování dokumentů",
+      "words": 2,
+      "chars": 20,
+      "lines": 1,
+      "size": 28.3,
+      "vw": 2,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.025,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.3,
+      "top": 1404,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Zpracování poptávek",
+      "words": 2,
+      "chars": 19,
+      "lines": 1,
+      "size": 28.3,
+      "vw": 2,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.025,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.21,
+      "top": 1541,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Asistent nad firemními daty",
+      "words": 4,
+      "chars": 27,
+      "lines": 1,
+      "size": 28.3,
+      "vw": 2,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.025,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.3,
+      "top": 1958,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Sběr dat a monitoring",
+      "words": 4,
+      "chars": 21,
+      "lines": 1,
+      "size": 28.3,
+      "vw": 2,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.025,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.21,
+      "top": 2068,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Weby a vstupní stránky",
+      "words": 4,
+      "chars": 22,
+      "lines": 1,
+      "size": 28.3,
+      "vw": 2,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.025,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.37,
+      "top": 2431,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "AI video a animace",
+      "words": 4,
+      "chars": 18,
+      "lines": 1,
+      "size": 28.3,
+      "vw": 2,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.025,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.37,
+      "top": 2458,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Jak to probíhá",
+      "words": 3,
+      "chars": 14,
+      "lines": 1,
+      "size": 60.8,
+      "vw": 4.2,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.022,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.25,
+      "top": 3162,
+      "gradientText": true,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Jak to vypadá dneska a jak potom.",
+      "words": 7,
+      "chars": 33,
+      "lines": 3,
+      "size": 60.8,
+      "vw": 4.2,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.022,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.39,
+      "top": 3735,
+      "gradientText": true,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Čím se to liší od ostatních cest.",
+      "words": 7,
+      "chars": 33,
+      "lines": 2,
+      "size": 60.8,
+      "vw": 4.2,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.022,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.44,
+      "top": 4666,
+      "gradientText": true,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Čísla, která platí.",
+      "words": 3,
+      "chars": 19,
+      "lines": 2,
+      "size": 60.8,
+      "vw": 4.2,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.022,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.44,
+      "top": 5609,
+      "gradientText": true,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "10 dní",
+      "words": 2,
+      "chars": 6,
+      "lines": 1,
+      "size": 49.6,
+      "vw": 3.4,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.03,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.19,
+      "top": 5852,
+      "gradientText": true,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "14 dní",
+      "words": 2,
+      "chars": 6,
+      "lines": 1,
+      "size": 49.6,
+      "vw": 3.4,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.03,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.19,
+      "top": 5852,
+      "gradientText": true,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "od 18 000 Kč",
+      "words": 4,
+      "chars": 12,
+      "lines": 1,
+      "size": 49.6,
+      "vw": 3.4,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.03,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.19,
+      "top": 5852,
+      "gradientText": true,
+      "tag": "p",
+      "kind": "statement"
+     }
+    ],
+    "headingSummary": {
+     "count": 45,
+     "maxLines": 4,
+     "over2Lines": 3,
+     "statements": 28,
+     "centered": 2,
+     "medianWords": 1,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Inter",
+       "share": 0.86,
+       "mono": false
+      },
+      {
+       "family": "CalSans",
+       "share": 0.14,
+       "mono": false
+      },
+      {
+       "family": "FingerPaint",
+       "share": 0,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      12,
+      13,
+      14,
+      15,
+      17,
+      21,
+      22,
+      28,
+      29,
+      30,
+      50,
+      61,
+      76,
+      77
+     ],
+     "sizeCount": 14,
+     "notLoaded": [],
+     "body": {
+      "font": "Inter",
+      "size": 17.4,
+      "leading": 1.55,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 8.2
+     },
+     "measureChars": 50,
+     "max": {
+      "size": 76.8,
+      "vw": 5.3,
+      "font": "CalSans",
+      "text": "Postavíme vám systém, který dělá tu prác"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 20,
+     "microLabelShare": 0.027,
+     "microSamples": [
+      "Digitalizace a automatizace procesů",
+      "Systémy",
+      "02",
+      "Postup",
+      "03",
+      "Před a po"
+     ],
+     "upperShare": 0.03,
+     "centerShare": 0.07,
+     "smallText": 1
+    },
+    "eyebrows": [
+     {
+      "text": "Digitalizace a automatizace procesů",
+      "above": "Postavíme vám systém, který dělá tu prác",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 13.8,
+      "top": 188
+     },
+     {
+      "text": "Systémy",
+      "above": "Šest věcí, které stavíme.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 13.8,
+      "top": 1056
+     },
+     {
+      "text": "Postup",
+      "above": "Jak to probíhá",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 13.8,
+      "top": 3125
+     },
+     {
+      "text": "Před a po",
+      "above": "Jak to vypadá dneska a jak potom.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 13.8,
+      "top": 3696
+     },
+     {
+      "text": "Srovnání",
+      "above": "Čím se to liší od ostatních cest.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 13.8,
+      "top": 4626
+     },
+     {
+      "text": "Čísla",
+      "above": "Čísla, která platí.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 13.8,
+      "top": 5570
+     },
+     {
+      "text": "Kdo to staví",
+      "above": "Matyáš Plecháč",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 13.8,
+      "top": 7143
+     }
+    ],
+    "numbered": [
+     {
+      "text": "02",
+      "size": 13.8,
+      "top": 1056
+     },
+     {
+      "text": "03",
+      "size": 13.8,
+      "top": 3125
+     },
+     {
+      "text": "04",
+      "size": 13.8,
+      "top": 3696
+     },
+     {
+      "text": "05",
+      "size": 13.8,
+      "top": 4626
+     },
+     {
+      "text": "06",
+      "size": 13.8,
+      "top": 5570
+     },
+     {
+      "text": "07",
+      "size": 13.8,
+      "top": 6460
+     },
+     {
+      "text": "08",
+      "size": 13.8,
+      "top": 7143
+     }
+    ],
+    "color": {
+     "bodyBg": "#0c0a08",
+     "bodyBgHsl": {
+      "h": 30,
+      "s": 0.2,
+      "l": 0.04
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#050403",
+       "top": 0,
+       "hsl": {
+        "h": 30,
+        "s": 0.25,
+        "l": 0.02
+       }
+      },
+      {
+       "color": "#050505",
+       "top": 7793,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 0.02
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#ada6a0",
+       "share": 0.46
+      },
+      {
+       "color": "#f8f4f1",
+       "share": 0.2
+      },
+      {
+       "color": "#79736d",
+       "share": 0.14
+      },
+      {
+       "color": "#79736e",
+       "share": 0.04
+      },
+      {
+       "color": "#dc8d18",
+       "share": 0.04
+      }
+     ],
+     "button": {
+      "bg": "#050505",
+      "hsl": {
+       "h": 0,
+       "s": 0,
+       "l": 0.02
+      },
+      "fg": "#fefbf9"
+     },
+     "lowContrast": [
+      {
+       "text": "8:42",
+       "ratio": 3.2,
+       "need": 4.5,
+       "size": 12.5,
+       "fg": "#79736d",
+       "bg": "#302519"
+      },
+      {
+       "text": "8:41",
+       "ratio": 3.8,
+       "need": 4.5,
+       "size": 12.5,
+       "fg": "#79736d",
+       "bg": "#1b1814"
+      },
+      {
+       "text": "Dvě věty o tom, co děláte, a hned pod tí",
+       "ratio": 3.8,
+       "need": 4.5,
+       "size": 14.1,
+       "fg": "#79736d",
+       "bg": "#1b1814"
+      },
+      {
+       "text": "Zapsáno do přehledu · čeká na potvrzení",
+       "ratio": 4.3,
+       "need": 4.5,
+       "size": 12.8,
+       "fg": "#79736d",
+       "bg": "#080605"
+      },
+      {
+       "text": "Dodavatel",
+       "ratio": 4.3,
+       "need": 4.5,
+       "size": 12.2,
+       "fg": "#79736d",
+       "bg": "#080605"
+      },
+      {
+       "text": "Variabilní symbol",
+       "ratio": 4.3,
+       "need": 4.5,
+       "size": 12.2,
+       "fg": "#79736d",
+       "bg": "#080605"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 6,
+     "inHero": 2,
+     "radius": "pill",
+     "height": 54,
+     "withShadow": 6,
+     "withGradient": 5,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Rezervovat 20 minut →",
+      "↓ Co stavíme"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 8,
+     "shadowOverlay": 2,
+     "shadowSamples": [
+      "p.label.hero__eyebrow → rgba(255, 255, 255, 0.38) 0px 1px 0px 0px inset, rgba(255, 255, 255, 0.07) 0px -",
+      "a.btn.btn--primary → oklab(0.5283 0.0619644 0.159754 / 0.7) 0px 0px 0px 1px, oklch(0.7083 0.149 68.8 ",
+      "a.btn.btn--primary → oklab(0.5283 0.0619644 0.159754 / 0.7) 0px 0px 0px 1px, oklch(0.7083 0.149 68.8 ",
+      "div.ba__card.ba__card--after → lab(0 0 0 / 0.85) 0px 40px 90px -28px, lab(0 0 0 / 0.6) 0px 14px 34px -14px"
+     ],
+     "gradients": 6,
+     "scrims": 1,
+     "gradientSamples": [
+      "div.hero-bg__fallback → radial-gradient(46% 52% at 64% 44%, oklch(0.7083 0.149 68.8 / 0.5), rgba(0, 0, 0, 0) 68%), radial-gradient(40%",
+      "div.hero-bg__mask → radial-gradient(55% 45% at 50% 46%, oklab(0.11 0.00216975 0.00559394 / 0.7), rgba(0, 0, 0, 0) 70%), linear-gra",
+      "div.ba__card.ba__card--before → linear-gradient(oklch(0.21 0.009 68.8) 0%, oklch(0.185 0.008 68.8) 100%)",
+      "div.cmp-table.reveal → linear-gradient(oklch(0.185 0.008 68.8) 0%, oklch(0.125 0.006 68.8) 100%)"
+     ],
+     "gradientText": 39,
+     "hairlines": 15,
+     "hairlineSamples": [
+      "li 514px",
+      "li 514px",
+      "li 514px",
+      "li 514px",
+      "li 514px"
+     ],
+     "outlinedBoxes": 3,
+     "dashed": 1,
+     "blurred": 3,
+     "roundedBoxes": 23,
+     "boxRadius": 20,
+     "squareMedia": 3,
+     "roundedMedia": 3,
+     "mediaRadius": 20,
+     "textShadow": 12,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "canvas",
+      "ratio": 0.98
+     },
+     {
+      "type": "bg-image",
+      "ratio": 0.98
+     }
+    ],
+    "nav": {
+     "links": 8,
+     "fixed": true,
+     "height": 64,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "calsans",
+     "inter",
+     "fingerpaint",
+     "inter fallback"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 11,
+   "filled": [
+    1,
+    0.81,
+    0.91,
+    0.68,
+    0.32,
+    0.66,
+    0.8,
+    0.57,
+    0.38,
+    0.53,
+    0.63
+   ],
+   "motion": {
+    "elements": 54,
+    "css": 12,
+    "transitions": 9,
+    "scripted": 33,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 11140,
+     "screens": 10.9,
+     "words": 970,
+     "img": 0,
+     "video": 0,
+     "canvas": 12,
+     "svg": 66,
+     "sections": 13,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 6,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 5,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "FaiN",
+     "words": 1,
+     "chars": 4,
+     "lines": 1,
+     "size": 107.5,
+     "vw": 14,
+     "font": "FingerPaint",
+     "weight": 700,
+     "tracking": 0,
+     "leading": 1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 1,
+     "top": 0,
+     "tag": "div",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Postavíme vám systém, který dělá tu práci, co u vás dneska dělá někdo rukou.",
+     "words": 14,
+     "lines": 4,
+     "size": 54.7,
+     "font": "CalSans"
+    },
+    "headings": [
+     {
+      "text": "FaiN",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 107.5,
+      "vw": 14,
+      "font": "FingerPaint",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 1,
+      "top": 0,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "FaiN Studio",
+      "words": 2,
+      "chars": 11,
+      "lines": 1,
+      "size": 29.6,
+      "vw": 3.9,
+      "font": "FingerPaint",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.23,
+      "top": 31,
+      "tag": "a",
+      "kind": "heading"
+     },
+     {
+      "text": "Postavíme vám systém, který dělá tu práci, co u vás dneska dělá někdo rukou.",
+      "words": 14,
+      "chars": 76,
+      "lines": 4,
+      "size": 54.7,
+      "vw": 7.1,
+      "font": "CalSans",
+      "weight": 640,
+      "tracking": -0.025,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.74,
+      "top": 312,
+      "gradientText": true,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Šest věcí, které stavíme.",
+      "words": 4,
+      "chars": 25,
+      "lines": 2,
+      "size": 45.4,
+      "vw": 5.9,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.022,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.83,
+      "top": 1071,
+      "gradientText": true,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Jak to probíhá",
+      "words": 3,
+      "chars": 14,
+      "lines": 1,
+      "size": 45.4,
+      "vw": 5.9,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.022,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.36,
+      "top": 3968,
+      "gradientText": true,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Jak to vypadá dneska a jak potom.",
+      "words": 7,
+      "chars": 33,
+      "lines": 2,
+      "size": 45.4,
+      "vw": 5.9,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.022,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.73,
+      "top": 4871,
+      "gradientText": true,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Čím se to liší od ostatních cest.",
+      "words": 7,
+      "chars": 33,
+      "lines": 2,
+      "size": 45.4,
+      "vw": 5.9,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.022,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.83,
+      "top": 5839,
+      "gradientText": true,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Čísla, která platí.",
+      "words": 3,
+      "chars": 19,
+      "lines": 2,
+      "size": 45.4,
+      "vw": 5.9,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.022,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.83,
+      "top": 7608,
+      "gradientText": true,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "10 dní",
+      "words": 2,
+      "chars": 6,
+      "lines": 1,
+      "size": 45.3,
+      "vw": 5.9,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.03,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 7747,
+      "gradientText": true,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "14 dní",
+      "words": 2,
+      "chars": 6,
+      "lines": 1,
+      "size": 45.3,
+      "vw": 5.9,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.03,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 7945,
+      "gradientText": true,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "od 18 000 Kč",
+      "words": 4,
+      "chars": 12,
+      "lines": 1,
+      "size": 45.3,
+      "vw": 5.9,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.03,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 8120,
+      "gradientText": true,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "0 Kč",
+      "words": 2,
+      "chars": 4,
+      "lines": 1,
+      "size": 45.3,
+      "vw": 5.9,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.03,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 8296,
+      "gradientText": true,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Bez prostředníků",
+      "words": 2,
+      "chars": 16,
+      "lines": 1,
+      "size": 26.2,
+      "vw": 3.4,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.02,
+      "leading": 1.55,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 8514,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Máte otázky? My máme odpovědi:",
+      "words": 5,
+      "chars": 30,
+      "lines": 2,
+      "size": 45.4,
+      "vw": 5.9,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.022,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 8839,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Matyáš Plecháč",
+      "words": 2,
+      "chars": 14,
+      "lines": 1,
+      "size": 45.4,
+      "vw": 5.9,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.022,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 10138,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Dvacet minut a budete vědět, jestli to má smysl",
+      "words": 9,
+      "chars": 47,
+      "lines": 2,
+      "size": 51.6,
+      "vw": 6.7,
+      "font": "CalSans",
+      "weight": 640,
+      "tracking": -0.025,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.66,
+      "top": 10630,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 16,
+     "maxLines": 4,
+     "over2Lines": 1,
+     "statements": 4,
+     "centered": 2,
+     "medianWords": 3,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Inter",
+       "share": 0.87,
+       "mono": false
+      },
+      {
+       "family": "CalSans",
+       "share": 0.13,
+       "mono": false
+      },
+      {
+       "family": "FingerPaint",
+       "share": 0,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      12,
+      13,
+      14,
+      15,
+      17,
+      19,
+      20,
+      23,
+      25,
+      26,
+      30,
+      45,
+      52,
+      55,
+      108
+     ],
+     "sizeCount": 15,
+     "notLoaded": [],
+     "body": {
+      "font": "Inter",
+      "size": 16.7,
+      "leading": 1.55,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 8.2
+     },
+     "measureChars": 55,
+     "max": {
+      "size": 107.5,
+      "vw": 14,
+      "font": "FingerPaint",
+      "text": "FaiN"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 20,
+     "microLabelShare": 0.025,
+     "microSamples": [
+      "Digitalizace a automatizace procesů",
+      "Systémy",
+      "02",
+      "Postup",
+      "03",
+      "Před a po"
+     ],
+     "upperShare": 0.03,
+     "centerShare": 0.07,
+     "smallText": 0
+    },
+    "eyebrows": [
+     {
+      "text": "Digitalizace a automatizace procesů",
+      "above": "Postavíme vám systém, který dělá tu prác",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 13.2,
+      "top": 238
+     },
+     {
+      "text": "Postup",
+      "above": "Jak to probíhá",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 13.2,
+      "top": 3931
+     },
+     {
+      "text": "Před a po",
+      "above": "Jak to vypadá dneska a jak potom.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 13.2,
+      "top": 4832
+     },
+     {
+      "text": "Srovnání",
+      "above": "Čím se to liší od ostatních cest.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 13.2,
+      "top": 5800
+     },
+     {
+      "text": "Čísla",
+      "above": "Čísla, která platí.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 13.2,
+      "top": 7570
+     },
+     {
+      "text": "FAQ",
+      "above": "Máte otázky? My máme odpovědi:",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 13.2,
+      "top": 8799
+     },
+     {
+      "text": "Kdo to staví",
+      "above": "Matyáš Plecháč",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 13.2,
+      "top": 10097
+     }
+    ],
+    "numbered": [
+     {
+      "text": "02",
+      "size": 13.2,
+      "top": 1032
+     },
+     {
+      "text": "03",
+      "size": 13.2,
+      "top": 3931
+     },
+     {
+      "text": "04",
+      "size": 13.2,
+      "top": 4832
+     },
+     {
+      "text": "05",
+      "size": 13.2,
+      "top": 5800
+     },
+     {
+      "text": "06",
+      "size": 13.2,
+      "top": 7570
+     },
+     {
+      "text": "07",
+      "size": 13.2,
+      "top": 8799
+     },
+     {
+      "text": "08",
+      "size": 13.2,
+      "top": 10097
+     }
+    ],
+    "color": {
+     "bodyBg": "#0c0a08",
+     "bodyBgHsl": {
+      "h": 30,
+      "s": 0.2,
+      "l": 0.04
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#050403",
+       "top": 0,
+       "hsl": {
+        "h": 30,
+        "s": 0.25,
+        "l": 0.02
+       }
+      },
+      {
+       "color": "#15120f",
+       "top": 1287,
+       "hsl": {
+        "h": 30,
+        "s": 0.17,
+        "l": 0.07
+       }
+      },
+      {
+       "color": "#050505",
+       "top": 5978,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 0.02
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#ada6a0",
+       "share": 0.42
+      },
+      {
+       "color": "#f8f4f1",
+       "share": 0.32
+      },
+      {
+       "color": "#79736d",
+       "share": 0.12
+      },
+      {
+       "color": "#dc8d18",
+       "share": 0.03
+      },
+      {
+       "color": "#d8cfc7",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#050505",
+      "hsl": {
+       "h": 0,
+       "s": 0,
+       "l": 0.02
+      },
+      "fg": "#fefbf9"
+     },
+     "lowContrast": [
+      {
+       "text": "8:42",
+       "ratio": 3.2,
+       "need": 4.5,
+       "size": 12.5,
+       "fg": "#79736d",
+       "bg": "#302519"
+      },
+      {
+       "text": "8:41",
+       "ratio": 3.8,
+       "need": 4.5,
+       "size": 12.5,
+       "fg": "#79736d",
+       "bg": "#1b1814"
+      },
+      {
+       "text": "Dvě věty o tom, co děláte, a hned pod tí",
+       "ratio": 3.8,
+       "need": 4.5,
+       "size": 14.1,
+       "fg": "#79736d",
+       "bg": "#1b1814"
+      },
+      {
+       "text": "Zapsáno do přehledu · čeká na potvrzení",
+       "ratio": 4.3,
+       "need": 4.5,
+       "size": 12.8,
+       "fg": "#79736d",
+       "bg": "#080605"
+      },
+      {
+       "text": "Dodavatel",
+       "ratio": 4.3,
+       "need": 4.5,
+       "size": 12.2,
+       "fg": "#79736d",
+       "bg": "#080605"
+      },
+      {
+       "text": "Variabilní symbol",
+       "ratio": 4.3,
+       "need": 4.5,
+       "size": 12.2,
+       "fg": "#79736d",
+       "bg": "#080605"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 6,
+     "inHero": 2,
+     "radius": "pill",
+     "height": 54,
+     "withShadow": 6,
+     "withGradient": 5,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Rezervovat 20 minut →",
+      "↓ Co stavíme"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 9,
+     "shadowOverlay": 2,
+     "shadowSamples": [
+      "p.label.hero__eyebrow → rgba(255, 255, 255, 0.38) 0px 1px 0px 0px inset, rgba(255, 255, 255, 0.07) 0px -",
+      "a.btn.btn--primary → oklab(0.5283 0.0619644 0.159754 / 0.7) 0px 0px 0px 1px, oklch(0.7083 0.149 68.8 ",
+      "a.btn.btn--primary → oklab(0.5283 0.0619644 0.159754 / 0.7) 0px 0px 0px 1px, oklch(0.7083 0.149 68.8 ",
+      "div.ba__card.ba__card--after → lab(0 0 0 / 0.85) 0px 40px 90px -28px, lab(0 0 0 / 0.6) 0px 14px 34px -14px"
+     ],
+     "gradients": 8,
+     "scrims": 1,
+     "gradientSamples": [
+      "div.hero-bg__fallback → radial-gradient(46% 52% at 64% 44%, oklch(0.7083 0.149 68.8 / 0.5), rgba(0, 0, 0, 0) 68%), radial-gradient(40%",
+      "div.hero-bg__mask → radial-gradient(55% 45% at 50% 46%, oklab(0.11 0.00216975 0.00559394 / 0.7), rgba(0, 0, 0, 0) 70%), linear-gra",
+      "div.ba__card.ba__card--before → linear-gradient(oklch(0.21 0.009 68.8) 0%, oklch(0.185 0.008 68.8) 100%)",
+      "section.cmp-card.reveal → linear-gradient(oklch(0.21 0.009 68.8) 0%, oklch(0.185 0.008 68.8) 100%)"
+     ],
+     "gradientText": 15,
+     "hairlines": 39,
+     "hairlineSamples": [
+      "li 649px",
+      "li 649px",
+      "li 649px",
+      "li 649px",
+      "li 649px"
+     ],
+     "outlinedBoxes": 5,
+     "dashed": 1,
+     "blurred": 3,
+     "roundedBoxes": 29,
+     "boxRadius": 18,
+     "squareMedia": 4,
+     "roundedMedia": 3,
+     "mediaRadius": 20,
+     "textShadow": 12,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "canvas",
+      "ratio": 0.88
+     },
+     {
+      "type": "bg-image",
+      "ratio": 0.88
+     }
+    ],
+    "nav": {
+     "links": 2,
+     "fixed": true,
+     "height": 64,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "calsans",
+     "inter",
+     "fingerpaint",
+     "calsans fallback",
+     "inter fallback"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    1,
+    0.79,
+    0.92,
+    0.92,
+    0.64,
+    0.46,
+    0.82,
+    0.85,
+    0.92,
+    0.59,
+    0.42,
+    0.74
+   ],
+   "motion": {
+    "elements": 45,
+    "css": 11,
+    "transitions": 6,
+    "scripted": 28,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 11201,
+     "screens": 13.3,
+     "words": 964,
+     "img": 0,
+     "video": 0,
+     "canvas": 12,
+     "svg": 66,
+     "sections": 13,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 6,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 5,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": []
+    },
+    "hero": {
+     "text": "FaiN",
+     "words": 1,
+     "chars": 4,
+     "lines": 1,
+     "size": 73.5,
+     "vw": 18.8,
+     "font": "FingerPaint",
+     "weight": 700,
+     "tracking": 0,
+     "leading": 1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 1,
+     "top": 0,
+     "tag": "div",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Postavíme vám systém, který dělá tu práci, co u vás dneska dělá někdo rukou.",
+     "words": 14,
+     "lines": 5,
+     "size": 38.7,
+     "font": "CalSans"
+    },
+    "headings": [
+     {
+      "text": "FaiN",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 73.5,
+      "vw": 18.8,
+      "font": "FingerPaint",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 1,
+      "top": 0,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "FaiN Studio",
+      "words": 2,
+      "chars": 11,
+      "lines": 1,
+      "size": 24.8,
+      "vw": 6.4,
+      "font": "FingerPaint",
+      "weight": 700,
+      "tracking": 0.01,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.38,
+      "top": 30,
+      "tag": "a",
+      "kind": "heading"
+     },
+     {
+      "text": "Postavíme vám systém, který dělá tu práci, co u vás dneska dělá někdo rukou.",
+      "words": 14,
+      "chars": 76,
+      "lines": 5,
+      "size": 38.7,
+      "vw": 9.9,
+      "font": "CalSans",
+      "weight": 640,
+      "tracking": -0.025,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 159,
+      "gradientText": true,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Šest věcí, které stavíme.",
+      "words": 4,
+      "chars": 25,
+      "lines": 2,
+      "size": 35.2,
+      "vw": 9,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.022,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 864,
+      "gradientText": true,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Jak to probíhá",
+      "words": 3,
+      "chars": 14,
+      "lines": 1,
+      "size": 35.2,
+      "vw": 9,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.022,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.54,
+      "top": 4040,
+      "gradientText": true,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Jak to vypadá dneska a jak potom.",
+      "words": 7,
+      "chars": 33,
+      "lines": 2,
+      "size": 35.2,
+      "vw": 9,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.022,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 4914,
+      "gradientText": true,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Čím se to liší od ostatních cest.",
+      "words": 7,
+      "chars": 33,
+      "lines": 2,
+      "size": 35.2,
+      "vw": 9,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.022,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 5992,
+      "gradientText": true,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Čísla, která platí.",
+      "words": 3,
+      "chars": 19,
+      "lines": 2,
+      "size": 35.2,
+      "vw": 9,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.022,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 7745,
+      "gradientText": true,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "10 dní",
+      "words": 2,
+      "chars": 6,
+      "lines": 1,
+      "size": 35.2,
+      "vw": 9,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.03,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.84,
+      "top": 7859,
+      "gradientText": true,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "14 dní",
+      "words": 2,
+      "chars": 6,
+      "lines": 1,
+      "size": 35.2,
+      "vw": 9,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.03,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.84,
+      "top": 8045,
+      "gradientText": true,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "od 18 000 Kč",
+      "words": 4,
+      "chars": 12,
+      "lines": 1,
+      "size": 35.2,
+      "vw": 9,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.03,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.84,
+      "top": 8209,
+      "gradientText": true,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "0 Kč",
+      "words": 2,
+      "chars": 4,
+      "lines": 1,
+      "size": 35.2,
+      "vw": 9,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.03,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.84,
+      "top": 8373,
+      "gradientText": true,
+      "tag": "p",
+      "kind": "statement"
+     },
+     {
+      "text": "Bez prostředníků",
+      "words": 2,
+      "chars": 16,
+      "lines": 1,
+      "size": 23.5,
+      "vw": 6,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.02,
+      "leading": 1.55,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.84,
+      "top": 8580,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Máte otázky? My máme odpovědi:",
+      "words": 5,
+      "chars": 30,
+      "lines": 2,
+      "size": 35.2,
+      "vw": 9,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.022,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 8918,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Matyáš Plecháč",
+      "words": 2,
+      "chars": 14,
+      "lines": 1,
+      "size": 35.2,
+      "vw": 9,
+      "font": "CalSans",
+      "weight": 620,
+      "tracking": -0.022,
+      "leading": 1.04,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 10081,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Dvacet minut a budete vědět, jestli to má smysl",
+      "words": 9,
+      "chars": 47,
+      "lines": 3,
+      "size": 38,
+      "vw": 9.7,
+      "font": "CalSans",
+      "weight": 640,
+      "tracking": -0.025,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.8,
+      "top": 10527,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 16,
+     "maxLines": 5,
+     "over2Lines": 2,
+     "statements": 4,
+     "centered": 2,
+     "medianWords": 3,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Inter",
+       "share": 0.87,
+       "mono": false
+      },
+      {
+       "family": "CalSans",
+       "share": 0.13,
+       "mono": false
+      },
+      {
+       "family": "FingerPaint",
+       "share": 0,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      19,
+      21,
+      24,
+      25,
+      35,
+      38,
+      39,
+      74
+     ],
+     "sizeCount": 13,
+     "notLoaded": [],
+     "body": {
+      "font": "Inter",
+      "size": 16.1,
+      "leading": 1.55,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 8.2
+     },
+     "measureChars": 40,
+     "max": {
+      "size": 73.5,
+      "vw": 18.8,
+      "font": "FingerPaint",
+      "text": "FaiN"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 19,
+     "microLabelShare": 0.02,
+     "microSamples": [
+      "Systémy",
+      "02",
+      "Postup",
+      "03",
+      "Před a po",
+      "04"
+     ],
+     "upperShare": 0.02,
+     "centerShare": 0.06,
+     "smallText": 3
+    },
+    "eyebrows": [
+     {
+      "text": "Systémy",
+      "above": "Šest věcí, které stavíme.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 12.9,
+      "top": 826
+     },
+     {
+      "text": "Postup",
+      "above": "Jak to probíhá",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 12.9,
+      "top": 4004
+     },
+     {
+      "text": "Před a po",
+      "above": "Jak to vypadá dneska a jak potom.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 12.9,
+      "top": 4876
+     },
+     {
+      "text": "Srovnání",
+      "above": "Čím se to liší od ostatních cest.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 12.9,
+      "top": 5954
+     },
+     {
+      "text": "Čísla",
+      "above": "Čísla, která platí.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 12.9,
+      "top": 7707
+     },
+     {
+      "text": "FAQ",
+      "above": "Máte otázky? My máme odpovědi:",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 12.9,
+      "top": 8878
+     },
+     {
+      "text": "Kdo to staví",
+      "above": "Matyáš Plecháč",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 12.9,
+      "top": 10041
+     }
+    ],
+    "numbered": [
+     {
+      "text": "02",
+      "size": 12.9,
+      "top": 826
+     },
+     {
+      "text": "03",
+      "size": 12.9,
+      "top": 4004
+     },
+     {
+      "text": "04",
+      "size": 12.9,
+      "top": 4876
+     },
+     {
+      "text": "05",
+      "size": 12.9,
+      "top": 5954
+     },
+     {
+      "text": "06",
+      "size": 12.9,
+      "top": 7707
+     },
+     {
+      "text": "07",
+      "size": 12.9,
+      "top": 8878
+     },
+     {
+      "text": "08",
+      "size": 12.9,
+      "top": 10041
+     }
+    ],
+    "color": {
+     "bodyBg": "#0c0a08",
+     "bodyBgHsl": {
+      "h": 30,
+      "s": 0.2,
+      "l": 0.04
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#050403",
+       "top": 0,
+       "hsl": {
+        "h": 30,
+        "s": 0.25,
+        "l": 0.02
+       }
+      },
+      {
+       "color": "#15120f",
+       "top": 1050,
+       "hsl": {
+        "h": 30,
+        "s": 0.17,
+        "l": 0.07
+       }
+      },
+      {
+       "color": "#080605",
+       "top": 1224,
+       "hsl": {
+        "h": 20,
+        "s": 0.23,
+        "l": 0.03
+       }
+      },
+      {
+       "color": "#050505",
+       "top": 5452,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 0.02
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#ada6a0",
+       "share": 0.41
+      },
+      {
+       "color": "#f8f4f1",
+       "share": 0.32
+      },
+      {
+       "color": "#79736d",
+       "share": 0.12
+      },
+      {
+       "color": "#dc8d18",
+       "share": 0.03
+      },
+      {
+       "color": "#d8cfc7",
+       "share": 0.03
+      }
+     ],
+     "button": {
+      "bg": "#050505",
+      "hsl": {
+       "h": 0,
+       "s": 0,
+       "l": 0.02
+      },
+      "fg": "#fefbf9"
+     },
+     "lowContrast": [
+      {
+       "text": "8:42",
+       "ratio": 3.2,
+       "need": 4.5,
+       "size": 12.5,
+       "fg": "#79736d",
+       "bg": "#302519"
+      },
+      {
+       "text": "8:41",
+       "ratio": 3.8,
+       "need": 4.5,
+       "size": 12.5,
+       "fg": "#79736d",
+       "bg": "#1b1814"
+      },
+      {
+       "text": "Dvě věty o tom, co děláte, a hned pod tí",
+       "ratio": 3.8,
+       "need": 4.5,
+       "size": 14.1,
+       "fg": "#79736d",
+       "bg": "#1b1814"
+      },
+      {
+       "text": "Zapsáno do přehledu · čeká na potvrzení",
+       "ratio": 4.3,
+       "need": 4.5,
+       "size": 12.8,
+       "fg": "#79736d",
+       "bg": "#080605"
+      },
+      {
+       "text": "Dodavatel",
+       "ratio": 4.3,
+       "need": 4.5,
+       "size": 12.2,
+       "fg": "#79736d",
+       "bg": "#080605"
+      },
+      {
+       "text": "Variabilní symbol",
+       "ratio": 4.3,
+       "need": 4.5,
+       "size": 12.2,
+       "fg": "#79736d",
+       "bg": "#080605"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 6,
+     "inHero": 2,
+     "radius": "pill",
+     "height": 54,
+     "withShadow": 6,
+     "withGradient": 5,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Rezervovat 20 minut →",
+      "↓ Co stavíme"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 8,
+     "shadowOverlay": 2,
+     "shadowSamples": [
+      "a.btn.btn--primary → oklab(0.5283 0.0619644 0.159754 / 0.7) 0px 0px 0px 1px, oklch(0.7083 0.149 68.8 ",
+      "a.btn.btn--primary → oklab(0.5283 0.0619644 0.159754 / 0.7) 0px 0px 0px 1px, oklch(0.7083 0.149 68.8 ",
+      "div.ba__card.ba__card--after → lab(0 0 0 / 0.85) 0px 40px 90px -28px, lab(0 0 0 / 0.6) 0px 14px 34px -14px",
+      "a.btn.btn--primary → oklab(0.5283 0.0619644 0.159754 / 0.7) 0px 0px 0px 1px, oklch(0.7083 0.149 68.8 "
+     ],
+     "gradients": 14,
+     "scrims": 1,
+     "gradientSamples": [
+      "div.hero-bg__fallback → radial-gradient(46% 52% at 64% 44%, oklch(0.7083 0.149 68.8 / 0.5), rgba(0, 0, 0, 0) 68%), radial-gradient(40%",
+      "div.hero-bg__mask → radial-gradient(55% 45% at 50% 46%, oklab(0.11 0.00216975 0.00559394 / 0.7), rgba(0, 0, 0, 0) 70%), linear-gra",
+      "a.btn.btn--primary → linear-gradient(135deg, oklab(0.30094 0.0278868 0.0718904), rgb(5, 5, 5) 80%)",
+      "a.btn.btn--primary → linear-gradient(135deg, oklab(0.30094 0.0278868 0.0718904), rgb(5, 5, 5) 80%)"
+     ],
+     "gradientText": 15,
+     "hairlines": 39,
+     "hairlineSamples": [
+      "li 300px",
+      "li 300px",
+      "li 300px",
+      "li 300px",
+      "li 300px"
+     ],
+     "outlinedBoxes": 5,
+     "dashed": 1,
+     "blurred": 2,
+     "roundedBoxes": 25,
+     "boxRadius": 18,
+     "squareMedia": 3,
+     "roundedMedia": 3,
+     "mediaRadius": 20,
+     "textShadow": 12,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "canvas",
+      "ratio": 0.83
+     },
+     {
+      "type": "bg-image",
+      "ratio": 0.83
+     },
+     {
+      "type": "canvas",
+      "ratio": 0.08
+     }
+    ],
+    "nav": {
+     "links": 2,
+     "fixed": true,
+     "height": 56,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "calsans",
+     "inter",
+     "fingerpaint",
+     "calsans fallback",
+     "inter fallback"
+    ]
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "headline-lines",
+   "width": 1440,
+   "message": "2 headline(s) wrap past two lines at 1440px: \"Postavíme vám systém, který dělá tu práci, co u \" → 4 lines (14 words, 76.8px); \"Jak to vypadá dneska a jak potom.\" → 3 lines (7 words, 60.8px)",
+   "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 36px or less."
+  },
+  {
+   "level": "WARN",
+   "id": "hero-words",
+   "width": 1440,
+   "message": "Hero headline is 14 words (\"Postavíme vám systém, který dělá tu práci, co u vás dneska d\"). Gallery median is 5.",
+   "fix": "Say the one thing. Move the rest to the supporting line."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "width": 1440,
+   "message": "7 eyebrow/kicker label(s) above headings: \"Digitalizace a automatizace procesů\" above \"Postavíme vám systém, který dělá tu prác\"; \"Systémy\" above \"Šest věcí, které stavíme.\"; \"Postup\" above \"Jak to probíhá\"; \"Před a po\" above \"Jak to vypadá dneska a jak potom.\"; \"Srovnání\" above \"Čím se to liší od ostatních cest.\"",
+   "fix": "Delete them. If the label carried real information, fold it into the headline or the supporting sentence.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "numbering",
+   "width": 1440,
+   "message": "Decorative index numbers: \"02\", \"03\", \"04\", \"05\", \"06\", \"07\"",
+   "fix": "Remove them. If order truly matters, write it into the words (\"First, …\") or use a real <ol>.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "micro-label",
+   "width": 1440,
+   "message": "20 tiny uppercase letter-spaced labels (e.g. \"Digitalizace a automatizace procesů\", \"Systémy\", \"02\", \"Postup\").",
+   "fix": "Use sentence-case text at a readable size, or delete the label.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "gradient",
+   "width": 1440,
+   "message": "6 gradient fill(s): div.hero-bg__fallback → radial-gradient(46% 52% at 64% 44%, oklch(0.7083 0.149 68.8 / 0.5), rgba(0, 0, 0, 0) 68%), radial-gradient(40% | div.hero-bg__mask → radial-gradient(55% 45% at 50% 46%, oklab(0.11 0.00216975 0.00559394 / 0.7), rgba(0, 0, 0, 0) 70%), linear-gra | div.ba__card.ba__card--before → linear-gradient(oklch(0.21 0.009 68.8) 0%, oklch(0.185 0.008 68.8) 100%)",
+   "fix": "Use a flat colour or a real image. The only gradient allowed by default is a neutral scrim over a photo for legibility.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "gradient-text",
+   "width": 1440,
+   "message": "39 gradient-filled text element(s).",
+   "fix": "Solid colour text.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "width": 1440,
+   "message": "8 box-shadow(s) on elements at rest: p.label.hero__eyebrow → rgba(255, 255, 255, 0.38) 0px 1px 0px 0px inset, rgba(255, 255, 255, 0.07) 0px - | a.btn.btn--primary → oklab(0.5283 0.0619644 0.159754 / 0.7) 0px 0px 0px 1px, oklch(0.7083 0.149 68.8  | a.btn.btn--primary → oklab(0.5283 0.0619644 0.159754 / 0.7) 0px 0px 0px 1px, oklch(0.7083 0.149 68.8 ",
+   "fix": "Remove. Separate surfaces with a tone step or space. Shadows are for things that really float (menus, dialogs, sticky bars).",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "text-shadow",
+   "width": 1440,
+   "message": "12 text-shadow(s).",
+   "fix": "Remove; fix legibility with a scrim or a different crop.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "button-fx",
+   "width": 1440,
+   "message": "Buttons with gradient fill and shadow/glow.",
+   "fix": "Flat fill, one colour.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "width": 1440,
+   "message": "15 thin rule(s)/divider line(s): li 514px | li 514px | li 514px | li 514px",
+   "fix": "Delete. Separate with space, a tone change, or scale. Lines are only for real tables and form fields.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "outlined-box",
+   "width": 1440,
+   "message": "3 boxes drawn with a 1px outline.",
+   "fix": "Define a surface by its fill (one tone step from the page) or leave the content unboxed.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "dashed",
+   "width": 1440,
+   "message": "1 dashed/dotted border(s).",
+   "fix": "Remove unless it is a real drop zone.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "glass",
+   "width": 1440,
+   "message": "3 backdrop-blur surfaces.",
+   "fix": "One blurred sticky bar at most; glass cards are a tell.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "palette-cream",
+   "width": 1440,
+   "message": "Yellow-cream background (text #f8f4f1).",
+   "fix": "Use the drawn palette. If you want warmth, take a low-chroma stone or bone, not a yellow cream.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "contrast",
+   "width": 1440,
+   "message": "Low-contrast text: \"8:42\" 3.2:1 needs 4.5:1; \"8:41\" 3.8:1 needs 4.5:1; \"Dvě věty o tom, co děláte, a hned pod tí\" 3.8:1 needs 4.5:1; \"Zapsáno do přehledu · čeká na potvrzení\" 4.3:1 needs 4.5:1",
+   "fix": "Darken or lighten the text colour.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "size-count",
+   "width": 1440,
+   "message": "14 different font sizes (12, 13, 14, 15, 17, 21, 22, 28, 29, 30, 50, 61, 76, 77).",
+   "fix": "A page needs about five: display, heading, lead, body, small.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "no-real-pictures",
+   "width": 1440,
+   "message": "Only 0 real photograph(s) or clip(s); the rest are interface fragments.",
+   "fix": "Add two or more real pictures of the customer's world from scripts/assets.mjs, not stock of people at laptops."
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  },
+  {
+   "level": "WARN",
+   "id": "small-text",
+   "width": 1440,
+   "message": "1 text block(s) under 13px.",
+   "fix": "Nothing meant to be read goes below 13px.",
+   "alsoAt": [
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "covered-text",
+   "width": 1440,
+   "message": "Large text lies under another element at some scroll position: \"FaiN\" (screen 1, 100% hidden); \"Postavíme vám systém, který dělá tu práci,\" (screen 1, 38% hidden); \"co u vás dneska dělá někdo rukou.\" (screen 1, 50% hidden)",
+   "fix": "Nothing may sit on top of a headline or statement. Move the picture, shorten the pinned run, or raise the text above it (z-index) and give it a ground.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "pinned-over-picture",
+   "width": 1440,
+   "message": "Pinned large text slides across pictures while the page scrolls: \"FaiN\" (screen 1, 100% over a picture)",
+   "fix": "Jurors read a pinned title crossing drawings or photographs as a collision. Keep the pictures in the column the title does not occupy, or unpin it.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "headline-lines",
+   "width": 768,
+   "message": "1 headline(s) wrap past two lines at 768px: \"Postavíme vám systém, který dělá tu práci, co u \" → 4 lines (14 words, 54.7px)",
+   "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 32px or less."
+  },
+  {
+   "level": "FAIL",
+   "id": "headline-lines",
+   "width": 390,
+   "message": "2 headline(s) wrap past two lines at 390px: \"Postavíme vám systém, který dělá tu práci, co u \" → 5 lines (14 words, 38.7px); \"Dvacet minut a budete vědět, jestli to má smysl\" → 3 lines (9 words, 38px)",
+   "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 24px or less."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "/Users/macbook/ClaudeCode/FaiN3/.taste-skill/inspect/desktop-fold.jpg",
+   "pages": [
+    "/Users/macbook/ClaudeCode/FaiN3/.taste-skill/inspect/desktop-page-01.jpg",
+    "/Users/macbook/ClaudeCode/FaiN3/.taste-skill/inspect/desktop-page-02.jpg",
+    "/Users/macbook/ClaudeCode/FaiN3/.taste-skill/inspect/desktop-page-03.jpg"
+   ]
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "/Users/macbook/ClaudeCode/FaiN3/.taste-skill/inspect/tablet-fold.jpg",
+   "pages": [
+    "/Users/macbook/ClaudeCode/FaiN3/.taste-skill/inspect/tablet-page-01.jpg",
+    "/Users/macbook/ClaudeCode/FaiN3/.taste-skill/inspect/tablet-page-02.jpg"
+   ]
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "/Users/macbook/ClaudeCode/FaiN3/.taste-skill/inspect/mobile-fold.jpg",
+   "pages": [
+    "/Users/macbook/ClaudeCode/FaiN3/.taste-skill/inspect/mobile-page-01.jpg",
+    "/Users/macbook/ClaudeCode/FaiN3/.taste-skill/inspect/mobile-page-02.jpg"
+   ]
+  }
+ ]
+}
