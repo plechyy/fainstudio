@@ -47,7 +47,7 @@ export default function Compare() {
 
         <div className="cmp-table reveal">
           <div className="cmp-smoke" aria-hidden="true">
-            <ShaderBackground bg="#050505" phase={95} />
+            <ShaderBackground phase={95} />
           </div>
           <table>
             <caption className="sr-only">{compare.title}</caption>

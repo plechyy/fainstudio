@@ -185,7 +185,7 @@
 /* karty, které jsou záměrně tmavé i ve světlém motivu (závěrečné CTA) */
 :root[data-theme='light'] .cta,
 :root[data-theme='light'] .ba__card--after,
-:root[data-theme='light'] .us {
+:root[data-theme='light'] .cmp-card.us {
   --ink: oklch(0.97 0.006 var(--brand-h));
   --ink-2: oklch(0.73 0.012 var(--brand-h));
   --ink-3: oklch(0.56 0.012 var(--brand-h));
