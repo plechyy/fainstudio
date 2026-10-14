@@ -10,7 +10,8 @@ import { useEffect, useRef, useState } from 'react';
  * bez WebGL nebo při reduced motion zůstane slovo jednobarevné.
  */
 
-const MIN = 1700; // nejkratší doba zobrazení
+const MIN = 1450; // nejkratší doba zobrazení
+const FILL_MS = 1400; // vyplnění loga jede rovnoměrně přes celou dobu načítání
 const HOLD = 350; // pauza na plně vybarveném slově
 
 const FRAG = `#version 300 es
@@ -206,9 +207,9 @@ export default function Loader() {
       const frame = (now: number) => {
         const dt = Math.min(0.05, (now - last) / 1000);
         last = now;
-        // do ~85 % podle času, po načtení až do plna
-        const target = ready ? 1 : 0.85 * Math.min(1, (now - t0) / 1500);
-        fill += (target - fill) * (1 - Math.exp(-dt * 2.6));
+        // rovnoměrně od 0 do plna přes celou dobu (nezrychluje se, když je web hotový dřív)
+        const target = Math.min(1, (now - t0) / FILL_MS);
+        fill += (target - fill) * (1 - Math.exp(-dt * 10));
         gl.uniform1f(uTime, (now - t0) / 1000 + 20);
         gl.uniform1f(uFill, fill);
         gl.clearColor(0, 0, 0, 0);
