@@ -11,7 +11,6 @@ import About from '@/components/About';
 import Cta from '@/components/Cta';
 import Footer from '@/components/Footer';
 import Enhance from '@/components/Enhance';
-import ColorStudio from '@/components/ColorStudio';
 import ButtonSmoke from '@/components/ButtonSmoke';
 
 export default function Home() {
@@ -32,7 +31,6 @@ export default function Home() {
         <Cta />
       </main>
       <Footer />
-      <ColorStudio />
       <Enhance />
       <ButtonSmoke />
     </>

@@ -7,16 +7,13 @@ import Carousel from './Carousel';
 import SysHead from './SysHead';
 
 /*
- * P — původní rozvržení (seznam vlevo, vizuál vpravo) bez toho, co na něm
- * vypadalo jako šablona: žádná čísla, žádné karty pod každou položkou,
- * žádné vodiče, výboje ani automatické přepínání.
- *
+ * Vnitřek sekce „Systémy“: seznam vlevo, vizuál vpravo.
  * Na počítači jsou dva sloupce stejné výšky: vlevo nadpis a jména, vpravo
  * vizuál od horní hrany nadpisu a pod ním popis vybraného systému.
  * Na mobilu je z toho nekonečný carousel.
  */
 
-export default function VariantP() {
+export default function Panel() {
   const items = systems.items;
   const [active, setActive] = useState(0);
   const [mobile, setMobile] = useState(false);

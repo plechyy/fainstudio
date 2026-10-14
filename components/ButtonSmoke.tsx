@@ -4,17 +4,20 @@ import { useEffect } from 'react';
 
 /*
  * Mrak uvnitř tlačítek.
- * Jeden sdílený WebGL2 mrak (detached canvas, nízké rozlišení). Každé .btn dostane
- * vlastní 2D canvas a vlastní PEVNÝ výřez sdíleného mraku (jiný pro každé tlačítko).
- * Výřez nezávisí na pozici na obrazovce → mrak v tlačítku je vždy na stejném místě
- * tlačítka a při scrollu se nemění; mění se jen v čase (animace).
+ * Jeden WebGL2 kontext (detached canvas) vykreslí každé tlačítko zvlášť, pixel na pixel
+ * v rozlišení displeje — nic se nezvětšuje, takže kouř není rozmazaný ani zrnitý.
+ * Všechna tlačítka počítají stejné mračno, jen každé ze svého PEVNÉHO místa (u_off),
+ * takže na sebe navazují. Výřez nezávisí na pozici na obrazovce → mrak v tlačítku je
+ * vždy na stejném místě tlačítka a při scrollu se nemění; mění se jen v čase.
  * Žádný další WebGL kontext na tlačítko. Běží jen když je aspoň jedno tlačítko vidět;
  * kadence ~25 fps rovnoměrně na vsync.
  */
 
 const FRAG = `#version 300 es
 precision highp float;
-uniform vec2 u_res;
+uniform vec2 u_res;   // velikost tlačítka v pixelech displeje
+uniform vec2 u_win;   // velikost celého mračna (v těch samých pixelech)
+uniform vec2 u_off;   // kde v mračnu tohle tlačítko leží
 uniform float u_time;
 uniform vec3 u_brand;
 uniform vec3 u_bg;
@@ -36,7 +39,7 @@ float fbm(vec2 p){
 
 void main(){
   // jemnější měřítko než v hero → i v malém tlačítku je vidět struktura mraku
-  vec2 p = (gl_FragCoord.xy - 0.5*u_res) / u_res.y * 9.0;
+  vec2 p = (gl_FragCoord.xy + u_off - 0.5*u_win) / u_win.y * 9.0;
   float t = u_time * 0.15;                      // ≈1,5× rychlejší než hero (zpomaleno o 50 %)
   p += vec2(t * 0.55, t * 0.2);                 // plynulý driftem posun celého pole
   vec2 w = vec2(fbm(p*0.9 + vec2(0.0, t)), fbm(p*0.9 + vec2(3.3, -t*0.8)));
@@ -52,9 +55,9 @@ void main(){
   vec3 col = u_bg;
   col = mix(col, u_brand * 0.38, smoothstep(0.08, 0.55, d));
   col = mix(col, peak, smoothstep(0.50, 0.92, d));
-  // film grain jako v sekcích
-  float gr = hash(gl_FragCoord.xy * 1.3 + fract(u_time) * 180.0);
-  col += (gr - 0.5) * 0.016;
+  // jemné zrno, nehýbe se každý snímek (jinak to v malém tlačítku jiskří)
+  float gr = hash(floor((gl_FragCoord.xy + u_off) * 0.5));
+  col += (gr - 0.5) * 0.012;
   o = vec4(max(col, 0.0), 1.0);
 }`;
 
@@ -120,22 +123,29 @@ export default function ButtonSmoke() {
     gl.enableVertexAttribArray(loc);
     gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
     const uRes = gl.getUniformLocation(prog, 'u_res');
+    const uWin = gl.getUniformLocation(prog, 'u_win');
+    const uOff = gl.getUniformLocation(prog, 'u_off');
     const uTime = gl.getUniformLocation(prog, 'u_time');
     const uBrand = gl.getUniformLocation(prog, 'u_brand');
     const uBg = gl.getUniformLocation(prog, 'u_bg');
 
     const reduce = matchMedia('(prefers-reduced-motion: reduce)');
-    // sdílený mrak v rozlišení displeje (strop 2600 px): výřez do tlačítka se pak
-    // nemusí zvětšovat, takže kouř není rozmazaný ani zrnitý
-    const dpr = Math.min(devicePixelRatio || 1, 2);
-    const SCALE = Math.min(dpr, 2600 / Math.max(innerWidth, 1));
+    const dpr = () => Math.min(devicePixelRatio || 1, 2);
     let brand = srgb('--brand');
+    // plátno stačí velké jako největší tlačítko — každé se kreslí do levého dolního rohu
     const resize = () => {
-      src.width = Math.max(160, Math.round(innerWidth * SCALE));
-      src.height = Math.max(90, Math.round(innerHeight * SCALE));
-      gl.viewport(0, 0, src.width, src.height);
+      const d = dpr();
+      let w = 16;
+      let h = 16;
+      for (const b of buttons) {
+        w = Math.max(w, Math.ceil(b.offsetWidth * d));
+        h = Math.max(h, Math.ceil(b.offsetHeight * d));
+      }
+      if (src.width !== w || src.height !== h) {
+        src.width = w;
+        src.height = h;
+      }
     };
-    resize();
 
     const entries: Entry[] = buttons.flatMap((btn, i) => {
       const cv = document.createElement('canvas');
@@ -154,28 +164,29 @@ export default function ButtonSmoke() {
     const start = performance.now() - PHASE * 1000;
 
     const render = () => {
-      gl.uniform2f(uRes, src.width, src.height);
-      gl.uniform1f(uTime, reduce.matches ? PHASE : (performance.now() - start) / 1000);
+      resize();
+      const d = dpr();
+      const win = [Math.max(1, innerWidth * d), Math.max(1, innerHeight * d)];
+      const time = reduce.matches ? PHASE : (performance.now() - start) / 1000;
+      gl.uniform1f(uTime, time);
       gl.uniform3f(uBrand, brand[0], brand[1], brand[2]);
       gl.uniform3f(uBg, BASE_BG[0], BASE_BG[1], BASE_BG[2]);
-      gl.drawArrays(gl.TRIANGLES, 0, 3);
-      // kopie výřezů MUSÍ proběhnout ve stejném tasku jako drawArrays (jinak je buffer prázdný)
-      const k = src.width / innerWidth; // stejné měřítko jako dřív: 1 px tlačítka = k px mraku
+      gl.uniform2f(uWin, win[0], win[1]);
       for (const e of entries) {
         if (!e.visible) continue;
-        const w = Math.max(1, Math.round(e.btn.offsetWidth * dpr));
-        const h = Math.max(1, Math.round(e.btn.offsetHeight * dpr));
+        const w = Math.max(1, Math.round(e.btn.offsetWidth * d));
+        const h = Math.max(1, Math.round(e.btn.offsetHeight * d));
         if (e.cv.width !== w || e.cv.height !== h) {
           e.cv.width = w;
           e.cv.height = h;
-          e.ctx.imageSmoothingQuality = 'high';
         }
-        // pevný výřez: poloha je dána jen indexem tlačítka, ne scrollem
-        const sw = Math.min(src.width, (w / dpr) * k);
-        const sh = Math.min(src.height, (h / dpr) * k);
-        const ox = e.fx * (src.width - sw);
-        const oy = e.fy * (src.height - sh);
-        e.ctx.drawImage(src, ox, oy, sw, sh, 0, 0, w, h);
+        // každé tlačítko má svoje pevné místo v mračnu, nezávislé na scrollu
+        gl.viewport(0, 0, w, h);
+        gl.uniform2f(uRes, w, h);
+        gl.uniform2f(uOff, e.fx * Math.max(0, win[0] - w), e.fy * Math.max(0, win[1] - h));
+        gl.drawArrays(gl.TRIANGLES, 0, 3);
+        // kopie MUSÍ proběhnout ve stejném tasku jako drawArrays (jinak je buffer prázdný)
+        e.ctx.drawImage(src, 0, src.height - h, w, h, 0, 0, w, h);
       }
     };
 
