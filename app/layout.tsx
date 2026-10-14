@@ -20,13 +20,17 @@ export const metadata: Metadata = {
   },
 };
 
+// přesná barva pozadí webu — lišta iOS pak na stránku navazuje bez šedého pruhu
+const BG_DARK = '#191714';
+
 export const viewport: Viewport = {
-  themeColor: '#1a1917',
+  themeColor: BG_DARK,
   colorScheme: 'dark',
+  viewportFit: 'cover', // na ploše uložený web jde až pod stavový řádek
 };
 
 // Obnoví uloženou barvu před prvním vykreslením → nic neprobliká.
-const noFlash = `(function(){try{var d=document.documentElement;d.classList.add('is-loading');d.dataset.theme=localStorage.getItem('theme')==='light'?'light':'dark';}catch(e){}})();`;
+const noFlash = `(function(){try{var d=document.documentElement;d.classList.add('is-loading');var t=localStorage.getItem('theme')==='light'?'light':'dark';d.dataset.theme=t;var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==='light'?'${'#fcfaf6'}':'${'#191714'}';}catch(e){}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -35,6 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preload" href="/fonts/finger-paint-logo.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/cal-sans-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <script dangerouslySetInnerHTML={{ __html: noFlash }} />
       </head>
       <body>
