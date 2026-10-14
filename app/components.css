@@ -2183,3 +2183,25 @@ html.is-loading .seq {
     color: var(--ink);
   }
 }
+
+/* oranžové části všech nadpisů: stejný přechod jako velká čísla v sekci Čísla */
+.hero__accent,
+.sys-head__accent,
+.ba-head__accent,
+.hd__accent {
+  background: linear-gradient(180deg, #fff 0%, var(--brand) 85%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--brand);
+  padding-bottom: 0.08em;
+}
+:root[data-theme='light'] .hero__accent,
+:root[data-theme='light'] .sys-head__accent,
+:root[data-theme='light'] .ba-head__accent,
+:root[data-theme='light'] .hd__accent {
+  background: linear-gradient(180deg, color-mix(in oklab, var(--accent-text) 75%, black) 0%, var(--accent-text) 85%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: var(--accent-text);
+}
