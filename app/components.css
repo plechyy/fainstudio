@@ -2479,117 +2479,6 @@ html.is-loading .seq {
   color: var(--accent-text);
 }
 
-/* ── A: výstupy vedle sebe ───────────────────────────────────────── */
-.sv-a {
-  display: grid;
-  gap: 14px;
-}
-.sv-a__cell {
-  display: grid;
-  gap: 20px;
-  align-content: center;
-  padding: clamp(20px, 2.4vw, 30px);
-  border-radius: 20px;
-  background: var(--surface);
-}
-.sv-a__name {
-  font-family: var(--font-display);
-  font-size: clamp(1.3rem, 1.05rem + 0.8vw, 1.8rem);
-  font-weight: 620;
-  letter-spacing: -0.025em;
-  line-height: 1.08;
-}
-.sv-a__text {
-  margin-top: 12px;
-  max-width: 44ch;
-  color: var(--ink-2);
-  font-size: var(--step-0);
-  line-height: 1.55;
-  text-wrap: pretty;
-}
-@media (min-width: 900px) {
-  .sv-a {
-    grid-template-columns: repeat(12, 1fr);
-    gap: 16px;
-  }
-  /* široké bloky mají text vedle výstupu, úzké pod sebou — ať to není mřížka karet */
-  .sv-a__cell:nth-child(1),
-  .sv-a__cell:nth-child(4) {
-    grid-column: span 7;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
-    align-items: center;
-    background: var(--surface-2);
-  }
-  .sv-a__cell:nth-child(2),
-  .sv-a__cell:nth-child(3) {
-    grid-column: span 5;
-  }
-  .sv-a__cell:nth-child(5),
-  .sv-a__cell:nth-child(6) {
-    grid-column: span 6;
-  }
-}
-
-/* ── B: rejstřík ─────────────────────────────────────────────────── */
-.sv-b {
-  display: grid;
-  gap: 2px;
-}
-.sv-b__row {
-  border-radius: 20px;
-  padding: 0 clamp(14px, 1.6vw, 22px);
-  transition: background-color 220ms;
-}
-.sv-b__row.is-open {
-  background: var(--surface);
-}
-.sv-b__h {
-  margin: 0;
-}
-.sv-b__btn {
-  display: block;
-  width: 100%;
-  padding: 16px 0;
-  text-align: left;
-  font-family: var(--font-display);
-  font-size: clamp(1.45rem, 1rem + 2.2vw, 2.7rem);
-  font-weight: 620;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
-  color: var(--ink-3);
-  background: none;
-  border: 0;
-  cursor: pointer;
-  transition: color 180ms;
-}
-.sv-b__btn:hover {
-  color: var(--ink-2);
-}
-.sv-b__row.is-open .sv-b__btn {
-  color: var(--ink);
-}
-.sv-b__body {
-  display: grid;
-  gap: 20px;
-  padding-bottom: 26px;
-  animation: sys-copy 420ms var(--ease-out) both;
-}
-.sv-b__text {
-  max-width: 46ch;
-  color: var(--ink-2);
-  font-size: var(--step-0);
-  line-height: 1.6;
-  text-wrap: pretty;
-}
-@media (min-width: 900px) {
-  .sv-b__body {
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: 40px;
-    align-items: start;
-    padding-bottom: 34px;
-  }
-}
-
 /* ── C: dílna ────────────────────────────────────────────────────── */
 .sv-c__pick {
   display: grid;
@@ -2654,87 +2543,34 @@ html.is-loading .seq {
 .sv-c__art {
   animation: sys-copy 460ms var(--ease-out) 60ms both;
 }
+/* místo pro grafiku, kterou teprve doplníme */
+.sv-c__ph {
+  display: none;
+  place-items: center;
+  aspect-ratio: 16 / 10;
+  border-radius: 20px;
+  background: var(--surface);
+  color: var(--ink-2);
+  font-size: 0.85rem;
+  animation: sys-copy 460ms var(--ease-out) 60ms both;
+}
 @media (min-width: 900px) {
   .sv-c__pick {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+  /* na počítači žádný velký rám — jen text a vizuál vedle sebe */
   .sv-c__stage {
     grid-template-columns: minmax(250px, 0.8fr) minmax(0, 1.2fr);
     gap: clamp(32px, 4vw, 56px);
-    align-items: stretch;
-    min-height: 440px;
+    align-items: center;
+    padding: 0;
+    background: none;
   }
-  .sv-c__copy {
-    align-self: center;
-  }
-}
-
-/* ── D: posuv ────────────────────────────────────────────────────── */
-.sv-d {
-  display: grid;
-  gap: 24px;
-}
-.sv-d__stage {
-  display: none;
-}
-.sv-d__name {
-  font-family: var(--font-display);
-  font-size: clamp(1.4rem, 1.1rem + 1.4vw, 2.3rem);
-  font-weight: 620;
-  letter-spacing: -0.025em;
-  line-height: 1.06;
-}
-.sv-d__text {
-  margin-top: 12px;
-  max-width: 42ch;
-  color: var(--ink-2);
-  font-size: var(--step-0);
-  line-height: 1.6;
-  text-wrap: pretty;
-}
-.sv-d__inline {
-  margin-top: 18px;
-}
-@media (min-width: 900px) {
-  .sv-d {
-    grid-template-columns: minmax(280px, 0.85fr) minmax(0, 1.15fr);
-    gap: clamp(40px, 5vw, 80px);
-    align-items: start;
-  }
-  .sv-d__inline {
+  .sv-c__art {
     display: none;
   }
-  .sv-d__stage {
-    display: block;
-    align-self: stretch; /* sloupec musí být vysoký jako text, jinak se lepení nemá čeho chytit */
-  }
-  .sv-d__frame {
-    position: sticky;
-    top: calc(50vh - 210px);
-    height: 420px;
-  }
-  .sv-d__art {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transform: translate3d(0, 12px, 0);
-    transition: opacity 360ms var(--ease-out), transform 360ms var(--ease-out);
-    pointer-events: none;
-  }
-  .sv-d__art.is-on {
-    opacity: 1;
-    transform: none;
-  }
-  .sv-d__block {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 54vh;
-    opacity: 0.5;
-    transition: opacity 320ms;
-  }
-  .sv-d__block.is-on {
-    opacity: 1;
+  .sv-c__ph {
+    display: grid;
   }
 }
 
@@ -2796,13 +2632,10 @@ html.is-loading .seq {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sv-b__body,
   .sv-c__copy,
-  .sv-c__art {
+  .sv-c__art,
+  .sv-c__ph {
     animation: none;
-  }
-  .sv-d__art {
-    transition: none;
   }
 }
 
