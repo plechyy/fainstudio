@@ -5,11 +5,12 @@
  * vynutit odkazem (?sys=b). Až si jednu variantu vybereme, zbytek i tenhle soubor zmizí.
  */
 
-export type SysVariant = 'now' | 'c';
+export type SysVariant = 'now' | 'c' | 'p';
 
 export const VARIANTS: { id: SysVariant; label: string; note: string }[] = [
   { id: 'now', label: 'Teď', note: 'Původní sekce s vodiči' },
   { id: 'c', label: 'C', note: 'Dílna — jména nahoře, jeden vizuál' },
+  { id: 'p', label: 'P', note: 'Původní rozvržení, bez čísel a vodičů' },
 ];
 
 const KEY = 'sys-variant';

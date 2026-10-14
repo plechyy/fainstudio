@@ -5,6 +5,7 @@ import { hero, systems } from '@/lib/content';
 import CtaRow from './CtaRow';
 import Board from './systems/Board';
 import VariantC from './systems/VariantC';
+import VariantP from './systems/VariantP';
 import VariantSwitch, { useSysVariant } from './systems/VariantSwitch';
 
 /*
@@ -53,7 +54,9 @@ export default function Systems() {
           <p className="sys-head__lead">{systems.lead}</p>
         </header>
 
-        {v === 'now' ? <Board /> : <VariantC />}
+        {v === 'now' && <Board />}
+        {v === 'c' && <VariantC />}
+        {v === 'p' && <VariantP />}
 
         <CtaRow label={hero.primary} />
       </div>
