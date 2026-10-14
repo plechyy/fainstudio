@@ -2169,3 +2169,17 @@ html.is-loading .seq {
     display: none;
   }
 }
+
+/* mobil, sekce Postup: text nad kouřem vždy čitelný (nic se nedimuje, kouř je tlumenější) */
+@media (max-width: 899px) {
+  .proc-bg {
+    opacity: 0.45;
+  }
+  .proc-head__lead,
+  .step[data-state] .step__text {
+    color: color-mix(in oklab, var(--ink) 92%, transparent);
+  }
+  .step[data-state] .step__name {
+    color: var(--ink);
+  }
+}
