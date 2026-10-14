@@ -2728,16 +2728,26 @@ html.is-loading .seq {
   text-wrap: pretty;
 }
 @media (min-width: 900px) {
+  /* oba sloupce od stejné horní hrany a do stejné výšky */
   .sp {
-    grid-template-columns: minmax(230px, 1fr) minmax(0, 1.9fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
     gap: clamp(40px, 5vw, 72px);
-    align-items: start;
+    align-items: stretch;
+  }
+  .sp__left {
+    display: grid;
+    align-content: start;
+  }
+  .sp__list {
+    margin-bottom: clamp(28px, 3vw, 40px);
   }
   .sp__art {
     display: none;
   }
   .sp__ph {
     display: grid;
+    height: 100%;
+    aspect-ratio: auto;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -2746,4 +2756,44 @@ html.is-loading .seq {
   .sp__copy {
     animation: none;
   }
+}
+
+/* ── mobilní carousel systémů ────────────────────────────────────── */
+.sysx {
+  display: flex;
+  gap: 12px;
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: var(--gutter);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.sysx::-webkit-scrollbar {
+  display: none;
+}
+.sysx__slide {
+  flex: 0 0 86%;
+  scroll-snap-align: center;
+  display: grid;
+  gap: 18px;
+  align-content: start;
+  padding: 16px;
+  border-radius: 20px;
+  background: var(--surface);
+}
+.sysx__name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 620;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+.sysx__text {
+  margin-top: 10px;
+  color: var(--ink-2);
+  font-size: var(--step-0);
+  line-height: 1.55;
+  text-wrap: pretty;
 }
