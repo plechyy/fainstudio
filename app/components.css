@@ -2401,19 +2401,21 @@ html.is-loading .seq {
    kouř (ButtonSmoke.tsx), nad ním odlesk po horní hraně a přejezd světla při najetí.
    ════════════════════════════════════════════════════════════════════ */
 .btn.btn--primary {
-  /* dva odstíny: značková barva a vedle ní posunutý (teplejší/růžovější) odstín */
-  --b1: oklch(0.88 calc(var(--cta-c) * 1.1) var(--cta-h) / 0.78);
-  --b2: oklch(0.76 calc(var(--cta-c) * 1.3) calc(var(--cta-h) - 30) / 0.72);
-  color: oklch(0.2 0.04 var(--cta-h));
+  /* stejný odstín jako barevné nadpisy: nahoře světlejší tón, dole přesně --cta */
+  --cta-l: calc(0.78 + var(--cta-l-adj));
+  --b1: oklch(calc(var(--cta-l) + (1 - var(--cta-l)) * 0.4) calc(var(--cta-c) * 0.9) var(--cta-h) / 0.82);
+  --b2: oklch(calc(var(--cta-l) - 0.03) var(--cta-c) var(--cta-h) / 0.8);
+  /* tmavý text na světlé barvě, bílý na tmavé */
+  color: oklch(from var(--cta) clamp(0.16, calc((0.66 - l) * 60), 0.98) 0.02 h);
   font-weight: 600;
   background: oklch(0.34 0.02 var(--cta-h) / 0.2);
   -webkit-backdrop-filter: blur(18px) saturate(1.5) brightness(1.2);
   backdrop-filter: blur(18px) saturate(1.5) brightness(1.2);
   box-shadow:
     inset 0 1px 0 oklch(1 0 0 / 0.7),
-    inset 0 -14px 22px -12px oklch(0.62 calc(var(--cta-c) * 1.3) calc(var(--cta-h) - 30) / 0.7),
+    inset 0 -14px 22px -12px oklch(calc(var(--cta-l) - 0.1) var(--cta-c) var(--cta-h) / 0.7),
     inset 0 0 0 1px oklch(1 0 0 / 0.3),
-    0 14px 34px -12px oklch(0.62 calc(var(--cta-c) * 1.4) calc(var(--cta-h) - 26) / 0.75);
+    0 14px 34px -12px oklch(calc(var(--cta-l) - 0.1) var(--cta-c) var(--cta-h) / 0.75);
   text-shadow: 0 1px 0 oklch(1 0 0 / 0.35);
   transition: transform 160ms var(--ease-out), box-shadow 200ms;
 }
@@ -2451,9 +2453,9 @@ html.is-loading .seq {
 .btn.btn--primary:hover {
   box-shadow:
     inset 0 1px 0 oklch(1 0 0 / 0.7),
-    inset 0 -14px 20px -12px oklch(0.55 var(--cta-c) var(--cta-h) / 0.8),
+    inset 0 -14px 20px -12px oklch(calc(var(--cta-l) - 0.15) var(--cta-c) var(--cta-h) / 0.8),
     inset 0 0 0 1px oklch(1 0 0 / 0.32),
-    0 16px 38px -12px oklch(0.7 var(--cta-c) var(--cta-h) / 0.85);
+    0 16px 38px -12px oklch(var(--cta-l) var(--cta-c) var(--cta-h) / 0.85);
 }
 .btn.btn--primary:active {
   transform: scale(0.98);
