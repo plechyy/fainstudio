@@ -40,8 +40,8 @@ export default function Compare() {
             Srovnání
           </p>
           <h2 className="h2 hd__title" id="srovnani-title">
-            <span className="silver silver--block">Čím se to liší</span>
-            <span className="hd__accent">od ostatních cest.</span>
+            <span className="silver silver--block">Jiné cesty to taky umí.</span>
+            <span className="hd__accent">Jen jinak.</span>
           </h2>
         </header>
 
