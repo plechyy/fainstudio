@@ -109,6 +109,7 @@ html.is-loading .seq {
   --ink-2: oklch(0.8 0.008 var(--brand-h));
   --sec-text: var(--sec);
   --accent-text: var(--brand);
+  --cta-text: var(--cta);
   --chip: oklch(1 0 0 / 0.08);
   --chip-hover: oklch(1 0 0 / 0.16);
   --glass-top: oklch(1 0 0 / 0.22);
@@ -129,7 +130,7 @@ html.is-loading .seq {
   font-size: 1em;
   font-weight: 400;
   letter-spacing: 0.02em;
-  color: var(--accent-text);
+  color: var(--cta-text);
 }
 @media (prefers-reduced-motion: no-preference) {
   .nav__pill {
@@ -1163,7 +1164,7 @@ html.is-loading .seq {
   top: 4px;
   bottom: 4px;
   width: 2px;
-  background: linear-gradient(180deg, var(--line) 0%, var(--brand-deep) 55%, var(--brand) 100%);
+  background: linear-gradient(180deg, var(--line) 0%, var(--cta-deep) 55%, var(--cta) 100%);
 }
 /* měkká záře stejné linky, k jejímu konci silnější */
 .proof::after {
@@ -1182,11 +1183,11 @@ html.is-loading .seq {
   letter-spacing: -0.03em;
   line-height: 1.05;
   white-space: nowrap;
-  background: linear-gradient(180deg, #fff 0%, var(--brand) 85%);
+  background: linear-gradient(180deg, #fff 0%, var(--cta) 85%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  color: var(--brand);
+  color: var(--cta);
 }
 .proof__pre {
   font-size: 0.42em;
@@ -1242,7 +1243,7 @@ html.is-loading .seq {
     bottom: auto;
     width: auto;
     height: 2px;
-    background: linear-gradient(90deg, var(--line) 0%, var(--brand-deep) 55%, var(--brand) 100%);
+    background: linear-gradient(90deg, var(--line) 0%, var(--cta-deep) 55%, var(--cta) 100%);
   }
   .proof::after {
     top: 1px;
@@ -1493,7 +1494,7 @@ html.is-loading .seq {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(60% 90% at 82% 40%, var(--glow), transparent 70%),
+    radial-gradient(60% 90% at 82% 40%, var(--cta-glow), transparent 70%),
     var(--smoke-bg);
 }
 /* čitelnost textu vlevo, mrak žije hlavně vpravo (jako v návrhu) */
@@ -1877,10 +1878,10 @@ html.is-loading .seq {
   text-shadow: 0 1px 8px oklch(0 0 0 / 0.5);
 }
 :root[data-theme='light'] .proof__value {
-  background: linear-gradient(180deg, color-mix(in oklab, var(--accent-text) 75%, black) 0%, var(--accent-text) 85%);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--cta-text) 75%, black) 0%, var(--cta-text) 85%);
   -webkit-background-clip: text;
   background-clip: text;
-  color: var(--accent-text);
+  color: var(--cta-text);
 }
 
 /* mobil: bez štítku nad nadpisem v hero */
@@ -2475,6 +2476,14 @@ html.is-loading .seq {
 .btn.btn--primary:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 4px;
+}
+
+/* závěrečná karta: kouř má barvu tlačítek, tlačítko má primární barvu (prohozeno) */
+.cta .btn.btn--primary {
+  --cta-h: var(--brand-h);
+  --cta-c: var(--brand-c);
+  --cta-l-adj: var(--brand-l-adj);
+  --cta: var(--brand);
 }
 
 /* podle Web Interface Guidelines: bez dvojitého tapu, bez pohybu při omezené animaci */

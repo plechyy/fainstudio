@@ -139,6 +139,7 @@ function hex(h: string): [number, number, number] {
 export default function ShaderBackground({
   bg: bgHex,
   bgVar,
+  brandVar = '--brand',
   phase = 30,
   sides = false,
   center = false,
@@ -147,6 +148,8 @@ export default function ShaderBackground({
   bg?: string;
   /** název CSS proměnné s barvou pozadí (např. '--smoke-bg'), sleduje Color studio */
   bgVar?: string;
+  /** název CSS proměnné s barvou mraku (výchozí --brand; --cta = barva tlačítek) */
+  brandVar?: string;
   /** výchozí fáze animace v sekundách — ať dvě instance nevypadají stejně */
   phase?: number;
   /** mrak jen u levého a pravého okraje, střed zůstává volný (hero) */
@@ -202,11 +205,11 @@ export default function ShaderBackground({
     const uLight = gl.getUniformLocation(prog, 'u_light');
     const isLight = () => !bgHex && !bgVar && document.documentElement.dataset.theme === 'light';
 
-    let brand = srgb('--brand');
+    let brand = srgb(brandVar);
     const pickBg = () => (bgHex ? hex(bgHex) : srgb(bgVar ?? '--bg-deep'));
     let bg = pickBg();
     const refreshColors = () => {
-      brand = srgb('--brand');
+      brand = srgb(brandVar);
       bg = pickBg();
     };
     refreshColors();
@@ -316,7 +319,7 @@ export default function ShaderBackground({
       io.disconnect();
       reduce.removeEventListener('change', onReduce);
     };
-  }, [bgHex, bgVar, phase, sides, center]);
+  }, [bgHex, bgVar, brandVar, phase, sides, center]);
 
   return <canvas ref={ref} className="hero-canvas" aria-hidden="true" />;
 }

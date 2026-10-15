@@ -79,6 +79,8 @@
   --cta-c: 0.2389;
   --cta-l-adj: -0.1574;
   --cta: oklch(calc(0.78 + var(--cta-l-adj)) var(--cta-c) var(--cta-h));
+  --cta-deep: oklch(calc(0.6 + var(--cta-l-adj)) calc(var(--cta-c) * 1.15) var(--cta-h));
+  --cta-glow: oklch(calc(0.78 + var(--cta-l-adj)) var(--cta-c) var(--cta-h) / 0.5);
   --cta-text: var(--cta);
 
   /* Sekundární barva: jen decentní doplněk (čísla sekcí, hover šedých tlačítek, FAQ ikona,
