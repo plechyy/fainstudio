@@ -6,7 +6,7 @@ import { contrast, css, toHex } from '../lib/color.ts';
 
 const BRAND_L = { dark: 0.78 };
 
-// c: číslo = pevné chroma, 'b' = --brand-c.
+// c: číslo = pevné chroma, 'b' = --secondary-c.
 const THEMES = {
   dark: {
     bg: { l: 0.145, c: 0.006 },
@@ -97,11 +97,11 @@ const fallback = `/* Vygenerováno: npm test (scripts/contrast-test.mjs). Neupra
    sRGB hodnoty pro výchozí odstín ${H} / chroma ${C} pro prohlížeče bez oklch(). */
 @supports not (color: oklch(0 0 0)) {
   :root {
-  --brand: ${v({ l: 0.78, c: C, h: H })};
-  --brand-strong: ${v({ l: 0.7, c: C, h: H })};
-  --brand-ink: ${v({ l: 0.28, c: C / 2, h: H })};
-  --brand-wash: ${v({ l: 0.78, c: C, h: H })}1f;
-  --on-brand: ${v(ob.col)};
+  --secondary: ${v({ l: 0.78, c: C, h: H })};
+  --secondary-strong: ${v({ l: 0.7, c: C, h: H })};
+  --secondary-ink: ${v({ l: 0.28, c: C / 2, h: H })};
+  --secondary-wash: ${v({ l: 0.78, c: C, h: H })}1f;
+  --on-accent: ${v(ob.col)};
   --plate-ink: #d6d3cf;
   --plate-line: #ffffff24;
 ${block('dark')}

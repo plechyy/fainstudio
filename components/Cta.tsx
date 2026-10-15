@@ -9,7 +9,7 @@ export default function Cta() {
         <div className="cta reveal">
           <div className="cta__bg" aria-hidden="true">
             <div className="cta__fallback" />
-            <ShaderBackground bgVar="--smoke-bg" brandVar="--cta" phase={95} />
+            <ShaderBackground bgVar="--smoke-bg" brandVar="--primary" phase={95} />
             <div className="cta__shade" />
           </div>
           <h2 className="display cta__title" id="cta-title">

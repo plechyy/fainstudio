@@ -47,7 +47,7 @@ export default function Compare() {
 
         <div className="cmp-table reveal">
           <div className="cmp-smoke" aria-hidden="true">
-            <ShaderBackground brandVar="--cta" phase={95} />
+            <ShaderBackground brandVar="--primary" phase={95} />
           </div>
           <table>
             <caption className="sr-only">{compare.title}</caption>
@@ -82,7 +82,7 @@ export default function Compare() {
             <section className={`cmp-card reveal${ci === 0 ? ' us' : ''}`} aria-label={c} key={c}>
               {ci === 0 && (
                 <div className="cmp-smoke cmp-smoke--card" aria-hidden="true">
-                  <ShaderBackground bgVar="--smoke-bg" brandVar="--cta" phase={95} />
+                  <ShaderBackground bgVar="--smoke-bg" brandVar="--primary" phase={95} />
                 </div>
               )}
               <h3 className="cmp-card__title">

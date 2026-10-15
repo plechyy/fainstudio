@@ -1,7 +1,7 @@
 /*
  * Značkové obrázky generované v prohlížeči ze stejného kouřového shaderu jako hero:
  * favicon, ikony a sada log. Používá je Color studio (živý favicon při ladění barvy
- * a uložení celé sady na web). Barva se bere z aktuální primární barvy (--brand).
+ * a uložení celé sady na web). Barva se bere z aktuální primární barvy (--primary).
  */
 
 const FRAG = `#version 300 es
@@ -102,7 +102,7 @@ const ZOOM = 1.55;
 
 export function brandHex(): string {
   const probe = document.createElement('span');
-  probe.style.color = 'var(--brand)';
+  probe.style.color = 'var(--primary)';
   document.body.appendChild(probe);
   const col = getComputedStyle(probe).color;
   probe.remove();
