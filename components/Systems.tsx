@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { hero } from '@/lib/content';
 import CtaRow from './CtaRow';
 import Panel from './systems/Panel';
 
@@ -51,7 +50,7 @@ export default function Systems() {
       <div className="wrap">
         <Panel />
 
-        <CtaRow label={hero.primary} />
+        <CtaRow label="Jak by to fungovalo u nás?" />
       </div>
     </section>
   );
