@@ -95,6 +95,8 @@
   --bgl-l: 0.985;
   --bgl-c: 0.005;
   --bgl-h: var(--brand-h);
+  /* tmavé karty s kouřem (před/po, srovnání, závěrečné CTA): o kus tmavší než pozadí, takže se mění s Color studiem */
+  --smoke-bg: oklch(max(0.04, calc(var(--bgd-l) - 0.1)) var(--bgd-c) var(--bgd-h));
   --bg: oklch(var(--bgd-l) var(--bgd-c) var(--bgd-h));
   --bg-deep: oklch(calc(var(--bgd-l) - 0.035) var(--bgd-c) var(--bgd-h));
   --surface: oklch(calc(var(--bgd-l) + 0.04) calc(var(--bgd-c) + 0.002) var(--bgd-h));
