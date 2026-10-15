@@ -62,9 +62,9 @@
  * Dark-first: výchozí je tmavé téma. Slider v rohu mění --brand-h / --brand-c.
  */
 :root {
-  --brand-h: 251.3;
-  --brand-c: 0.1823;
-  --brand-l-adj: -0.1587; /* ±0.08: posun světlosti akcentu (tlačítka, výplně, glow) */
+  --brand-h: 291.9;
+  --brand-c: 0.2919;
+  --brand-l-adj: -0.2549; /* ±0.08: posun světlosti akcentu (tlačítka, výplně, glow) */
 
   --brand: oklch(calc(0.78 + var(--brand-l-adj)) var(--brand-c) var(--brand-h));
   --brand-strong: oklch(calc(0.7 + var(--brand-l-adj)) var(--brand-c) var(--brand-h));
@@ -89,7 +89,7 @@
 
   /* Tmavé téma (výchozí) */
   /* Pozadí: světlost / sytost / odstín jedné barvy (Color studio), ostatní neutrály jsou její odvozeniny */
-  --bgd-l: 0.3012;
+  --bgd-l: 0.252;
   --bgd-c: 0;
   --bgd-h: 0;
   --bgl-l: 0.9194;
