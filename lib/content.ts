@@ -6,10 +6,10 @@
 
 export const hero = {
   eyebrow: 'Malé studio. Hotovo do 10 dní.',
-  title: 'Postavíme vám systém, který dělá tu práci, co u vás dneska dělá někdo rukou.',
+  title: ['Co dnes děláte rukama,', 'za vás zvládne systém.'],
   lead: 'Řekněte nám, co vás zdržuje nejvíc. My to postavíme, připojíme k nástrojům, které už máte, a ukážeme vašim lidem, jak s tím pracovat. Všechno do deseti dní.',
-  primary: 'Spočítejte nám to',
-  secondary: 'Co vám postavíme',
+  primary: 'Chci znát cenu',
+  secondary: 'Co všechno umíme',
 };
 
 export const facts = [
@@ -34,8 +34,8 @@ export const proof = {
 };
 
 export const systems = {
-  title: 'Šest věcí, které z vás spadnou',
-  lead: 'Každá věc řeší jednu činnost, ne všechno najednou. Začnete tou, která vás zdržuje nejvíc.',
+  title: 'Co vše zvládneme udělat',
+  lead: 'Tohle je jen pár příkladů. Zvládneme i mnohem víc, fantazii se meze nekladou. Každé firmě uděláme přesně to, co potřebuje.',
   items: [
     {
       id: 'poptavky',
@@ -79,6 +79,13 @@ export const systems = {
       text: 'Spoty, produktové animace a vizuály. Máte je za pár dní, ne za pár týdnů, a vyjdou levněji než z klasické produkce.',
       img: 'system-06-video',
     },
+    {
+      id: 'nastroje',
+      name: 'Interní nástroje',
+      short: 'Nástroje',
+      text: 'Schvalování, evidence, přehledy a drobné aplikace, které dnes vedete v Excelu a v mailech. Dostanete jedno místo, kde je všechno a kde je vidět, co čeká na koho.',
+      img: 'system-07-nastroje',
+    },
   ],
 };
 
@@ -112,7 +119,7 @@ export const beforeAfter = {
       'Zákazník má odpověď do dvou minut, i o půlnoci.',
     ],
   },
-  cta: 'Spočítejte nám to',
+  cta: 'Chci to bez rutiny',
 };
 
 export const compare = {
@@ -173,7 +180,9 @@ export const about = {
 };
 
 export const cta = {
-  title: 'Dvacet minut a budete vědět, jestli to má smysl',
+  title: 'Jeden hovor a budete vědět, jestli to má smysl',
   text: 'Řekněte nám, co vás zdržuje nejvíc. My spočítáme, kolik by vám změna ušetřila. A když to nedává smysl, dozvíte se to hned.',
-  button: 'Spočítejte nám to',
+  button: 'Chci to u nás',
+  // tlačítko pod čísly
+  priceButton: 'Chci hovor na 20 minut',
 };

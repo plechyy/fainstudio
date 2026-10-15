@@ -5,7 +5,7 @@ import { CAL_URL } from '@/lib/config';
 import ThemeToggle from './ThemeToggle';
 
 const LINKS = [
-  { href: '#systemy', label: 'Co děláme' },
+  { href: '#systemy', label: 'Co zvládneme' },
   { href: '#postup', label: 'Postup' },
   { href: '#pred-po', label: 'Dneska a potom' },
   { href: '#srovnani', label: 'Srovnání' },
@@ -133,8 +133,8 @@ export default function Nav() {
         <div className="nav__end">
           <ThemeToggle className="theme-toggle--nav" />
           <a className="nav__cta" href={CAL_URL}>
-            <span className="nav__cta-long">Spočítejte nám to</span>
-            <span className="nav__cta-short">Spočítat</span>
+            <span className="nav__cta-long">Chci to u nás</span>
+            <span className="nav__cta-short">Chci to</span>
           </a>
 
           <button
