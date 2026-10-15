@@ -62,9 +62,9 @@
  * Dark-first: výchozí je tmavé téma. Slider v rohu mění --brand-h / --brand-c.
  */
 :root {
-  --brand-h: 78.8;
-  --brand-c: 0.1522;
-  --brand-l-adj: -0.0184; /* ±0.08: posun světlosti akcentu (tlačítka, výplně, glow) */
+  --brand-h: 306.3;
+  --brand-c: 0.1798;
+  --brand-l-adj: -0.0512; /* ±0.08: posun světlosti akcentu (tlačítka, výplně, glow) */
 
   --brand: oklch(calc(0.78 + var(--brand-l-adj)) var(--brand-c) var(--brand-h));
   --brand-strong: oklch(calc(0.7 + var(--brand-l-adj)) var(--brand-c) var(--brand-h));
@@ -75,9 +75,9 @@
   --on-brand: oklch(0.2 0.02 var(--brand-h));
 
   /* Barva tlačítek a barevných nadpisů. Výchozí = primární; Color studio ji umí nastavit zvlášť. */
-  --cta-h: var(--brand-h);
-  --cta-c: var(--brand-c);
-  --cta-l-adj: var(--brand-l-adj);
+  --cta-h: 296.6;
+  --cta-c: 0.2496;
+  --cta-l-adj: -0.1806;
   --cta: oklch(calc(0.78 + var(--cta-l-adj)) var(--cta-c) var(--cta-h));
   --cta-text: var(--cta);
 
@@ -89,14 +89,14 @@
 
   /* Tmavé téma (výchozí) */
   /* Pozadí: světlost / sytost / odstín jedné barvy (Color studio), ostatní neutrály jsou její odvozeniny */
-  --bgd-l: 0.2058;
-  --bgd-c: 0.0066;
-  --bgd-h: 78.2;
-  --bgl-l: 0.985;
-  --bgl-c: 0.005;
-  --bgl-h: var(--brand-h);
+  --bgd-l: 0.2891;
+  --bgd-c: 0;
+  --bgd-h: 0;
+  --bgl-l: 0.9337;
+  --bgl-c: 0.0325;
+  --bgl-h: 282;
   /* tmavé karty s kouřem (před/po, srovnání, závěrečné CTA): o kus tmavší než pozadí, takže se mění s Color studiem */
-  --smoke-bg: oklch(max(0.04, calc(var(--bgd-l) - 0.1)) var(--bgd-c) var(--bgd-h));
+  --smoke-bg: oklch(max(0.04, calc(var(--bgd-l) - 0.03)) var(--bgd-c) var(--bgd-h));
   --bg: oklch(var(--bgd-l) var(--bgd-c) var(--bgd-h));
   --bg-deep: oklch(calc(var(--bgd-l) - 0.035) var(--bgd-c) var(--bgd-h));
   --surface: oklch(calc(var(--bgd-l) + 0.04) calc(var(--bgd-c) + 0.002) var(--bgd-h));
