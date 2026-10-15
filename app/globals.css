@@ -63,8 +63,8 @@
  */
 :root {
   --brand-h: 198.7;
-  --brand-c: 0.1447;
-  --brand-l-adj: 0.0708; /* ±0.08: posun světlosti akcentu (tlačítka, výplně, glow) */
+  --brand-c: 0;
+  --brand-l-adj: -0.026; /* ±0.08: posun světlosti akcentu (tlačítka, výplně, glow) */
 
   --brand: oklch(calc(0.78 + var(--brand-l-adj)) var(--brand-c) var(--brand-h));
   --brand-strong: oklch(calc(0.7 + var(--brand-l-adj)) var(--brand-c) var(--brand-h));
@@ -75,9 +75,9 @@
   --on-brand: oklch(0.2 0.02 var(--brand-h));
 
   /* Barva tlačítek a barevných nadpisů. Výchozí = primární; Color studio ji umí nastavit zvlášť. */
-  --cta-h: 351.1;
-  --cta-c: 0.1994;
-  --cta-l-adj: -0.0522;
+  --cta-h: 356.6;
+  --cta-c: 0.2389;
+  --cta-l-adj: -0.1574;
   --cta: oklch(calc(0.78 + var(--cta-l-adj)) var(--cta-c) var(--cta-h));
   --cta-text: var(--cta);
 
