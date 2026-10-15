@@ -57,7 +57,7 @@ export default function Panel() {
       <div className="sp__left reveal">
         <SysHead />
 
-        <div className="sp__list" role="tablist" aria-label="Systémy" aria-orientation="vertical" onKeyDown={onKey}>
+        <div className="sp__list" role="tablist" aria-label="Šest věcí, které děláme" aria-orientation="vertical" onKeyDown={onKey}>
           {items.map((it, i) => (
             <button
               key={it.id}

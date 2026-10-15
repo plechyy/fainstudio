@@ -115,7 +115,7 @@ function Mini() {
         </div>
         <p className="mini__h">Jedna stránka, jeden úkol.</p>
         <p className="mini__p">Dvě věty o tom, co děláte, a hned pod tím jedno tlačítko.</p>
-        <span className="mini__btn">Chci to u nás</span>
+        <span className="mini__btn">Domluvit hovor</span>
       </div>
       <p className="art__note">Žádné menu o osmi položkách, žádný redakční systém navíc.</p>
     </div>
