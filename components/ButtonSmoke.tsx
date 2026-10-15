@@ -158,7 +158,7 @@ export default function ButtonSmoke() {
       gl.uniform3f(uBg, BASE_BG[0], BASE_BG[1], BASE_BG[2]);
       gl.uniform2f(uWin, win[0], win[1]);
       for (const e of entries) {
-        if (!e.visible) continue;
+        if (!e.visible || !e.cv.offsetParent) continue; // skryté (jiná varianta tlačítka) nekreslit
         const w = Math.max(1, Math.round(e.btn.offsetWidth * d));
         const h = Math.max(1, Math.round(e.btn.offsetHeight * d));
         if (e.cv.width !== w || e.cv.height !== h) {

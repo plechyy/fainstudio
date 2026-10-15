@@ -2395,3 +2395,249 @@ html.is-loading .seq {
     line-height: 1.5;
   }
 }
+
+/* ════════════════════════════════════════════════════════════════════
+   TLAČÍTKA — varianty (dočasné). html[data-btn] přebíjí .btn--primary.
+   Společné: kouř se schová, tlačítko si nese vlastní barvu a stavy.
+   ════════════════════════════════════════════════════════════════════ */
+html:where([data-btn]:not([data-btn='now'])) .btn--primary {
+  background: none;
+  text-shadow: none;
+  box-shadow: none;
+  font-weight: 600;
+  transition: transform 160ms var(--ease-out), background-color 200ms, box-shadow 200ms, color 200ms;
+}
+html:where([data-btn]:not([data-btn='now'])) .btn--primary .btn__smoke {
+  display: none;
+}
+html:where([data-btn]:not([data-btn='now'])) .btn--primary:hover {
+  transform: translateY(-1px);
+}
+html:where([data-btn]:not([data-btn='now'])) .btn--primary:active {
+  transform: scale(0.98);
+}
+html:where([data-btn]:not([data-btn='now'])) .btn--primary::after {
+  content: none;
+}
+
+/* A — plná pilulka v barvě textu (světlá na tmavém webu, tmavá na světlém) */
+html[data-btn='a'] .btn--primary {
+  background: var(--ink);
+  color: var(--bg-deep);
+}
+html[data-btn='a'] .btn--primary:hover {
+  background: color-mix(in oklab, var(--ink) 88%, var(--brand));
+}
+html[data-btn='a'] .btn--primary:hover .btn__arrow {
+  transform: translateX(3px);
+}
+
+/* B — barevné sklo: tónované rozmazání, odlesk po hraně a pomalý přejezd světla */
+html[data-btn='b'] .btn--primary {
+  /* dva odstíny: značková barva doprostřed a vedle ní posunutý (teplejší/růžovější) odstín */
+  --b1: oklch(0.78 calc(var(--brand-c) * 1.25) var(--brand-h) / 0.78);
+  --b2: oklch(0.58 calc(var(--brand-c) * 1.6) calc(var(--brand-h) - 40) / 0.7);
+  color: #fff;
+  background:
+    radial-gradient(120% 140% at 12% 0%, oklch(1 0 0 / 0.38) 0%, transparent 45%),
+    linear-gradient(135deg, var(--b1) 0%, var(--b2) 100%);
+  -webkit-backdrop-filter: blur(18px) saturate(1.9) brightness(1.12);
+  backdrop-filter: blur(18px) saturate(1.9) brightness(1.12);
+  box-shadow:
+    inset 0 1px 0 oklch(1 0 0 / 0.7),
+    inset 0 -14px 22px -12px oklch(0.45 calc(var(--brand-c) * 1.4) calc(var(--brand-h) - 40) / 0.75),
+    inset 0 0 0 1px oklch(1 0 0 / 0.3),
+    0 14px 34px -12px oklch(0.62 calc(var(--brand-c) * 1.4) calc(var(--brand-h) - 26) / 0.75);
+  text-shadow: 0 1px 8px oklch(0.2 0.05 var(--brand-h) / 0.6);
+}
+html[data-btn='b'] .btn--primary::after {
+  content: '' !important;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(105deg, transparent 38%, oklch(1 0 0 / 0.5) 50%, transparent 62%);
+  transform: translateX(-120%);
+  transition: transform 700ms var(--ease-out);
+}
+html[data-btn='b'] .btn--primary:hover::after {
+  transform: translateX(120%);
+}
+html[data-btn='b'] .btn--primary:hover {
+  box-shadow:
+    inset 0 1px 0 oklch(1 0 0 / 0.7),
+    inset 0 -14px 20px -12px oklch(0.55 var(--brand-c) var(--brand-h) / 0.8),
+    inset 0 0 0 1px oklch(1 0 0 / 0.32),
+    0 16px 38px -12px oklch(0.7 var(--brand-c) var(--brand-h) / 0.85);
+}
+
+/* C — plná značková barva a šipka v tmavém čipu */
+html[data-btn='c'] .btn--primary {
+  padding: 0 8px 0 26px;
+  gap: 16px;
+  background: var(--brand);
+  color: var(--on-brand);
+}
+html[data-btn='c'] .btn--primary:hover {
+  background: color-mix(in oklab, var(--brand) 86%, white);
+}
+html[data-btn='c'] .btn--primary .btn__arrow {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--on-brand);
+  color: var(--brand);
+  line-height: 1;
+}
+html[data-btn='c'] .btn--primary:hover .btn__arrow {
+  transform: translateX(2px) rotate(-45deg);
+}
+
+/* D — jen obrys; při najetí se zespodu zvedne výplň ve značkové barvě */
+html[data-btn='d'] .btn--primary {
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1.5px color-mix(in oklab, var(--ink) 80%, transparent);
+}
+html[data-btn='d'] .btn--primary::after {
+  content: '' !important;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--brand);
+  transform: translateY(101%);
+  transition: transform 340ms var(--ease-out);
+}
+html[data-btn='d'] .btn--primary:hover {
+  color: var(--on-brand);
+  box-shadow: inset 0 0 0 1.5px var(--brand);
+}
+html[data-btn='d'] .btn--primary:hover::after {
+  transform: none;
+}
+html[data-btn='d'] .btn--primary:hover .btn__arrow {
+  transform: translateX(3px);
+}
+
+/* E — černá pilulka, šipka v kruhu značkové barvy */
+html[data-btn='e'] .btn--primary {
+  padding: 0 8px 0 26px;
+  gap: 16px;
+  background: #050505;
+  color: #fff;
+  box-shadow: inset 0 0 0 1px oklch(1 0 0 / 0.16);
+}
+html[data-btn='e'] .btn--primary:hover {
+  box-shadow: inset 0 0 0 1px oklch(1 0 0 / 0.34);
+}
+html[data-btn='e'] .btn--primary .btn__arrow {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: var(--on-brand);
+  line-height: 1;
+}
+html[data-btn='e'] .btn--primary:hover .btn__arrow {
+  transform: translateX(2px) scale(1.06);
+}
+
+/* F — hranatá (zaoblení jako u kontejnerů), tmavá výplň a zlatý obrys */
+html[data-btn='f'] .btn--primary {
+  border-radius: 14px;
+  background: color-mix(in oklab, var(--brand) 9%, var(--surface));
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--brand) 62%, transparent);
+}
+html[data-btn='f'] .btn--primary:hover {
+  background: color-mix(in oklab, var(--brand) 20%, var(--surface));
+  box-shadow: inset 0 0 0 1px var(--brand), 0 10px 28px -14px var(--glow);
+}
+html[data-btn='f'] .btn--primary .btn__arrow {
+  color: var(--accent-text);
+}
+html[data-btn='f'] .btn--primary:hover .btn__arrow {
+  transform: translateX(3px);
+}
+
+/* lišta na přepínání variant (dočasná) */
+.bvx {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--surface-2) 92%, transparent);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+.bvx__lead,
+.bvx__note {
+  font-size: 0.74rem;
+  color: var(--ink-3);
+}
+.bvx__note {
+  max-width: 20ch;
+}
+.bvx__btn {
+  min-width: 30px;
+  padding: 5px 9px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--chip);
+  color: var(--ink-2);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 160ms, color 160ms;
+}
+.bvx__btn:hover {
+  background: var(--chip-hover);
+  color: var(--ink);
+}
+.bvx__btn[aria-pressed='true'] {
+  background: var(--brand);
+  color: var(--on-brand);
+}
+@media (max-width: 860px) {
+  .bvx {
+    left: 10px;
+    bottom: 64px;
+    padding: 6px 9px;
+    gap: 4px;
+  }
+  .bvx__lead,
+  .bvx__note {
+    display: none;
+  }
+}
+
+/* podle Web Interface Guidelines: bez dvojitého tapu, bez pohybu při omezené animaci */
+.btn,
+.bvx__btn {
+  touch-action: manipulation;
+}
+html[data-btn] .btn--primary:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-btn='b'] .btn--primary::after,
+  html[data-btn='d'] .btn--primary::after {
+    transition: none;
+  }
+  html[data-btn] .btn--primary:hover,
+  html[data-btn] .btn--primary:active {
+    transform: none;
+  }
+}
