@@ -50,7 +50,7 @@ void main(){
   vec3 peak = u_brand * 0.95;
   vec3 lin = pow(peak, vec3(2.2));
   float Y = dot(lin, vec3(0.2126, 0.7152, 0.0722));
-  lin *= min(1.0, 0.24 / max(Y, 1e-4));
+  lin *= min(1.0, 0.16 / max(Y, 1e-4));
   peak = pow(lin, vec3(1.0 / 2.2));
   vec3 col = u_bg;
   col = mix(col, u_brand * 0.38, smoothstep(0.08, 0.55, d));
@@ -65,21 +65,6 @@ const VERT = `#version 300 es
 in vec2 a; void main(){ gl_Position = vec4(a, 0.0, 1.0); }`;
 
 const BASE_BG: [number, number, number] = [5 / 255, 5 / 255, 5 / 255]; // #050505
-
-function srgb(name: string): [number, number, number] {
-  const probe = document.createElement('span');
-  probe.style.color = `var(${name})`;
-  document.body.appendChild(probe);
-  const col = getComputedStyle(probe).color;
-  probe.remove();
-  const cv = document.createElement('canvas');
-  cv.width = cv.height = 1;
-  const cx = cv.getContext('2d')!;
-  cx.fillStyle = col;
-  cx.fillRect(0, 0, 1, 1);
-  const [r, g, b] = cx.getImageData(0, 0, 1, 1).data;
-  return [r / 255, g / 255, b / 255];
-}
 
 type Entry = {
   btn: HTMLElement;
@@ -131,7 +116,7 @@ export default function ButtonSmoke() {
 
     const reduce = matchMedia('(prefers-reduced-motion: reduce)');
     const dpr = () => Math.min(devicePixelRatio || 1, 2);
-    let brand = srgb('--brand');
+    const brand: [number, number, number] = [1, 1, 1]; // tlačítka mají bílý kouř, ne barvu značky
     // plátno stačí velké jako největší tlačítko — každé se kreslí do levého dolního rohu
     const resize = () => {
       const d = dpr();
@@ -257,12 +242,6 @@ export default function ButtonSmoke() {
     });
     entries.forEach((e) => io.observe(e.btn));
 
-    const mo = new MutationObserver(() => {
-      brand = srgb('--brand');
-      if (reduce.matches && anyVisible()) render();
-    });
-    mo.observe(document.documentElement, { attributes: true, attributeFilter: ['style'] });
-
     const onResize = () => {
       resize();
       if (anyVisible()) render();
@@ -284,7 +263,6 @@ export default function ButtonSmoke() {
     return () => {
       stop();
       io.disconnect();
-      mo.disconnect();
       removeEventListener('resize', onResize);
       removeEventListener('scroll', onScroll);
       document.removeEventListener('visibilitychange', onVis);
