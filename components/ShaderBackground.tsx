@@ -138,12 +138,15 @@ function hex(h: string): [number, number, number] {
 
 export default function ShaderBackground({
   bg: bgHex,
+  bgVar,
   phase = 30,
   sides = false,
   center = false,
 }: {
   /** pevná barva pozadí mraku (např. '#050505'); bez ní se bere --bg-deep z tématu */
   bg?: string;
+  /** název CSS proměnné s barvou pozadí (např. '--smoke-bg'), sleduje Color studio */
+  bgVar?: string;
   /** výchozí fáze animace v sekundách — ať dvě instance nevypadají stejně */
   phase?: number;
   /** mrak jen u levého a pravého okraje, střed zůstává volný (hero) */
@@ -197,13 +200,14 @@ export default function ShaderBackground({
     const uMotion = gl.getUniformLocation(prog, 'u_motion');
     const uSides = gl.getUniformLocation(prog, 'u_sides');
     const uLight = gl.getUniformLocation(prog, 'u_light');
-    const isLight = () => !bgHex && document.documentElement.dataset.theme === 'light';
+    const isLight = () => !bgHex && !bgVar && document.documentElement.dataset.theme === 'light';
 
     let brand = srgb('--brand');
-    let bg = bgHex ? hex(bgHex) : srgb('--bg-deep');
+    const pickBg = () => (bgHex ? hex(bgHex) : srgb(bgVar ?? '--bg-deep'));
+    let bg = pickBg();
     const refreshColors = () => {
       brand = srgb('--brand');
-      bg = bgHex ? hex(bgHex) : srgb('--bg-deep');
+      bg = pickBg();
     };
     refreshColors();
     // color studio mění style na <html>
@@ -312,7 +316,7 @@ export default function ShaderBackground({
       io.disconnect();
       reduce.removeEventListener('change', onReduce);
     };
-  }, [bgHex, phase, sides, center]);
+  }, [bgHex, bgVar, phase, sides, center]);
 
   return <canvas ref={ref} className="hero-canvas" aria-hidden="true" />;
 }

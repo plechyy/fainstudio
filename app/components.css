@@ -824,7 +824,7 @@ html.is-loading .seq {
   isolation: isolate;
   overflow: hidden;
   border-color: transparent;
-  background: #050505;
+  background: var(--smoke-bg);
   color: var(--ink);
   /* stejný jemný okraj jako závěrečné CTA, ať karta nesplyne s pozadím */
   box-shadow:
@@ -835,14 +835,14 @@ html.is-loading .seq {
 }
 /* kouř jako v závěrečném CTA: žije vpravo, zleva ho stíní kvůli čitelnosti textu */
 .ba__smoke {
-  background: #050505;
+  background: var(--smoke-bg);
 }
 /* sloupec srovnání má barvu pozadí webu, takže se mění s Color studiem */
 .cmp-smoke {
   background: var(--bg-deep);
 }
 .cmp-smoke--card {
-  background: #050505;
+  background: var(--smoke-bg);
 }
 .ba__smoke::after,
 .cmp-smoke--card::after,
@@ -850,7 +850,12 @@ html.is-loading .seq {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgb(5 5 5 / 0.82) 0%, rgb(5 5 5 / 0.45) 45%, transparent 85%);
+  background: linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--smoke-bg) 82%, transparent) 0%,
+    color-mix(in oklab, var(--smoke-bg) 45%, transparent) 45%,
+    transparent 85%
+  );
   pointer-events: none;
 }
 /* úzký sloupec srovnání: kouř je celý tlumenější, aby fajfky zůstaly čitelné */
@@ -858,7 +863,7 @@ html.is-loading .seq {
   background: color-mix(in oklab, var(--bg-deep) 58%, transparent);
 }
 .cmp-smoke--card::after {
-  background: rgb(5 5 5 / 0.5);
+  background: color-mix(in oklab, var(--smoke-bg) 50%, transparent);
 }
 .ba__smoke {
   position: absolute;
@@ -1033,7 +1038,7 @@ html.is-loading .seq {
 }
 .cmp-card.us {
   border-color: transparent;
-  background: #050505;
+  background: var(--smoke-bg);
   box-shadow: 0 40px 90px -28px oklch(0 0 0 / 0.85), 0 14px 34px -14px oklch(0 0 0 / 0.6);
 }
 .cmp-card__title {
@@ -1457,7 +1462,7 @@ html.is-loading .seq {
   overflow: hidden;
   padding: clamp(40px, 8vw, 104px) clamp(20px, 6vw, 80px);
   border-radius: 28px;
-  background: #050505;
+  background: var(--smoke-bg);
   color: oklch(0.97 0.01 var(--brand-h));
   isolation: isolate;
   /* aby karta nesplývala s pozadím stránky: světlý okraj + hluboký stín */
@@ -1489,13 +1494,18 @@ html.is-loading .seq {
   inset: 0;
   background:
     radial-gradient(60% 90% at 82% 40%, var(--glow), transparent 70%),
-    #050505;
+    var(--smoke-bg);
 }
 /* čitelnost textu vlevo, mrak žije hlavně vpravo (jako v návrhu) */
 .cta__shade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgb(5 5 5 / 0.82) 0%, rgb(5 5 5 / 0.45) 45%, transparent 75%);
+  background: linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--smoke-bg) 82%, transparent) 0%,
+    color-mix(in oklab, var(--smoke-bg) 45%, transparent) 45%,
+    transparent 75%
+  );
 }
 .cta__title {
   font-size: var(--step-4);
