@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react';
 /*
  * Živé pozadí hera jako na screenshotu: zrnitá, morfující se amber „mlha".
  * Vlastní WebGL2 fragment shader (žádná knihovna) — doménově warpovaný fBm
- * šum + film grain, pomalu se hýbe a transformuje. Barva se bere z --brand
+ * šum + film grain, pomalu se hýbe a transformuje. Barva se bere z --secondary
  * (slider i téma se promítnou živě). Bez WebGL nebo při prefers-reduced-motion
  * se vykreslí statická varianta.
  */
@@ -139,7 +139,7 @@ function hex(h: string): [number, number, number] {
 export default function ShaderBackground({
   bg: bgHex,
   bgVar,
-  brandVar = '--brand',
+  brandVar = '--secondary',
   phase = 30,
   sides = false,
   center = false,
@@ -148,7 +148,7 @@ export default function ShaderBackground({
   bg?: string;
   /** název CSS proměnné s barvou pozadí (např. '--smoke-bg'), sleduje Color studio */
   bgVar?: string;
-  /** název CSS proměnné s barvou mraku (výchozí --brand; --cta = barva tlačítek) */
+  /** název CSS proměnné s barvou mraku (výchozí --secondary; --primary = barva tlačítek) */
   brandVar?: string;
   /** výchozí fáze animace v sekundách — ať dvě instance nevypadají stejně */
   phase?: number;

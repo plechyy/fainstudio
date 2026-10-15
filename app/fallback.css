@@ -2,11 +2,11 @@
    sRGB hodnoty pro výchozí odstín 239 / chroma 0.135 pro prohlížeče bez oklch(). */
 @supports not (color: oklch(0 0 0)) {
   :root {
-  --brand: #61c2ff;
-  --brand-strong: #3ba9e9;
-  --brand-ink: #002c44;
-  --brand-wash: #61c2ff1f;
-  --on-brand: #0d171e;
+  --secondary: #61c2ff;
+  --secondary-strong: #3ba9e9;
+  --secondary-ink: #002c44;
+  --secondary-wash: #61c2ff1f;
+  --on-accent: #0d171e;
   --plate-ink: #d6d3cf;
   --plate-line: #ffffff24;
   --bg: #080a0c;

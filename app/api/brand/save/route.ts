@@ -5,7 +5,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 
 /*
- * Uložení primární barvy z Color studia na web. JEN pro lokální vývoj (localhost):
+ * Uložení barev z Color studia na web. JEN pro lokální vývoj (localhost):
  * přepíše výchozí barvu v CSS, vygeneruje znovu ikony a sadu log a udělá commit + push.
  * Na produkci tahle cesta vrací 404.
  */
@@ -42,38 +42,25 @@ export async function POST(req: NextRequest) {
   if (origin && new URL(origin).host !== host) return NextResponse.json({ ok: false, error: 'Špatný původ.' }, { status: 403 });
 
   const form = await req.formData();
-  const h = Number(form.get('h'));
-  const c = Number(form.get('c'));
-  const l = Number(form.get('l'));
   const hexOf = (k: string) => {
     const v = String(form.get(k) ?? '');
     return /^#[0-9a-f]{6}$/.test(v) ? v : null;
   };
-  const p = hexOf('p');
-  const sec = hexOf('s');
+  const p = hexOf('p'); // primární (růžová)
+  const sec = hexOf('s'); // sekundární (šedá)
   const bdHex = String(form.get('bgd') ?? '');
   const blHex = String(form.get('bgl') ?? '');
   const bgOk = (hex: string) => hex === '' || /^#[0-9a-f]{6}$/.test(hex);
+  if (!p || !sec) return NextResponse.json({ ok: false, error: 'Neplatná barva.' }, { status: 400 });
   if (!bgOk(bdHex) || !bgOk(blHex)) return NextResponse.json({ ok: false, error: 'Neplatné pozadí.' }, { status: 400 });
-  // spočítané hodnoty pozadí (světlost / sytost / odstín) pro každé téma, nebo výchozí
-  const bgNum = (key: string, name: 'l' | 'c' | 'h', hex: string, fallback: string) => {
-    if (!hex) return fallback;
-    const v = Number(form.get(`${key}-${name}`));
-    if (!Number.isFinite(v) || v < 0 || v > 360) throw new Error('Neplatné pozadí.');
+  // spočítané hodnoty (odstín / sytost / posun světlosti, u pozadí světlost / sytost / odstín)
+  const num = (name: string, lo: number, hi: number) => {
+    const v = Number(form.get(name));
+    if (!Number.isFinite(v) || v < lo || v > hi) throw new Error('Neplatná barva.');
     return String(v);
   };
-  const aHex = String(form.get('a') ?? '');
-  if (aHex !== '' && !/^#[0-9a-f]{6}$/.test(aHex)) return NextResponse.json({ ok: false, error: 'Neplatná barva tlačítek.' }, { status: 400 });
-  // barva tlačítek a nadpisů: spočítané hodnoty, nebo výchozí (drží se primární)
-  const ctaNum = (name: 'h' | 'c' | 'l-adj', lo: number, hi: number, fallback: string) => {
-    if (!aHex) return fallback;
-    const v = Number(form.get(`cta-${name}`));
-    if (!Number.isFinite(v) || v < lo || v > hi) throw new Error('Neplatná barva tlačítek.');
-    return String(v);
-  };
-  if (!p || !sec || ![h, c, l].every(Number.isFinite) || h < 0 || h > 360 || c < 0 || c > 0.4 || l < -0.4 || l > 0.4) {
-    return NextResponse.json({ ok: false, error: 'Neplatná barva.' }, { status: 400 });
-  }
+  const bgNum = (key: string, name: 'l' | 'c' | 'h', hex: string, fallback: string) =>
+    hex ? num(`${key}-${name}`, 0, 360) : fallback;
 
   try {
     // 1) soubory z formuláře — nejdřív zkontrolovat, teprve potom cokoli zapisovat
@@ -88,24 +75,23 @@ export async function POST(req: NextRequest) {
     const cssPath = abs('app/globals.css');
     let css = await readFile(cssPath, 'utf8');
     css = css
-      .replace(/--brand-h:\s*[\d.]+;/, `--brand-h: ${h};`)
-      .replace(/--brand-c:\s*[\d.]+;/, `--brand-c: ${c};`)
-      .replace(/--brand-l-adj:\s*-?[\d.]+;/, `--brand-l-adj: ${l};`)
-      .replace(/--sec:\s*#[0-9a-f]{6};/i, `--sec: ${sec};`)
+      .replace(/--primary-h:\s*[^;]+;/, `--primary-h: ${num('primary-h', 0, 360)};`)
+      .replace(/--primary-c:\s*[^;]+;/, `--primary-c: ${num('primary-c', 0, 0.4)};`)
+      .replace(/--primary-l-adj:\s*[^;]+;/, `--primary-l-adj: ${num('primary-l-adj', -0.4, 0.4)};`)
+      .replace(/--secondary-h:\s*[^;]+;/, `--secondary-h: ${num('secondary-h', 0, 360)};`)
+      .replace(/--secondary-c:\s*[^;]+;/, `--secondary-c: ${num('secondary-c', 0, 0.4)};`)
+      .replace(/--secondary-l-adj:\s*[^;]+;/, `--secondary-l-adj: ${num('secondary-l-adj', -0.4, 0.4)};`)
       .replace(/--bgd-l:\s*[^;]+;/, `--bgd-l: ${bgNum('bgd', 'l', bdHex, '0.145')};`)
       .replace(/--bgd-c:\s*[^;]+;/, `--bgd-c: ${bgNum('bgd', 'c', bdHex, '0.006')};`)
-      .replace(/--bgd-h:\s*[^;]+;/, `--bgd-h: ${bgNum('bgd', 'h', bdHex, 'var(--brand-h)')};`)
+      .replace(/--bgd-h:\s*[^;]+;/, `--bgd-h: ${bgNum('bgd', 'h', bdHex, 'var(--secondary-h)')};`)
       .replace(/--bgl-l:\s*[^;]+;/, `--bgl-l: ${bgNum('bgl', 'l', blHex, '0.985')};`)
       .replace(/--bgl-c:\s*[^;]+;/, `--bgl-c: ${bgNum('bgl', 'c', blHex, '0.005')};`)
-      .replace(/--bgl-h:\s*[^;]+;/, `--bgl-h: ${bgNum('bgl', 'h', blHex, 'var(--brand-h)')};`)
-      .replace(/--cta-h:\s*[^;]+;/, `--cta-h: ${ctaNum('h', 0, 360, 'var(--brand-h)')};`)
-      .replace(/--cta-c:\s*[^;]+;/, `--cta-c: ${ctaNum('c', 0, 0.4, 'var(--brand-c)')};`)
-      .replace(/--cta-l-adj:\s*[^;]+;/, `--cta-l-adj: ${ctaNum('l-adj', -0.4, 0.4, 'var(--brand-l-adj)')};`);
+      .replace(/--bgl-h:\s*[^;]+;/, `--bgl-h: ${bgNum('bgl', 'h', blHex, 'var(--secondary-h)')};`);
     await writeFile(cssPath, css);
 
     const csPath = abs('components/ColorStudio.tsx');
     let cs = await readFile(csPath, 'utf8');
-    cs = cs.replace(/const DEF: Brand = \{[^}]*\};/, `const DEF: Brand = { p: '${p}', s: '${sec}', h: ${h}, c: ${c}, l: ${l}, bd: '${bdHex}', bl: '${blHex}', a: '${aHex}' };`);
+    cs = cs.replace(/const DEF: Brand = \{[^}]*\};/, `const DEF: Brand = { p: '${p}', s: '${sec}', bd: '${bdHex}', bl: '${blHex}' };`);
     await writeFile(csPath, cs);
 
     // 3) ikony a sada log
@@ -118,7 +104,7 @@ export async function POST(req: NextRequest) {
     // 4) commit + push
     const git = (...a: string[]) => run('git', a, { cwd: root, timeout: 60000 });
     await git('add', 'app/globals.css', 'components/ColorStudio.tsx', 'app/icon.png', 'app/apple-icon.png', 'app/favicon.ico', 'brand');
-    const msg = `Colours: primary ${p}, secondary ${sec}${aHex ? `, buttons ${aHex}` : ''} (Color studio)\n\nCo-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`;
+    const msg = `Colours: primary ${p}, secondary ${sec} (Color studio)\n\nCo-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`;
     await git('commit', '-m', msg);
     let pushed = true;
     try {

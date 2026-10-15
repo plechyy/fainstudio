@@ -16,12 +16,12 @@ export default function HeroBackground() {
       >
         <defs>
           <linearGradient id="rim" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" style={{ stopColor: 'var(--brand)', stopOpacity: 0.0 }} />
-            <stop offset="1" style={{ stopColor: 'var(--brand)', stopOpacity: 0.9 }} />
+            <stop offset="0" style={{ stopColor: 'var(--secondary)', stopOpacity: 0.0 }} />
+            <stop offset="1" style={{ stopColor: 'var(--secondary)', stopOpacity: 0.9 }} />
           </linearGradient>
           <radialGradient id="node" cx="0.5" cy="0.5" r="0.5">
-            <stop offset="0" style={{ stopColor: 'var(--brand)', stopOpacity: 1 }} />
-            <stop offset="1" style={{ stopColor: 'var(--brand)', stopOpacity: 0 }} />
+            <stop offset="0" style={{ stopColor: 'var(--secondary)', stopOpacity: 1 }} />
+            <stop offset="1" style={{ stopColor: 'var(--secondary)', stopOpacity: 0 }} />
           </radialGradient>
         </defs>
 
@@ -59,9 +59,9 @@ export default function HeroBackground() {
           <path className="conduit" d="M700 410 C 820 360, 900 330, 1010 352" stroke="var(--line-strong)" />
           <path className="conduit" d="M700 440 C 840 470, 930 500, 1030 486" stroke="var(--line-strong)" />
           <path className="conduit" d="M700 425 C 860 420, 940 408, 1050 418" stroke="var(--line-strong)" />
-          <path className="pulse pulse--1" d="M700 410 C 820 360, 900 330, 1010 352" stroke="var(--brand)" strokeWidth="3" strokeLinecap="round" />
-          <path className="pulse pulse--2" d="M700 440 C 840 470, 930 500, 1030 486" stroke="var(--brand)" strokeWidth="3" strokeLinecap="round" />
-          <path className="pulse pulse--3" d="M700 425 C 860 420, 940 408, 1050 418" stroke="var(--brand)" strokeWidth="3" strokeLinecap="round" />
+          <path className="pulse pulse--1" d="M700 410 C 820 360, 900 330, 1010 352" stroke="var(--secondary)" strokeWidth="3" strokeLinecap="round" />
+          <path className="pulse pulse--2" d="M700 440 C 840 470, 930 500, 1030 486" stroke="var(--secondary)" strokeWidth="3" strokeLinecap="round" />
+          <path className="pulse pulse--3" d="M700 425 C 860 420, 940 408, 1050 418" stroke="var(--secondary)" strokeWidth="3" strokeLinecap="round" />
         </g>
 
         {/* ── AI MOZEK (vpravo): uzlová síť v obrysu hlavy ── */}
@@ -94,7 +94,7 @@ export default function HeroBackground() {
                   cx={x}
                   cy={y}
                   r={big ? 6 : 3.4}
-                  fill={big ? 'var(--brand)' : 'var(--ink-3)'}
+                  fill={big ? 'var(--secondary)' : 'var(--ink-3)'}
                   className={big ? 'node node--lit' : 'node'}
                   style={{ animationDelay: `${(i % 5) * 0.4}s` }}
                 />

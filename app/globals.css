@@ -58,36 +58,39 @@
 }
 
 /*
- * Barevný systém. Celá paleta vychází z jednoho čísla: --brand-h (odstín).
- * Dark-first: výchozí je tmavé téma. Slider v rohu mění --brand-h / --brand-c.
+ * Barevný systém. Jen čtyři barvy:
+ *   primární   (--primary-*)   růžová: tlačítka, barevné části nadpisů, kouř, čáry a čísla
+ *   sekundární (--secondary-*) šedá: decentní doplňky a odstín neutrálů
+ *   bílá       (--white)       text a drobné akcenty
+ *   pozadí     (--bgd-* / --bgl-*) tmavé a světlé téma
+ * Když se mluví o „primární“, je to ta růžová. Color studio mění primární, sekundární a pozadí.
  */
 :root {
-  --brand-h: 198.7;
-  --brand-c: 0;
-  --brand-l-adj: -0.026; /* ±0.08: posun světlosti akcentu (tlačítka, výplně, glow) */
+  --secondary-h: 198.7;
+  --secondary-c: 0;
+  --secondary-l-adj: -0.026; /* posun světlosti od základních 0,78 */
 
-  --brand: oklch(calc(0.78 + var(--brand-l-adj)) var(--brand-c) var(--brand-h));
-  --brand-strong: oklch(calc(0.7 + var(--brand-l-adj)) var(--brand-c) var(--brand-h));
-  /* Dva odstíny: --brand (světlý, texty/ikony/pulzy) a --brand-deep (sytější, rámečky/výplně/kouř) */
-  --brand-deep: oklch(calc(0.6 + var(--brand-l-adj)) calc(var(--brand-c) * 1.15) var(--brand-h));
-  --brand-ink: oklch(0.28 calc(var(--brand-c) * 0.5) var(--brand-h));
-  --brand-wash: oklch(calc(0.78 + var(--brand-l-adj)) var(--brand-c) var(--brand-h) / 0.12);
-  --on-brand: oklch(0.2 0.02 var(--brand-h));
+  --secondary: oklch(calc(0.78 + var(--secondary-l-adj)) var(--secondary-c) var(--secondary-h));
+  --secondary-strong: oklch(calc(0.7 + var(--secondary-l-adj)) var(--secondary-c) var(--secondary-h));
+  /* Dva odstíny: --secondary (světlý, texty/ikony/pulzy) a --secondary-deep (sytější, rámečky/výplně/kouř) */
+  --secondary-deep: oklch(calc(0.6 + var(--secondary-l-adj)) calc(var(--secondary-c) * 1.15) var(--secondary-h));
+  --secondary-ink: oklch(0.28 calc(var(--secondary-c) * 0.5) var(--secondary-h));
+  --secondary-wash: oklch(calc(0.78 + var(--secondary-l-adj)) var(--secondary-c) var(--secondary-h) / 0.12);
+  --on-accent: oklch(0.2 0.02 var(--secondary-h));
 
-  /* Barva tlačítek a barevných nadpisů. Výchozí = primární; Color studio ji umí nastavit zvlášť. */
-  --cta-h: 356.6;
-  --cta-c: 0.2389;
-  --cta-l-adj: -0.1574;
-  --cta: oklch(calc(0.78 + var(--cta-l-adj)) var(--cta-c) var(--cta-h));
-  --cta-deep: oklch(calc(0.6 + var(--cta-l-adj)) calc(var(--cta-c) * 1.15) var(--cta-h));
-  --cta-glow: oklch(calc(0.78 + var(--cta-l-adj)) var(--cta-c) var(--cta-h) / 0.5);
-  --cta-text: var(--cta);
+  /* Primární barva (růžová): odstín, sytost, posun světlosti. Color studio je přepisuje. */
+  --primary-h: 356.6;
+  --primary-c: 0.2389;
+  --primary-l-adj: -0.1574;
+  --primary: oklch(calc(0.78 + var(--primary-l-adj)) var(--primary-c) var(--primary-h));
+  --primary-deep: oklch(calc(0.6 + var(--primary-l-adj)) calc(var(--primary-c) * 1.15) var(--primary-h));
+  --primary-glow: oklch(calc(0.78 + var(--primary-l-adj)) var(--primary-c) var(--primary-h) / 0.5);
+  --primary-text: var(--primary);
 
-  /* Sekundární barva: jen decentní doplněk (čísla sekcí, hover šedých tlačítek, FAQ ikona,
-     výběr textu). Nikdy ve stejném prvku jako primární. */
-  --sec: #f9f4f4;
-  --sec-deep: color-mix(in oklab, var(--sec) 70%, black);
-  --sec-text: var(--sec);
+  /* Bílá: čísla sekcí, hover šedých tlačítek, výběr textu. Pevná, Color studio ji nemění. */
+  --white: #f9f4f4;
+  --white-deep: color-mix(in oklab, var(--white) 70%, black);
+  --white-text: var(--white);
 
   /* Tmavé téma (výchozí) */
   /* Pozadí: světlost / sytost / odstín jedné barvy (Color studio), ostatní neutrály jsou její odvozeniny */
@@ -104,20 +107,20 @@
   --surface: oklch(calc(var(--bgd-l) + 0.04) calc(var(--bgd-c) + 0.002) var(--bgd-h));
   --surface-2: oklch(calc(var(--bgd-l) + 0.065) calc(var(--bgd-c) + 0.003) var(--bgd-h));
   --sunk: oklch(calc(var(--bgd-l) - 0.02) var(--bgd-c) var(--bgd-h));
-  --ink: oklch(0.97 0.006 var(--brand-h));
-  --ink-2: oklch(0.73 0.012 var(--brand-h));
-  --ink-3: oklch(0.56 0.012 var(--brand-h));
+  --ink: oklch(0.97 0.006 var(--secondary-h));
+  --ink-2: oklch(0.73 0.012 var(--secondary-h));
+  --ink-3: oklch(0.56 0.012 var(--secondary-h));
   --line: oklch(calc(var(--bgd-l) + 0.125) calc(var(--bgd-c) + 0.004) var(--bgd-h));
   --line-strong: oklch(calc(var(--bgd-l) + 0.215) calc(var(--bgd-c) + 0.006) var(--bgd-h));
-  --accent-text: var(--brand);
-  --tick: oklch(0.74 var(--brand-c) var(--brand-h));
+  --accent-text: var(--secondary);
+  --tick: oklch(0.74 var(--secondary-c) var(--secondary-h));
 
-  --plate-top: oklch(0.2 0.01 var(--brand-h));
-  --plate-bot: oklch(0.13 0.008 var(--brand-h));
-  --plate-ink: oklch(0.82 0.01 var(--brand-h));
+  --plate-top: oklch(0.2 0.01 var(--secondary-h));
+  --plate-bot: oklch(0.13 0.008 var(--secondary-h));
+  --plate-ink: oklch(0.82 0.01 var(--secondary-h));
   --plate-line: oklch(1 0 0 / 0.14);
 
-  --glow: oklch(calc(0.78 + var(--brand-l-adj)) var(--brand-c) var(--brand-h) / 0.5);
+  --glow: oklch(calc(0.78 + var(--secondary-l-adj)) var(--secondary-c) var(--secondary-h) / 0.5);
 
   /* Liquid glass (iOS 26): fill + rozmazání + světelný lom na hraně + lesk */
   --glass-a: oklch(1 0 0 / 0.11);
@@ -163,22 +166,22 @@
   --surface: oklch(calc(var(--bgl-l) + 0.012) calc(var(--bgl-c) - 0.003) var(--bgl-h));
   --surface-2: oklch(calc(var(--bgl-l) - 0.02) calc(var(--bgl-c) + 0.001) var(--bgl-h));
   --sunk: oklch(calc(var(--bgl-l) - 0.045) calc(var(--bgl-c) + 0.003) var(--bgl-h));
-  --ink: oklch(0.2 0.012 var(--brand-h));
-  --ink-2: oklch(0.42 0.015 var(--brand-h));
-  --ink-3: oklch(0.55 0.014 var(--brand-h));
+  --ink: oklch(0.2 0.012 var(--secondary-h));
+  --ink-2: oklch(0.42 0.015 var(--secondary-h));
+  --ink-3: oklch(0.55 0.014 var(--secondary-h));
   --line: oklch(calc(var(--bgl-l) - 0.085) calc(var(--bgl-c) + 0.003) var(--bgl-h));
   --line-strong: oklch(calc(var(--bgl-l) - 0.185) calc(var(--bgl-c) + 0.005) var(--bgl-h));
-  --accent-text: oklch(calc(0.56 + var(--brand-l-adj)) calc(var(--brand-c) * 1.1) var(--brand-h));
-  --cta-text: oklch(calc(0.56 + var(--cta-l-adj)) calc(var(--cta-c) * 1.1) var(--cta-h));
-  --tick: oklch(calc(0.6 + var(--brand-l-adj)) var(--brand-c) var(--brand-h));
-  --sec-text: color-mix(in oklab, var(--sec) 62%, black);
+  --accent-text: oklch(calc(0.56 + var(--secondary-l-adj)) calc(var(--secondary-c) * 1.1) var(--secondary-h));
+  --primary-text: oklch(calc(0.56 + var(--primary-l-adj)) calc(var(--primary-c) * 1.1) var(--primary-h));
+  --tick: oklch(calc(0.6 + var(--secondary-l-adj)) var(--secondary-c) var(--secondary-h));
+  --white-text: color-mix(in oklab, var(--white) 62%, black);
 
-  --plate-top: oklch(0.975 0.006 var(--brand-h));
-  --plate-bot: oklch(0.925 0.008 var(--brand-h));
-  --plate-ink: oklch(0.35 0.012 var(--brand-h));
+  --plate-top: oklch(0.975 0.006 var(--secondary-h));
+  --plate-bot: oklch(0.925 0.008 var(--secondary-h));
+  --plate-ink: oklch(0.35 0.012 var(--secondary-h));
   --plate-line: oklch(0 0 0 / 0.1);
 
-  --glow: oklch(calc(0.78 + var(--brand-l-adj)) var(--brand-c) var(--brand-h) / 0.32);
+  --glow: oklch(calc(0.78 + var(--secondary-l-adj)) var(--secondary-c) var(--secondary-h) / 0.32);
 
   --glass-a: oklch(1 0 0 / 0.7);
   --glass-b: oklch(1 0 0 / 0.38);
@@ -198,13 +201,13 @@
 :root[data-theme='light'] .cta,
 :root[data-theme='light'] .ba__card--after,
 :root[data-theme='light'] .cmp-card.us {
-  --ink: oklch(0.97 0.006 var(--brand-h));
-  --ink-2: oklch(0.73 0.012 var(--brand-h));
-  --ink-3: oklch(0.56 0.012 var(--brand-h));
-  --line: oklch(0.27 0.01 var(--brand-h));
-  --line-strong: oklch(0.36 0.012 var(--brand-h));
-  --accent-text: var(--brand);
-  --sec-text: var(--sec);
+  --ink: oklch(0.97 0.006 var(--secondary-h));
+  --ink-2: oklch(0.73 0.012 var(--secondary-h));
+  --ink-3: oklch(0.56 0.012 var(--secondary-h));
+  --line: oklch(0.27 0.01 var(--secondary-h));
+  --line-strong: oklch(0.36 0.012 var(--secondary-h));
+  --accent-text: var(--secondary);
+  --white-text: var(--white);
   --chip: oklch(1 0 0 / 0.08);
   --chip-hover: oklch(1 0 0 / 0.16);
   --glass-top: oklch(1 0 0 / 0.38);
@@ -224,11 +227,11 @@
   --color-ink-3: var(--ink-3);
   --color-line: var(--line);
   --color-line-strong: var(--line-strong);
-  --color-brand: var(--brand);
-  --color-brand-strong: var(--brand-strong);
-  --color-brand-ink: var(--brand-ink);
+  --color-brand: var(--secondary);
+  --color-brand-strong: var(--secondary-strong);
+  --color-brand-ink: var(--secondary-ink);
   --color-accent: var(--accent-text);
-  --color-on-brand: var(--on-brand);
+  --color-on-brand: var(--on-accent);
   --color-plate-ink: var(--plate-ink);
   --font-display: var(--font-display);
   --font-text: var(--font-text);
@@ -292,11 +295,11 @@ button {
   color: inherit;
 }
 ::selection {
-  background: var(--sec);
+  background: var(--white);
   color: #0b0b0d;
 }
 :focus-visible {
-  outline: 2px solid var(--brand);
+  outline: 2px solid var(--secondary);
   outline-offset: 3px;
   border-radius: 3px;
 }
@@ -362,7 +365,7 @@ button {
 @supports ((-webkit-background-clip: text) or (background-clip: text)) {
   :root[data-theme='light'] .silver,
   :root[data-theme='light'] .silver--block {
-    background: linear-gradient(180deg, oklch(0.17 0.012 var(--brand-h)) 0%, oklch(0.28 0.014 var(--brand-h)) 45%, oklch(0.48 0.016 var(--brand-h)) 100%);
+    background: linear-gradient(180deg, oklch(0.17 0.012 var(--secondary-h)) 0%, oklch(0.28 0.014 var(--secondary-h)) 45%, oklch(0.48 0.016 var(--secondary-h)) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -463,8 +466,8 @@ button {
   border-radius: var(--radius-pill);
   border: 0;
   /* záloha, než se canvas rozběhne / bez WebGL */
-  background: linear-gradient(135deg, color-mix(in oklab, var(--brand-deep) 45%, #050505), #050505 80%);
-  color: oklch(0.99 0.004 var(--brand-h));
+  background: linear-gradient(135deg, color-mix(in oklab, var(--secondary-deep) 45%, #050505), #050505 80%);
+  color: oklch(0.99 0.004 var(--secondary-h));
   text-shadow: 0 1px 8px oklch(0 0 0 / 0.55);
   font-weight: 600;
   font-size: var(--step-0);
@@ -509,7 +512,7 @@ button {
 }
 .btn--ghost:hover {
   background: var(--surface-2);
-  box-shadow: inset 0 0 0 1px var(--sec-deep);
+  box-shadow: inset 0 0 0 1px var(--white-deep);
 }
 .btn--sm {
   --h: 42px;

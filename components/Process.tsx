@@ -93,7 +93,7 @@ export default function Process() {
   return (
     <section className="section proc-section" id="postup" aria-labelledby="postup-title">
       <div className="proc-bg" aria-hidden="true">
-        <ShaderBackground center phase={70} brandVar="--cta" />
+        <ShaderBackground center phase={70} brandVar="--primary" />
       </div>
       <div className="wrap">
         <header className="proc-head reveal">

@@ -4,20 +4,24 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { makePack, updateFavicon } from '@/lib/brandAssets';
 
 /*
- * Color studio — barvy webu: primární (hlavní), sekundární (decentní doplněk), pozadí
- * a barva tlačítek + barevných částí nadpisů (když není nastavená, drží se primární).
+ * Color studio. Barvy webu jsou čtyři:
+ *   primární   (růžová): tlačítka, barevné části nadpisů, kouř, čáry a čísla
+ *   sekundární (šedá): decentní doplňky a odstín neutrálů
+ *   bílá a pozadí: bílá je pevná, pozadí se mění tady (každé téma má vlastní)
  *  • klasický výběr: čtverec sytost × jas + pruh odstínu + pole pro hex
- *  • primární se přepočítá na OKLCH (--brand-h / --brand-c / --brand-l-adj), sekundární je --sec
+ *  • každá barva se přepočítá na OKLCH (--primary-h/c/l-adj, --secondary-h/c/l-adj)
  *  • klávesy: C = otevřít/zavřít panel, R = náhodná primární, Esc = zavřít
  * Na localhostu je v liště „Uložit na web“: přepíše výchozí barvy, znovu vygeneruje favicon
- * a sadu log a pushne to (app/api/brand/save). Hodnoty se drží v localStorage (layout.tsx
- * je obnoví před prvním vykreslením).
+ * a sadu log a pushne to (app/api/brand/save). Spočítané proměnné se drží v localStorage
+ * (layout.tsx je obnoví před prvním vykreslením).
  */
 
-const KEY = 'brand-v6';
-type Brand = { p: string; s: string; h: number; c: number; l: number; bd: string; bl: string; a: string };
-const DEF: Brand = { p: '#afafaf', s: '#f9f4f4', h: 198.7, c: 0, l: -0.026, bd: '#0f0e0e', bl: '#dfe2ff', a: '#eb228a' };
-const BG_KEY = 'brand-bg-v1'; // spočítané CSS proměnné pozadí; layout.tsx je obnoví před prvním vykreslením
+const KEY = 'brand-v7';
+const VARS_KEY = 'brand-vars-v2'; // všechny spočítané CSS proměnné; layout.tsx je obnoví před prvním vykreslením
+// p = primární (růžová), s = sekundární (šedá), bd / bl = pozadí tmavého / světlého tématu
+type Brand = { p: string; s: string; bd: string; bl: string };
+const DEF: Brand = { p: '#eb228a', s: '#afafaf', bd: '#0f0e0e', bl: '#dfe2ff' };
+const SECONDARY_HUE = 198.7; // šedá nemá odstín, neutrály si drží tenhle
 
 const round = (n: number, d = 3) => +n.toFixed(d);
 const clamp = (n: number, a: number, b: number) => Math.min(b, Math.max(a, n));
@@ -53,7 +57,7 @@ function hsvToHex({ h, s, v }: Hsv) {
   };
   return rgbToHex(f(5) * 255, f(3) * 255, f(1) * 255);
 }
-/** hex → OKLCH, aby primární barva seděla na stávající systém (--brand = hex). */
+/** hex → OKLCH, aby primární barva seděla na stávající systém (--secondary = hex). */
 function hexToOklch(hex: string) {
   const lin = (c: number) => ((c /= 255) <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
   const [r, g, b] = hexToRgb(hex).map(lin);
@@ -75,16 +79,6 @@ function normHex(v: string) {
   return '#' + x;
 }
 
-function withPrimary(b: Brand, hex: string): Brand {
-  const { L, C, h } = hexToOklch(hex);
-  return {
-    ...b,
-    p: hex,
-    h: C < 0.012 ? b.h : round(h, 1),
-    c: round(C, 4),
-    l: round(clamp(L - 0.78, -0.3, 0.2), 4),
-  };
-}
 
 /** Libovolná CSS barva → hex (přes canvas), aby šlo ukázat výchozí pozadí v pickeru. */
 function cssToHex(color: string) {
@@ -108,14 +102,25 @@ function bgVars(hex: string, key: 'bgd' | 'bgl') {
 }
 
 /** Barva tlačítek a nadpisů → odstín / sytost / posun světlosti (stejné přepočty jako u primární). */
-const CTA_VARS = ['--cta-h', '--cta-c', '--cta-l-adj'];
-function ctaVars(hex: string) {
+
+/** Barva → odstín / sytost / posun světlosti (základ 0,78). Šedá si ponechá zadaný odstín. */
+function oklchVars(hex: string, name: 'primary' | 'secondary', greyHue: number) {
   const { L, C, h } = hexToOklch(hex);
   return {
-    '--cta-h': String(C < 0.012 ? 0 : round(h, 1)),
-    '--cta-c': String(round(C, 4)),
-    '--cta-l-adj': String(round(clamp(L - 0.78, -0.3, 0.2), 4)),
+    [`--${name}-h`]: String(C < 0.012 ? greyHue : round(h, 1)),
+    [`--${name}-c`]: String(round(C, 4)),
+    [`--${name}-l-adj`]: String(round(clamp(L - 0.78, -0.3, 0.2), 4)),
   } as Record<string, string>;
+}
+
+/** Všechny proměnné, které Color studio nastavuje (pozadí jen když je zadané). */
+function allVars(b: Brand) {
+  const v: Record<string, string> = {
+    ...oklchVars(b.p, 'primary', 0),
+    ...oklchVars(b.s, 'secondary', SECONDARY_HUE),
+  };
+  for (const [hex, key] of [[b.bd, 'bgd'], [b.bl, 'bgl']] as const) if (hex) Object.assign(v, bgVars(hex, key));
+  return v;
 }
 
 function load(): Brand {
@@ -246,9 +251,9 @@ function Picker({ hex, onChange, label }: { hex: string; onChange: (hex: string)
 
 export default function ColorStudio() {
   const [b, setB] = useState<Brand>(DEF);
-  const [which, setWhich] = useState<'p' | 's' | 'b' | 'a'>('p');
+  const [which, setWhich] = useState<'p' | 's' | 'b'>('p');
   const [theme, setTheme] = useState<'d' | 'l'>('d');
-  const [bgDefault, setBgDefault] = useState('#0f0e0d');
+  const [bgDefault, setBgDefault] = useState('#0f0e0e');
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -263,24 +268,15 @@ export default function ColorStudio() {
   useEffect(() => {
     if (!loaded) return;
     const d = document.documentElement;
-    d.style.setProperty('--brand-h', String(b.h));
-    d.style.setProperty('--brand-c', String(b.c));
-    d.style.setProperty('--brand-l-adj', String(b.l));
-    d.style.setProperty('--sec', b.s);
+    const vars = allVars(b);
     // pozadí: nastavené hodnoty přebijí výchozí z CSS, prázdné se vrátí na výchozí
-    const bgs: Record<string, string> = {};
     for (const [hex, key] of [[b.bd, 'bgd'], [b.bl, 'bgl']] as const) {
-      const names = [`--${key}-l`, `--${key}-c`, `--${key}-h`];
-      if (hex) Object.assign(bgs, bgVars(hex, key));
-      else names.forEach((n) => d.style.removeProperty(n));
+      if (!hex) ['l', 'c', 'h'].forEach((n) => d.style.removeProperty(`--${key}-${n}`));
     }
-    // tlačítka a nadpisy: nastavená barva přebije výchozí (= primární), prázdná se vrátí
-    if (b.a) Object.assign(bgs, ctaVars(b.a));
-    else CTA_VARS.forEach((n) => d.style.removeProperty(n));
-    for (const [k, v] of Object.entries(bgs)) d.style.setProperty(k, v);
+    for (const [k, v] of Object.entries(vars)) d.style.setProperty(k, v);
     try {
       localStorage.setItem(KEY, JSON.stringify(b));
-      localStorage.setItem(BG_KEY, JSON.stringify(bgs));
+      localStorage.setItem(VARS_KEY, JSON.stringify(vars));
     } catch {}
     setSave('idle');
     // favicon sleduje primární barvu (po krátké pauze, ať se nerenderuje při každém pixelu)
@@ -311,15 +307,14 @@ export default function ColorStudio() {
     setLocal(/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname));
   }, []);
 
-  const setPrimary = useCallback((hex: string) => setB((o) => withPrimary(o, hex)), []);
+  const setPrimary = useCallback((hex: string) => setB((o) => ({ ...o, p: hex })), []);
   const setSecondary = useCallback((hex: string) => setB((o) => ({ ...o, s: hex })), []);
-  const setCta = useCallback((hex: string) => setB((o) => ({ ...o, a: hex })), []);
   const setBg = useCallback((hex: string) => setB((o) => ({ ...o, [theme === 'l' ? 'bl' : 'bd']: hex })), [theme]);
 
   const random = useCallback(() => {
     const h = Math.random() * 360;
     const x = hsvToHex({ h, s: 0.45 + Math.random() * 0.4, v: 0.88 + Math.random() * 0.12 });
-    setB((o) => withPrimary(o, x));
+    setB((o) => ({ ...o, p: x }));
   }, []);
 
   useEffect(() => {
@@ -336,11 +331,7 @@ export default function ColorStudio() {
   }, [random]);
 
   const copy = async () => {
-    let css = `--brand-h: ${b.h};\n--brand-c: ${b.c};\n--brand-l-adj: ${b.l};\n--sec: ${b.s};`;
-    for (const [hex, key] of [[b.bd, 'bgd'], [b.bl, 'bgl']] as const) {
-      if (hex) css += '\n' + Object.entries(bgVars(hex, key)).map(([k, v]) => `${k}: ${v};`).join('\n');
-    }
-    if (b.a) css += '\n' + Object.entries(ctaVars(b.a)).map(([k, v]) => `${k}: ${v};`).join('\n');
+    const css = Object.entries(allVars(b)).map(([k, v]) => `${k}: ${v};`).join('\n');
     try {
       await navigator.clipboard.writeText(css);
       setCopied(true);
@@ -348,8 +339,7 @@ export default function ColorStudio() {
     } catch {}
   };
 
-  const changed = b.p !== DEF.p || b.s !== DEF.s || b.bd !== DEF.bd || b.bl !== DEF.bl || b.a !== DEF.a;
-  const ctaHex = b.a || b.p;
+  const changed = b.p !== DEF.p || b.s !== DEF.s || b.bd !== DEF.bd || b.bl !== DEF.bl;
   const bgHex = (theme === 'l' ? b.bl : b.bd) || bgDefault;
 
   const saveToWeb = async () => {
@@ -360,15 +350,9 @@ export default function ColorStudio() {
       const fd = new FormData();
       fd.set('p', b.p);
       fd.set('s', b.s);
-      fd.set('h', String(b.h));
-      fd.set('c', String(b.c));
-      fd.set('l', String(b.l));
-      for (const [hex, key] of [[b.bd, 'bgd'], [b.bl, 'bgl']] as const) {
-        fd.set(key, hex);
-        if (hex) for (const [k, v] of Object.entries(bgVars(hex, key))) fd.set(k.slice(2), v);
-      }
-      fd.set('a', b.a);
-      if (b.a) for (const [k, v] of Object.entries(ctaVars(b.a))) fd.set(k.slice(2), v);
+      for (const [k, v] of Object.entries(allVars(b))) fd.set(k.slice(2), v);
+      fd.set('bgd', b.bd);
+      fd.set('bgl', b.bl);
       for (const [name, blob] of Object.entries(files)) fd.set(name, blob, name);
       const res = await fetch('/api/brand/save', { method: 'POST', body: fd });
       const j = (await res.json().catch(() => ({}))) as { ok?: boolean; pushed?: boolean; error?: string };
@@ -382,6 +366,10 @@ export default function ColorStudio() {
   };
 
   const showSave = local && (changed || save !== 'idle');
+  const open_ = (w: 'p' | 's' | 'b') => {
+    setWhich(w);
+    setOpen(true);
+  };
 
   return (
     <aside
@@ -398,10 +386,7 @@ export default function ColorStudio() {
           aria-pressed={open && which === 'p'}
           title="Primární barva"
           style={{ background: b.p }}
-          onClick={() => {
-            setWhich('p');
-            setOpen(true);
-          }}
+          onClick={() => open_('p')}
         />
         <button
           type="button"
@@ -410,22 +395,7 @@ export default function ColorStudio() {
           aria-pressed={open && which === 's'}
           title="Sekundární barva"
           style={{ background: b.s }}
-          onClick={() => {
-            setWhich('s');
-            setOpen(true);
-          }}
-        />
-        <button
-          type="button"
-          className="cs__sw"
-          aria-label="Tlačítka a nadpisy"
-          aria-pressed={open && which === 'a'}
-          title="Tlačítka a nadpisy"
-          style={{ background: ctaHex }}
-          onClick={() => {
-            setWhich('a');
-            setOpen(true);
-          }}
+          onClick={() => open_('s')}
         />
         <button
           type="button"
@@ -434,10 +404,7 @@ export default function ColorStudio() {
           aria-pressed={open && which === 'b'}
           title="Barva pozadí"
           style={{ background: bgHex }}
-          onClick={() => {
-            setWhich('b');
-            setOpen(true);
-          }}
+          onClick={() => open_('b')}
         />
         <span className="cs__title">Barvy</span>
         {showSave && (
@@ -468,24 +435,20 @@ export default function ColorStudio() {
             <button type="button" role="tab" aria-selected={which === 's'} onClick={() => setWhich('s')}>
               <i style={{ background: b.s }} /> Sekundární
             </button>
-            <button type="button" role="tab" aria-selected={which === 'a'} onClick={() => setWhich('a')}>
-              <i style={{ background: ctaHex }} /> Tlačítka
-            </button>
             <button type="button" role="tab" aria-selected={which === 'b'} onClick={() => setWhich('b')}>
               <i style={{ background: bgHex }} /> Pozadí
             </button>
           </div>
 
           {which === 'p' ? (
-            <Picker key="p" hex={b.p} onChange={setPrimary} label="Primární" />
-          ) : which === 's' ? (
-            <Picker key="s" hex={b.s} onChange={setSecondary} label="Sekundární" />
-          ) : which === 'a' ? (
             <>
-              <Picker key="a" hex={ctaHex} onChange={setCta} label="Tlačítka a nadpisy" />
-              <p className="cs__hint">
-                {b.a ? 'Platí pro hlavní tlačítka a barevné části nadpisů.' : 'Teď se drží primární barvy. Změnou ji oddělíš.'}
-              </p>
+              <Picker key="p" hex={b.p} onChange={setPrimary} label="Primární" />
+              <p className="cs__hint">Tlačítka, barevné části nadpisů, kouř, čáry a čísla.</p>
+            </>
+          ) : which === 's' ? (
+            <>
+              <Picker key="s" hex={b.s} onChange={setSecondary} label="Sekundární" />
+              <p className="cs__hint">Decentní doplňky a odstín neutrálních ploch.</p>
             </>
           ) : (
             <>
@@ -503,11 +466,6 @@ export default function ColorStudio() {
             <button type="button" className="cs__btn" onClick={copy}>
               {copied ? 'Zkopírováno' : 'Kopírovat CSS'}
             </button>
-            {which === 'a' && b.a && (
-              <button type="button" className="cs__btn" onClick={() => setCta('')} title="Vrátit tlačítka a nadpisy k primární barvě">
-                Jako primární
-              </button>
-            )}
             <button type="button" className="cs__btn" onClick={() => setB({ ...DEF })}>
               Výchozí
             </button>

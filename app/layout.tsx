@@ -30,7 +30,7 @@ export const viewport: Viewport = {
 };
 
 // Obnoví uloženou barvu před prvním vykreslením → nic neprobliká.
-const noFlash = `(function(){try{var d=document.documentElement;d.classList.add('is-loading');var t=localStorage.getItem('theme')==='light'?'light':'dark';d.dataset.theme=t;var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==='light'?'#fcfaf6':'#191714';var b=JSON.parse(localStorage.getItem('brand-v6')||'null');if(b&&typeof b.h==='number'){d.style.setProperty('--brand-h',b.h);d.style.setProperty('--brand-c',b.c);d.style.setProperty('--brand-l-adj',b.l||0);}if(b&&typeof b.s==='string'){d.style.setProperty('--sec',b.s);}var g=JSON.parse(localStorage.getItem('brand-bg-v1')||'null');if(g){for(var k in g){d.style.setProperty(k,g[k]);}}}catch(e){}})();`;
+const noFlash = `(function(){try{var d=document.documentElement;d.classList.add('is-loading');var t=localStorage.getItem('theme')==='light'?'light':'dark';d.dataset.theme=t;var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==='light'?'#fcfaf6':'#191714';var g=JSON.parse(localStorage.getItem('brand-vars-v2')||'null');if(g){for(var k in g){d.style.setProperty(k,g[k]);}}}catch(e){}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

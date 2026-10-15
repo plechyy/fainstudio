@@ -44,8 +44,8 @@ html.is-loading .seq {
   color: transparent;
 }
 .loader__word.is-static .loader__text {
-  color: var(--cta);
-  text-shadow: 0 0 40px var(--cta-glow);
+  color: var(--primary);
+  text-shadow: 0 0 40px var(--primary-glow);
 }
 .loader__canvas {
   position: absolute;
@@ -53,7 +53,7 @@ html.is-loading .seq {
   top: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
-  filter: drop-shadow(0 0 28px var(--cta-glow));
+  filter: drop-shadow(0 0 28px var(--primary-glow));
 }
 
 /* ── utility ─────────────────────────────────────────────────────── */
@@ -102,14 +102,14 @@ html.is-loading .seq {
   max-width: 960px;
   height: 54px;
   padding: 0 8px 0 20px;
-  background: oklch(0.1 0.004 var(--brand-h) / 0.93);
+  background: oklch(0.1 0.004 var(--secondary-h) / 0.93);
   box-shadow: 0 10px 30px -10px oklch(0 0 0 / 0.55);
   /* uvnitř černého pruhu vždy světlé písmo, i ve světlém tématu */
-  --ink: oklch(0.98 0.004 var(--brand-h));
-  --ink-2: oklch(0.8 0.008 var(--brand-h));
-  --sec-text: var(--sec);
-  --accent-text: var(--brand);
-  --cta-text: var(--cta);
+  --ink: oklch(0.98 0.004 var(--secondary-h));
+  --ink-2: oklch(0.8 0.008 var(--secondary-h));
+  --white-text: var(--white);
+  --accent-text: var(--secondary);
+  --primary-text: var(--primary);
   --chip: oklch(1 0 0 / 0.08);
   --chip-hover: oklch(1 0 0 / 0.16);
   --glass-top: oklch(1 0 0 / 0.22);
@@ -130,7 +130,7 @@ html.is-loading .seq {
   font-size: 1em;
   font-weight: 400;
   letter-spacing: 0.02em;
-  color: var(--cta-text);
+  color: var(--primary-text);
 }
 @media (prefers-reduced-motion: no-preference) {
   .nav__pill {
@@ -185,7 +185,7 @@ html.is-loading .seq {
   transition: color 160ms;
 }
 .nav__links a:hover {
-  color: var(--sec-text);
+  color: var(--white-text);
 }
 .nav__links a[aria-current] {
   color: var(--ink);
@@ -420,8 +420,8 @@ html.is-loading .seq {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(46% 52% at 64% 44%, var(--cta-glow), transparent 68%),
-    radial-gradient(40% 46% at 34% 62%, color-mix(in oklab, var(--cta) 30%, transparent), transparent 72%),
+    radial-gradient(46% 52% at 64% 44%, var(--primary-glow), transparent 68%),
+    radial-gradient(40% 46% at 34% 62%, color-mix(in oklab, var(--primary) 30%, transparent), transparent 72%),
     var(--bg-deep);
 }
 /* Čitelnost textu + bezešvé napojení na zbytek stránky. */
@@ -465,8 +465,8 @@ html.is-loading .seq {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--brand);
-  box-shadow: 0 0 0 4px var(--brand-wash);
+  background: var(--secondary);
+  box-shadow: 0 0 0 4px var(--secondary-wash);
 }
 .hero__title {
   font-size: var(--step-5);
@@ -475,7 +475,7 @@ html.is-loading .seq {
   /* Lift: s průhlednou výplní (stříbrný text) by text-shadow prosvítal skrz písmena,
      proto filter: drop-shadow — stín jen kolem tvaru písmen. Statický, nikdy se neanimuje. */
   filter: drop-shadow(0 1px 0 oklch(0 0 0 / 0.35)) drop-shadow(0 10px 22px oklch(0 0 0 / 0.4))
-    drop-shadow(0 0 46px color-mix(in oklab, var(--brand) 22%, transparent));
+    drop-shadow(0 0 46px color-mix(in oklab, var(--secondary) 22%, transparent));
 }
 .hero__accent {
   color: var(--accent-text);
@@ -493,7 +493,7 @@ html.is-loading .seq {
   margin-top: 36px;
 }
 .hero__down {
-  color: var(--sec-text);
+  color: var(--white-text);
 }
 
 /* animace pozadí hera */
@@ -602,7 +602,7 @@ html.is-loading .seq {
   color: var(--ink-2);
 }
 .shead__index b {
-  color: var(--sec-text);
+  color: var(--white-text);
   font-weight: 650;
 }
 .shead__lead {
@@ -725,15 +725,15 @@ html.is-loading .seq {
   border-radius: inherit;
   transform-origin: left;
   transform: scaleX(0);
-  background: linear-gradient(90deg, var(--sec-deep), var(--sec-text));
+  background: linear-gradient(90deg, var(--white-deep), var(--white-text));
 }
 .step[data-state='done'] .step__fill {
   transform: none;
-  background: var(--sec-deep);
+  background: var(--white-deep);
 }
 .step[data-state='now'] .step__fill {
   transform: none;
-  box-shadow: 0 0 14px -2px color-mix(in oklab, var(--sec-text) 55%, transparent);
+  box-shadow: 0 0 14px -2px color-mix(in oklab, var(--white-text) 55%, transparent);
 }
 .step__fill[data-run] {
   animation: step-fill var(--step) linear both;
@@ -824,7 +824,7 @@ html.is-loading .seq {
   grid-area: after;
   isolation: isolate;
   overflow: hidden;
-  border-color: var(--cta);
+  border-color: transparent;
   background: var(--smoke-bg);
   color: var(--ink);
   /* stejný jemný okraj jako závěrečné CTA, ať karta nesplyne s pozadím */
@@ -896,8 +896,8 @@ html.is-loading .seq {
   background: var(--ink-3);
 }
 .ba__card--after .ba__led {
-  background: var(--brand);
-  box-shadow: 0 0 8px var(--brand);
+  background: var(--secondary);
+  box-shadow: 0 0 8px var(--secondary);
 }
 .ba__list {
   display: grid;
@@ -968,8 +968,8 @@ html.is-loading .seq {
   height: 7px;
   margin-right: 10px;
   vertical-align: middle;
-  background: var(--brand);
-  box-shadow: 0 0 8px var(--brand);
+  background: var(--secondary);
+  box-shadow: 0 0 8px var(--secondary);
 }
 .cmp-val {
   display: inline-flex;
@@ -982,14 +982,14 @@ html.is-loading .seq {
   height: 15px;
 }
 .cmp-ico--yes {
-  color: var(--cta-text);
+  color: var(--primary-text);
 }
 /* ve sloupci FainStudio fajfka na kouři téže barvy: světlejší tón, ať je vidět */
 .us .cmp-ico--yes {
-  color: color-mix(in oklab, var(--cta) 30%, white);
+  color: color-mix(in oklab, var(--primary) 30%, white);
 }
 .cmp-ico--no {
-  color: oklch(0.62 0.02 var(--brand-h));
+  color: oklch(0.62 0.02 var(--secondary-h));
 }
 .cmp-val__rest {
   color: var(--ink-3);
@@ -1168,7 +1168,7 @@ html.is-loading .seq {
   top: 4px;
   bottom: 4px;
   width: 2px;
-  background: linear-gradient(180deg, var(--line) 0%, var(--cta-deep) 55%, var(--cta) 100%);
+  background: linear-gradient(180deg, var(--line) 0%, var(--primary-deep) 55%, var(--primary) 100%);
 }
 /* měkká záře stejné linky, k jejímu konci silnější */
 .proof::after {
@@ -1187,11 +1187,11 @@ html.is-loading .seq {
   letter-spacing: -0.03em;
   line-height: 1.05;
   white-space: nowrap;
-  background: linear-gradient(180deg, #fff 0%, var(--cta) 85%);
+  background: linear-gradient(180deg, #fff 0%, var(--primary) 85%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  color: var(--cta);
+  color: var(--primary);
 }
 .proof__pre {
   font-size: 0.42em;
@@ -1225,7 +1225,7 @@ html.is-loading .seq {
   font-size: var(--step-2);
   font-weight: 620;
   letter-spacing: -0.02em;
-  color: var(--sec-text);
+  color: var(--white-text);
 }
 .proof-strip__text {
   max-width: 64ch;
@@ -1247,7 +1247,7 @@ html.is-loading .seq {
     bottom: auto;
     width: auto;
     height: 2px;
-    background: linear-gradient(90deg, var(--line) 0%, var(--cta-deep) 55%, var(--cta) 100%);
+    background: linear-gradient(90deg, var(--line) 0%, var(--primary-deep) 55%, var(--primary) 100%);
   }
   .proof::after {
     top: 1px;
@@ -1293,10 +1293,10 @@ html.is-loading .seq {
 }
 .faq summary:hover .faq__q {
   transform: translateX(4px);
-  color: var(--sec-text);
+  color: var(--white-text);
 }
 .faq summary:hover .faq__icon {
-  border-color: var(--cta);
+  border-color: var(--primary);
 }
 .faq__icon {
   position: relative;
@@ -1323,12 +1323,12 @@ html.is-loading .seq {
 }
 .faq__item[open] .faq__icon {
   transform: rotate(45deg);
-  background: var(--cta);
-  border-color: var(--cta);
+  background: var(--primary);
+  border-color: var(--primary);
 }
 .faq__item[open] .faq__icon::before,
 .faq__item[open] .faq__icon::after {
-  background: oklch(from var(--cta) clamp(0.16, calc((0.66 - l) * 60), 0.98) 0.02 h);
+  background: oklch(from var(--primary) clamp(0.16, calc((0.66 - l) * 60), 0.98) 0.02 h);
 }
 .faq__a {
   padding: 0 48px 26px 0;
@@ -1410,8 +1410,8 @@ html.is-loading .seq {
 /* podpis */
 .sig {
   margin-top: 28px;
-  color: var(--brand);
-  filter: drop-shadow(0 0 6px color-mix(in oklab, var(--brand) 45%, transparent));
+  color: var(--secondary);
+  filter: drop-shadow(0 0 6px color-mix(in oklab, var(--secondary) 45%, transparent));
 }
 .sig svg {
   display: block;
@@ -1468,7 +1468,7 @@ html.is-loading .seq {
   padding: clamp(40px, 8vw, 104px) clamp(20px, 6vw, 80px);
   border-radius: 28px;
   background: var(--smoke-bg);
-  color: oklch(0.97 0.01 var(--brand-h));
+  color: oklch(0.97 0.01 var(--secondary-h));
   isolation: isolate;
   /* aby karta nesplývala s pozadím stránky: světlý okraj + hluboký stín */
   box-shadow:
@@ -1498,7 +1498,7 @@ html.is-loading .seq {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(60% 90% at 82% 40%, var(--cta-glow), transparent 70%),
+    radial-gradient(60% 90% at 82% 40%, var(--primary-glow), transparent 70%),
     var(--smoke-bg);
 }
 /* čitelnost textu vlevo, mrak žije hlavně vpravo (jako v návrhu) */
@@ -1521,7 +1521,7 @@ html.is-loading .seq {
   font-size: var(--step-1);
   line-height: 1.5;
   max-width: 46ch;
-  color: oklch(0.86 0.015 var(--brand-h));
+  color: oklch(0.86 0.015 var(--secondary-h));
   text-wrap: pretty;
 }
 .cta__actions {
@@ -1537,13 +1537,13 @@ html.is-loading .seq {
   padding: 0 26px;
 }
 .cta__mail {
-  color: oklch(0.86 0.015 var(--brand-h));
+  color: oklch(0.86 0.015 var(--secondary-h));
 }
 .cta__mail a {
-  color: oklch(0.97 0.01 var(--brand-h));
+  color: oklch(0.97 0.01 var(--secondary-h));
   font-weight: 600;
   text-underline-offset: 4px;
-  text-decoration-color: var(--brand);
+  text-decoration-color: var(--secondary);
   text-decoration-thickness: 1.5px;
   overflow-wrap: anywhere;
 }
@@ -1570,7 +1570,7 @@ html.is-loading .seq {
   text-underline-offset: 3px;
 }
 .foot__in a:hover {
-  color: var(--sec-text);
+  color: var(--white-text);
 }
 @media (max-width: 560px) {
   .foot__in {
@@ -1652,7 +1652,7 @@ html.is-loading .seq {
   padding: 0 14px;
   border: 0;
   border-radius: 999px;
-  background: var(--brand-deep);
+  background: var(--secondary-deep);
   color: #fff;
   font: inherit;
   font-size: 0.82rem;
@@ -1882,10 +1882,10 @@ html.is-loading .seq {
   text-shadow: 0 1px 8px oklch(0 0 0 / 0.5);
 }
 :root[data-theme='light'] .proof__value {
-  background: linear-gradient(180deg, color-mix(in oklab, var(--cta-text) 75%, black) 0%, var(--cta-text) 85%);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--primary-text) 75%, black) 0%, var(--primary-text) 85%);
   -webkit-background-clip: text;
   background-clip: text;
-  color: var(--cta-text);
+  color: var(--primary-text);
 }
 
 /* mobil: bez štítku nad nadpisem v hero */
@@ -1921,21 +1921,21 @@ html.is-loading .seq {
 .sys-head__accent,
 .ba-head__accent,
 .hd__accent {
-  background: linear-gradient(180deg, #fff 0%, var(--cta) 85%);
+  background: linear-gradient(180deg, #fff 0%, var(--primary) 85%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  color: var(--cta);
+  color: var(--primary);
   padding-bottom: 0.08em;
 }
 :root[data-theme='light'] .hero__accent,
 :root[data-theme='light'] .sys-head__accent,
 :root[data-theme='light'] .ba-head__accent,
 :root[data-theme='light'] .hd__accent {
-  background: linear-gradient(180deg, color-mix(in oklab, var(--cta-text) 75%, black) 0%, var(--cta-text) 85%);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--primary-text) 75%, black) 0%, var(--primary-text) 85%);
   -webkit-background-clip: text;
   background-clip: text;
-  color: var(--cta-text);
+  color: var(--primary-text);
 }
 
 /* ════════════════════════════════════════════════════════════════════
@@ -1969,7 +1969,7 @@ html.is-loading .seq {
   background: var(--surface-2);
 }
 .msg--out {
-  background: color-mix(in oklab, var(--brand) 13%, var(--surface-2));
+  background: color-mix(in oklab, var(--secondary) 13%, var(--surface-2));
 }
 .msg__head {
   display: flex;
@@ -2055,7 +2055,7 @@ html.is-loading .seq {
 .bubble--a {
   justify-self: start;
   border-radius: 14px 14px 14px 4px;
-  background: color-mix(in oklab, var(--brand) 13%, var(--surface-2));
+  background: color-mix(in oklab, var(--secondary) 13%, var(--surface-2));
   color: var(--ink-2);
 }
 .bubble__src {
@@ -2137,8 +2137,8 @@ html.is-loading .seq {
   margin-top: 16px;
   padding: 9px 17px;
   border-radius: 999px;
-  background: var(--brand);
-  color: var(--on-brand);
+  background: var(--secondary);
+  color: var(--on-accent);
   font-size: 0.85rem;
   font-weight: 600;
 }
@@ -2155,7 +2155,7 @@ html.is-loading .seq {
   aspect-ratio: 4 / 3;
   border-radius: 10px;
   overflow: hidden;
-  background: color-mix(in oklab, var(--brand) 16%, var(--surface-2));
+  background: color-mix(in oklab, var(--secondary) 16%, var(--surface-2));
 }
 .frame__art::after {
   content: '';
@@ -2167,26 +2167,26 @@ html.is-loading .seq {
   border-radius: 6px 6px 2px 2px;
 }
 .frame--2 .frame__art {
-  background: color-mix(in oklab, var(--brand) 34%, var(--surface-2));
+  background: color-mix(in oklab, var(--secondary) 34%, var(--surface-2));
 }
 .frame--2 .frame__art::after {
   inset: 24%;
   border-radius: 50%;
 }
 .frame--3 .frame__art {
-  background: color-mix(in oklab, var(--brand) 10%, var(--surface-2));
+  background: color-mix(in oklab, var(--secondary) 10%, var(--surface-2));
 }
 .frame--3 .frame__art::after {
   inset: 42% 22% 42% 22%;
   border-radius: 3px;
 }
 .frame--4 .frame__art {
-  background: var(--brand);
+  background: var(--secondary);
 }
 .frame--4 .frame__art::after {
   inset: 38% 30%;
   border-radius: 3px;
-  background: var(--on-brand);
+  background: var(--on-accent);
 }
 .frame figcaption {
   margin-top: 8px;
@@ -2239,7 +2239,7 @@ html.is-loading .seq {
   bottom: 15px;
   width: 3px;
   border-radius: 2px;
-  background: var(--brand);
+  background: var(--secondary);
 }
 .sp__item[aria-selected='true']::after {
   content: '';
@@ -2249,9 +2249,9 @@ html.is-loading .seq {
   border-radius: 16px;
   background: linear-gradient(
     150deg,
-    var(--brand) 0%,
-    color-mix(in oklab, var(--brand) 62%, transparent) 42%,
-    color-mix(in oklab, var(--brand) 22%, transparent) 100%
+    var(--secondary) 0%,
+    color-mix(in oklab, var(--secondary) 62%, transparent) 42%,
+    color-mix(in oklab, var(--secondary) 22%, transparent) 100%
   );
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
@@ -2418,21 +2418,21 @@ html.is-loading .seq {
    kouř (ButtonSmoke.tsx), nad ním odlesk po horní hraně a přejezd světla při najetí.
    ════════════════════════════════════════════════════════════════════ */
 .btn.btn--primary {
-  /* stejný odstín jako barevné nadpisy: nahoře světlejší tón, dole přesně --cta */
-  --cta-l: calc(0.78 + var(--cta-l-adj));
-  --b1: oklch(calc(var(--cta-l) + (1 - var(--cta-l)) * 0.4) calc(var(--cta-c) * 0.9) var(--cta-h) / 0.82);
-  --b2: oklch(calc(var(--cta-l) - 0.03) var(--cta-c) var(--cta-h) / 0.8);
+  /* stejný odstín jako barevné nadpisy: nahoře světlejší tón, dole přesně --primary */
+  --primary-l: calc(0.78 + var(--primary-l-adj));
+  --b1: oklch(calc(var(--primary-l) + (1 - var(--primary-l)) * 0.4) calc(var(--primary-c) * 0.9) var(--primary-h) / 0.82);
+  --b2: oklch(calc(var(--primary-l) - 0.03) var(--primary-c) var(--primary-h) / 0.8);
   /* tmavý text na světlé barvě, bílý na tmavé */
-  color: oklch(from var(--cta) clamp(0.16, calc((0.66 - l) * 60), 0.98) 0.02 h);
+  color: oklch(from var(--primary) clamp(0.16, calc((0.66 - l) * 60), 0.98) 0.02 h);
   font-weight: 600;
-  background: oklch(0.34 0.02 var(--cta-h) / 0.2);
+  background: oklch(0.34 0.02 var(--primary-h) / 0.2);
   -webkit-backdrop-filter: blur(18px) saturate(1.5) brightness(1.2);
   backdrop-filter: blur(18px) saturate(1.5) brightness(1.2);
   box-shadow:
     inset 0 1px 0 oklch(1 0 0 / 0.7),
-    inset 0 -14px 22px -12px oklch(calc(var(--cta-l) - 0.1) var(--cta-c) var(--cta-h) / 0.7),
+    inset 0 -14px 22px -12px oklch(calc(var(--primary-l) - 0.1) var(--primary-c) var(--primary-h) / 0.7),
     inset 0 0 0 1px oklch(1 0 0 / 0.3),
-    0 14px 34px -12px oklch(calc(var(--cta-l) - 0.1) var(--cta-c) var(--cta-h) / 0.75);
+    0 14px 34px -12px oklch(calc(var(--primary-l) - 0.1) var(--primary-c) var(--primary-h) / 0.75);
   text-shadow: 0 1px 0 oklch(1 0 0 / 0.35);
   transition: transform 160ms var(--ease-out), box-shadow 200ms;
 }
@@ -2470,9 +2470,9 @@ html.is-loading .seq {
 .btn.btn--primary:hover {
   box-shadow:
     inset 0 1px 0 oklch(1 0 0 / 0.7),
-    inset 0 -14px 20px -12px oklch(calc(var(--cta-l) - 0.15) var(--cta-c) var(--cta-h) / 0.8),
+    inset 0 -14px 20px -12px oklch(calc(var(--primary-l) - 0.15) var(--primary-c) var(--primary-h) / 0.8),
     inset 0 0 0 1px oklch(1 0 0 / 0.32),
-    0 16px 38px -12px oklch(var(--cta-l) var(--cta-c) var(--cta-h) / 0.85);
+    0 16px 38px -12px oklch(var(--primary-l) var(--primary-c) var(--primary-h) / 0.85);
 }
 .btn.btn--primary:active {
   transform: scale(0.98);
@@ -2484,10 +2484,10 @@ html.is-loading .seq {
 
 /* závěrečná karta: kouř má barvu tlačítek, tlačítko má primární barvu (prohozeno) */
 .cta .btn.btn--primary {
-  --cta-h: var(--brand-h);
-  --cta-c: var(--brand-c);
-  --cta-l-adj: var(--brand-l-adj);
-  --cta: var(--brand);
+  --primary-h: var(--secondary-h);
+  --primary-c: var(--secondary-c);
+  --primary-l-adj: var(--secondary-l-adj);
+  --primary: var(--secondary);
 }
 
 /* podle Web Interface Guidelines: bez dvojitého tapu, bez pohybu při omezené animaci */
