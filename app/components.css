@@ -724,15 +724,15 @@ html.is-loading .seq {
   border-radius: inherit;
   transform-origin: left;
   transform: scaleX(0);
-  background: linear-gradient(90deg, var(--brand-deep), var(--brand));
+  background: linear-gradient(90deg, var(--sec-deep), var(--sec-text));
 }
 .step[data-state='done'] .step__fill {
   transform: none;
-  background: var(--brand-deep);
+  background: var(--sec-deep);
 }
 .step[data-state='now'] .step__fill {
   transform: none;
-  box-shadow: 0 0 14px -2px var(--glow);
+  box-shadow: 0 0 14px -2px color-mix(in oklab, var(--sec-text) 55%, transparent);
 }
 .step__fill[data-run] {
   animation: step-fill var(--step) linear both;
