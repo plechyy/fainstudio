@@ -133,8 +133,8 @@ export default function Nav() {
         <div className="nav__end">
           <ThemeToggle className="theme-toggle--nav" />
           <a className="nav__cta" href={CAL_URL}>
-            <span className="nav__cta-long">Rezervovat hovor</span>
-            <span className="nav__cta-short">Rezervovat</span>
+            <span className="nav__cta-long">Chci to u nás</span>
+            <span className="nav__cta-short">Chci to</span>
           </a>
 
           <button
