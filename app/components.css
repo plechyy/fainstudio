@@ -44,8 +44,8 @@ html.is-loading .seq {
   color: transparent;
 }
 .loader__word.is-static .loader__text {
-  color: var(--brand);
-  text-shadow: 0 0 40px var(--glow);
+  color: var(--cta);
+  text-shadow: 0 0 40px var(--cta-glow);
 }
 .loader__canvas {
   position: absolute;
@@ -53,7 +53,7 @@ html.is-loading .seq {
   top: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
-  filter: drop-shadow(0 0 28px var(--glow));
+  filter: drop-shadow(0 0 28px var(--cta-glow));
 }
 
 /* ── utility ─────────────────────────────────────────────────────── */
@@ -982,7 +982,11 @@ html.is-loading .seq {
   height: 15px;
 }
 .cmp-ico--yes {
-  color: var(--brand);
+  color: var(--cta-text);
+}
+/* ve sloupci FainStudio fajfka na kouři téže barvy: světlejší tón, ať je vidět */
+.us .cmp-ico--yes {
+  color: color-mix(in oklab, var(--cta) 30%, white);
 }
 .cmp-ico--no {
   color: oklch(0.62 0.02 var(--brand-h));
