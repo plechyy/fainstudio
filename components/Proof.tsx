@@ -13,7 +13,7 @@ export default function Proof() {
           </p>
           <h2 className="h2 hd__title" id="proof-title">
             <span className="silver silver--block">Čísla,</span>
-            <span className="hd__accent">která platí.</span>
+            <span className="hd__accent">ne sliby.</span>
           </h2>
         </header>
 

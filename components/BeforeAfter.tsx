@@ -13,8 +13,8 @@ export default function BeforeAfter() {
               Před a po
             </p>
             <h2 className="h2 ba-head__title" id="ba-title">
-              <span className="silver silver--block">Jak to vypadá dneska</span>
-              <span className="ba-head__accent">a jak potom.</span>
+              <span className="silver silver--block">Jak to vypadá dneska.</span>
+              <span className="ba-head__accent">A jak potom.</span>
             </h2>
             <p className="ba-head__lead">{ba.lead}</p>
           </header>
