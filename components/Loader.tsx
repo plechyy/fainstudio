@@ -68,7 +68,7 @@ in vec2 a; void main(){ gl_Position = vec4(a, 0.0, 1.0); }`;
 
 function brandRgb(): [number, number, number] {
   const probe = document.createElement('span');
-  probe.style.color = 'var(--brand)';
+  probe.style.color = 'var(--cta)';
   document.body.appendChild(probe);
   const col = getComputedStyle(probe).color;
   probe.remove();
