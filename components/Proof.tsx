@@ -1,6 +1,5 @@
-import { proof } from '@/lib/content';
+import { proof, cta } from '@/lib/content';
 import CtaRow from './CtaRow';
-import { beforeAfter } from '@/lib/content';
 
 export default function Proof() {
   return (
@@ -35,7 +34,7 @@ export default function Proof() {
           <p className="proof-strip__text">{proof.strip.text}</p>
         </div>
 
-        <CtaRow label={beforeAfter.cta} />
+        <CtaRow label={cta.priceButton} />
       </div>
     </section>
   );

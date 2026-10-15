@@ -21,7 +21,7 @@ Jako šikovný člověk, který vám u kávy vysvětlí, co umí, a nehraje si p
 
 ## Tlačítka
 
-Mluví za čtenáře a fungují, ať je za nimi cokoli: **„Spočítejte nám to“**. U otázky nad tlačítkem se ptáme jeho hlasem: **„Šlo by to i u nás?“**
+Mluví za čtenáře a fungují, ať je za nimi cokoli. „Chci to u nás“ je naše hlavní věta, ale použijeme ji nejvýš dvakrát (navigace a závěr stránky). Jinde tlačítko říká, co se stane: „Chci znát cenu“, „Chci to bez rutiny“, „Chci hovor na 20 minut“. U otázky nad tlačítkem se ptáme jeho hlasem: „Jak by to fungovalo u nás?“
 
 Nepoužíváme: „Mám zájem“, „Rezervovat…“, „Odeslat“, „Kontaktujte nás“.
 
@@ -29,7 +29,7 @@ Nepoužíváme: „Mám zájem“, „Rezervovat…“, „Odeslat“, „Kontak
 
 Žádné věty ani ustálené obraty z lepshee. Při psaní nového textu to zkontrolujeme proti tomuto seznamu:
 
-- „Chci to u nás“, „Chci lepshee“, „Pojďme to postavit“, „Maličkost“
+- „Chci lepshee“, „Pojďme to postavit“, „Maličkost“
 - „Navrhneme, postavíme, spustíme a zaškolíme“ (řetěz čtyř sloves)
 - „Čísla nelžou“, „Před a po“, „Bez systému / S námi“, „Jak to stavíme“, „Systémy, které stavíme“
 - „na čem záleží“, „konec ručnímu přepisování“, „bez hledání ve složkách“

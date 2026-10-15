@@ -148,6 +148,38 @@ function Board() {
   );
 }
 
+/** Interní nástroje: jedno místo, kde je vidět, co na koho čeká. */
+function Tool() {
+  const rows: [string, string, string, boolean][] = [
+    ['Dovolená 12.–16. 1.', 'Novák', 'Schváleno', false],
+    ['Objednávka materiálu', 'Svobodová', 'Čeká na vás', true],
+    ['Cestovní příkaz', 'Dvořák', 'Schváleno', false],
+  ];
+  return (
+    <div className="art__pane art__pane--watch">
+      <table className="watch">
+        <thead>
+          <tr>
+            <th>Žádost</th>
+            <th>Od koho</th>
+            <th>Stav</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map(([name, who, state, wait]) => (
+            <tr key={name}>
+              <td>{name}</td>
+              <td>{who}</td>
+              <td className={wait ? 'watch__d' : 'watch__same'}>{state}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p className="art__note">Místo tabulky a řetězu mailů</p>
+    </div>
+  );
+}
+
 const map: Record<string, () => React.ReactElement> = {
   poptavky: Mail,
   dokumenty: Doc,
@@ -155,6 +187,7 @@ const map: Record<string, () => React.ReactElement> = {
   data: Watch,
   weby: Mini,
   video: Board,
+  nastroje: Tool,
 };
 
 export default function Artifact({ id, className = '' }: { id: string; className?: string }) {
