@@ -19,7 +19,6 @@ export default function Cta() {
           <div className="cta__actions">
             <a className="btn btn--primary cta__btn" href={CAL_URL}>
               {cta.button}
-              <span className="btn__arrow" aria-hidden="true">→</span>
             </a>
             <p className="cta__mail">
               Nebo napište na <a href={`mailto:${EMAIL}`}>{EMAIL}</a>

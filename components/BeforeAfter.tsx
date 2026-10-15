@@ -68,9 +68,6 @@ export default function BeforeAfter() {
           <div className="ba__cta">
             <a className="btn btn--primary" href={CAL_URL}>
               {ba.cta}
-              <span className="btn__arrow" aria-hidden="true">
-                →
-              </span>
             </a>
           </div>
         </div>
