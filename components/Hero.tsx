@@ -8,7 +8,7 @@ export default function Hero() {
     <section className="hero" aria-labelledby="hero-title">
       <div className="hero-bg" aria-hidden="true">
         <div className="hero-bg__fallback" />
-        <ShaderBackground sides />
+        <ShaderBackground sides brandVar="--cta" />
         <div className="hero-bg__mask" />
         <div className="hero-bg__grain" />
       </div>
