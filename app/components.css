@@ -651,6 +651,8 @@ html.is-loading .seq {
 .proc-section {
   position: relative;
   isolation: isolate;
+  /* odstup od tlačítka nad sekcí: kouř nesmí začínat hned pod ním */
+  margin-top: clamp(56px, 9vw, 140px);
   padding-bottom: clamp(24px, 3.4vw, 54px);
 }
 .proc-bg {
