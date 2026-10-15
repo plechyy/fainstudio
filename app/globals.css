@@ -62,9 +62,9 @@
  * Dark-first: výchozí je tmavé téma. Slider v rohu mění --brand-h / --brand-c.
  */
 :root {
-  --brand-h: 291.9;
-  --brand-c: 0.2919;
-  --brand-l-adj: -0.2549; /* ±0.08: posun světlosti akcentu (tlačítka, výplně, glow) */
+  --brand-h: 198.7;
+  --brand-c: 0.1447;
+  --brand-l-adj: 0.0708; /* ±0.08: posun světlosti akcentu (tlačítka, výplně, glow) */
 
   --brand: oklch(calc(0.78 + var(--brand-l-adj)) var(--brand-c) var(--brand-h));
   --brand-strong: oklch(calc(0.7 + var(--brand-l-adj)) var(--brand-c) var(--brand-h));
@@ -75,22 +75,22 @@
   --on-brand: oklch(0.2 0.02 var(--brand-h));
 
   /* Barva tlačítek a barevných nadpisů. Výchozí = primární; Color studio ji umí nastavit zvlášť. */
-  --cta-h: 221.9;
-  --cta-c: 0.1468;
-  --cta-l-adj: 0.0149;
+  --cta-h: 351.1;
+  --cta-c: 0.1994;
+  --cta-l-adj: -0.0522;
   --cta: oklch(calc(0.78 + var(--cta-l-adj)) var(--cta-c) var(--cta-h));
   --cta-text: var(--cta);
 
   /* Sekundární barva: jen decentní doplněk (čísla sekcí, hover šedých tlačítek, FAQ ikona,
      výběr textu). Nikdy ve stejném prvku jako primární. */
-  --sec: #ffffff;
+  --sec: #f9f4f4;
   --sec-deep: color-mix(in oklab, var(--sec) 70%, black);
   --sec-text: var(--sec);
 
   /* Tmavé téma (výchozí) */
   /* Pozadí: světlost / sytost / odstín jedné barvy (Color studio), ostatní neutrály jsou její odvozeniny */
-  --bgd-l: 0.252;
-  --bgd-c: 0;
+  --bgd-l: 0.165;
+  --bgd-c: 0.0017;
   --bgd-h: 0;
   --bgl-l: 0.9194;
   --bgl-c: 0.0395;
