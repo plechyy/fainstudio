@@ -10,7 +10,7 @@ export default function BeforeAfter() {
           <header className="ba-head">
             <p className="label shead__index" aria-hidden="true">
               <b>04</b>
-              Před a po
+              Dneska a potom
             </p>
             <h2 className="h2 ba-head__title" id="ba-title">
               <span className="silver silver--block">Jak to vypadá dneska.</span>

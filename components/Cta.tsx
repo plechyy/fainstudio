@@ -21,7 +21,7 @@ export default function Cta() {
               {cta.button}
             </a>
             <p className="cta__mail">
-              Nebo napište na <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+              Raději mailem? Pište na <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
             </p>
           </div>
         </div>

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE),
   title: 'FainStudio — automatizace procesů, interní nástroje a AI video',
   description:
-    'Postavíme vám systém, který dělá tu práci, co u vás dneska dělá někdo rukou. Do provozu do 10 dní, od 18 000 Kč. Matyáš Plecháč, Praha.',
+    'Postavíme systém, který převezme práci, co dnes děláte rukama. Spuštěno do 10 dní, od 18 000 Kč. Malé studio z Prahy.',
   alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     url: SITE,
     title: 'FainStudio — automatizace procesů, interní nástroje a AI video',
     description:
-      'Postavíme vám systém, který dělá tu práci, co u vás dneska dělá někdo rukou. Do provozu do 10 dní, od 18 000 Kč.',
+      'Postavíme systém, který převezme práci, co dnes děláte rukama. Spuštěno do 10 dní, od 18 000 Kč.',
     images: ['/media/hero-poster.jpg'],
   },
 };

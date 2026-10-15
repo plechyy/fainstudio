@@ -41,7 +41,7 @@ export default function About() {
 
           {refs.length > 0 && (
             <div className="refs reveal">
-              <h3 className="label">Pro koho jsem pracoval</h3>
+              <h3 className="label">Pro koho jsme pracovali</h3>
               <ul>
                 {refs.map((r) => (
                   <li key={r.name}>
