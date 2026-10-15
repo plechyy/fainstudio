@@ -31,7 +31,6 @@ export default function Hero() {
         <div className="hero__actions seq" style={{ ['--i' as string]: 3 }}>
           <a className="btn btn--primary" href={CAL_URL}>
             {hero.primary}
-            <span className="btn__arrow" aria-hidden="true">→</span>
           </a>
           <a className="btn btn--ghost" href="#systemy">
             <span className="hero__down" aria-hidden="true">↓</span>

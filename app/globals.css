@@ -504,13 +504,6 @@ button {
   padding: 0 18px;
   font-size: 0.94rem;
 }
-.btn__arrow {
-  display: inline-block;
-  transition: transform 140ms var(--ease-out);
-}
-.btn:hover .btn__arrow {
-  transform: translateX(3px);
-}
 
 /* Signature: výřez s renderem */
 .plate {

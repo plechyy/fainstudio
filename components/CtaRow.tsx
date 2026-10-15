@@ -6,9 +6,6 @@ export default function CtaRow({ label }: { label: string }) {
     <div className="cta-row reveal">
       <a className="btn btn--primary" href={CAL_URL}>
         {label}
-        <span className="btn__arrow" aria-hidden="true">
-          →
-        </span>
       </a>
     </div>
   );
