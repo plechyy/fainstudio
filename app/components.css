@@ -420,8 +420,8 @@ html.is-loading .seq {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(46% 52% at 64% 44%, var(--glow), transparent 68%),
-    radial-gradient(40% 46% at 34% 62%, color-mix(in oklab, var(--brand) 30%, transparent), transparent 72%),
+    radial-gradient(46% 52% at 64% 44%, var(--cta-glow), transparent 68%),
+    radial-gradient(40% 46% at 34% 62%, color-mix(in oklab, var(--cta) 30%, transparent), transparent 72%),
     var(--bg-deep);
 }
 /* Čitelnost textu + bezešvé napojení na zbytek stránky. */
@@ -824,7 +824,7 @@ html.is-loading .seq {
   grid-area: after;
   isolation: isolate;
   overflow: hidden;
-  border-color: transparent;
+  border-color: var(--cta);
   background: var(--smoke-bg);
   color: var(--ink);
   /* stejný jemný okraj jako závěrečné CTA, ať karta nesplyne s pozadím */
@@ -1292,7 +1292,7 @@ html.is-loading .seq {
   color: var(--sec-text);
 }
 .faq summary:hover .faq__icon {
-  border-color: var(--sec-deep);
+  border-color: var(--cta);
 }
 .faq__icon {
   position: relative;
@@ -1319,12 +1319,12 @@ html.is-loading .seq {
 }
 .faq__item[open] .faq__icon {
   transform: rotate(45deg);
-  background: var(--sec-deep);
-  border-color: var(--sec-deep);
+  background: var(--cta);
+  border-color: var(--cta);
 }
 .faq__item[open] .faq__icon::before,
 .faq__item[open] .faq__icon::after {
-  background: var(--on-brand);
+  background: oklch(from var(--cta) clamp(0.16, calc((0.66 - l) * 60), 0.98) 0.02 h);
 }
 .faq__a {
   padding: 0 48px 26px 0;
