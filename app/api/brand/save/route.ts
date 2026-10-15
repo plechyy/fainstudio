@@ -62,6 +62,15 @@ export async function POST(req: NextRequest) {
     if (!Number.isFinite(v) || v < 0 || v > 360) throw new Error('Neplatné pozadí.');
     return String(v);
   };
+  const aHex = String(form.get('a') ?? '');
+  if (aHex !== '' && !/^#[0-9a-f]{6}$/.test(aHex)) return NextResponse.json({ ok: false, error: 'Neplatná barva tlačítek.' }, { status: 400 });
+  // barva tlačítek a nadpisů: spočítané hodnoty, nebo výchozí (drží se primární)
+  const ctaNum = (name: 'h' | 'c' | 'l-adj', lo: number, hi: number, fallback: string) => {
+    if (!aHex) return fallback;
+    const v = Number(form.get(`cta-${name}`));
+    if (!Number.isFinite(v) || v < lo || v > hi) throw new Error('Neplatná barva tlačítek.');
+    return String(v);
+  };
   if (!p || !sec || ![h, c, l].every(Number.isFinite) || h < 0 || h > 360 || c < 0 || c > 0.4 || l < -0.4 || l > 0.4) {
     return NextResponse.json({ ok: false, error: 'Neplatná barva.' }, { status: 400 });
   }
@@ -88,12 +97,15 @@ export async function POST(req: NextRequest) {
       .replace(/--bgd-h:\s*[^;]+;/, `--bgd-h: ${bgNum('bgd', 'h', bdHex, 'var(--brand-h)')};`)
       .replace(/--bgl-l:\s*[^;]+;/, `--bgl-l: ${bgNum('bgl', 'l', blHex, '0.985')};`)
       .replace(/--bgl-c:\s*[^;]+;/, `--bgl-c: ${bgNum('bgl', 'c', blHex, '0.005')};`)
-      .replace(/--bgl-h:\s*[^;]+;/, `--bgl-h: ${bgNum('bgl', 'h', blHex, 'var(--brand-h)')};`);
+      .replace(/--bgl-h:\s*[^;]+;/, `--bgl-h: ${bgNum('bgl', 'h', blHex, 'var(--brand-h)')};`)
+      .replace(/--cta-h:\s*[^;]+;/, `--cta-h: ${ctaNum('h', 0, 360, 'var(--brand-h)')};`)
+      .replace(/--cta-c:\s*[^;]+;/, `--cta-c: ${ctaNum('c', 0, 0.4, 'var(--brand-c)')};`)
+      .replace(/--cta-l-adj:\s*[^;]+;/, `--cta-l-adj: ${ctaNum('l-adj', -0.4, 0.4, 'var(--brand-l-adj)')};`);
     await writeFile(cssPath, css);
 
     const csPath = abs('components/ColorStudio.tsx');
     let cs = await readFile(csPath, 'utf8');
-    cs = cs.replace(/const DEF: Brand = \{[^}]*\};/, `const DEF: Brand = { p: '${p}', s: '${sec}', h: ${h}, c: ${c}, l: ${l}, bd: '${bdHex}', bl: '${blHex}' };`);
+    cs = cs.replace(/const DEF: Brand = \{[^}]*\};/, `const DEF: Brand = { p: '${p}', s: '${sec}', h: ${h}, c: ${c}, l: ${l}, bd: '${bdHex}', bl: '${blHex}', a: '${aHex}' };`);
     await writeFile(csPath, cs);
 
     // 3) ikony a sada log
@@ -106,7 +118,7 @@ export async function POST(req: NextRequest) {
     // 4) commit + push
     const git = (...a: string[]) => run('git', a, { cwd: root, timeout: 60000 });
     await git('add', 'app/globals.css', 'components/ColorStudio.tsx', 'app/icon.png', 'app/apple-icon.png', 'app/favicon.ico', 'brand');
-    const msg = `Colours: primary ${p}, secondary ${sec} (Color studio)\n\nCo-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`;
+    const msg = `Colours: primary ${p}, secondary ${sec}${aHex ? `, buttons ${aHex}` : ''} (Color studio)\n\nCo-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`;
     await git('commit', '-m', msg);
     let pushed = true;
     try {

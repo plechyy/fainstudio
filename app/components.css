@@ -1904,21 +1904,21 @@ html.is-loading .seq {
 .sys-head__accent,
 .ba-head__accent,
 .hd__accent {
-  background: linear-gradient(180deg, #fff 0%, var(--brand) 85%);
+  background: linear-gradient(180deg, #fff 0%, var(--cta) 85%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  color: var(--brand);
+  color: var(--cta);
   padding-bottom: 0.08em;
 }
 :root[data-theme='light'] .hero__accent,
 :root[data-theme='light'] .sys-head__accent,
 :root[data-theme='light'] .ba-head__accent,
 :root[data-theme='light'] .hd__accent {
-  background: linear-gradient(180deg, color-mix(in oklab, var(--accent-text) 75%, black) 0%, var(--accent-text) 85%);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--cta-text) 75%, black) 0%, var(--cta-text) 85%);
   -webkit-background-clip: text;
   background-clip: text;
-  color: var(--accent-text);
+  color: var(--cta-text);
 }
 
 /* ════════════════════════════════════════════════════════════════════
@@ -2402,18 +2402,18 @@ html.is-loading .seq {
    ════════════════════════════════════════════════════════════════════ */
 .btn.btn--primary {
   /* dva odstíny: značková barva a vedle ní posunutý (teplejší/růžovější) odstín */
-  --b1: oklch(0.88 calc(var(--brand-c) * 1.1) var(--brand-h) / 0.78);
-  --b2: oklch(0.76 calc(var(--brand-c) * 1.3) calc(var(--brand-h) - 30) / 0.72);
-  color: oklch(0.2 0.04 var(--brand-h));
+  --b1: oklch(0.88 calc(var(--cta-c) * 1.1) var(--cta-h) / 0.78);
+  --b2: oklch(0.76 calc(var(--cta-c) * 1.3) calc(var(--cta-h) - 30) / 0.72);
+  color: oklch(0.2 0.04 var(--cta-h));
   font-weight: 600;
-  background: oklch(0.34 0.02 var(--brand-h) / 0.2);
+  background: oklch(0.34 0.02 var(--cta-h) / 0.2);
   -webkit-backdrop-filter: blur(18px) saturate(1.5) brightness(1.2);
   backdrop-filter: blur(18px) saturate(1.5) brightness(1.2);
   box-shadow:
     inset 0 1px 0 oklch(1 0 0 / 0.7),
-    inset 0 -14px 22px -12px oklch(0.62 calc(var(--brand-c) * 1.3) calc(var(--brand-h) - 30) / 0.7),
+    inset 0 -14px 22px -12px oklch(0.62 calc(var(--cta-c) * 1.3) calc(var(--cta-h) - 30) / 0.7),
     inset 0 0 0 1px oklch(1 0 0 / 0.3),
-    0 14px 34px -12px oklch(0.62 calc(var(--brand-c) * 1.4) calc(var(--brand-h) - 26) / 0.75);
+    0 14px 34px -12px oklch(0.62 calc(var(--cta-c) * 1.4) calc(var(--cta-h) - 26) / 0.75);
   text-shadow: 0 1px 0 oklch(1 0 0 / 0.35);
   transition: transform 160ms var(--ease-out), box-shadow 200ms;
 }
@@ -2451,9 +2451,9 @@ html.is-loading .seq {
 .btn.btn--primary:hover {
   box-shadow:
     inset 0 1px 0 oklch(1 0 0 / 0.7),
-    inset 0 -14px 20px -12px oklch(0.55 var(--brand-c) var(--brand-h) / 0.8),
+    inset 0 -14px 20px -12px oklch(0.55 var(--cta-c) var(--cta-h) / 0.8),
     inset 0 0 0 1px oklch(1 0 0 / 0.32),
-    0 16px 38px -12px oklch(0.7 var(--brand-c) var(--brand-h) / 0.85);
+    0 16px 38px -12px oklch(0.7 var(--cta-c) var(--cta-h) / 0.85);
 }
 .btn.btn--primary:active {
   transform: scale(0.98);

@@ -74,6 +74,13 @@
   --brand-wash: oklch(calc(0.78 + var(--brand-l-adj)) var(--brand-c) var(--brand-h) / 0.12);
   --on-brand: oklch(0.2 0.02 var(--brand-h));
 
+  /* Barva tlačítek a barevných nadpisů. Výchozí = primární; Color studio ji umí nastavit zvlášť. */
+  --cta-h: var(--brand-h);
+  --cta-c: var(--brand-c);
+  --cta-l-adj: var(--brand-l-adj);
+  --cta: oklch(calc(0.78 + var(--cta-l-adj)) var(--cta-c) var(--cta-h));
+  --cta-text: var(--cta);
+
   /* Sekundární barva: jen decentní doplněk (čísla sekcí, hover šedých tlačítek, FAQ ikona,
      výběr textu). Nikdy ve stejném prvku jako primární. */
   --sec: #ffffff;
@@ -158,6 +165,7 @@
   --line: oklch(calc(var(--bgl-l) - 0.085) calc(var(--bgl-c) + 0.003) var(--bgl-h));
   --line-strong: oklch(calc(var(--bgl-l) - 0.185) calc(var(--bgl-c) + 0.005) var(--bgl-h));
   --accent-text: oklch(calc(0.56 + var(--brand-l-adj)) calc(var(--brand-c) * 1.1) var(--brand-h));
+  --cta-text: oklch(calc(0.56 + var(--cta-l-adj)) calc(var(--cta-c) * 1.1) var(--cta-h));
   --tick: oklch(calc(0.6 + var(--brand-l-adj)) var(--brand-c) var(--brand-h));
   --sec-text: color-mix(in oklab, var(--sec) 62%, black);
 
