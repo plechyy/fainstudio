@@ -6,10 +6,14 @@ import MachineStage from './machine/MachineStage';
 
 /**
  * bg="smoke": hlavní stránka, kouř a vycentrovaný text.
- * bg="machine": /hero2, text nahoře uprostřed, pod ním 3D stroj v primární záři.
+ * bg="machine": /hero2, text nahoře uprostřed, pod ním 3D stroj z modelíny v primární záři.
+ * bg="silhouette": /hero3, tmavý stroj nasvícený zezadu primární barvou, za ním kouř.
  */
-export default function Hero({ bg = 'smoke' }: { bg?: 'smoke' | 'machine' }) {
-  const stage = bg === 'machine';
+export type HeroBg = 'smoke' | 'machine' | 'silhouette';
+
+export default function Hero({ bg = 'smoke' }: { bg?: HeroBg }) {
+  const stage = bg !== 'smoke';
+  const sil = bg === 'silhouette';
 
   const lead = (
     <p className="lead hero__lead seq" style={{ ['--i' as string]: 2 }}>
@@ -29,10 +33,11 @@ export default function Hero({ bg = 'smoke' }: { bg?: 'smoke' | 'machine' }) {
   );
 
   return (
-    <section className={`hero${stage ? ' hero--stage' : ''}`} aria-labelledby="hero-title">
+    <section className={`hero${stage ? ' hero--stage' : ''}${sil ? ' hero--sil' : ''}`} aria-labelledby="hero-title">
       <div className={`hero-bg${stage ? ' hero-bg--stage' : ''}`} aria-hidden="true">
         <div className="hero-bg__fallback" />
-        {stage ? <MachineStage /> : <ShaderBackground sides brandVar="--primary" />}
+        {sil && <ShaderBackground sides brandVar="--primary" />}
+        {stage ? <MachineStage look={sil ? 'silhouette' : 'clay'} /> : <ShaderBackground sides brandVar="--primary" />}
         <div className="hero-bg__mask" />
         <div className="hero-bg__grain" />
       </div>

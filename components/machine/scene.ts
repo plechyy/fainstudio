@@ -119,9 +119,12 @@ type Opts = {
   onReady?: () => void;
   /** kde (px od horního okraje plátna) končí text nad strojem; stroj se posadí pod něj */
   textBottom?: () => number;
+  /** clay = modelína (/hero2); silhouette = tmavý stroj, hrany kreslí primární světlo zezadu (/hero3) */
+  look?: 'clay' | 'silhouette';
 };
 
-export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom }: Opts = {}) {
+export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom, look = 'clay' }: Opts = {}) {
+  const sil = look === 'silhouette';
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -134,7 +137,7 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom }:
   const pmrem = new THREE.PMREMGenerator(renderer);
   const envTex = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
   scene.environment = envTex;
-  scene.environmentIntensity = 0.5;
+  scene.environmentIntensity = sil ? 0.22 : 0.5;
   const fog = new THREE.Fog(0x171412, 20, 40);
   scene.fog = fog;
 
@@ -152,12 +155,30 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom }:
   const rim = new THREE.DirectionalLight(0xffcf9a, 1.2);
   rim.position.set(7, 6, -9);
   scene.add(hemi, key, rim);
+  // silueta: hlavní světlo je jen slabé, obrysy kreslí dvě protisvětla v primární barvě
+  const backL = new THREE.DirectionalLight(0xffffff, 0);
+  backL.position.set(-8, 7, -10);
+  const backR = new THREE.DirectionalLight(0xffffff, 0);
+  backR.position.set(9, 5, -8);
+  const top = new THREE.DirectionalLight(0xffffff, 0);
+  top.position.set(0, 14, -2);
+  scene.add(backL, backR, top);
+  if (sil) {
+    key.intensity = 0.55;
+    rim.intensity = 0;
+    backL.intensity = 4.2;
+    backR.intensity = 3.4;
+    top.intensity = 0.9;
+  }
 
   // ── materiály ──
   const bump = clayBump();
   const disposables: { dispose(): void }[] = [bump, envTex, pmrem];
   const clay = (color: THREE.ColorRepresentation, extra: THREE.MeshStandardMaterialParameters = {}) => {
-    const m = new THREE.MeshStandardMaterial({ color, roughness: 0.82, metalness: 0, bumpMap: bump, bumpScale: 0.6, ...extra });
+    // silueta je hladká a lehce lesklá, aby na hranách chytala světlo; modelína je matná a hrbolatá
+    const m = sil
+      ? new THREE.MeshStandardMaterial({ color, roughness: 0.42, metalness: 0.18, ...extra })
+      : new THREE.MeshStandardMaterial({ color, roughness: 0.82, metalness: 0, bumpMap: bump, bumpScale: 0.6, ...extra });
     disposables.push(m);
     return m;
   };
@@ -197,8 +218,9 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom }:
       side: THREE.DoubleSide,
     }),
     ring: new THREE.MeshBasicMaterial({ color: '#d8c4a0', transparent: true, opacity: 0, depthWrite: false }),
+    edge: new THREE.MeshBasicMaterial({ color: '#d8c4a0', transparent: true, opacity: 0.55, depthWrite: false }),
   };
-  disposables.push(M.lights, M.glass, M.beam, M.ring);
+  disposables.push(M.lights, M.glass, M.beam, M.ring, M.edge);
 
   const geo = <G extends THREE.BufferGeometry>(g: G) => {
     disposables.push(g);
@@ -242,9 +264,17 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom }:
     const plate = mesh(geo(new THREE.LatheGeometry(pts, 120)), M.platform, false);
     plate.scale.set(1, 1, 0.52);
     root.add(plate);
+    if (sil) {
+      const edge = new THREE.Mesh(geo(new THREE.TorusGeometry(R - 0.02, 0.025, 8, 200)), M.edge);
+      edge.rotation.x = Math.PI / 2;
+      edge.scale.set(1, 0.52, 1);
+      edge.position.y = 0.0;
+      root.add(edge);
+    }
   }
 
-  // ── stromky a kamínky po okrajích ──
+  // ── stromky a kamínky po okrajích (jen modelína; silueta je čistá) ──
+  if (!sil) {
   const tree = (x: number, z: number, h: number, m: THREE.Material, lean = 0) => {
     const g = new THREE.Group();
     g.add(rod(v3(0, 0, 0), v3(0, h * 0.35, 0), 0.06, M.cocoa));
@@ -286,6 +316,8 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom }:
     p.scale.y = 0.6;
     p.position.set(x, s * 0.3, z);
     root.add(p);
+  }
+
   }
 
   // ── trychtýř na nožkách ──
@@ -964,7 +996,20 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom }:
       [M.cocoa, -0.7],
       [M.choco, -0.8],
     ];
-    for (const [m, t] of tones) m.color.copy(tone(t));
+    if (sil) {
+      // stroj je skoro barvy pozadí, jen o kousek světlejší; papíry jemně svítí
+      const dark = (k: number) => (light ? bg.clone().lerp(primary, 0.25 + k) : bg.clone().lerp(primary, k));
+      for (const [m, t] of tones) {
+        m.color.copy(dark(0.05 + (t + 0.8) * 0.09));
+        m.emissive.setRGB(0, 0, 0);
+      }
+      for (const m of [M.paper, M.white]) {
+        m.color.copy(primary.clone().lerp(W, 0.35));
+        m.emissive.copy(primary);
+        m.emissiveIntensity = light ? 0.05 : 0.22;
+      }
+      for (const l of [backL, backR, top]) l.color.copy(primary.clone().lerp(W, 0.25));
+    } else for (const [m, t] of tones) m.color.copy(tone(t));
     for (const m of [M.primary, lensRingMat]) m.color.copy(primary);
     M.lights.color.copy(primary);
     for (const m of ledMats) {
@@ -974,10 +1019,13 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom }:
     M.beam.color.copy(primary);
     M.ring.color.copy(primary);
     fog.color.copy(bg);
-    M.platform.color.copy(light ? bg.clone().lerp(primary, 0.4) : bg.clone().lerp(primary, 0.16));
+    M.platform.color.copy(
+      sil ? (light ? bg.clone().lerp(primary, 0.22) : bg.clone().lerp(primary, 0.05)) : light ? bg.clone().lerp(primary, 0.4) : bg.clone().lerp(primary, 0.16),
+    );
+    M.edge.color.copy(primary);
     hemi.color.copy(primary.clone().lerp(W, 0.6));
     hemi.groundColor.copy(light ? primary.clone().lerp(D, 0.3) : bg.clone().lerp(primary, 0.1));
-    hemi.intensity = light ? 1.1 : 0.85;
+    hemi.intensity = sil ? (light ? 0.7 : 0.22) : light ? 1.1 : 0.85;
   };
   applyTheme();
   const mo = new MutationObserver(() => {
