@@ -79,9 +79,9 @@
   --on-accent: oklch(0.2 0.02 var(--secondary-h));
 
   /* Primární barva (růžová): odstín, sytost, posun světlosti. Color studio je přepisuje. */
-  --primary-h: 356.6;
-  --primary-c: 0.2389;
-  --primary-l-adj: -0.1574;
+  --primary-h: 197.1;
+  --primary-c: 0.1394;
+  --primary-l-adj: 0.0456;
   --primary: oklch(calc(0.78 + var(--primary-l-adj)) var(--primary-c) var(--primary-h));
   --primary-deep: oklch(calc(0.6 + var(--primary-l-adj)) calc(var(--primary-c) * 1.15) var(--primary-h));
   --primary-glow: oklch(calc(0.78 + var(--primary-l-adj)) var(--primary-c) var(--primary-h) / 0.5);
@@ -94,9 +94,9 @@
 
   /* Tmavé téma (výchozí) */
   /* Pozadí: světlost / sytost / odstín jedné barvy (Color studio), ostatní neutrály jsou její odvozeniny */
-  --bgd-l: 0.165;
-  --bgd-c: 0.0017;
-  --bgd-h: 0;
+  --bgd-l: 0.1654;
+  --bgd-c: 0.0153;
+  --bgd-h: 220.2;
   --bgl-l: 0.9194;
   --bgl-c: 0.0395;
   --bgl-h: 280.9;

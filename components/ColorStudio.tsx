@@ -20,7 +20,7 @@ const KEY = 'brand-v7';
 const VARS_KEY = 'brand-vars-v2'; // všechny spočítané CSS proměnné; layout.tsx je obnoví před prvním vykreslením
 // p = primární (růžová), s = sekundární (šedá), bd / bl = pozadí tmavého / světlého tématu
 type Brand = { p: string; s: string; bd: string; bl: string };
-const DEF: Brand = { p: '#eb228a', s: '#afafaf', bd: '#0f0e0e', bl: '#dfe2ff' };
+const DEF: Brand = { p: '#0de1e5', s: '#afafaf', bd: '#071013', bl: '#dfe2ff' };
 const SECONDARY_HUE = 198.7; // šedá nemá odstín, neutrály si drží tenhle
 
 const round = (n: number, d = 3) => +n.toFixed(d);
