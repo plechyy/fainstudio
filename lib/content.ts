@@ -93,10 +93,10 @@ export const process = {
   title: 'Čtyři kroky, žádná záhada',
   lead: 'Každý krok skončí něčím, co si můžete otevřít a vyzkoušet.',
   steps: [
-    { name: 'Hovor na 20 minut', text: 'Řekněte nám, co vás stojí nejvíc času. Na konci hovoru znáte cenu i termín.' },
-    { name: 'Návrh na jedné stránce', text: 'Co systém udělá, co od vás potřebujeme a kdy bude hotovo. Pak podpis a zálohová faktura.' },
-    { name: 'Spuštění do 10 dní', text: 'Napojíme to na vaše nástroje a data a pustíme to do běžného provozu.' },
-    { name: 'Zaučení a doladění', text: 'Ukážeme to lidem, kteří s tím budou pracovat. Prvních 14 dní to dolaďujeme na vašich datech, bez příplatku.' },
+    { name: 'Úvodní hovor', text: 'Řekněte nám, co vás stojí nejvíc času. Probereme všechno důležité a vymyslíme, jak by to u vás fungovalo. Cenu znáte hned po hovoru.' },
+    { name: 'Návrh', text: 'Co systém udělá, co od vás potřebujeme a kdy bude hotovo. Pak podpis a zálohová faktura.' },
+    { name: 'Stavíme po týdnech', text: 'Fungujeme agilně. Každý týden dostanete živou ukázku, vyzkoušíte si ji a řeknete, co změnit. Další týden to doladíme. Jsme s vámi v kontaktu celou dobu.' },
+    { name: 'Zaučení a spuštění', text: 'Ukážeme to lidem, kteří s tím budou pracovat. Napojíme to na vaše nástroje a data a pustíme to do běžného provozu.' },
   ],
 };
 
