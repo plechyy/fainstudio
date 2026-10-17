@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { ico, Layer, Scene, Svg, Toast, useLoop } from './scene';
+import { ico, Layer, Scene, Svg, Toast, useLoop, useTyped } from './scene';
 
 /*
  * Poptávky: do schránky přijde poptávka, systém napíše odpověď, odešle ji
@@ -23,19 +22,7 @@ const older = [
 
 export default function MailLive() {
   const { s, ref } = useLoop(DUR, DONE);
-  const [n, setN] = useState(0);
-
-  // odpověď se píše po písmenkách jen ve fázi 1, jinak je prázdná nebo celá
-  useEffect(() => {
-    if (s !== 1) {
-      setN(s === 0 || s === 5 ? 0 : REPLY.length);
-      return;
-    }
-    setN(0);
-    const step = Math.max(12, Math.floor((DUR[1] - 300) / REPLY.length));
-    const t = window.setInterval(() => setN((v) => (v >= REPLY.length ? v : v + 2)), step * 2);
-    return () => clearInterval(t);
-  }, [s]);
+  const typed = useTyped(REPLY, s, 1, DUR[1]);
 
   const sent = s >= 2 && s <= 4;
 
@@ -95,8 +82,8 @@ export default function MailLive() {
             )}
           </p>
           <p className="ml__rbody">
-            {REPLY.slice(0, n)}
-            {s === 1 && <i className="ml__caret" />}
+            {typed}
+            {s === 1 && <i className="sc-caret" />}
           </p>
           <span className="ml__att">
             <Svg>{ico.clip}</Svg>
