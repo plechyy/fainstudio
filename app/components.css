@@ -508,7 +508,8 @@ html.is-loading .seq {
   display: inline-block;
   width: 0.07em;
   height: 0.82em;
-  margin-left: 0.06em;
+  /* kurzor nezabírá místo, tečka tak sedí hned za posledním písmenem */
+  margin-inline: 0.01em -0.08em;
   vertical-align: -0.06em;
   border-radius: 1px;
   background: var(--primary);
@@ -1588,9 +1589,10 @@ html.is-loading .seq {
   .hero__title {
     font-size: min(clamp(2.3rem, 1.1rem + 5.4vw, 3rem), calc((100vw - 2 * var(--gutter, 16px)) / 9.6));
   }
+  /* na mobilu zabírá hero celou obrazovku a obsah sedí přesně uprostřed */
   .hero {
-    min-height: auto;
-    padding-bottom: 24px;
+    min-height: 100svh;
+    padding-block: 80px;
   }
 }
 
@@ -3703,10 +3705,6 @@ html.is-loading .seq {
 }
 
 @media (max-width: 899px) {
-  /* na mobilu sedí sekce rovnou pod logy a karty jsou o desetinu nižší */
-  #systemy {
-    padding-top: 8px;
-  }
   .sys-head {
     margin-bottom: 22px;
   }
