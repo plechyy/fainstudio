@@ -1,92 +1,101 @@
 'use client';
 
-import { Cursor, ico, Layer, Scene, Svg, Toast, useLoop } from './scene';
+import { Cursor, ico, Layer, Scene, Svg, useCount, useLoop } from './scene';
 
 /*
- * Procesy: objednávka projde čtyřmi kroky sama, na schválení se zastaví,
- * kurzor klikne „Schválit“ a faktura odejde.
+ * Procesy: nástup nové kolegyně. Kurzor klikne „Spustit nástup“, formulář se
+ * stáhne do jednoho bodu a od něj se rozběhne šest věcí naráz: smlouva,
+ * notebook, účty, přístupy, první den v kalendáři a uvítání.
  *
- * Fáze: 0 mail · 1 tabulka · 2 čeká na vás · 3 kurzor jede · 4 klik
- *       5 faktura · 6 hotovo · 7 doznění před dalším kolem
+ * Fáze: 0 formulář · 1 kurzor přijede · 2 klik · 3 rozběhne se · 4 rozsvítí se kroky
+ *       5 drží · 6 doznění
  */
-const DUR = [1100, 1100, 900, 950, 380, 1100, 3000, 450];
-const DONE = 6;
-const FILL = [0, 33.3, 66.6, 66.6, 66.6, 84, 100, 100];
+const DUR = [900, 900, 350, 900, 1700, 2800, 450];
+const DONE = 5;
 
-type St = 'pending' | 'run' | 'wait' | 'done';
-
-function stateOf(step: number, s: number): St {
-  if (step === 0) return s === 0 ? 'run' : 'done';
-  if (step === 1) return s < 1 ? 'pending' : s === 1 ? 'run' : 'done';
-  if (step === 2) return s < 2 ? 'pending' : s <= 4 ? 'wait' : 'done';
-  return s < 5 ? 'pending' : s === 5 ? 'run' : 'done';
-}
-
-const steps = [
-  { ico: ico.mail, t: 'Přišla objednávka', d: 'Kovo Brno · 120 ks', time: '8:41' },
-  { ico: ico.table, t: 'Zápis do tabulky', d: 'Objednávky 2026 · řádek 214', time: '8:41' },
-  { ico: ico.approve, t: 'Schválení', d: 'Částka nad 40 000 Kč', time: '8:43' },
-  { ico: ico.invoice, t: 'Faktura odeslána', d: 'FV 2026114 · 48 300 Kč', time: '8:43' },
+// kde kroky leží (v % plochy) a jak blízko jsou k divákovi
+const nodes = [
+  { ico: ico.pen, t: 'Smlouva', d: 'odeslaná k podpisu', x: 2, y: 4, z: 70 },
+  { ico: ico.laptop, t: 'Notebook', d: 'objednaný na 31. 10.', x: 64, y: 2, z: -30 },
+  { ico: ico.mail, t: 'E-mail a účty', d: 'založené', x: -4, y: 40, z: 20 },
+  { ico: ico.key, t: 'Přístupy', d: 'Disk, Figma, fakturace', x: 70, y: 40, z: 100 },
+  { ico: ico.cal, t: 'První den', d: 'v kalendáři týmu', x: 4, y: 78, z: -40 },
+  { ico: ico.chat, t: 'Uvítání', d: 'zpráva od vedoucí', x: 64, y: 78, z: 50 },
 ];
+// střed každého kroku pro spojnice (viewBox 100 × 100)
+const ends = nodes.map((n) => [n.x + 17, n.y + 9]);
 
 export default function ProcessLive() {
   const { s, ref } = useLoop(DUR, DONE);
-
-  const foot =
-    s >= DONE
-      ? { text: 'Hotovo za 2 minuty. Klikli jste jednou.', done: true }
-      : s >= 2 && s <= 4
-        ? { text: 'Čeká na jeden klik od vás', done: false }
-        : { text: `Běží samo · krok ${s === 5 ? 4 : s + 1} ze 4`, done: false };
+  const lit = useCount(0, 6, s, 4, 1500);
+  const started = s >= 3 && s <= 5;
+  const on = (i: number) => (s === 4 ? lit > i : s === 5);
 
   return (
-    <Scene sceneRef={ref} className={`sc--proc${s === 7 ? ' is-out' : ''}`}>
-      <Layer z={-90} className="sc__ghost" />
+    <Scene sceneRef={ref} base={460} className={`sc--proc${s === 6 ? ' is-out' : ''}`}>
+      <div className="ob">
+        <svg className="ob__lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          {ends.map(([x, y], i) => (
+            <path
+              key={i}
+              d={`M50 50 L${x} ${y}`}
+              pathLength={1}
+              className={`${started ? 'is-drawn' : ''}${on(i) ? ' is-on' : ''}`}
+              style={{ transitionDelay: started && s === 3 ? `${i * 80}ms` : undefined }}
+            />
+          ))}
+        </svg>
 
-      <div className="win pw">
-        <div className="win__bar">
-          <span className="win__dots" />
-          <b className="win__name">Objednávky z webu</b>
-          <span className="win__live">Běží</span>
+        {nodes.map((n, i) => (
+          <Layer z={n.z} style={{ left: `${n.x}%`, top: `${n.y}%` }} className={`ob__node${started ? ' is-in' : ''}${on(i) ? ' is-on' : ''}`} key={n.t}>
+            <div style={{ transitionDelay: started && s === 3 ? `${i * 80}ms` : undefined }}>
+              <span className="ob__ico">
+                <Svg>{n.ico}</Svg>
+              </span>
+              <span>
+                <b>{n.t}</b>
+                <span>{n.d}</span>
+              </span>
+              <Svg className="sc-ok ob__ok">{ico.check}</Svg>
+            </div>
+          </Layer>
+        ))}
+
+        {/* formulář, který se po kliknutí stáhne do středu */}
+        <div className={`win ob__core${started ? ' is-small' : ''}`}>
+          <div className="win__bar">
+            <span className="win__dots" />
+            <b className="win__name">Nový kolega</b>
+          </div>
+          <div className="ob__form">
+            <p>
+              <i>Jméno</i>
+              <b>Tereza Malá</b>
+            </p>
+            <p>
+              <i>Pozice</i>
+              <b>Grafička</b>
+            </p>
+            <p>
+              <i>Nástup</i>
+              <b className="num">3. 11. 2026</b>
+            </p>
+            <span className="ob__go">
+              <span className={`sc-btn${s === 2 ? ' is-press' : ''}`}>Spustit nástup</span>
+              <Cursor state={s === 1 ? 'in' : s === 2 ? 'click' : 'off'} />
+            </span>
+          </div>
+          <div className="ob__who">
+            <span className="ob__av">TM</span>
+            <span>
+              <b>Tereza Malá</b>
+              <span className={s === 5 ? 'is-done' : ''}>
+                {s === 5 ? 'Všechno připraveno na 3. 11.' : `Hotovo ${s === 4 ? lit : 0} z 6`}
+              </span>
+            </span>
+          </div>
         </div>
-
-        <ol className="pw__steps">
-          <li className="pw__rail" aria-hidden="true">
-            <i style={{ height: `${s === 7 ? 100 : FILL[s]}%` }} />
-          </li>
-          {steps.map((st, i) => {
-            const state = stateOf(i, s);
-            return (
-              <li className={`pw__step is-${state}`} key={st.t}>
-                <span className="pw__ico">
-                  <Svg>{st.ico}</Svg>
-                </span>
-                <span>
-                  <b className="pw__t">{st.t}</b>
-                  <span className="pw__d">{st.d}</span>
-                </span>
-                <span className="pw__st">
-                  {state === 'run' && <i className="sc-spin" />}
-                  {state === 'done' && (
-                    <>
-                      <Svg className="sc-ok">{ico.check}</Svg>
-                      <span className="num">{st.time}</span>
-                    </>
-                  )}
-                  {state === 'wait' && <span className={`sc-btn${s === 4 ? ' is-press' : ''}`}>Schválit</span>}
-                  {i === 2 && <Cursor state={s === 3 ? 'in' : s === 4 ? 'click' : 'off'} />}
-                </span>
-              </li>
-            );
-          })}
-        </ol>
-
-        <p className={`win__foot${foot.done ? ' is-done' : ''}`}>{foot.text}</p>
       </div>
-
-      <Layer z={110} className="pw__toast">
-        <Toast show={s === DONE} icon={ico.mail} title="Faktura odešla zákazníkovi" sub="Kovo Brno · FV 2026114.pdf" />
-      </Layer>
     </Scene>
   );
 }

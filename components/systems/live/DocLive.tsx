@@ -1,105 +1,113 @@
 'use client';
 
-import { ico, Layer, Scene, Svg, Toast, useLoop } from './scene';
+import { Cursor, ico, Layer, Scene, Svg, useLoop } from './scene';
 
 /*
- * Dokumenty: přijde faktura v PDF, přes papír přejede čtecí linka, systém
- * označí důležitá pole a jedno po druhém je přepíše do karty vedle.
+ * Dokumenty účetní kanceláře: kurzor vtáhne do okna hromádku dokladů od
+ * klienta. Rozprostřou se, každý dostane štítek, odletí do své složky a údaje
+ * naskáčou do tabulky pro účetnictví.
  *
- * Fáze: 0 faktura přijde · 1 čtení · 2–5 pole jedno po druhém · 6 zapsáno · 7 doznění
+ * Fáze: 0 kurzor táhne hromádku · 1 pustí · 2 rozprostřou se · 3 odletí do složek
+ *       4 tabulka · 5 drží · 6 doznění
  */
-const DUR = [700, 1500, 420, 420, 420, 420, 2800, 450];
-const DONE = 6;
+const DUR = [1100, 350, 1000, 1100, 900, 2600, 450];
+const DONE = 5;
 
-const fields = [
-  { k: 'Dodavatel', v: 'Kovoobrábění Brno s.r.o.' },
-  { k: 'Variabilní symbol', v: '2026114' },
-  { k: 'Splatnost', v: '30. 10. 2026' },
-  { k: 'Částka k úhradě', v: '48 300 Kč' },
+const folders = ['Faktury', 'Účtenky', 'Smlouvy', 'Výpisy'];
+
+// f = složka, kam doklad patří
+const docs = [
+  { kind: 'Faktura', who: 'Licence software', v: '1 450 Kč', f: 0 },
+  { kind: 'Účtenka', who: 'Čerpací stanice', v: '1 820 Kč', f: 1 },
+  { kind: 'Smlouva', who: 'Nájem kanceláře', v: '18 000 Kč', f: 2 },
+  { kind: 'Faktura', who: 'Elektronika', v: '24 990 Kč', f: 0 },
+  { kind: 'Výpis', who: 'Banka · září', v: '62 pohybů', f: 3 },
+  { kind: 'Účtenka', who: 'Kavárna', v: '168 Kč', f: 1 },
+  { kind: 'Faktura', who: 'Mobilní operátor', v: '1 290 Kč', f: 0 },
+  { kind: 'Účtenka', who: 'Papírnictví', v: '486 Kč', f: 1 },
 ];
+
+/** Kde doklad v dané fázi je: x, y v % plochy, natočení, hloubka, zmenšení, průhlednost. */
+function place(i: number, s: number) {
+  const d = docs[i];
+  if (s === 6) return { x: 108, y: 20 + i * 2, r: 8, z: 0, k: 1, o: 0 };
+  if (s <= 1) return { x: 39 + (i % 3) * 1.5, y: 22 + (i % 4) * 1.2, r: (i % 2 ? 1 : -1) * (2 + i), z: i * 4, k: 1, o: 1 };
+  if (s === 2) return { x: 4 + (i % 4) * 24, y: 19 + Math.floor(i / 4) * 31, r: (i % 3) - 1, z: [40, -20, 70, 10, -30, 60, 0, 30][i], k: 1, o: 1 };
+  return { x: 8 + d.f * 23.5, y: 72, r: 0, z: 0, k: 0.35, o: 0 };
+}
 
 export default function DocLive() {
   const { s, ref } = useLoop(DUR, DONE);
-  // kolik polí už je přečtených
-  const got = s === 7 ? 4 : Math.max(0, Math.min(4, s - 1));
-  const hit = (i: number) => (got > i ? ' is-hit' : '');
+  const sorted = s >= 3 && s <= 5;
+  const count = (f: number) => (sorted ? docs.filter((d) => d.f === f).length : 0);
 
   return (
-    <Scene sceneRef={ref} className={`sc--doc${s === 7 ? ' is-out' : ''}`}>
+    <Scene sceneRef={ref} base={480} className={`sc--doc${s === 6 ? ' is-out' : ''}`}>
       <Layer z={-90} className="sc__ghost" />
 
-      {/* papír s fakturou */}
-      <div className={`dc${s === 1 ? ' is-scan' : ''}`}>
-        <div className="dc__head">
-          <span className={`dc__f dc__from${hit(0)}`}>
-            <b>Kovoobrábění Brno s.r.o.</b>
-            <span>Hybešova 12, 602 00 Brno</span>
-            <span>IČO 27184563</span>
-          </span>
-          <span className="dc__title">
-            <b>FAKTURA</b>
-            <span className="num">č. 2026114</span>
-          </span>
+      <div className="win dk">
+        <div className="win__bar">
+          <span className="win__dots" />
+          <b className="win__name">Doklady · Studio Hana</b>
+          <span className="win__live">{sorted ? 'Roztříděno' : s >= 1 ? '8 nových' : 'Čeká na doklady'}</span>
         </div>
-
-        <div className="dc__meta">
-          <span className={`dc__f${hit(1)}`}>
-            <i>Variabilní symbol</i>
-            <b className="num">2026114</b>
-          </span>
-          <span className={`dc__f${hit(2)}`}>
-            <i>Splatnost</i>
-            <b className="num">30. 10. 2026</b>
-          </span>
+        <div className="dk__area">
+          <p className={`dk__drop${s === 0 ? ' is-on' : ''}`}>{sorted ? '8 dokladů je ve složkách' : 'Sem doklady přetáhněte'}</p>
+          <div className="dk__folders">
+            {folders.map((f, i) => (
+              <span className={`dk__folder${count(i) ? ' is-on' : ''}`} key={f} style={{ transitionDelay: sorted && s === 3 ? `${300 + i * 120}ms` : undefined }}>
+                <Svg>{ico.folder}</Svg>
+                {f}
+                <b className="num">{count(i)}</b>
+              </span>
+            ))}
+          </div>
         </div>
-
-        <div className="dc__rows">
-          {[
-            ['Profil 40×40, 6 m', '24 ks', '28 800'],
-            ['Řezání na míru', '24 ks', '7 200'],
-            ['Doprava', '1', '1 900'],
-          ].map(([a, b, c]) => (
-            <span className="dc__row" key={a}>
-              <span>{a}</span>
-              <span className="num">{b}</span>
-              <span className="num">{c}</span>
-            </span>
-          ))}
-        </div>
-
-        <div className="dc__sum">
-          <span className={`dc__f${hit(3)}`}>
-            <i>Celkem k úhradě</i>
-            <b className="num">48 300 Kč</b>
-          </span>
-        </div>
-
-        <i className="dc__scan" aria-hidden="true" />
       </div>
 
-      {/* co z toho systém vytáhl */}
-      <Layer z={80} className="dx-l">
-        <div className="win dx">
-          <div className="win__bar">
-            <Svg className="dx__pdf">{ico.invoice}</Svg>
-            <b className="win__name">Vytaženo z PDF</b>
+      {/* jednotlivé doklady: volně v prostoru, ať se můžou rozletět do hloubky */}
+      {docs.map((d, i) => {
+        const p = place(i, s);
+        return (
+          <div
+            className="dk__doc"
+            key={i}
+            style={{
+              left: `${p.x}%`,
+              top: `${p.y}%`,
+              opacity: p.o,
+              transform: `translateZ(${p.z}px) rotate(${p.r}deg) scale(${p.k})`,
+              transitionDelay: s === 2 || s === 3 ? `${i * 50}ms` : undefined,
+              zIndex: docs.length - i,
+            }}
+          >
+            <span className={`dk__kind dk__kind--${d.f}${s === 2 ? ' is-on' : ''}`}>{d.kind}</span>
+            <b>{d.who}</b>
+            <i />
+            <i />
+            <span className="num">{d.v}</span>
+            {i === 0 && <Cursor state={s === 0 ? 'click' : s === 1 ? 'in' : 'off'} className="dk__cur" />}
           </div>
-          <dl className="dx__list">
-            {fields.map((f, i) => (
-              <div className={`dx__row${got > i ? ' is-on' : ''}`} key={f.k}>
-                <dt>{f.k}</dt>
-                <dd>
-                  <span className="dx__v">{f.v}</span>
-                  <i className="dx__ph" />
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </Layer>
+        );
+      })}
 
-      <Layer z={130} className="dc__toast">
-        <Toast show={s === DONE} icon={ico.table} title="Zapsáno do tabulky Faktury 2026" sub="Nikdo nic nepřepisoval" />
+      <Layer z={110} className={`dk__out-l${s === 4 || s === 5 ? ' is-in' : ''}`}>
+        <div className="dk__out">
+          <p className="dk__outh">
+            <Svg>{ico.table}</Svg>
+            Do účetnictví
+          </p>
+          {docs
+            .filter((d) => d.kind === 'Faktura')
+            .map((d) => (
+              <p className="dk__line" key={d.who}>
+                <span>{d.who}</span>
+                <span className="num">{d.v}</span>
+                <span>DPH 21 %</span>
+              </p>
+            ))}
+          <p className="dk__more">a dalších 5 dokladů</p>
+        </div>
       </Layer>
     </Scene>
   );

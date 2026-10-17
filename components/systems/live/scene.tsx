@@ -52,29 +52,77 @@ export function useTyped(text: string, s: number, phase: number, ms: number) {
   return text.slice(0, n);
 }
 
-/* Nejmenší šířka, ve které se scéna skládá. Na užším místě (carousel na mobilu)
-   se poskládá v téhle šířce a celá se zmenší, jako fotka obrazovky. */
-const BASE = 400;
+/** Číslo, které ve fázi `phase` doběhne z `from` na `to`. */
+export function useCount(from: number, to: number, s: number, phase: number, ms: number) {
+  const [v, setV] = useState(from);
+  useEffect(() => {
+    if (s !== phase) {
+      setV(s > phase ? to : from);
+      return;
+    }
+    let raf = 0;
+    const t0 = performance.now();
+    const tick = (t: number) => {
+      const p = Math.min(1, (t - t0) / ms);
+      setV(Math.round(from + (to - from) * (1 - Math.pow(1 - p, 3))));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [s, phase, from, to, ms]);
+  return v;
+}
+
+/** 1290000 → „1 290 000“ */
+export const fmt = (n: number) => n.toLocaleString('cs-CZ').replace(/\u00a0/g, ' ');
+
+/* Nejmenší šířka, ve které se scéna skládá (`base`). Na užším místě (carousel na
+   mobilu) se poskládá v téhle šířce a celá se zmenší, jako fotka obrazovky. */
 
 /** Nakloněná scéna. Děti se vrství přes `Layer` s vlastní hloubkou. */
 export function Scene({
   children,
   sceneRef,
   className = '',
+  base = 420,
 }: {
   children: React.ReactNode;
   sceneRef: React.RefObject<HTMLDivElement | null>;
   className?: string;
+  base?: number;
 }) {
   const fit = useRef<HTMLDivElement>(null);
+  const par = useRef<HTMLDivElement>(null);
   const [k, setK] = useState(1);
 
   useEffect(() => {
     const el = fit.current;
     if (!el) return;
-    const ro = new ResizeObserver(([e]) => setK(Math.min(1, e.contentRect.width / BASE)));
+    const ro = new ResizeObserver(([e]) => setK(Math.min(1, e.contentRect.width / base)));
     ro.observe(el);
     return () => ro.disconnect();
+  }, [base]);
+
+  // na počítači se scéna jemně natáčí za myší
+  useEffect(() => {
+    const el = par.current;
+    if (!el || !matchMedia('(pointer: fine) and (min-width: 900px)').matches) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let raf = 0;
+    const onMove = (e: PointerEvent) => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const r = el.getBoundingClientRect();
+        const cl = (v: number) => Math.max(-1, Math.min(1, v));
+        el.style.setProperty('--mx', cl((e.clientX - (r.left + r.width / 2)) / (r.width * 0.9)).toFixed(3));
+        el.style.setProperty('--my', cl((e.clientY - (r.top + r.height / 2)) / (r.height * 0.9)).toFixed(3));
+      });
+    };
+    addEventListener('pointermove', onMove, { passive: true });
+    return () => {
+      removeEventListener('pointermove', onMove);
+      cancelAnimationFrame(raf);
+    };
   }, []);
 
   return (
@@ -82,18 +130,30 @@ export function Scene({
       <div
         className={`sc ${className}`}
         ref={sceneRef}
-        style={k < 1 ? { width: BASE, zoom: k } : undefined}
+        style={k < 1 ? { width: base, zoom: k } : undefined}
       >
-        <div className="sc__obj">{children}</div>
+        <div className="sc__par" ref={par}>
+          <div className="sc__obj">{children}</div>
+        </div>
       </div>
     </div>
   );
 }
 
 /** Vrstva ve scéně, posunutá do hloubky o `z` pixelů (kladné = blíž k divákovi). */
-export function Layer({ z, className = '', children }: { z: number; className?: string; children?: React.ReactNode }) {
+export function Layer({
+  z,
+  className = '',
+  style,
+  children,
+}: {
+  z: number;
+  className?: string;
+  style?: React.CSSProperties;
+  children?: React.ReactNode;
+}) {
   return (
-    <div className={`sc__layer ${className}`} style={{ ['--z' as string]: `${z}px` }}>
+    <div className={`sc__layer ${className}`} style={{ ...style, ['--z' as string]: `${z}px` }}>
       {children}
     </div>
   );
@@ -160,22 +220,77 @@ export const ico = {
       <path d="M5 20a7 7 0 0 1 14 0" />
     </>
   ),
+  board: (
+    <>
+      <rect x="3" y="4" width="18" height="16" rx="2.5" />
+      <path d="M9 4v16M15 4v16" />
+    </>
+  ),
+  folder: <path d="M3 7.5A2.5 2.5 0 0 1 5.5 5H10l2 2.5h6.5A2.5 2.5 0 0 1 21 10v7.5a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17.5z" />,
+  cal: (
+    <>
+      <rect x="3.5" y="5" width="17" height="15.5" rx="2.5" />
+      <path d="M3.5 10h17M8 3v4M16 3v4" />
+    </>
+  ),
+  laptop: (
+    <>
+      <rect x="5" y="5" width="14" height="10" rx="1.5" />
+      <path d="M3 18.5h18" />
+    </>
+  ),
+  key: (
+    <>
+      <circle cx="8" cy="12" r="3.5" />
+      <path d="M11.5 12H21M17.5 12v3M20.5 12v2.5" />
+    </>
+  ),
+  pen: <path d="M4 20l1-4.5L16 4.5a2.1 2.1 0 0 1 3 3L8 18.5zM14 6.5l3 3" />,
+  globe: (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M3.5 12h17M12 3.5c2.4 2.4 3.5 5.2 3.5 8.5s-1.1 6.1-3.5 8.5c-2.4-2.4-3.5-5.2-3.5-8.5s1.1-6.1 3.5-8.5z" />
+    </>
+  ),
+  chat: <path d="M4 5.5h16v10.5H10l-4.5 3.5V16H4z" />,
+  search: (
+    <>
+      <circle cx="10.5" cy="10.5" r="6" />
+      <path d="m15 15 5 5" />
+    </>
+  ),
   clip: <path d="m20 11.5-8.2 8.2a5 5 0 0 1-7-7l8.5-8.5a3.3 3.3 0 0 1 4.7 4.7l-8.5 8.5a1.7 1.7 0 0 1-2.4-2.4l7.8-7.8" />,
 };
 
-/** Kurzor myši, který přijede a klikne. */
-export function Cursor({ state }: { state: 'off' | 'in' | 'click' }) {
+/** Kurzor myši, který přijede a klikne. Sedí v pravém dolním rohu rodiče, `className` ho posune jinam. */
+export function Cursor({ state, className = '' }: { state: 'off' | 'in' | 'click'; className?: string }) {
   return (
-    <svg className={`sc-cur${state === 'off' ? '' : ` is-${state}`}`} viewBox="0 0 24 24" aria-hidden="true">
+    <svg
+      className={`sc-cur${state === 'off' ? '' : ` is-${state}`}${className ? ` ${className}` : ''}`}
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
       <path d="M5 3.5 18.5 10l-6 1.7-2.6 6.3z" />
     </svg>
   );
 }
 
-/** Upozornění, které vyjede před okno. */
-export function Toast({ show, title, sub, icon }: { show: boolean; title: string; sub: string; icon: React.ReactNode }) {
+/** Upozornění, které vyjede před okno. `delay` (ms) ho pošle o kus později, ať jich víc nevyjede naráz. */
+export function Toast({
+  show,
+  title,
+  sub,
+  icon,
+  delay = 0,
+}: {
+  show: boolean;
+  title: string;
+  sub: string;
+  icon: React.ReactNode;
+  delay?: number;
+}) {
   return (
-    <div className={`sc-toast${show ? ' is-in' : ''}`}>
+    <div className={`sc-toast${show ? ' is-in' : ''}`} style={show && delay ? { transitionDelay: `${delay}ms` } : undefined}>
       <span className="sc-toast__ico">
         <Svg>{icon}</Svg>
       </span>
