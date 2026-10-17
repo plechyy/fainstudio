@@ -6,7 +6,7 @@ import MachineStage from './machine/MachineStage';
 
 /**
  * bg="smoke": hlavní stránka, kouř a vycentrovaný text.
- * bg="machine": /hero2, 3D stroj nahoře, nadpis vlevo dole, text a tlačítka vpravo (jako clay.com).
+ * bg="machine": /hero2, text nahoře uprostřed, pod ním 3D stroj v primární záři.
  */
 export default function Hero({ bg = 'smoke' }: { bg?: 'smoke' | 'machine' }) {
   const stage = bg === 'machine';
@@ -37,7 +37,7 @@ export default function Hero({ bg = 'smoke' }: { bg?: 'smoke' | 'machine' }) {
         <div className="hero-bg__grain" />
       </div>
 
-      <div className={`wrap hero__inner${stage ? ' hero__split' : ''}`}>
+      <div className="wrap hero__inner">
         <h1 id="hero-title" className="display hero__title seq seq--rise-only" style={{ ['--i' as string]: 1 }}>
           <span className="sr-only">{hero.titleSr}</span>
           <span className="silver silver--block" aria-hidden="true">
@@ -46,17 +46,8 @@ export default function Hero({ bg = 'smoke' }: { bg?: 'smoke' | 'machine' }) {
           <HeroRotate lead={hero.rotateLead} phrases={hero.rotate} />
         </h1>
 
-        {stage ? (
-          <div className="hero__side">
-            {lead}
-            {actions}
-          </div>
-        ) : (
-          <>
-            {lead}
-            {actions}
-          </>
-        )}
+        {lead}
+        {actions}
       </div>
     </section>
   );
