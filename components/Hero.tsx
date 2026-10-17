@@ -1,5 +1,6 @@
 import { CAL_URL } from '@/lib/config';
 import { hero } from '@/lib/content';
+import HeroRotate from './HeroRotate';
 import ShaderBackground from './ShaderBackground';
 
 export default function Hero() {
@@ -19,8 +20,11 @@ export default function Hero() {
         </p>
 
         <h1 id="hero-title" className="display hero__title seq seq--rise-only" style={{ ['--i' as string]: 1 }}>
-          <span className="silver silver--block">{hero.title[0]}</span>
-          <span className="hero__accent">{hero.title[1]}</span>
+          <span className="sr-only">{hero.titleSr}</span>
+          <span className="silver silver--block" aria-hidden="true">
+            {hero.title}
+          </span>
+          <HeroRotate lead={hero.rotateLead} phrases={hero.rotate} />
         </h1>
 
         <p className="lead hero__lead seq" style={{ ['--i' as string]: 2 }}>

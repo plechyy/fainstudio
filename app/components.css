@@ -469,7 +469,8 @@ html.is-loading .seq {
   box-shadow: 0 0 0 4px var(--secondary-wash);
 }
 .hero__title {
-  font-size: var(--step-5);
+  /* nejdelší řádek („která usnadňuje práci.“) měří 9,4 em: písmo se nikdy nezvětší přes šířku okna */
+  font-size: min(var(--step-5), calc((100vw - 2 * var(--gutter, 16px)) / 9.6));
   max-width: 17ch;
   margin-top: 28px;
   /* Lift: s průhlednou výplní (stříbrný text) by text-shadow prosvítal skrz písmena,
@@ -479,6 +480,58 @@ html.is-loading .seq {
 }
 .hero__accent {
   color: var(--accent-text);
+}
+/* psaný druhý řádek: neviditelné kopie vět drží výšku, živý text leží přes ně.
+   Nadpis má vždy dva řádky a žádný se nezalamuje. */
+/* .display nastavuje text-wrap a přebíjí white-space, proto vyšší specificita */
+.hero .hero__title {
+  max-width: none;
+  white-space: nowrap;
+  text-wrap: nowrap;
+}
+.hero__rot {
+  position: relative;
+  display: grid;
+  text-align: center;
+}
+.hero__rot-size {
+  grid-area: 1 / 1;
+  visibility: hidden;
+}
+.hero__rot-live {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+.hero__caret {
+  display: inline-block;
+  width: 0.07em;
+  height: 0.82em;
+  margin-left: 0.06em;
+  vertical-align: -0.06em;
+  border-radius: 1px;
+  background: var(--primary);
+  -webkit-text-fill-color: initial;
+  box-shadow: 0 0 14px var(--primary-glow);
+}
+.hero__caret.is-idle {
+  animation: hero-caret 1s steps(1) infinite;
+}
+/* tečka na konci řádku je pořád bílá, ať se píše cokoli */
+.hero__dot-end {
+  color: var(--white-text);
+  -webkit-text-fill-color: var(--white-text);
+}
+@keyframes hero-caret {
+  50% {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__caret {
+    display: none;
+  }
 }
 .hero__lead {
   margin-top: 24px;
@@ -1533,7 +1586,7 @@ html.is-loading .seq {
 
 @media (max-width: 560px) {
   .hero__title {
-    font-size: clamp(2.3rem, 1.1rem + 5.4vw, 3rem);
+    font-size: min(clamp(2.3rem, 1.1rem + 5.4vw, 3rem), calc((100vw - 2 * var(--gutter, 16px)) / 9.6));
   }
   .hero {
     min-height: auto;
