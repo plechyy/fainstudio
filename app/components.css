@@ -461,13 +461,6 @@ html.is-loading .seq {
   border-radius: var(--radius-pill);
   margin: 0;
 }
-.hero__dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--secondary);
-  box-shadow: 0 0 0 4px var(--secondary-wash);
-}
 .hero__title {
   /* nejdelší řádek („která usnadňuje práci.“) měří 9,4 em: písmo se nikdy nezvětší přes šířku okna */
   font-size: min(var(--step-5), calc((100vw - 2 * var(--gutter, 16px)) / 9.6));

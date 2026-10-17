@@ -5,13 +5,13 @@
  */
 
 export const hero = {
-  eyebrow: 'Malé studio z Prahy',
+  eyebrow: 'Mluvíte přímo s tím, kdo to staví',
   // první řádek nadpisu; druhý se píše a maže (components/HeroRotate.tsx)
   title: 'Umělá inteligence,',
   rotateLead: 'která',
   rotate: ['šetří čas', 'šetří peníze', 'usnadňuje práci', 'je FaiN'],
   titleSr: 'Umělá inteligence, která šetří čas, šetří peníze, usnadňuje práci a je FaiN.',
-  lead: 'Řekněte nám, co vás zdržuje. Postavíme to za vás a celou dobu budeme na příjmu.',
+  lead: 'Skoro každá firma dělá něco, co by zvládl systém. Máte nápad? Postavíme ho. Nemáte? Projdeme to spolu.',
   primary: 'Chci znát cenu',
   secondary: 'Co všechno umíme',
 };

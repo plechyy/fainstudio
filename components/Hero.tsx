@@ -15,7 +15,6 @@ export default function Hero() {
 
       <div className="wrap hero__inner">
         <p className="label hero__eyebrow glass seq" style={{ ['--i' as string]: 0 }}>
-          <span className="hero__dot" aria-hidden="true" />
           {hero.eyebrow}
         </p>
 
