@@ -5,14 +5,13 @@
  */
 
 export const hero = {
-  eyebrow: 'Mluvíte přímo s tím, kdo to staví',
   // první řádek nadpisu; druhý se píše a maže (components/HeroRotate.tsx)
   title: 'Umělá inteligence,',
   rotateLead: 'která',
   rotate: ['šetří čas', 'šetří peníze', 'usnadňuje práci', 'je FaiN'],
   titleSr: 'Umělá inteligence, která šetří čas, šetří peníze, usnadňuje práci a je FaiN.',
   lead: 'Skoro každá firma dělá něco, co by zvládl systém. Máte nápad? Postavíme ho. Nemáte? Projdeme to spolu.',
-  primary: 'Chci znát cenu',
+  primary: 'Chci zjistit, co by šlo líp',
   secondary: 'Co všechno umíme',
 };
 
@@ -97,7 +96,7 @@ export const process = {
   title: 'Čtyři kroky, žádná záhada',
   lead: 'Každý krok skončí něčím, co si můžete otevřít a vyzkoušet.',
   steps: [
-    { name: 'Úvodní hovor', text: 'Řekněte nám, co vás stojí nejvíc času. Probereme všechno důležité a vymyslíme, jak by to u vás fungovalo. Cenu znáte hned po hovoru.' },
+    { name: 'Úvodní hovor', text: 'Nemusíte vědět, co chcete. Probereme, jak ve firmě pracujete, a společně vymyslíme, co by šlo líp. Cenu znáte hned po hovoru.' },
     { name: 'Návrh', text: 'Co systém udělá, co od vás potřebujeme a kdy bude hotovo. Pak podpis a zálohová faktura.' },
     { name: 'Stavíme po týdnech', text: 'Fungujeme agilně. Každý týden dostanete živou ukázku, vyzkoušíte si ji a řeknete, co změnit. Další týden to doladíme. Jsme s vámi v kontaktu celou dobu.' },
     { name: 'Zaučení a spuštění', text: 'Ukážeme to lidem, kteří s tím budou pracovat. Napojíme to na vaše nástroje a data a pustíme to do běžného provozu.' },
@@ -142,6 +141,10 @@ export const compare = {
 
 export const faq = [
   {
+    q: 'Nevíme, co by šlo zlepšit. Je to pro nás?',
+    a: 'Ano. Na rutinu si člověk zvykne a přestane si jí všímat, takže je to normální. Na hovoru projdeme, jak ve firmě pracujete, a ukážeme, co by mohl převzít systém. Kdybychom nic nenašli, řekneme vám to.',
+  },
+  {
     q: 'Nahradí to někoho z našich lidí?',
     a: 'Ne. Odlehčí jim od práce, kterou stejně nikdo nedělá rád. Rozhodovat, vyjednávat a mluvit se zákazníkem budou dál oni.',
   },
@@ -185,8 +188,8 @@ export const about = {
 
 export const cta = {
   title: 'Jeden hovor a budete vědět, jestli to má smysl',
-  text: 'Řekněte nám, co vás zdržuje nejvíc. My spočítáme, kolik by vám změna ušetřila. A když to nedává smysl, dozvíte se to hned.',
+  text: 'Přijďte s nápadem, nebo bez něj. Projdeme, jak ve firmě pracujete, a spočítáme, kolik by vám změna ušetřila. A když to nedává smysl, dozvíte se to hned.',
   button: 'Chci to u nás',
   // tlačítko pod čísly
-  priceButton: 'Chci hovor na 20 minut',
+  priceButton: 'Chci úvodní hovor',
 };

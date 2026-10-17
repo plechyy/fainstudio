@@ -14,10 +14,6 @@ export default function Hero() {
       </div>
 
       <div className="wrap hero__inner">
-        <p className="label hero__eyebrow glass seq" style={{ ['--i' as string]: 0 }}>
-          {hero.eyebrow}
-        </p>
-
         <h1 id="hero-title" className="display hero__title seq seq--rise-only" style={{ ['--i' as string]: 1 }}>
           <span className="sr-only">{hero.titleSr}</span>
           <span className="silver silver--block" aria-hidden="true">
