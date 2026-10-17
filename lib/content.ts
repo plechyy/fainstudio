@@ -73,11 +73,11 @@ export const systems = {
       img: 'system-05-weby',
     },
     {
-      id: 'video',
-      name: 'AI video a animace',
-      short: 'AI video',
-      text: 'Spoty, produktové animace a vizuály. Máte je za pár dní, ne za pár týdnů, a vyjdou levněji než z klasické produkce.',
-      img: 'system-06-video',
+      id: 'procesy',
+      name: 'Automatizace procesů',
+      short: 'Procesy',
+      text: 'Opakující se řetězec kroků běží sám: mail, tabulka, schválení, faktura. Nikdo ho nemusí hlídat a vy vidíte, kde se zrovna nachází.',
+      img: 'system-06-procesy',
     },
     {
       id: 'nastroje',
@@ -165,7 +165,7 @@ export const faq = [
 
 export const about = {
   name: 'Matyáš Plecháč',
-  text: 'Nejsme agentura, jsme malé studio z Prahy. Stavíme automatizace, interní nástroje, sběr dat a AI video. Když napíšete, odpoví vám ten, kdo to pak bude dělat.',
+  text: 'Nejsme agentura, jsme malé studio z Prahy. Stavíme automatizace, interní nástroje, sběr dat a weby. Když napíšete, odpoví vám ten, kdo to pak bude dělat.',
   /*
    * REFERENCE — ZATÍM SKRYTÉ.
    * Nezobrazovat, dokud zadavatel nemá od každého klienta písemný souhlas

@@ -122,28 +122,26 @@ function Mini() {
   );
 }
 
-/** AI video: rozkres spotu po záběrech. */
-function Board() {
-  const frames: [string, string][] = [
-    ['0:00', 'Produkt v ruce'],
-    ['0:04', 'Detail povrchu'],
-    ['0:08', 'Text s cenou'],
-    ['0:12', 'Logo a web'],
+/** Procesy: řetězec kroků, který běží sám a na jednom místě čeká na člověka. */
+function Flow() {
+  const steps: [string, string, boolean][] = [
+    ['Mail s objednávkou', '8:41', false],
+    ['Zápis do tabulky', 'hotovo', false],
+    ['Schválení', 'čeká na vás', true],
+    ['Faktura odeslána', 'po schválení', false],
   ];
   return (
-    <div className="art__pane art__pane--board">
-      <div className="board">
-        {frames.map(([t, label], i) => (
-          <figure className={`frame frame--${i + 1}`} key={t}>
-            <span className="frame__art" />
-            <figcaption>
-              <b className="num">{t}</b>
-              {label}
-            </figcaption>
-          </figure>
+    <div className="art__pane art__pane--flow">
+      <ol className="flow">
+        {steps.map(([name, state, now], i) => (
+          <li className={`flow__node${now ? ' flow__node--now' : ''}`} key={name}>
+            <span className="flow__dot num">{i + 1}</span>
+            <b className="flow__name">{name}</b>
+            <span className="flow__state">{state}</span>
+          </li>
         ))}
-      </div>
-      <p className="art__note">Spot 15 s · čtyři záběry · bez štábu a studia</p>
+      </ol>
+      <p className="art__note">Jeden klik od vás, zbytek běží sám</p>
     </div>
   );
 }
@@ -186,7 +184,7 @@ const map: Record<string, () => React.ReactElement> = {
   asistent: Chat,
   data: Watch,
   weby: Mini,
-  video: Board,
+  procesy: Flow,
   nastroje: Tool,
 };
 

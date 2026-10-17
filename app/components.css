@@ -2143,61 +2143,62 @@ html.is-loading .seq {
   font-weight: 600;
 }
 
-/* AI video */
-.board {
+/* Procesy */
+.flow {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
-.frame__art {
-  display: block;
-  position: relative;
-  aspect-ratio: 4 / 3;
-  border-radius: 10px;
-  overflow: hidden;
-  background: color-mix(in oklab, var(--secondary) 16%, var(--surface-2));
-}
-.frame__art::after {
+/* spojnice za kroky: šedá, ke konci primární */
+.flow::before {
   content: '';
   position: absolute;
-  background: color-mix(in oklab, var(--ink) 70%, transparent);
+  top: 21px;
+  left: 12.5%;
+  right: 12.5%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--line-strong), var(--primary));
 }
-.frame--1 .frame__art::after {
-  inset: 32% 34% 22% 34%;
-  border-radius: 6px 6px 2px 2px;
+.flow__node {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  text-align: center;
 }
-.frame--2 .frame__art {
-  background: color-mix(in oklab, var(--secondary) 34%, var(--surface-2));
-}
-.frame--2 .frame__art::after {
-  inset: 24%;
-  border-radius: 50%;
-}
-.frame--3 .frame__art {
-  background: color-mix(in oklab, var(--secondary) 10%, var(--surface-2));
-}
-.frame--3 .frame__art::after {
-  inset: 42% 22% 42% 22%;
-  border-radius: 3px;
-}
-.frame--4 .frame__art {
-  background: var(--secondary);
-}
-.frame--4 .frame__art::after {
-  inset: 38% 30%;
-  border-radius: 3px;
-  background: var(--on-accent);
-}
-.frame figcaption {
-  margin-top: 8px;
-  font-size: 0.8rem;
-  line-height: 1.35;
+.flow__dot {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface-2);
   color: var(--ink-2);
-}
-.frame figcaption b {
-  display: block;
   font-weight: 600;
-  color: var(--accent-text);
+}
+.flow__node--now .flow__dot {
+  border-color: var(--primary);
+  color: var(--primary-text);
+  box-shadow: 0 0 18px -4px var(--primary-glow);
+}
+.flow__name {
+  margin-top: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ink);
+}
+.flow__state {
+  font-size: 0.76rem;
+  color: var(--ink-3);
+}
+.flow__node--now .flow__state {
+  color: var(--primary-text);
 }
 
 /* ── obsah sekce: seznam vlevo, vizuál vpravo ────────────────────── */
