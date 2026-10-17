@@ -436,6 +436,20 @@ html.is-loading .seq {
       color-mix(in oklab, var(--bg) 62%, transparent) 74%, color-mix(in oklab, var(--bg) 86%, transparent) 86%,
       color-mix(in oklab, var(--bg) 97%, transparent) 94%, var(--bg) 100%);
 }
+/* /hero2: podlaha z kostek (components/CubeFloor.tsx). Za ní tmavé nebe se září
+   u horizontu, do které se vzdálené kostky rozpouštějí. */
+.hero-bg--cubes .hero-bg__fallback {
+  background:
+    radial-gradient(70% 38% at 50% 50%, color-mix(in oklab, var(--primary) 26%, transparent), transparent 72%),
+    linear-gradient(180deg, var(--bg-deep) 0%, color-mix(in oklab, var(--bg-deep) 88%, var(--primary)) 50%, var(--bg-deep) 100%);
+}
+.hero-bg--cubes .hero-bg__mask {
+  /* text čitelný, ale kostky dole zůstávají vidět; úplně dole navazuje na sekci 2 */
+  background:
+    radial-gradient(48% 40% at 50% 54%, color-mix(in oklab, var(--bg-deep) 72%, transparent), transparent 78%),
+    linear-gradient(180deg, transparent 0%, transparent 80%, color-mix(in oklab, var(--bg) 70%, transparent) 92%, var(--bg) 100%);
+}
+
 /* Jemné filmové zrno přes celé pozadí (funguje i jako textura fallbacku). */
 .hero-bg__grain {
   position: absolute;
