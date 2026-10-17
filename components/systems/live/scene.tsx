@@ -92,7 +92,6 @@ export function Scene({
   base?: number;
 }) {
   const fit = useRef<HTMLDivElement>(null);
-  const par = useRef<HTMLDivElement>(null);
   const [k, setK] = useState(1);
 
   useEffect(() => {
@@ -103,28 +102,6 @@ export function Scene({
     return () => ro.disconnect();
   }, [base]);
 
-  // na počítači se scéna jemně natáčí za myší
-  useEffect(() => {
-    const el = par.current;
-    if (!el || !matchMedia('(pointer: fine) and (min-width: 900px)').matches) return;
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    let raf = 0;
-    const onMove = (e: PointerEvent) => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const r = el.getBoundingClientRect();
-        const cl = (v: number) => Math.max(-1, Math.min(1, v));
-        el.style.setProperty('--mx', cl((e.clientX - (r.left + r.width / 2)) / (r.width * 0.9)).toFixed(3));
-        el.style.setProperty('--my', cl((e.clientY - (r.top + r.height / 2)) / (r.height * 0.9)).toFixed(3));
-      });
-    };
-    addEventListener('pointermove', onMove, { passive: true });
-    return () => {
-      removeEventListener('pointermove', onMove);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
-
   return (
     <div className="sc-fit" ref={fit}>
       <div
@@ -132,9 +109,7 @@ export function Scene({
         ref={sceneRef}
         style={k < 1 ? { width: base, zoom: k } : undefined}
       >
-        <div className="sc__par" ref={par}>
-          <div className="sc__obj">{children}</div>
-        </div>
+        <div className="sc__obj">{children}</div>
       </div>
     </div>
   );
