@@ -1942,175 +1942,9 @@ html.is-loading .seq {
    SEKCE 2 — systémy
    ════════════════════════════════════════════════════════════════════ */
 
-/* ── výstup systému: nakreslený v HTML, ne placeholder ───────────── */
-.art {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: clamp(16px, 2vw, 22px);
-  border-radius: 18px;
-  background: var(--sunk);
-}
-.art__pane {
-  display: grid;
-  gap: 10px;
-}
-.art__note {
-  margin-top: 4px;
-  font-size: 0.82rem;
-  line-height: 1.4;
-  color: var(--ink-2);
-}
-
-/* poptávky */
-.msg {
-  padding: 13px 16px;
-  border-radius: 14px;
-  background: var(--surface-2);
-}
-.msg--out {
-  background: color-mix(in oklab, var(--secondary) 13%, var(--surface-2));
-}
-.msg__head {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  font-size: 0.8rem;
-  color: var(--ink-2);
-}
-.msg__head b {
-  font-weight: 600;
-  color: var(--ink);
-}
-.msg--out .msg__head b {
-  color: var(--accent-text);
-}
-.msg__body {
-  margin-top: 6px;
-  font-size: 0.95rem;
-  line-height: 1.5;
-  color: var(--ink-2);
-  text-wrap: pretty;
-}
-
-/* asistent */
-.art__pane--chat {
-  gap: 12px;
-}
-.bubble {
-  max-width: 88%;
-  padding: 13px 16px;
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
-.bubble--q {
-  justify-self: end;
-  border-radius: 14px 14px 4px 14px;
-  background: var(--surface-2);
-  color: var(--ink);
-}
-.bubble--a {
-  justify-self: start;
-  border-radius: 14px 14px 14px 4px;
-  background: color-mix(in oklab, var(--secondary) 13%, var(--surface-2));
-  color: var(--ink-2);
-}
-.bubble__src {
-  margin-top: 8px;
-  font-size: 0.78rem;
-  color: var(--accent-text);
-}
-
-/* sběr dat */
-.watch {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.92rem;
-}
-.watch th {
-  padding-bottom: 8px;
-  font-size: 0.78rem;
-  font-weight: 500;
-  text-align: left;
-  color: var(--ink-3);
-  border-bottom: 1px solid var(--line);
-}
-.watch td {
-  padding: 11px 0;
-  color: var(--ink);
-}
-.watch tbody tr + tr td {
-  border-top: 1px solid color-mix(in oklab, var(--line) 60%, transparent);
-}
-.watch th:not(:first-child),
-.watch td:not(:first-child) {
-  text-align: right;
-}
-.watch__d {
-  color: var(--accent-text);
-  font-variant-numeric: tabular-nums;
-}
-.watch__same {
-  color: var(--ink-3);
-}
-
-/* weby */
-.mini {
-  padding: 18px;
-  border-radius: 14px;
-  background: var(--surface-2);
-}
-.mini__bar {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.mini__mark,
-.mini__dots {
-  height: 8px;
-  border-radius: 4px;
-  background: color-mix(in oklab, var(--ink) 16%, transparent);
-}
-.mini__mark {
-  width: 54px;
-}
-.mini__dots {
-  width: 84px;
-}
-.mini__h {
-  margin-top: 20px;
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-}
-.mini__p {
-  margin-top: 8px;
-  font-size: 0.88rem;
-  color: var(--ink-2);
-}
-.mini__btn {
-  display: inline-block;
-  margin-top: 16px;
-  padding: 9px 17px;
-  border-radius: 999px;
-  background: var(--secondary);
-  color: var(--on-accent);
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
-/* ── živé 3D scény (Poptávky, Dokumenty, Procesy) ─────────────────── */
-.art--live {
-  padding: 0;
-  background: none;
-}
+/* ── vizuál systému: živá 3D scéna (components/systems/live) ──────── */
 .sc-fit {
   width: 100%;
-}
-/* v carouselu scéna sahá až k okrajům karty, ať se zmenší co nejmíň */
-.sysx__slide .art--live {
-  margin-inline: -13px;
 }
 .sc {
   position: relative;
@@ -2571,7 +2405,7 @@ html.is-loading .seq {
   line-height: 1.5;
   color: var(--ink);
 }
-.ml__caret {
+.sc-caret {
   display: inline-block;
   width: 2px;
   height: 1em;
@@ -2782,6 +2616,629 @@ html.is-loading .seq {
   bottom: -36px;
 }
 
+/* Asistent */
+.ch__log {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 10px;
+  min-height: 236px;
+  padding: 16px;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+.ch__q {
+  align-self: flex-end;
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 14px 14px 4px 14px;
+  background: var(--line);
+  color: var(--ink);
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 300ms,
+    transform 400ms var(--ease-out);
+}
+.ch__q.is-in {
+  opacity: 1;
+  transform: none;
+}
+.ch__dots {
+  display: flex;
+  align-self: flex-start;
+  gap: 4px;
+  padding: 13px 14px;
+  border-radius: 14px;
+  background: var(--surface-2);
+}
+.ch__dots i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ink-3);
+  animation: sc-pulse 1s ease-in-out infinite;
+}
+.ch__dots i:nth-child(2) {
+  animation-delay: 160ms;
+}
+.ch__dots i:nth-child(3) {
+  animation-delay: 320ms;
+}
+.ch__a {
+  align-self: flex-start;
+  max-width: 88%;
+  padding: 12px 14px;
+  border: 1px solid color-mix(in oklab, var(--primary) 30%, var(--line));
+  border-radius: 14px 14px 14px 4px;
+  background: var(--surface-2);
+  color: var(--ink);
+}
+.ch__a p {
+  min-height: 3em;
+}
+.ch__src {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--primary) 14%, transparent);
+  color: var(--primary);
+  font-size: 0.7rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 300ms;
+}
+.ch__src.is-in {
+  opacity: 1;
+}
+.ch__src svg {
+  width: 12px;
+  height: 12px;
+}
+.ch__input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 12px 12px;
+  padding: 7px 7px 7px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  background: var(--surface-2);
+  font-size: 0.8rem;
+}
+.ch__ph {
+  flex: 1;
+  color: var(--ink-3);
+}
+.ch__typed {
+  flex: 1;
+  color: var(--ink);
+}
+.ch__send {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: var(--primary);
+  color: oklch(from var(--primary) clamp(0.16, calc((0.66 - l) * 60), 0.98) 0.02 h);
+}
+.ch__send svg {
+  width: 15px;
+  height: 15px;
+}
+.ch__doc-l {
+  top: -40px;
+  left: -56px;
+  width: 46%;
+}
+.ch__doc {
+  padding: 14px;
+  border-radius: 8px;
+  background: oklch(0.975 0.004 90);
+  color: oklch(0.3 0.01 260);
+  box-shadow: 0 30px 50px -20px oklch(0 0 0 / 0.75);
+  font-size: 0.68rem;
+  line-height: 1.45;
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 300ms,
+    transform 500ms var(--ease-out);
+}
+.ch__doc.is-in {
+  opacity: 1;
+  transform: none;
+}
+.ch__dochead {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+  color: oklch(0.45 0 0);
+  font-weight: 600;
+}
+.ch__dochead svg {
+  width: 13px;
+  height: 13px;
+  color: var(--primary);
+}
+.ch__line {
+  display: block;
+  height: 5px;
+  margin: 6px 0;
+  border-radius: 3px;
+  background: oklch(0.88 0 0);
+}
+.ch__hl {
+  margin: 8px 0;
+}
+.ch__hl mark {
+  padding: 0 2px;
+  border-radius: 3px;
+  background: color-mix(in oklab, var(--primary) 35%, transparent);
+  color: inherit;
+  font-weight: 700;
+}
+
+/* Sběr dat */
+.wt__head,
+.wt__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) 84px 88px;
+  align-items: center;
+  gap: 10px;
+  padding-inline: 16px;
+}
+.wt__head {
+  padding-block: 12px 8px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-3);
+  font-size: 0.7rem;
+}
+.wt__head span:not(:first-child),
+.wt__price,
+.wt__d {
+  text-align: right;
+}
+.wt__row {
+  padding-block: 12px;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.8rem;
+  transition:
+    background 300ms,
+    box-shadow 300ms;
+}
+.wt__row.is-hot {
+  background: color-mix(in oklab, var(--primary) 8%, transparent);
+  box-shadow: inset 3px 0 0 var(--primary);
+}
+.wt__who {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink);
+  font-weight: 500;
+}
+.wt__who .sc-spin,
+.wt__who .sc-ok {
+  flex: none;
+  width: 14px;
+  height: 14px;
+}
+.sc-ok.is-off {
+  opacity: 0;
+}
+.wt__price {
+  color: var(--ink);
+  font-weight: 600;
+}
+.wt__row.is-hot .wt__price,
+.wt__d.is-on {
+  color: var(--primary);
+}
+.wt__d {
+  color: var(--ink-3);
+  font-size: 0.74rem;
+}
+.wt__d.is-on {
+  font-weight: 700;
+}
+/* levý dolní roh překrývá graf, text patičky jde proto doprava */
+.wt .win__foot {
+  text-align: right;
+}
+.wt__chart-l {
+  bottom: -60px;
+  left: -48px;
+  width: 44%;
+}
+.wt__chart {
+  padding: 12px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 14px;
+  background: var(--surface-2);
+  box-shadow: 0 26px 44px -18px oklch(0 0 0 / 0.75);
+}
+.wt__chart p {
+  margin-bottom: 6px;
+  color: var(--ink-3);
+  font-size: 0.7rem;
+}
+.wt__chart b {
+  color: var(--ink);
+}
+.wt__chart svg {
+  display: block;
+  width: 100%;
+  height: 52px;
+  overflow: visible;
+}
+.wt__base,
+.wt__drop {
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+.wt__base {
+  stroke: var(--ink-3);
+  stroke-width: 2;
+}
+.wt__drop {
+  stroke: var(--primary);
+  stroke-width: 2.5;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 600ms var(--ease-out);
+}
+.wt__drop.is-on {
+  stroke-dashoffset: 0;
+}
+.wt__pt {
+  fill: var(--primary);
+  opacity: 0;
+  transition: opacity 300ms 400ms;
+}
+.wt__pt.is-on {
+  opacity: 1;
+}
+.wt__toast {
+  top: -34px;
+  right: -44px;
+}
+
+/* Weby */
+.wb__url {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-right: 42px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--ink-2);
+  font-size: 0.74rem;
+}
+.wb__url svg {
+  width: 12px;
+  height: 12px;
+}
+.wb__page {
+  display: grid;
+}
+.wb__page > * {
+  grid-area: 1 / 1;
+}
+.wb__real {
+  padding: 14px 18px 22px;
+  opacity: 0;
+  transition: opacity 400ms;
+}
+.wb.is-ready .wb__real {
+  opacity: 1;
+}
+.wb__skel {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding: 20px 18px;
+  transition: opacity 300ms;
+}
+.wb__skel i {
+  display: block;
+  height: 10px;
+  border-radius: 6px;
+  background: var(--line);
+  animation: sc-pulse 1.2s ease-in-out infinite;
+}
+.wb.is-ready .wb__skel {
+  opacity: 0;
+}
+.wb__nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+  color: var(--ink-3);
+  font-size: 0.72rem;
+}
+.wb__nav b {
+  margin-right: auto;
+  color: var(--ink);
+  font-weight: 700;
+}
+.wb__hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+}
+.wb__h {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 620;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.wb__p {
+  margin-top: 8px;
+  color: var(--ink-2);
+  font-size: 0.74rem;
+  line-height: 1.5;
+}
+.wb__cta {
+  position: relative;
+  display: inline-block;
+  margin-top: 14px;
+}
+.wb__cta .sc-cur {
+  right: 6px;
+  bottom: -14px;
+}
+/* „fotka“ dortu: jen měkké světlo, žádný obrázek */
+.wb__img,
+.wb__pimg {
+  border-radius: 12px;
+  background:
+    radial-gradient(55% 40% at 50% 66%, color-mix(in oklab, var(--primary) 60%, oklch(0.95 0.03 80)), transparent 72%),
+    radial-gradient(42% 16% at 50% 44%, oklch(0.96 0.02 80 / 0.9), transparent 72%),
+    linear-gradient(160deg, color-mix(in oklab, var(--primary) 24%, var(--surface-2)), var(--surface-2));
+}
+.wb__img {
+  aspect-ratio: 4 / 5;
+}
+.wb__phone-l {
+  right: -44px;
+  bottom: -52px;
+  width: 30%;
+}
+.wb__phone {
+  position: relative;
+  display: grid;
+  gap: 7px;
+  padding: 22px 10px 14px;
+  border: 3px solid var(--line-strong);
+  border-radius: 22px;
+  background: var(--surface);
+  box-shadow: 0 30px 50px -20px oklch(0 0 0 / 0.8);
+}
+.wb__phone > :not(.wb__notch) {
+  opacity: 0;
+  transition: opacity 400ms 150ms;
+}
+.wb__phone.is-ready > :not(.wb__notch) {
+  opacity: 1;
+}
+.wb__notch {
+  position: absolute;
+  top: 7px;
+  left: 33%;
+  width: 34%;
+  height: 6px;
+  border-radius: 4px;
+  background: var(--line-strong);
+}
+.wb__pimg {
+  aspect-ratio: 16 / 10;
+  border-radius: 8px;
+}
+.wb__ph {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 0.66rem;
+  font-weight: 620;
+  line-height: 1.15;
+}
+.wb__pl {
+  display: block;
+  width: 90%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--line-strong);
+}
+.wb__pbtn {
+  justify-self: start;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: oklch(from var(--primary) clamp(0.16, calc((0.66 - l) * 60), 0.98) 0.02 h);
+  font-size: 0.56rem;
+  font-weight: 600;
+}
+.wb__toast {
+  top: -32px;
+  left: -44px;
+}
+
+/* Interní nástroje */
+.tl__body {
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr);
+  min-height: 236px;
+}
+.tl__nav {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+  margin: 0;
+  padding: 12px 8px;
+  border-right: 1px solid var(--line);
+  color: var(--ink-3);
+  font-size: 0.74rem;
+  list-style: none;
+}
+.tl__nav li {
+  padding: 7px 10px;
+  border-radius: 8px;
+}
+.tl__nav li.is-on {
+  background: var(--surface-2);
+  box-shadow: inset 2px 0 0 var(--primary);
+  color: var(--ink);
+  font-weight: 600;
+}
+.tl__main {
+  padding: 12px 14px 14px;
+}
+.tl__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.tl__head b {
+  color: var(--ink);
+  font-size: 0.95rem;
+  font-weight: 650;
+}
+.tl__count {
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--ink-2);
+  font-size: 0.7rem;
+  font-weight: 600;
+  transition:
+    background 300ms,
+    color 300ms;
+}
+.tl__count.is-bump {
+  background: color-mix(in oklab, var(--primary) 18%, transparent);
+  color: var(--primary);
+}
+.tl__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.78rem;
+}
+.tl__row:last-child {
+  border-bottom: 0;
+}
+.tl__row > span:first-child {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.tl__row b {
+  color: var(--ink);
+  font-weight: 600;
+}
+.tl__row > span:first-child span {
+  color: var(--ink-3);
+  font-size: 0.72rem;
+}
+.tl__row--new {
+  margin: 0 -8px;
+  padding-inline: 8px;
+  border-radius: 10px;
+  background: color-mix(in oklab, var(--primary) 7%, transparent);
+  transition:
+    opacity 400ms,
+    transform 500ms var(--ease-out);
+}
+.tl__row--new.is-new {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+.tl__st {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 84px;
+  min-height: 28px;
+}
+.tl__ok {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--primary);
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+.tl__ok .sc-ok {
+  width: 14px;
+  height: 14px;
+}
+.tl__wait {
+  padding: 3px 9px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: var(--ink-2);
+  font-size: 0.7rem;
+}
+.tl__done {
+  color: var(--ink-3);
+  font-size: 0.72rem;
+}
+.tl__stat-l {
+  bottom: -52px;
+  left: -46px;
+  width: 36%;
+}
+.tl__stat {
+  display: grid;
+  gap: 2px;
+  padding: 12px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 14px;
+  background: var(--surface-2);
+  box-shadow: 0 26px 44px -18px oklch(0 0 0 / 0.75);
+  color: var(--ink-3);
+  font-size: 0.68rem;
+}
+.tl__stat b {
+  color: var(--primary);
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+.tl__toast {
+  top: -32px;
+  right: -44px;
+}
+:root[data-theme='light'] .ch__src,
+:root[data-theme='light'] .wt__row.is-hot .wt__price,
+:root[data-theme='light'] .wt__d.is-on,
+:root[data-theme='light'] .tl__count.is-bump,
+:root[data-theme='light'] .tl__ok,
+:root[data-theme='light'] .tl__stat b {
+  color: var(--primary-text);
+}
+
 @keyframes sc-spin {
   to {
     transform: rotate(1turn);
@@ -2800,7 +3257,7 @@ html.is-loading .seq {
 /* v carouselu je scéna užší: menší náklon a vrstvy blíž ke středu */
 @media (max-width: 899px) {
   .sc {
-    padding: 22px 16px 40px 12px;
+    padding: 76px 12px 80px;
     perspective: 1100px;
   }
   .sc__obj {
@@ -2808,8 +3265,17 @@ html.is-loading .seq {
     animation: none;
   }
   .pw__toast,
-  .ml__toast {
-    right: -6px;
+  .ml__toast,
+  .wt__toast,
+  .tl__toast,
+  .wb__phone-l {
+    right: -4px;
+  }
+  .ch__doc-l,
+  .wt__chart-l,
+  .tl__stat-l,
+  .wb__toast {
+    left: -4px;
   }
   .ml__toast {
     top: -18px;
@@ -2826,7 +3292,7 @@ html.is-loading .seq {
   .sc__obj,
   .win__live::before,
   .sc-spin,
-  .ml__caret {
+  .sc-caret {
     animation: none;
   }
 }
@@ -2894,19 +3360,6 @@ html.is-loading .seq {
   flex-direction: column;
   gap: clamp(18px, 2vw, 24px);
 }
-.sp__ph {
-  display: none;
-  place-items: center;
-  aspect-ratio: 16 / 10;
-  border-radius: 20px;
-  background: var(--surface-2);
-  color: var(--ink-2);
-  font-size: 0.85rem;
-  animation: sys-copy 460ms var(--ease-out) 60ms both;
-}
-.sp__art {
-  animation: sys-copy 460ms var(--ease-out) 60ms both;
-}
 /* místo pro živou scénu na počítači: bez rámečku, scéna se vznáší sama */
 .sp__stage {
   display: grid;
@@ -2948,23 +3401,8 @@ html.is-loading .seq {
     display: grid;
     align-content: start;
   }
-  /* vizuál roste do zbylé výšky, popis sedí pod ním */
-  .sp__ph {
-    flex: 1;
-    min-height: 320px;
-  }
-  .sp__art {
-    display: none;
-  }
-  .sp__ph {
-    display: grid;
-    height: 100%;
-    aspect-ratio: auto;
-  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .sp__ph,
-  .sp__art,
   .sp__stage,
   .sp__copy {
     animation: none;
@@ -2992,9 +3430,6 @@ html.is-loading .seq {
   display: grid;
   gap: 18px;
   align-content: start;
-  padding: 16px;
-  border-radius: 20px;
-  background: var(--surface);
 }
 .sysx__name {
   font-family: var(--font-display);
@@ -3020,27 +3455,7 @@ html.is-loading .seq {
     margin-bottom: 22px;
   }
   .sysx__slide {
-    padding: 13px;
-    gap: 12px;
-  }
-  .sysx__slide .art {
-    padding: 13px;
-  }
-  .sysx__slide .art__pane {
-    gap: 8px;
-  }
-  .sysx__slide .msg {
-    padding: 10px 14px;
-  }
-  .sysx__slide .msg__body {
-    margin-top: 4px;
-    line-height: 1.45;
-  }
-  .sysx__slide .bubble {
-    padding: 11px 14px;
-  }
-  .sysx__slide .watch td {
-    padding: 9px 0;
+    gap: 6px;
   }
   .sysx__name {
     font-size: 1.18rem;

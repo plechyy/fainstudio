@@ -36,6 +36,22 @@ export function useLoop(dur: number[], final: number) {
   return { s, ref };
 }
 
+/** Kolik písmen z `text` je napsaných: ve fázi `phase` se píše, po ní je celý, před ní nic. */
+export function useTyped(text: string, s: number, phase: number, ms: number) {
+  const [n, setN] = useState(0);
+  useEffect(() => {
+    if (s !== phase) {
+      setN(s > phase ? text.length : 0);
+      return;
+    }
+    setN(0);
+    const per = Math.max(14, (ms - 250) / text.length);
+    const t = window.setInterval(() => setN((v) => Math.min(text.length, v + 1)), per);
+    return () => clearInterval(t);
+  }, [s, phase, ms, text]);
+  return text.slice(0, n);
+}
+
 /* Nejmenší šířka, ve které se scéna skládá. Na užším místě (carousel na mobilu)
    se poskládá v téhle šířce a celá se zmenší, jako fotka obrazovky. */
 const BASE = 400;
@@ -125,6 +141,25 @@ export const ico = {
     </>
   ),
   check: <path d="m5 12.5 4.5 4.5L19 7.5" />,
+  bell: (
+    <>
+      <path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z" />
+      <path d="M10 20.5a2.2 2.2 0 0 0 4 0" />
+    </>
+  ),
+  send: <path d="M4 12 20 4l-5 16-3.5-6.5z" />,
+  lock: (
+    <>
+      <rect x="5" y="11" width="14" height="9" rx="2" />
+      <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+    </>
+  ),
+  user: (
+    <>
+      <circle cx="12" cy="8.5" r="3.5" />
+      <path d="M5 20a7 7 0 0 1 14 0" />
+    </>
+  ),
   clip: <path d="m20 11.5-8.2 8.2a5 5 0 0 1-7-7l8.5-8.5a3.3 3.3 0 0 1 4.7 4.7l-8.5 8.5a1.7 1.7 0 0 1-2.4-2.4l7.8-7.8" />,
 };
 

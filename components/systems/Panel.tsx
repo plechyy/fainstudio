@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { systems } from '@/lib/content';
-import Artifact, { LIVE } from './Artifact';
+import Artifact from './Artifact';
 import Carousel from './Carousel';
 import SysHead from './SysHead';
 
@@ -77,16 +77,9 @@ export default function Panel() {
       </div>
 
       <div className="sp__right reveal" id="sp-panel" role="tabpanel" aria-labelledby={`sp-tab-${s.id}`}>
-        {LIVE.has(s.id) ? (
-          <div className="sp__stage" key={`p${active}`}>
-            <Artifact id={s.id} />
-          </div>
-        ) : (
-          /* místo na grafiku, kterou teprve doplníme */
-          <div className="sp__ph" key={`p${active}`} aria-hidden="true">
-            <span>Vizuál · {s.short}</span>
-          </div>
-        )}
+        <div className="sp__stage" key={`p${active}`}>
+          <Artifact id={s.id} />
+        </div>
         <div className="sp__copy" key={`c${active}`}>
           <h3 className="sp__title">{s.name}</h3>
           <p className="sp__text">{s.text}</p>
