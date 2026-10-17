@@ -7,8 +7,11 @@ import { mergeVertices } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
  * Hero /hero2: stroj z modelíny na kulatém podstavci (inspirace clay.com, ale živě
  * ve three.js). Zleva doprava: zmačkané papíry padají do trychtýře, projedou
  * trubkou (je vidět, jak se trubka nafoukne, když jimi papír jede), vyjedou na pás,
- * lupa je prohlédne, lis je orazítkuje a z papíru je hotový dopis, dokument nebo
- * poznámka. Ty pak skočí do schránky, do grafu nebo do kalendáře.
+ * lis je orazítkuje a z papíru je hotový dopis, dokument nebo poznámka. Ty pak
+ * skočí do schránky, do grafu nebo do kalendáře. Pás pohání dvě ozubená kola.
+ *
+ * Vysoké díly (trychtýř, graf) stojí po stranách, uprostřed je stroj nízký:
+ * text nad ním může sedět níž a boky stroje vyrostou vedle něj.
  *
  * Všechno se počítá z času, ne z událostí: stejný čas = stejný snímek. Díky tomu
  * jde vykreslit i jeden nehybný snímek (prefers-reduced-motion).
@@ -24,12 +27,11 @@ const T_POP = 0.3; // vyskočení na pás
 const T_BELT = T_FALL + T_SPIN + T_TUBE + T_POP; // kdy papír dosedne na pás
 const BELT_X0 = -2.8; // kde papír dosedne
 const BELT_X1 = 3.3; // konec pásu
-const LENS_X = -1.2;
-const PRESS_X = 1.15;
-const T_LENS = T_BELT + (LENS_X - BELT_X0) / V;
+const PRESS_X = 0.6;
 const T_PRESS = T_BELT + (PRESS_X - BELT_X0) / V;
 const T_END = T_BELT + (BELT_X1 - BELT_X0) / V;
 const T_HOP = 0.85;
+const HOP_UP = 0.95; // jak vysoko papír nad pásem vyskočí
 const T_ARRIVE = T_END + T_HOP;
 const LIFE = T_ARRIVE + 0.05;
 
@@ -115,15 +117,18 @@ function clayBump() {
   return t;
 }
 
+/** obdélník textu v px plátna: zleva, zprava, spodek */
+export type TextBox = { l: number; r: number; b: number };
+
 type Opts = {
   onReady?: () => void;
-  /** kde (px od horního okraje plátna) končí text nad strojem; stroj se posadí pod něj */
-  textBottom?: () => number;
+  /** bloky textu nad strojem; nic ze stroje pod nimi nesmí sahat výš než jejich spodek */
+  textBoxes?: () => TextBox[];
   /** clay = modelína (/hero2); silhouette = tmavý stroj, hrany kreslí primární světlo zezadu (/hero3) */
   look?: 'clay' | 'silhouette';
 };
 
-export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom, look = 'clay' }: Opts = {}) {
+export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBoxes, look = 'clay' }: Opts = {}) {
   const sil = look === 'silhouette';
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
@@ -200,27 +205,10 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom, l
     platform: clay('#2a231e', { roughness: 0.95 }),
     funnel: clay(PAL.cream, { side: THREE.DoubleSide }),
     lights: new THREE.MeshStandardMaterial({ color: '#d8c4a0', emissive: '#d8c4a0', emissiveIntensity: 0.4, roughness: 0.5 }),
-    glass: new THREE.MeshPhysicalMaterial({
-      color: '#ffffff',
-      roughness: 0.04,
-      metalness: 0,
-      clearcoat: 1,
-      transparent: true,
-      opacity: 0.16,
-      depthWrite: false,
-    }),
-    beam: new THREE.MeshBasicMaterial({
-      color: '#d8c4a0',
-      transparent: true,
-      opacity: 0,
-      depthWrite: false,
-      blending: THREE.AdditiveBlending,
-      side: THREE.DoubleSide,
-    }),
     ring: new THREE.MeshBasicMaterial({ color: '#d8c4a0', transparent: true, opacity: 0, depthWrite: false }),
     edge: new THREE.MeshBasicMaterial({ color: '#d8c4a0', transparent: true, opacity: 0.55, depthWrite: false }),
   };
-  disposables.push(M.lights, M.glass, M.beam, M.ring, M.edge);
+  disposables.push(M.lights, M.ring, M.edge);
 
   const geo = <G extends THREE.BufferGeometry>(g: G) => {
     disposables.push(g);
@@ -320,8 +308,16 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom, l
 
   }
 
-  // ── trychtýř na nožkách ──
-  const FUNNEL = v3(-5.2, 2.75, 0);
+  // ── trychtýř na nožkách (stojí až vlevo, ať může vyrůst vedle textu) ──
+  const FUNNEL = v3(-6.6, 2.75, 0);
+  /** vnitřní poloměr stěny trychtýře ve výšce y (profil níž: [1.18, 1.58] → [0.21, 0.42]) */
+  const funnelWall = (y: number) => 0.21 + ((y - FUNNEL.y - 0.42) * (1.18 - 0.21)) / (1.58 - 0.42);
+  // stěna je šikmá: kolmá vzdálenost ke stěně = vodorovná × cos(sklon)
+  const WALL_COS = Math.cos(Math.atan((1.18 - 0.21) / (1.58 - 0.42)));
+  const BALL_MAX = BALL_R * 1.16; // zmačkaný papír je místy o kus větší než BALL_R
+  const FALL_Y0 = FUNNEL.y + 2.35; // kde se papír objeví
+  const FALL_Y1 = FUNNEL.y + 1.45; // kde dopadne na stěnu
+  const FALL_R = Math.min(0.6, funnelWall(FALL_Y1) - BALL_MAX / WALL_COS);
   {
     const prof = [
       [0.2, 0],
@@ -356,16 +352,17 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom, l
   // ── trubka se smyčkou z trychtýře na pás ──
   const tubeCurve = new THREE.CatmullRomCurve3(
     [
-      v3(-5.2, 2.85, 0),
-      v3(-5.2, 2.2, 0),
-      v3(-5.0, 1.55, 0.2),
-      v3(-4.45, 1.2, 0.45),
-      v3(-3.85, 1.45, 0.45),
-      v3(-3.75, 2.05, 0.2),
-      v3(-4.15, 2.25, -0.1),
-      v3(-4.45, 1.85, -0.3),
-      v3(-4.15, 1.35, -0.3),
-      v3(-3.6, 1.16, -0.1),
+      v3(-6.6, 2.85, 0),
+      v3(-6.6, 2.2, 0),
+      v3(-6.3, 1.45, 0.2),
+      v3(-5.25, 1.12, 0.45),
+      v3(-4.6, 1.28, 0.45),
+      v3(-4.48, 1.78, 0.2),
+      v3(-4.85, 1.98, -0.1),
+      v3(-5.2, 1.66, -0.3),
+      v3(-4.95, 1.24, -0.3),
+      v3(-4.3, 1.14, -0.1),
+      v3(-3.6, 1.16, 0),
       v3(-3.1, 1.16, 0),
     ],
     false,
@@ -428,45 +425,18 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom, l
     leds.push(l);
   }
 
-  // ── lupa nad pásem ──
-  const lens = new THREE.Group();
-  const LENS_Y = 2.05;
-  {
-    root.add(rod(v3(LENS_X, 0, -1.05), v3(LENS_X, 2.7, -1.05), 0.085, M.caramel));
-    const foot = mesh(geo(new THREE.CylinderGeometry(0.28, 0.34, 0.12, 24)), M.choco);
-    foot.position.set(LENS_X, 0.06, -1.05);
-    root.add(foot);
-    root.add(rod(v3(LENS_X, 2.7, -1.05), v3(LENS_X, 2.55, -0.55), 0.075, M.caramel));
-    const ring = mesh(geo(new THREE.TorusGeometry(0.52, 0.085, 16, 48)), M.primary);
-    const glass = mesh(geo(new THREE.CircleGeometry(0.5, 48)), M.glass, false);
-    glass.receiveShadow = false;
-    const inner = new THREE.Group();
-    inner.add(ring, glass);
-    inner.rotation.x = -Math.PI / 2 + 0.6; // skoro vodorovně, trochu natočená ke kameře
-    lens.add(inner);
-    lens.position.set(LENS_X, LENS_Y, 0);
-    root.add(lens);
-  }
-  const lensRing = lens.children[0].children[0] as THREE.Mesh;
-  const lensRingMat = M.primary.clone();
-  disposables.push(lensRingMat);
-  lensRing.material = lensRingMat;
-  const beam = new THREE.Mesh(geo(new THREE.ConeGeometry(0.46, 1, 40, 1, true)), M.beam);
-  beam.position.set(LENS_X, (LENS_Y + BELT_TOP) / 2, 0);
-  beam.scale.y = LENS_Y - BELT_TOP - 0.05;
-  root.add(beam);
-
-  // ── lis s razítkem ──
+  // ── lis s razítkem (nízký: je uprostřed pod textem) ──
   const PRESS_Z = -1.08;
-  const ARM_Y = 2.66;
-  const HEAD_REST = 1.95; // spodek razítka v klidu
+  const ARM_Y = 2.2;
+  const POST_H = 2.38;
+  const HEAD_REST = 1.52; // spodek razítka v klidu
   const HEAD_HIT = BELT_TOP + BALL_R * 2 * 0.6; // spodek razítka při úderu (papír se zmáčkne)
   const head = new THREE.Group();
   const piston = mesh(geo(new THREE.CylinderGeometry(0.1, 0.1, 1, 18)), M.cream);
   {
     // sloup stojí za pásem a rameno vede nad pás, ať je razítkování vidět
-    const post = mesh(rbox(0.32, 2.85, 0.32, 0.11), M.terracotta);
-    post.position.set(PRESS_X, 1.425, PRESS_Z);
+    const post = mesh(rbox(0.32, POST_H, 0.32, 0.11), M.terracotta);
+    post.position.set(PRESS_X, POST_H / 2, PRESS_Z);
     root.add(post);
     const foot = mesh(geo(new THREE.CylinderGeometry(0.34, 0.4, 0.14, 24)), M.choco);
     foot.position.set(PRESS_X, 0.07, PRESS_Z);
@@ -488,7 +458,7 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom, l
   ring.position.set(PRESS_X, BELT_TOP + 0.05, 0);
   root.add(ring);
 
-  // ── ozubená kola nad lisem ──
+  // ── ozubená kola: pohon pásu, stojí nízko před jeho začátkem ──
   const gearGeo = (r: number, teeth: number) => {
     const depth = 0.12;
     const ro = r + depth / 2;
@@ -526,17 +496,18 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom, l
     g.translate(0, 0, -0.08);
     return geo(g);
   };
-  const G1 = { r: 0.56, n: 14, at: v3(PRESS_X - 0.3, 3.55, PRESS_Z + 0.55) };
-  const G2 = { r: 0.36, n: 9, at: v3(0, 0, 0) };
+  // stejná rozteč zubů (2πr/n) u obou kol, ať do sebe zapadnou
+  const G1 = { r: 0.44, n: 11, at: v3(-4.25, 0.62, 1.2) };
+  const G2 = { r: 0.32, n: 8, at: v3(0, 0, 0) };
   {
     // druhé kolo sedí tak, aby do sebe zuby zapadly
-    const dir = new THREE.Vector2(0.97, -0.24).normalize();
+    const dir = new THREE.Vector2(0.97, 0.22).normalize();
     const d = G1.r + G2.r - 0.02;
     G2.at.set(G1.at.x + dir.x * d, G1.at.y + dir.y * d, G1.at.z);
   }
   const contact = Math.atan2(G2.at.y - G1.at.y, G2.at.x - G1.at.x);
-  const gear1 = mesh(gearGeo(G1.r, G1.n), M.sage);
-  const gear2 = mesh(gearGeo(G2.r, G2.n), M.caramel);
+  const gear1 = mesh(gearGeo(G1.r, G1.n), M.primary);
+  const gear2 = mesh(gearGeo(G2.r, G2.n), sil ? M.primary : M.caramel);
   gear1.position.copy(G1.at);
   gear2.position.copy(G2.at);
   root.add(gear1, gear2);
@@ -546,8 +517,14 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom, l
     hub.position.copy(g.at);
     root.add(hub);
   }
-  root.add(rod(v3(PRESS_X - 0.12, ARM_Y + 0.15, G1.at.z), G1.at.clone(), 0.06, M.choco));
-  root.add(rod(v3(PRESS_X + 0.16, ARM_Y + 0.15, G1.at.z), G2.at.clone(), 0.05, M.choco));
+  {
+    // deska za koly a hřídel z menšího kola do pásu
+    const plate = mesh(rbox(1.75, 0.5, 0.16, 0.07), M.terracotta);
+    plate.position.set((G1.at.x + G2.at.x) / 2, 0.25, G1.at.z - 0.2);
+    root.add(plate);
+    for (const g of [G1, G2]) root.add(rod(v3(g.at.x, 0.3, G1.at.z - 0.2), v3(g.at.x, g.at.y, G1.at.z - 0.2), 0.06, M.choco));
+    root.add(rod(v3(G2.at.x, G2.at.y, G2.at.z - 0.2), v3(-3.2, 0.5, 0.75), 0.05, M.choco));
+  }
 
   // ── cíle: schránka, kalendář, graf ──
   const MAILBOX = v3(4.4, 0, 1.45);
@@ -760,12 +737,7 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom, l
     gear1.rotation.z = contact + w1;
     gear2.rotation.z = contact + Math.PI - Math.PI / G2.n - (w1 * G1.n) / G2.n;
 
-    // lupa se jemně houpe
-    lens.position.y = LENS_Y + Math.sin(t * 1.4) * 0.05;
-    lens.rotation.z = Math.sin(t * 0.9) * 0.05;
-
     let press = 0;
-    let scan = 0;
     let burst = -1;
     let tubeU = -1;
 
@@ -792,18 +764,19 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom, l
         // pád shora do trychtýře
         const u = age / T_FALL;
         const a0 = r1 * Math.PI * 2;
-        // papír se objeví kousek nad trychtýřem, ať nepadá přes text nad strojem
-        it.g.position.set(FUNNEL.x + Math.cos(a0) * 0.85, 5.6 - (5.6 - 4.25) * u * u, Math.sin(a0) * 0.85);
+        it.g.position.set(FUNNEL.x + Math.cos(a0) * FALL_R, FALL_Y0 - (FALL_Y0 - FALL_Y1) * u * u, Math.sin(a0) * FALL_R);
         it.g.rotation.set(age * 3 + r1, age * 2, 0);
         it.ball.scale.setScalar(Math.max(0.001, easeBack(seg(u, 0, 0.45))));
       } else if (age < T_FALL + T_SPIN) {
-        // točí se dolů po stěně trychtýře
+        // točí se dolů po stěně trychtýře; drží se uvnitř, nikdy neprojde stěnou
         const u = (age - T_FALL) / T_SPIN;
         const a = r1 * Math.PI * 2 + u * Math.PI * 4.5;
-        const rad = 0.85 * (1 - easeIn(u)) + 0.05;
-        it.g.position.set(FUNNEL.x + Math.cos(a) * rad, 4.25 - (4.25 - 3.0) * u, Math.sin(a) * rad);
+        const y = FALL_Y1 - (FALL_Y1 - (FUNNEL.y + 0.25)) * easeInOut(u);
+        const s = 1 - 0.35 * easeIn(u);
+        const rad = Math.min(FALL_R, Math.max(0, funnelWall(y) - (BALL_MAX * s) / WALL_COS));
+        it.g.position.set(FUNNEL.x + Math.cos(a) * rad, y, Math.sin(a) * rad);
         it.g.rotation.set(age * 4, age * 3, 0);
-        it.ball.scale.setScalar(1 - 0.35 * easeIn(u));
+        it.ball.scale.setScalar(s);
       } else if (age < T_FALL + T_SPIN + T_TUBE) {
         // uvnitř trubky: papír není vidět, trubka se nafukuje
         it.g.visible = false;
@@ -822,8 +795,6 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom, l
         // razítko: dolů, chvilku drží, nahoru
         const p = d < -0.32 ? 0 : d < 0 ? easeIn(seg(d, -0.32, 0)) : d < 0.1 ? 1 : 1 - easeOut(seg(d, 0.1, 0.45));
         press = Math.max(press, p);
-        const scanW = 1 - Math.min(1, Math.abs(age - T_LENS) / 0.55);
-        scan = Math.max(scan, scanW);
         if (showBall) {
           const headY = HEAD_REST + (HEAD_HIT - HEAD_REST) * p;
           const sy = clamp01((headY - BELT_TOP) / (BALL_R * 2));
@@ -845,7 +816,7 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom, l
         START.set(BELT_X1, BELT_TOP + 0.035, 0);
         target(it.kind, n, tmp);
         tmp2.copy(START).lerp(tmp, 0.5);
-        tmp2.y = Math.max(START.y, tmp.y) + 1.25;
+        tmp2.y = Math.max(START.y, tmp.y) + HOP_UP;
         const a = (1 - u) * (1 - u);
         const b = 2 * (1 - u) * u;
         const c = u * u;
@@ -884,12 +855,6 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom, l
       M.ring.opacity = 0.85 * (1 - u);
     } else ring.visible = false;
 
-    // lupa: když je pod ní papír, rozsvítí se a vrhne světlo
-    M.beam.opacity = 0.2 * scan;
-    beam.visible = scan > 0.01;
-    lensRingMat.emissive.copy(lensRingMat.color);
-    lensRingMat.emissiveIntensity = 0.55 * scan;
-
     // schránka: vlajka nahoru, když přijde dopis
     const mt = t - lastArrival('mail', t);
     flag.rotation.x = -Math.PI / 2 + (Math.PI / 2) * pulse(mt, 0.25, 1.4, 0.5);
@@ -913,6 +878,42 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom, l
     topBall.position.set(BAR_X[3], tallest + 0.19 + hop, BAR_Z);
   };
 
+  // ── obrys stroje pro usazení pod text ──
+  // horní body každého dílu (i dráhy papírů); pod textem nesmí žádný z nich být výš než text
+  const TOPS: THREE.Vector3[] = [];
+  {
+    const lipY = FUNNEL.y + 1.72;
+    for (let i = 0; i < 8; i++) {
+      const a = (i / 8) * Math.PI * 2;
+      TOPS.push(v3(FUNNEL.x + Math.cos(a) * 1.47, lipY, Math.sin(a) * 1.47));
+    }
+    for (const dx of [-FALL_R, 0, FALL_R]) TOPS.push(v3(FUNNEL.x + dx, FALL_Y0 + BALL_MAX, 0));
+    TOPS.push(v3(FUNNEL.x, FALL_Y0 + BALL_MAX, -FALL_R));
+    for (let i = 0; i <= 24; i++) TOPS.push(tubeCurve.getPointAt(i / 24).add(v3(0, TUBE_R * 1.4, 0)));
+    for (const x of [PRESS_X - 0.25, PRESS_X + 0.25])
+      for (const z of [PRESS_Z - 0.16, PRESS_Z + 1.37]) TOPS.push(v3(x, ARM_Y + 0.19, z));
+    for (const x of [-3.45, 0, 3.55]) TOPS.push(v3(x, BELT_TOP + 0.02, -0.78));
+    for (const g of [G1, G2]) TOPS.push(g.at.clone().add(v3(0, g.r + 0.08, 0)));
+    for (const dx of [-0.55, 0.55]) TOPS.push(v3(CAL.x + dx, 1.42, CAL.z - 0.2));
+    TOPS.push(v3(MAILBOX.x, 1.62, MAILBOX.z - 0.55));
+    BAR_X.forEach((x, i) => {
+      for (const dx of [-0.25, 0.25]) TOPS.push(v3(x + dx, BAR_H[i] + 0.02, BAR_Z - 0.25));
+    });
+    TOPS.push(v3(BAR_X[3], BAR_H[3] + 0.38 + 0.35 + 0.02, BAR_Z));
+    // vrcholy skoků z pásu do cílů (papír + rezerva na otočení)
+    const S = v3(BELT_X1, BELT_TOP + 0.035, 0);
+    const hops = [MAILBOX.clone().setY(1.5), v3(CAL.x, 1.1, CAL.z + 0.25), ...BAR_X.map((x, i) => v3(x, BAR_H[i] + 0.1, BAR_Z))];
+    for (const T of hops) {
+      const cy = Math.max(S.y, T.y) + HOP_UP;
+      TOPS.push(v3((S.x + T.x) / 2, 0.25 * S.y + 0.5 * cy + 0.25 * T.y + 0.35, (S.z + T.z) / 2));
+    }
+  }
+  // spodek stroje: musí zůstat na obrazovce
+  const BOTTOM = [v3(G1.at.x, 0, G1.at.z + 0.2), v3(0, 0.05, 0.85), v3(MAILBOX.x, 0, MAILBOX.z + 0.3)];
+  const BOTTOM_MAX = 0.96; // spodek stroje nejníž v této části výšky (dole se hero stmívá)
+  const NAV = 92; // pod horní lištou
+  const SIDE_PAD = 22; // rezerva vedle textu (kamera se lehce houpe)
+
   // ── kamera a velikost ──
   let dist = 20;
   const center = new THREE.Vector3();
@@ -925,37 +926,52 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom, l
     const aspect = w / h;
     camera.aspect = aspect;
     portrait = aspect < 1.05;
-    const fitW = portrait ? 10.8 : 19.5;
+    const fitW = portrait ? 12 : 19.5;
     const vfov = THREE.MathUtils.degToRad(camera.fov);
     const hfov = 2 * Math.atan(Math.tan(vfov / 2) * aspect);
     dist = fitW / 2 / Math.tan(hfov / 2);
     // na široké nízké obrazovce by stroj přetekl nahoru: držíme i výšku
     dist = Math.max(dist, 6.4 / Math.tan(vfov / 2) / 2 / (portrait ? 0.5 : 0.78));
-    center.set(portrait ? -0.2 : 0.2, portrait ? 1.8 : 2.0, 0);
-    // text je nahoře, stroj leží ve spodní části hera jako podlaha
-    let focus = portrait ? 0.76 : 0.72;
-    // vršek stroje (trychtýř, kola) musí zůstat pod tlačítky, i na nízké obrazovce
-    // stroj sedí pod textem; když se mezi text a spodní okraj nevejde, zmenší se
-    if (textBottom) {
-      const minTop = (textBottom() + 32) / h;
-      const avail = 0.97 - minTop;
-      const measure = () => {
+    center.set(portrait ? -0.8 : -0.3, portrait ? 1.8 : 2.0, 0);
+    // bez textu: stroj leží ve spodní části hera jako podlaha
+    let shift = ((portrait ? 0.76 : 0.72) - 0.5) * h;
+    // s textem: stroj vyjede co nejvýš, ale žádný jeho díl nesmí pod textem sahat
+    // výš než spodek textu. Vysoké díly po stranách tak vyrostou vedle textu.
+    // Když se mezi text a spodní okraj nevejde, zmenší se.
+    const boxes = textBoxes?.() ?? [];
+    if (boxes.length) {
+      const gap = portrait ? 20 : 28;
+      const fit = () => {
         camera.clearViewOffset();
         placeCamera(0);
         camera.updateMatrixWorld();
-        const top = tmp.set(FUNNEL.x, 4.6, 0).project(camera).y;
-        const mid = tmp.copy(center).project(camera).y;
-        const bot = tmp.set(0, 0.1, 1.5).project(camera).y;
-        return { top, mid, span: (top - bot) / 2 };
+        let need = -Infinity;
+        for (const p of TOPS) {
+          tmp.copy(p).project(camera);
+          const x = ((tmp.x + 1) / 2) * w;
+          const y = ((1 - tmp.y) / 2) * h;
+          need = Math.max(need, NAV - y);
+          for (const b of boxes) if (x > b.l - SIDE_PAD && x < b.r + SIDE_PAD) need = Math.max(need, b.b + gap - y);
+        }
+        let low = -Infinity;
+        for (const p of BOTTOM) low = Math.max(low, ((1 - tmp.copy(p).project(camera).y) / 2) * h);
+        return { need, over: need - (h * BOTTOM_MAX - low) };
       };
-      let m = measure();
-      for (let i = 0; i < 3 && m.span > avail; i++) {
-        dist *= (m.span / avail) * 1.02;
-        m = measure();
+      // zkouší stroj postupně zmenšovat; zmenšením se boky posunou pod text, takže to
+      // nemusí pomoct pořád. Když se nevejde nikdy, bere velikost, kde přečnívá nejmíň.
+      const base = dist;
+      let best = { k: 0, over: Infinity };
+      for (let k = 0; k <= 14; k++) {
+        dist = base * Math.pow(1.05, k);
+        const { over } = fit();
+        if (over < best.over - 1) best = { k, over };
+        if (over <= h * 0.02) break;
       }
-      focus = Math.max(focus, minTop + (m.top - m.mid) / 2);
+      dist = base * Math.pow(1.05, best.k);
+      // text má přednost: stroj ho nikdy nepřekryje, spíš ho dole ořízne stmívání
+      shift = fit().need;
     }
-    camera.setViewOffset(w, h, 0, (0.5 - focus) * h, w, h);
+    camera.setViewOffset(w, h, 0, -shift, w, h);
     fog.near = dist + 1;
     fog.far = dist + 16;
   };
@@ -1010,13 +1026,12 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom, l
       }
       for (const l of [backL, backR, top]) l.color.copy(primary.clone().lerp(W, 0.25));
     } else for (const [m, t] of tones) m.color.copy(tone(t));
-    for (const m of [M.primary, lensRingMat]) m.color.copy(primary);
+    M.primary.color.copy(primary);
     M.lights.color.copy(primary);
     for (const m of ledMats) {
       m.color.copy(primary);
       m.emissive.copy(primary);
     }
-    M.beam.color.copy(primary);
     M.ring.color.copy(primary);
     fog.color.copy(bg);
     M.platform.color.copy(
@@ -1090,8 +1105,16 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom, l
   frame();
   render();
   if (!reduce.matches) loop();
+  // po načtení písma se text přeskládá: stroj se pod něj znovu usadí
+  let dead = false;
+  document.fonts?.ready.then(() => {
+    if (dead) return;
+    frame();
+    if (!running) render();
+  });
 
   return () => {
+    dead = true;
     stop();
     ro.disconnect();
     io.disconnect();

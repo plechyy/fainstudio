@@ -469,7 +469,10 @@ html.is-loading .seq {
 
 /* ── /hero3: tmavý stroj nasvícený zezadu, za ním kouř; text níž než na /hero2 ── */
 .hero--sil {
-  padding-top: calc(78px + clamp(36px, 13vh, 150px));
+  /* na nízké obrazovce je hero o kus vyšší než okno, ať se stroj vejde celý pod text */
+  min-height: max(100svh, 800px);
+  /* na vysoké obrazovce text níž, na nízké výš, ať pod ním zbyde místo na stroj */
+  padding-top: calc(78px + clamp(28px, 30vh - 120px, 200px));
 }
 .hero--sil .hero-bg__fallback {
   background:
@@ -1630,10 +1633,12 @@ html.is-loading .seq {
   .hero {
     min-height: 100svh;
     padding-block: 80px;
-  }  .hero--stage {
+  }
+  .hero--stage {
     padding-block: 104px 0;
   }
   .hero--sil {
+    min-height: max(100svh, 640px);
     padding-top: 128px;
   }
 }
