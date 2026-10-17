@@ -436,18 +436,66 @@ html.is-loading .seq {
       color-mix(in oklab, var(--bg) 62%, transparent) 74%, color-mix(in oklab, var(--bg) 86%, transparent) 86%,
       color-mix(in oklab, var(--bg) 97%, transparent) 94%, var(--bg) 100%);
 }
-/* /hero2: podlaha z kostek (components/CubeFloor.tsx). Za ní tmavé nebe se září
-   u horizontu, do které se vzdálené kostky rozpouštějí. */
-.hero-bg--cubes .hero-bg__fallback {
-  background:
-    radial-gradient(70% 38% at 50% 50%, color-mix(in oklab, var(--primary) 26%, transparent), transparent 72%),
-    linear-gradient(180deg, var(--bg-deep) 0%, color-mix(in oklab, var(--bg-deep) 88%, var(--primary)) 50%, var(--bg-deep) 100%);
+/* ── /hero2: 3D stroj nahoře, text dole ve dvou sloupcích (components/machine) ── */
+.hero--stage {
+  min-height: max(100svh, 760px);
+  justify-content: flex-end;
+  padding-top: 0;
+  padding-bottom: clamp(44px, 7vh, 88px);
 }
-.hero-bg--cubes .hero-bg__mask {
-  /* text čitelný, ale kostky dole zůstávají vidět; úplně dole navazuje na sekci 2 */
+.hero-bg--stage .hero-bg__fallback {
   background:
-    radial-gradient(48% 40% at 50% 54%, color-mix(in oklab, var(--bg-deep) 72%, transparent), transparent 78%),
-    linear-gradient(180deg, transparent 0%, transparent 80%, color-mix(in oklab, var(--bg) 70%, transparent) 92%, var(--bg) 100%);
+    radial-gradient(62% 42% at 52% 34%, color-mix(in oklab, var(--primary) 14%, transparent), transparent 72%),
+    var(--bg-deep);
+}
+.hero-machine {
+  opacity: 0;
+  transition: opacity 1.4s var(--ease-out);
+}
+.hero-machine.is-ready {
+  opacity: 1;
+}
+/* stroj nahoře zůstává, dole se plynule ztratí do pozadí a pod textem je klid */
+.hero-bg--stage .hero-bg__mask {
+  background:
+    linear-gradient(180deg, color-mix(in oklab, var(--bg-deep) 55%, transparent) 0%, transparent 12%, transparent 54%,
+      color-mix(in oklab, var(--bg) 50%, transparent) 64%, color-mix(in oklab, var(--bg) 84%, transparent) 74%,
+      var(--bg) 88%);
+}
+.hero-bg--stage .hero-bg__grain {
+  opacity: 0.35;
+}
+.hero__inner.hero__split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  align-items: end;
+  gap: 24px 56px;
+  text-align: left;
+}
+.hero__split .hero__rot {
+  text-align: left;
+}
+.hero__split .hero__lead {
+  margin-top: 0;
+}
+.hero__split .hero__actions {
+  justify-content: flex-start;
+  margin-top: 24px;
+}
+@media (min-width: 901px) {
+  /* nadpis má jen levý sloupec, nejdelší řádek (9,4 em) se do něj musí vejít */
+  .hero__split .hero__title {
+    font-size: min(var(--step-5), calc(min(100vw - 2 * var(--gutter, 16px), var(--max)) * 0.6 / 9.6));
+  }
+  .hero__split .hero__side {
+    padding-bottom: 0.35em;
+  }
+}
+@media (max-width: 900px) {
+  .hero__inner.hero__split {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
 }
 
 /* Jemné filmové zrno přes celé pozadí (funguje i jako textura fallbacku). */
@@ -1591,6 +1639,8 @@ html.is-loading .seq {
   .hero {
     min-height: 100svh;
     padding-block: 80px;
+  }  .hero--stage {
+    padding-block: 0 40px;
   }
 }
 

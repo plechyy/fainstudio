@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function Hero2() {
-  return <HomePage heroBg="cubes" />;
+  return <HomePage heroBg="machine" />;
 }
