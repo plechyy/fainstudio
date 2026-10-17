@@ -146,7 +146,7 @@ export default function ShaderBackground({
 }: {
   /** pevná barva pozadí mraku (např. '#050505'); bez ní se bere --bg-deep z tématu */
   bg?: string;
-  /** název CSS proměnné s barvou pozadí (např. '--smoke-bg'), sleduje Color studio */
+  /** název CSS proměnné s barvou pozadí (např. '--smoke-bg'), mění se s motivem */
   bgVar?: string;
   /** název CSS proměnné s barvou mraku (výchozí --secondary; --primary = barva tlačítek) */
   brandVar?: string;
