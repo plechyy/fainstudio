@@ -1,79 +1,129 @@
 'use client';
 
-import { ico, Layer, Scene, Svg, Toast, useLoop } from './scene';
+import { Cursor, fmt, ico, Layer, Scene, Svg, useCount, useLoop } from './scene';
 
 /*
- * Sběr dat: ráno v 6:00 systém projde ceny u tří dodavatelů, u jednoho najde
- * změnu a pošle upozornění. Vedle je graf ceny za posledních 30 dní.
+ * Hlídání trhu pro stavební firmu: systém ráno projde desítky portálů
+ * s veřejnými zakázkami, z tisíců vyfiltruje tři, které firma zvládne,
+ * a po kliknutí k té nejlepší rovnou připraví koncept nabídky.
  *
- * Fáze: 0–2 kontrola řádku po řádku · 3 změna ceny · 4 upozornění · 5 drží · 6 doznění
+ * Fáze: 0 prochází zdroje · 1–4 filtry jeden po druhém · 5 výsledky
+ *       6 kurzor přijede · 7 klik · 8 koncept nabídky · 9 drží · 10 doznění
  */
-const DUR = [700, 700, 700, 900, 900, 2600, 450];
-const DONE = 5;
+const DUR = [1600, 480, 480, 480, 480, 1000, 850, 350, 1300, 2600, 450];
+const DONE = 9;
 
-const rows = [
-  { who: 'Dodavatel A', was: '1 405 Kč', now: '1 290 Kč', d: '−8 %' },
-  { who: 'Dodavatel B', was: '1 410 Kč', now: '1 410 Kč', d: '' },
-  { who: 'Dodavatel C', was: '1 355 Kč', now: '1 355 Kč', d: '' },
+const sources = [
+  'Věstník zakázek',
+  'Národní elektronický nástroj',
+  'Jihomoravský kraj',
+  'Město Brno',
+  'Kraj Vysočina',
+  'Statutární město Zlín',
+  'Správa silnic',
+  'Ředitelství vodních cest',
+  'Fakultní nemocnice',
+  'Masarykova univerzita',
+  'Město Kuřim',
+  'Obec Šlapanice',
 ];
+
+const filters = [
+  { t: 'Obor: stavby a rekonstrukce', n: 186 },
+  { t: 'Kraj: Jihomoravský', n: 41 },
+  { t: 'Hodnota do 15 mil. Kč', n: 9 },
+  { t: 'Termín, který stihnete', n: 3 },
+];
+const nums = [2341, ...filters.map((f) => f.n)];
+
+const results = [
+  { t: 'Rekonstrukce ZŠ Líšeň', v: '12,4 mil. Kč', m: 94 },
+  { t: 'Oprava fasády radnice, Kuřim', v: '6,8 mil. Kč', m: 81 },
+  { t: 'Chodníky Brno-Slatina', v: '3,2 mil. Kč', m: 77 },
+];
+
+const draft = ['Reference ze 3 podobných staveb', 'Rozpočet podle výkazu výměr', 'Harmonogram na 14 týdnů', 'Podklady k podpisu'];
 
 export default function WatchLive() {
   const { s, ref } = useLoop(DUR, DONE);
-  const changed = s >= 3 && s <= 5;
+  const f = Math.min(s, 4);
+  const scan = useCount(0, nums[0], s, 0, 1450);
+  const step = useCount(nums[Math.max(0, f - 1)], nums[f], s, s >= 1 && s <= 4 ? s : -1, 420);
+  const n = s === 0 ? scan : s === 10 ? 3 : step;
+  const view = s === 0 ? 'scan' : s <= 4 ? 'funnel' : 'results';
 
   return (
-    <Scene sceneRef={ref} className={`sc--watch${s === 6 ? ' is-out' : ''}`}>
+    <Scene sceneRef={ref} base={460} className={`sc--watch${s === 10 ? ' is-out' : ''}`}>
       <Layer z={-90} className="sc__ghost" />
 
-      <div className="win wt">
+      <div className="win tn">
         <div className="win__bar">
           <span className="win__dots" />
-          <b className="win__name">Ceny dodavatelů</b>
-          <span className="win__live">{s < 3 ? 'Kontroluje se' : 'Dnes 6:00'}</span>
+          <b className="win__name">Hlídání zakázek · Stavby Brabec</b>
+          <span className="win__live">{s === 0 ? 'Prochází zdroje' : 'Dnes 6:00'}</span>
         </div>
 
-        <div className="wt__head">
-          <span>Profil 40×40, 6 m</span>
-          <span>Cena</span>
-          <span>Od včera</span>
-        </div>
-        {rows.map((r, i) => {
-          const checking = s === i;
-          const done = s > i && s < 6;
-          const hot = i === 0 && changed;
-          return (
-            <div className={`wt__row${hot ? ' is-hot' : ''}`} key={r.who}>
-              <span className="wt__who">
-                {checking ? <i className="sc-spin" /> : <Svg className={`sc-ok${done ? '' : ' is-off'}`}>{ico.check}</Svg>}
-                {r.who}
-              </span>
-              <span className="wt__price num">{hot ? r.now : r.was}</span>
-              <span className={`wt__d${hot ? ' is-on' : ''}`}>{hot ? r.d : done ? 'beze změny' : '—'}</span>
-            </div>
-          );
-        })}
-
-        <p className={`win__foot${s >= 3 && s <= 5 ? ' is-done' : ''}`}>
-          {s < 3 ? `Prochází zdroje · ${s + 1} ze 3` : '1 změna od včera, poslali jsme ji do mailu'}
+        <p className="tn__count">
+          <b className="num">{fmt(n)}</b>
+          <span>{s === 0 ? 'nových zakázek dnes' : s <= 4 ? 'po filtrech' : 'zakázky pro vás'}</span>
         </p>
+
+        <div className="tn__stage">
+          <ul className={`tn__src${view === 'scan' ? ' is-on' : ''}`}>
+            {sources.map((x, i) => (
+              <li key={x} style={{ animationDelay: `${i * 110}ms` }}>
+                <Svg>{ico.globe}</Svg>
+                {x}
+              </li>
+            ))}
+          </ul>
+
+          <ol className={`tn__fun${view === 'funnel' ? ' is-on' : ''}`}>
+            {filters.map((x, i) => (
+              <li className={s >= i + 1 ? 'is-on' : ''} key={x.t} style={{ width: `${100 - i * 15}%` }}>
+                <span>{x.t}</span>
+                <b className="num">{x.n}</b>
+              </li>
+            ))}
+          </ol>
+
+          <ul className={`tn__res${view === 'results' ? ' is-on' : ''}`}>
+            {results.map((r, i) => (
+              <li className={i === 0 ? 'is-best' : ''} key={r.t} style={{ transitionDelay: view === 'results' && s === 5 ? `${i * 140}ms` : undefined }}>
+                <span>
+                  <b>{r.t}</b>
+                  <span className="num">{r.v}</span>
+                </span>
+                <span className="tn__m num">{r.m} %</span>
+                {i === 0 && (
+                  <span className="tn__go">
+                    <span className={`sc-btn${s === 7 ? ' is-press' : ''}`}>Připravit nabídku</span>
+                    <Cursor state={s === 6 ? 'in' : s === 7 ? 'click' : 'off'} />
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
-      {/* graf ceny za 30 dní: na konci spadne dolů */}
-      <Layer z={60} className="wt__chart-l">
-        <div className="wt__chart">
-          <p>
-            <b>Dodavatel A</b> · 30 dní
+      {/* koncept nabídky, který vyletí dopředu */}
+      <Layer z={120} className={`tn__draft-l${s === 8 || s === 9 ? ' is-in' : ''}`}>
+        <div className="tn__draft">
+          <p className="tn__dh">
+            <Svg>{ico.invoice}</Svg>
+            Koncept nabídky
           </p>
-          <svg viewBox="0 0 200 64" preserveAspectRatio="none" aria-hidden="true">
-            <path className="wt__base" d="M0 34 L20 30 L40 33 L60 26 L80 28 L100 22 L120 25 L140 20 L160 22 L172 20" />
-            <path className={`wt__drop${changed ? ' is-on' : ''}`} d="M172 20 L200 50" pathLength={1} />
-            <circle className={`wt__pt${changed ? ' is-on' : ''}`} cx="200" cy="50" r="3.5" />
-          </svg>
+          <b className="tn__dt">Rekonstrukce ZŠ Líšeň</b>
+          <ul>
+            {draft.map((d, i) => (
+              <li key={d} style={{ transitionDelay: s === 8 ? `${250 + i * 220}ms` : undefined }}>
+                <Svg className="sc-ok">{ico.check}</Svg>
+                {d}
+              </li>
+            ))}
+          </ul>
         </div>
-      </Layer>
-
-      <Layer z={120} className="wt__toast">
-        <Toast show={s === 4 || s === 5} icon={ico.bell} title="Dodavatel A zlevnil o 8 %" sub="Profil 40×40 · teď 1 290 Kč" />
       </Layer>
     </Scene>
   );

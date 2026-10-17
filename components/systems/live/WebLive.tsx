@@ -3,75 +3,113 @@
 import { Cursor, ico, Layer, Scene, Svg, Toast, useLoop } from './scene';
 
 /*
- * Weby: stránka s jedním úkolem se načte v prohlížeči, vedle ta samá na
- * telefonu. Návštěvník klikne na jediné tlačítko a firmě přijde objednávka.
+ * Web fitness studia: stránka se poskládá v prohlížeči, pak se okno smrskne
+ * do telefonu. Návštěvnice se ťukem přihlásí na poslední místo na józe
+ * a majitelce v rozvrhu naskočí „Obsazeno“.
  *
- * Fáze: 0 načítá se · 1 stránka · 2 kurzor jede · 3 klik · 4 objednávka · 5 doznění
+ * Fáze: 0 skládá se · 1 počítač · 2 promění se v telefon · 3 prst přijede
+ *       4 ťuk · 5 přihlášeno · 6 drží · 7 doznění
  */
-const DUR = [900, 1000, 950, 380, 2800, 450];
-const DONE = 4;
+const DUR = [1300, 800, 900, 800, 350, 1200, 2800, 450];
+const DONE = 6;
+
+const lessons = [
+  { t: 'Jóga', h: '18:00', left: 'poslední místo' },
+  { t: 'Pilates', h: '19:15', left: '4 místa' },
+  { t: 'Kruhový trénink', h: '20:00', left: '6 míst' },
+];
 
 export default function WebLive() {
   const { s, ref } = useLoop(DUR, DONE);
-  const ready = s >= 1 && s <= 4;
+  const phone = s >= 2 && s <= 6;
+  const booked = s >= 5 && s <= 6;
 
   return (
-    <Scene sceneRef={ref} className={`sc--web${s === 5 ? ' is-out' : ''}`}>
+    <Scene sceneRef={ref} base={500} className={`sc--web${s === 7 ? ' is-out' : ''}`}>
       <Layer z={-90} className="sc__ghost" />
 
-      <div className={`win wb${ready ? ' is-ready' : ''}`}>
-        <div className="win__bar">
+      <div className={`win fw${phone ? ' is-phone' : ''}${s === 0 ? ' is-build' : ''}`}>
+        <div className="win__bar fw__bar">
           <span className="win__dots" />
-          <span className="wb__url">
+          <span className="fw__url">
             <Svg>{ico.lock}</Svg>
-            pekarnaumostu.cz
+            studioflow.cz
           </span>
         </div>
+        <span className="fw__notch" />
 
-        <div className="wb__page">
-          <div className="wb__real">
-            <p className="wb__nav">
-              <b>U Mostu</b>
-              <span>Dorty</span>
-              <span>Kontakt</span>
-            </p>
-            <div className="wb__hero">
-              <div>
-                <p className="wb__h">Dorty na objednávku do 48 hodin.</p>
-                <p className="wb__p">Napište, na kdy a pro kolik lidí. Ozveme se ještě ten den.</p>
-                <span className="wb__cta">
-                  <span className={`sc-btn${s === 3 ? ' is-press' : ''}`}>Objednat dort</span>
-                  <Cursor state={s === 2 ? 'in' : s === 3 ? 'click' : 'off'} />
-                </span>
-              </div>
-              <span className="wb__img" />
+        <div className="fw__page">
+          <p className="fw__nav fw__b">
+            <b>Studio Flow</b>
+            <span>Rozvrh</span>
+            <span>Ceník</span>
+            <i className="fw__burger" />
+          </p>
+          <div className="fw__hero fw__b">
+            <div>
+              <p className="fw__h">Lekce, na které se budete těšit.</p>
+              <p className="fw__p">Jóga, pilates a kruháče v centru Olomouce. První lekce je zdarma.</p>
             </div>
+            <span className="fw__img" />
           </div>
-
-          {/* než se stránka načte */}
-          <div className="wb__skel" aria-hidden="true">
-            <i style={{ width: '30%' }} />
-            <i style={{ width: '70%', height: 18 }} />
-            <i style={{ width: '55%' }} />
-            <i style={{ width: '24%', height: 26 }} />
-          </div>
+          <p className="fw__sub fw__b">Dnes</p>
+          <ul className="fw__list fw__b">
+            {lessons.map((l, i) => (
+              <li key={l.t}>
+                <span>
+                  <b>{l.t}</b>
+                  <span className="num">
+                    {l.h} · {i === 0 && booked ? 'obsazeno' : l.left}
+                  </span>
+                </span>
+                {i === 0 ? (
+                  <span className="fw__go">
+                    {booked ? (
+                      <span className="fw__done">
+                        <Svg className="sc-ok">{ico.check}</Svg>
+                        Přihlášeno
+                      </span>
+                    ) : (
+                      <span className={`sc-btn${s === 4 ? ' is-press' : ''}`}>Přihlásit se</span>
+                    )}
+                    <Cursor state={s === 3 ? 'in' : s === 4 ? 'click' : 'off'} />
+                  </span>
+                ) : (
+                  <span className="fw__ghost">Přihlásit se</span>
+                )}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
-      {/* ta samá stránka na telefonu */}
-      <Layer z={70} className="wb__phone-l">
-        <div className={`wb__phone${ready ? ' is-ready' : ''}`}>
-          <span className="wb__notch" />
-          <span className="wb__pimg" />
-          <p className="wb__ph">Dorty na objednávku do 48 hodin.</p>
-          <i className="wb__pl" />
-          <i className="wb__pl" style={{ width: '70%' }} />
-          <span className="wb__pbtn">Objednat dort</span>
+      {/* rozvrh majitelky: ve chvíli, kdy se místo zaplní */}
+      <Layer z={80} className={`fw__own-l${phone ? ' is-in' : ''}`}>
+        <div className="fw__own">
+          <p className="fw__oh">
+            <Svg>{ico.cal}</Svg>
+            Rozvrh · dnes
+          </p>
+          {[
+            { t: 'Jóga 18:00', a: booked ? 12 : 11 },
+            { t: 'Pilates 19:15', a: 8 },
+            { t: 'Kruhový trénink 20:00', a: 6 },
+          ].map((r, i) => (
+            <div className={`fw__cap${i === 0 && booked ? ' is-full' : ''}`} key={r.t}>
+              <p>
+                <span>{r.t}</span>
+                <b className="num">{i === 0 && booked ? 'Obsazeno' : `${r.a}/12`}</b>
+              </p>
+              <span>
+                <i style={{ width: `${(r.a / 12) * 100}%` }} />
+              </span>
+            </div>
+          ))}
         </div>
       </Layer>
 
-      <Layer z={120} className="wb__toast">
-        <Toast show={s === DONE} icon={ico.mail} title="Nová objednávka z webu" sub="Jana Malá · dort na sobotu pro 12 lidí" />
+      <Layer z={140} className="fw__toast">
+        <Toast show={booked} delay={300} icon={ico.user} title="Nová přihláška na jógu" sub="Klára D. · platba kartou proběhla" />
       </Layer>
     </Scene>
   );

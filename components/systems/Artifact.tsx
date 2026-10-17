@@ -1,8 +1,8 @@
 import ChatLive from './live/ChatLive';
+import CrmLive from './live/CrmLive';
 import DocLive from './live/DocLive';
 import MailLive from './live/MailLive';
 import ProcessLive from './live/ProcessLive';
-import ToolLive from './live/ToolLive';
 import WatchLive from './live/WatchLive';
 import WebLive from './live/WebLive';
 
@@ -17,7 +17,7 @@ const map: Record<string, () => React.ReactElement> = {
   data: WatchLive,
   weby: WebLive,
   procesy: ProcessLive,
-  nastroje: ToolLive,
+  nastroje: CrmLive,
 };
 
 export default function Artifact({ id, className = '' }: { id: string; className?: string }) {
