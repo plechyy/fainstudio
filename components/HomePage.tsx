@@ -13,8 +13,8 @@ import Footer from '@/components/Footer';
 import Enhance from '@/components/Enhance';
 import ButtonSmoke from '@/components/ButtonSmoke';
 
-/** Celá stránka. /hero2 je stejná, jen hero má místo kouře kostky. */
-export default function HomePage({ heroBg = 'smoke' }: { heroBg?: 'smoke' | 'cubes' }) {
+/** Celá stránka. /hero2 je stejná, jen hero má místo kouře 3D stroj. */
+export default function HomePage({ heroBg = 'smoke' }: { heroBg?: 'smoke' | 'machine' }) {
   return (
     <>
       <Loader />
