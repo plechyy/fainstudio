@@ -1,3 +1,7 @@
+import DocLive from './live/DocLive';
+import MailLive from './live/MailLive';
+import ProcessLive from './live/ProcessLive';
+
 /*
  * Výstup každého systému, nakreslený v HTML — místo prázdného rámečku s popiskem
  * „Vizuál“. Ukazujeme to, co ze systému reálně leze: odpověď na poptávku, vytažená
@@ -26,35 +30,6 @@ function Mail() {
         </p>
       </article>
       <p className="art__note">Zapsáno do přehledu · čeká na potvrzení</p>
-    </div>
-  );
-}
-
-/** Dokumenty: papír vlevo, vytažená pole vpravo. */
-function Doc() {
-  const fields: [string, string][] = [
-    ['Dodavatel', 'Kovoobrábění Brno s.r.o.'],
-    ['Variabilní symbol', '2026114'],
-    ['Splatnost', '30. 10. 2026'],
-    ['Částka', '48 300 Kč'],
-  ];
-  const lines = [92, 70, 84, 46, 78, 62, 88];
-  return (
-    <div className="art__pane art__pane--doc">
-      <div className="paper">
-        <span className="paper__title">Faktura</span>
-        {lines.map((w, i) => (
-          <i key={i} className="paper__line" style={{ width: `${w}%` }} />
-        ))}
-      </div>
-      <dl className="fields">
-        {fields.map(([k, v]) => (
-          <div className="fields__row" key={k}>
-            <dt>{k}</dt>
-            <dd>{v}</dd>
-          </div>
-        ))}
-      </dl>
     </div>
   );
 }
@@ -122,30 +97,6 @@ function Mini() {
   );
 }
 
-/** Procesy: řetězec kroků, který běží sám a na jednom místě čeká na člověka. */
-function Flow() {
-  const steps: [string, string, boolean][] = [
-    ['Mail s objednávkou', '8:41', false],
-    ['Zápis do tabulky', 'hotovo', false],
-    ['Schválení', 'čeká na vás', true],
-    ['Faktura odeslána', 'po schválení', false],
-  ];
-  return (
-    <div className="art__pane art__pane--flow">
-      <ol className="flow">
-        {steps.map(([name, state, now], i) => (
-          <li className={`flow__node${now ? ' flow__node--now' : ''}`} key={name}>
-            <span className="flow__dot num">{i + 1}</span>
-            <b className="flow__name">{name}</b>
-            <span className="flow__state">{state}</span>
-          </li>
-        ))}
-      </ol>
-      <p className="art__note">Jeden klik od vás, zbytek běží sám</p>
-    </div>
-  );
-}
-
 /** Interní nástroje: jedno místo, kde je vidět, co na koho čeká. */
 function Tool() {
   const rows: [string, string, string, boolean][] = [
@@ -179,19 +130,23 @@ function Tool() {
 }
 
 const map: Record<string, () => React.ReactElement> = {
-  poptavky: Mail,
-  dokumenty: Doc,
+  poptavky: MailLive,
+  dokumenty: DocLive,
   asistent: Chat,
   data: Watch,
   weby: Mini,
-  procesy: Flow,
+  procesy: ProcessLive,
   nastroje: Tool,
 };
 
+/** Systémy, které už mají živou 3D scénu místo statické ukázky. */
+export const LIVE = new Set(['poptavky', 'dokumenty', 'procesy']);
+
 export default function Artifact({ id, className = '' }: { id: string; className?: string }) {
   const C = map[id] ?? Mail;
+  const live = LIVE.has(id) ? ' art--live' : '';
   return (
-    <div className={`art art--${id}${className ? ` ${className}` : ''}`} data-ui aria-hidden="true">
+    <div className={`art art--${id}${live}${className ? ` ${className}` : ''}`} data-ui aria-hidden="true">
       <C />
     </div>
   );
