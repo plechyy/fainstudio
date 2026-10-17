@@ -1710,12 +1710,6 @@ html.is-loading .seq {
   opacity: 0.7;
   pointer-events: none;
 }
-/* natočení za myší (proměnné --mx/--my nastavuje Scene) */
-.sc__par {
-  transform-style: preserve-3d;
-  transform: rotateY(calc(var(--mx, 0) * 7deg)) rotateX(calc(var(--my, 0) * -6deg));
-  transition: transform 700ms var(--ease-out);
-}
 .sc__obj {
   position: relative;
   transform-style: preserve-3d;
