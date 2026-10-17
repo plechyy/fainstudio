@@ -2068,25 +2068,29 @@ html.is-loading .seq {
   height: 100%;
   overflow: visible;
 }
+/* spojnice: dokud se nerozběhnou, nejsou vidět vůbec (ani kousek zpod formuláře) */
 .ob__lines path {
   fill: none;
   stroke: var(--line-strong);
   stroke-width: 1.5;
-  stroke-dasharray: 1;
+  stroke-linecap: butt;
+  stroke-dasharray: 1 1;
   stroke-dashoffset: 1;
-  vector-effect: non-scaling-stroke;
+  opacity: 0;
   transition:
     stroke-dashoffset 700ms var(--ease-out),
+    opacity 150ms,
     stroke 300ms;
 }
 .ob__lines path.is-drawn {
   stroke-dashoffset: 0;
+  opacity: 1;
 }
 .ob__lines path.is-on {
   stroke: var(--primary);
 }
 .ob__node {
-  width: 34%;
+  width: 33%;
 }
 .ob__node > div {
   display: grid;
@@ -2119,8 +2123,17 @@ html.is-loading .seq {
     0 0 26px -10px var(--primary-glow);
   opacity: 1;
 }
-.ob__node b {
+.ob__node > div > span:nth-child(2) {
+  min-width: 0;
+}
+.ob__node b,
+.ob__node span span {
   display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.ob__node b {
   color: var(--ink);
   font-size: 0.74rem;
   font-weight: 600;
@@ -2157,16 +2170,17 @@ html.is-loading .seq {
 .ob__node.is-on .ob__ok {
   opacity: 1;
 }
+/* formulář je kus před rovinou kroků, takže začátky spojnic zakrývá */
 .ob__core {
   position: absolute;
   top: 50%;
   left: 50%;
   width: 58%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) translateZ(40px);
   transition: width 600ms var(--ease-out);
 }
 .ob__core.is-small {
-  width: 38%;
+  width: 40%;
 }
 .ob__form {
   display: grid;
@@ -2235,8 +2249,15 @@ html.is-loading .seq {
   font-size: 0.72rem;
   font-weight: 700;
 }
-.ob__who b {
+.ob__who > span:last-child {
+  min-width: 0;
+}
+.ob__who b,
+.ob__who span span {
   display: block;
+  white-space: nowrap;
+}
+.ob__who b {
   color: var(--ink);
   font-size: 0.82rem;
 }
