@@ -17,12 +17,21 @@ export default function MachineStage({ look = 'clay' }: { look?: 'clay' | 'silho
       if (dead || !ref.current) return;
       try {
         const canvas = ref.current;
-        // spodek tlačítek v hero; offsetTop nezávisí na úvodní animaci (transform)
-        const textBottom = () => {
-          const el = canvas.closest('.hero')?.querySelector<HTMLElement>('.hero__actions');
-          return el ? el.offsetTop + el.offsetHeight : 0;
+        // nadpis, perex a tlačítka v px hera; offset* nezávisí na úvodní animaci (transform)
+        const textBoxes = () => {
+          const hero = canvas.closest<HTMLElement>('.hero');
+          if (!hero) return [];
+          return [...hero.querySelectorAll<HTMLElement>('.hero__title, .hero__lead, .hero__actions')].map((el) => {
+            let l = 0;
+            let t = 0;
+            for (let e: HTMLElement | null = el; e && e !== hero; e = e.offsetParent as HTMLElement | null) {
+              l += e.offsetLeft;
+              t += e.offsetTop;
+            }
+            return { l, r: l + el.offsetWidth, b: t + el.offsetHeight };
+          });
         };
-        dispose = mountMachine(canvas, { onReady: () => setReady(true), textBottom, look });
+        dispose = mountMachine(canvas, { onReady: () => setReady(true), textBoxes, look });
       } catch (e) {
         // bez WebGL zůstane jen CSS pozadí
         console.error('machine scene', e);
