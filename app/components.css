@@ -538,56 +538,6 @@ html.is-loading .seq {
   }
 }
 
-/* ── loga pod herem: točící se pás (marquee) ─────────────────────── */
-.logos {
-  margin-top: clamp(36px, 6vw, 64px);
-  width: 100%;
-  overflow: hidden;
-  /* měkké zeslabení na obou okrajích */
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-}
-.logos__track {
-  display: flex;
-  width: max-content;
-}
-.logos__set {
-  display: flex;
-  flex: none;
-  align-items: center;
-  gap: clamp(40px, 6vw, 84px);
-  padding-right: clamp(40px, 6vw, 84px); /* stejná mezera i mezi kopiemi → bezešvá smyčka */
-}
-.logos__item {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  color: var(--ink-3);
-  opacity: 0.85;
-}
-.logos__ph {
-  font-family: var(--font-text);
-  font-weight: 900; /* velmi tučné — Inter je variabilní 100–900 */
-  font-size: clamp(1.3rem, 1.1rem + 0.9vw, 1.8rem);
-  letter-spacing: -0.01em;
-  line-height: 1;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .logos__track {
-    animation: logos-scroll 48s linear infinite;
-    will-change: transform;
-  }
-}
-/* posun o přesně jednu sadu (−50 % šířky celé stopy) → začátek navazuje na konec */
-@keyframes logos-scroll {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-
 /* ── hlavička sekce ──────────────────────────────────────────────── */
 .shead {
   display: grid;
@@ -1716,11 +1666,24 @@ html.is-loading .seq {
   transform: rotateX(10deg) rotateY(-16deg) rotateZ(1deg);
   animation: sc-float 11s ease-in-out infinite;
 }
-.sc__obj > * {
+.sc__obj > *:not(.ob):not(.mx__flip) {
   transition: opacity 400ms;
 }
-.sc.is-out .sc__obj > * {
+.sc.is-out .sc__obj > *:not(.ob):not(.mx__flip) {
   opacity: 0.2;
+}
+/* 3D skupiny (Procesy, přetáčecí schránka) se nesmí ztlumit vcelku: průhlednost
+   by je zploštila a po návratu by obsah poskočil. Ztlumí se jejich části. */
+.ob > *,
+.mx__face {
+  transition: opacity 400ms;
+}
+.sc.is-out .ob > *,
+.sc.is-out .mx__face {
+  opacity: 0.2;
+}
+.sc--proc.is-out .ob > * {
+  opacity: 0;
 }
 .sc__layer {
   position: absolute;
@@ -2177,7 +2140,9 @@ html.is-loading .seq {
   left: 50%;
   width: 58%;
   transform: translate(-50%, -50%) translateZ(40px);
-  transition: width 600ms var(--ease-out);
+  transition:
+    width 600ms var(--ease-out),
+    opacity 400ms;
 }
 .ob__core.is-small {
   width: 40%;

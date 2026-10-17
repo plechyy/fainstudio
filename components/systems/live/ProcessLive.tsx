@@ -9,9 +9,9 @@ import { Cursor, ico, Layer, Scene, Svg, useCount, useLoop } from './scene';
  * notebook, účty, přístupy, první den v kalendáři a uvítání.
  *
  * Fáze: 0 formulář · 1 kurzor přijede · 2 klik · 3 rozběhne se · 4 rozsvítí se kroky
- *       5 drží · 6 doznění
+ *       5 drží · 6 zmizí · 7 neviditelně se vrátí do výchozího stavu
  */
-const DUR = [900, 900, 350, 900, 1700, 2800, 450];
+const DUR = [900, 900, 350, 900, 1700, 2800, 450, 600];
 const DONE = 5;
 
 // kde kroky leží (v % plochy); všechny v jedné rovině se spojnicemi, ať na sebe přesně sedí
@@ -63,11 +63,12 @@ export default function ProcessLive() {
   const box = useRef<HTMLDivElement>(null);
   const geo = useLines(box);
   const lit = useCount(0, 6, s, 4, 1500);
-  const started = s >= 3 && s <= 5;
-  const on = (i: number) => (s === 4 ? lit > i : s === 5);
+  // rozběhnutý stav drží i během mizení, výchozí se vrátí až když není nic vidět
+  const started = s >= 3 && s <= 6;
+  const on = (i: number) => (s === 4 ? lit > i : s === 5 || s === 6);
 
   return (
-    <Scene sceneRef={ref} base={560} className={`sc--proc${s === 6 ? ' is-out' : ''}`}>
+    <Scene sceneRef={ref} base={560} className={`sc--proc${s >= 6 ? ' is-out' : ''}`}>
       <div className="ob" ref={box}>
         {geo && (
           <svg className="ob__lines" viewBox={`0 0 ${geo.w} ${geo.h}`} aria-hidden="true">
@@ -126,8 +127,8 @@ export default function ProcessLive() {
             <span className="ob__av">TM</span>
             <span>
               <b>Tereza Malá</b>
-              <span className={s === 5 ? 'is-done' : ''}>
-                {s === 5 ? 'Vše připraveno' : `Hotovo ${s === 4 ? lit : 0} z 6`}
+              <span className={s === 5 || s === 6 ? 'is-done' : ''}>
+                {s === 5 || s === 6 ? 'Vše připraveno' : `Hotovo ${s === 4 ? lit : 0} z 6`}
               </span>
             </span>
           </div>

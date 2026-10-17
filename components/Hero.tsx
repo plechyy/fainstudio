@@ -1,7 +1,6 @@
 import { CAL_URL } from '@/lib/config';
 import { hero } from '@/lib/content';
 import ShaderBackground from './ShaderBackground';
-import LogosStrip from './LogosStrip';
 
 export default function Hero() {
   return (
@@ -38,8 +37,6 @@ export default function Hero() {
           </a>
         </div>
       </div>
-
-      <LogosStrip />
     </section>
   );
 }
