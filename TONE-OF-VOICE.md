@@ -21,7 +21,7 @@ Jako šikovný člověk, který vám u kávy vysvětlí, co umí, a nehraje si p
 
 ## Tlačítka
 
-Mluví za čtenáře a fungují, ať je za nimi cokoli. „Chci to u nás“ je naše hlavní věta, ale použijeme ji nejvýš dvakrát (navigace a závěr stránky). Jinde tlačítko říká, co se stane: „Chci znát cenu“, „Chci to bez rutiny“, „Chci hovor na 20 minut“. U otázky nad tlačítkem se ptáme jeho hlasem: „Jak by to fungovalo u nás?“
+Mluví za čtenáře a fungují, ať je za nimi cokoli. „Chci to u nás“ je naše hlavní věta, ale použijeme ji nejvýš dvakrát (navigace a závěr stránky). Jinde tlačítko říká, co se stane: „Chci zjistit, co by šlo líp“, „Chci to bez rutiny“, „Chci úvodní hovor“. U otázky nad tlačítkem se ptáme jeho hlasem: „Jak by to fungovalo u nás?“
 
 Nepoužíváme: „Mám zájem“, „Rezervovat…“, „Odeslat“, „Kontaktujte nás“.
 
