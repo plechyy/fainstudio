@@ -115,9 +115,13 @@ function clayBump() {
   return t;
 }
 
-type Opts = { onReady?: () => void };
+type Opts = {
+  onReady?: () => void;
+  /** kde (px od horního okraje plátna) končí text nad strojem; stroj se posadí pod něj */
+  textBottom?: () => number;
+};
 
-export function mountMachine(canvas: HTMLCanvasElement, { onReady }: Opts = {}) {
+export function mountMachine(canvas: HTMLCanvasElement, { onReady, textBottom }: Opts = {}) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -756,8 +760,10 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady }: Opts = {}) 
         // pád shora do trychtýře
         const u = age / T_FALL;
         const a0 = r1 * Math.PI * 2;
-        it.g.position.set(FUNNEL.x + Math.cos(a0) * 0.85, 7.2 - (7.2 - 4.25) * u * u, Math.sin(a0) * 0.85);
+        // papír se objeví kousek nad trychtýřem, ať nepadá přes text nad strojem
+        it.g.position.set(FUNNEL.x + Math.cos(a0) * 0.85, 5.6 - (5.6 - 4.25) * u * u, Math.sin(a0) * 0.85);
         it.g.rotation.set(age * 3 + r1, age * 2, 0);
+        it.ball.scale.setScalar(Math.max(0.001, easeBack(seg(u, 0, 0.45))));
       } else if (age < T_FALL + T_SPIN) {
         // točí se dolů po stěně trychtýře
         const u = (age - T_FALL) / T_SPIN;
@@ -887,15 +893,36 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady }: Opts = {}) 
     const aspect = w / h;
     camera.aspect = aspect;
     portrait = aspect < 1.05;
-    const fitW = portrait ? 9.6 : 15.8;
+    const fitW = portrait ? 10.8 : 19.5;
     const vfov = THREE.MathUtils.degToRad(camera.fov);
     const hfov = 2 * Math.atan(Math.tan(vfov / 2) * aspect);
     dist = fitW / 2 / Math.tan(hfov / 2);
     // na široké nízké obrazovce by stroj přetekl nahoru: držíme i výšku
     dist = Math.max(dist, 6.4 / Math.tan(vfov / 2) / 2 / (portrait ? 0.5 : 0.78));
     center.set(portrait ? -0.2 : 0.2, portrait ? 1.8 : 2.0, 0);
-    // stroj leží v horní části hera, pod ním je text
-    const focus = portrait ? 0.29 : 0.36;
+    // text je nahoře, stroj leží ve spodní části hera jako podlaha
+    let focus = portrait ? 0.76 : 0.72;
+    // vršek stroje (trychtýř, kola) musí zůstat pod tlačítky, i na nízké obrazovce
+    // stroj sedí pod textem; když se mezi text a spodní okraj nevejde, zmenší se
+    if (textBottom) {
+      const minTop = (textBottom() + 32) / h;
+      const avail = 0.97 - minTop;
+      const measure = () => {
+        camera.clearViewOffset();
+        placeCamera(0);
+        camera.updateMatrixWorld();
+        const top = tmp.set(FUNNEL.x, 4.6, 0).project(camera).y;
+        const mid = tmp.copy(center).project(camera).y;
+        const bot = tmp.set(0, 0.1, 1.5).project(camera).y;
+        return { top, mid, span: (top - bot) / 2 };
+      };
+      let m = measure();
+      for (let i = 0; i < 3 && m.span > avail; i++) {
+        dist *= (m.span / avail) * 1.02;
+        m = measure();
+      }
+      focus = Math.max(focus, minTop + (m.top - m.mid) / 2);
+    }
     camera.setViewOffset(w, h, 0, (0.5 - focus) * h, w, h);
     fog.near = dist + 1;
     fog.far = dist + 16;
@@ -918,6 +945,26 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady }: Opts = {}) 
     const primary = cssColor('--primary');
     const bg = cssColor('--bg-deep');
     const light = document.documentElement.dataset.theme === 'light';
+    // celý stroj je z jedné modelíny: jen odstíny primární barvy, od světlé po tmavou
+    const W = new THREE.Color('#ffffff');
+    const D = light ? new THREE.Color(PAL.choco) : bg;
+    const tone = (t: number) => (t >= 0 ? primary.clone().lerp(W, t) : primary.clone().lerp(D, -t));
+    const tones: [THREE.MeshStandardMaterial, number][] = [
+      [M.paper, 0.62],
+      [M.white, 0.5],
+      [M.funnel, 0.3],
+      [M.cream, 0.26],
+      [M.sand, 0.08],
+      [M.orange, 0.14],
+      [M.terracotta, -0.32],
+      [M.caramel, -0.48],
+      [M.sage, -0.4],
+      [M.olive, -0.52],
+      [M.moss, -0.62],
+      [M.cocoa, -0.7],
+      [M.choco, -0.8],
+    ];
+    for (const [m, t] of tones) m.color.copy(tone(t));
     for (const m of [M.primary, lensRingMat]) m.color.copy(primary);
     M.lights.color.copy(primary);
     for (const m of ledMats) {
@@ -927,8 +974,9 @@ export function mountMachine(canvas: HTMLCanvasElement, { onReady }: Opts = {}) 
     M.beam.color.copy(primary);
     M.ring.color.copy(primary);
     fog.color.copy(bg);
-    M.platform.color.copy(light ? bg.clone().lerp(new THREE.Color(PAL.sand), 0.45) : bg.clone().lerp(new THREE.Color(PAL.cocoa), 0.42));
-    hemi.groundColor.copy(light ? new THREE.Color('#bba98f') : new THREE.Color('#2a2018'));
+    M.platform.color.copy(light ? bg.clone().lerp(primary, 0.4) : bg.clone().lerp(primary, 0.16));
+    hemi.color.copy(primary.clone().lerp(W, 0.6));
+    hemi.groundColor.copy(light ? primary.clone().lerp(D, 0.3) : bg.clone().lerp(primary, 0.1));
     hemi.intensity = light ? 1.1 : 0.85;
   };
   applyTheme();

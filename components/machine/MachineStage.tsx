@@ -16,7 +16,13 @@ export default function MachineStage() {
     import('./scene').then(({ mountMachine }) => {
       if (dead || !ref.current) return;
       try {
-        dispose = mountMachine(ref.current, { onReady: () => setReady(true) });
+        const canvas = ref.current;
+        // spodek tlačítek v hero; offsetTop nezávisí na úvodní animaci (transform)
+        const textBottom = () => {
+          const el = canvas.closest('.hero')?.querySelector<HTMLElement>('.hero__actions');
+          return el ? el.offsetTop + el.offsetHeight : 0;
+        };
+        dispose = mountMachine(canvas, { onReady: () => setReady(true), textBottom });
       } catch (e) {
         // bez WebGL zůstane jen CSS pozadí
         console.error('machine scene', e);
