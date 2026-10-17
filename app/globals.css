@@ -66,9 +66,9 @@
  * Když se mluví o „primární“, je to ta růžová. Color studio mění primární, sekundární a pozadí.
  */
 :root {
-  --secondary-h: 321.2;
-  --secondary-c: 0.0442;
-  --secondary-l-adj: 0.0924; /* posun světlosti od základních 0,78 */
+  --secondary-h: 48.4;
+  --secondary-c: 0.0235;
+  --secondary-l-adj: 0.1052; /* posun světlosti od základních 0,78 */
 
   --secondary: oklch(calc(0.78 + var(--secondary-l-adj)) var(--secondary-c) var(--secondary-h));
   --secondary-strong: oklch(calc(0.7 + var(--secondary-l-adj)) var(--secondary-c) var(--secondary-h));
@@ -79,9 +79,9 @@
   --on-accent: oklch(0.2 0.02 var(--secondary-h));
 
   /* Primární barva (růžová): odstín, sytost, posun světlosti. Color studio je přepisuje. */
-  --primary-h: 328.9;
-  --primary-c: 0.1453;
-  --primary-l-adj: 0.0003;
+  --primary-h: 62.3;
+  --primary-c: 0.0562;
+  --primary-l-adj: -0.0097;
   --primary: oklch(calc(0.78 + var(--primary-l-adj)) var(--primary-c) var(--primary-h));
   --primary-deep: oklch(calc(0.6 + var(--primary-l-adj)) calc(var(--primary-c) * 1.15) var(--primary-h));
   --primary-glow: oklch(calc(0.78 + var(--primary-l-adj)) var(--primary-c) var(--primary-h) / 0.5);
@@ -94,9 +94,9 @@
 
   /* Tmavé téma (výchozí) */
   /* Pozadí: světlost / sytost / odstín jedné barvy (Color studio), ostatní neutrály jsou její odvozeniny */
-  --bgd-l: 0.1893;
-  --bgd-c: 0.0118;
-  --bgd-h: 319.5;
+  --bgd-l: 0.194;
+  --bgd-c: 0.0063;
+  --bgd-h: 56;
   --bgl-l: 0.9194;
   --bgl-c: 0.0395;
   --bgl-h: 280.9;
