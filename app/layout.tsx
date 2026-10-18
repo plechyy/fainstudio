@@ -29,8 +29,8 @@ export const viewport: Viewport = {
   viewportFit: 'cover', // na ploše uložený web jde až pod stavový řádek
 };
 
-// Obnoví uložený motiv před prvním vykreslením → nic neprobliká.
-const noFlash = `(function(){try{var d=document.documentElement;d.classList.add('is-loading');var t=localStorage.getItem('theme')==='light'?'light':'dark';d.dataset.theme=t;var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==='light'?'#fcfaf6':'#171412';}catch(e){}})();`;
+// Obnoví uloženou barvu před prvním vykreslením → nic neprobliká.
+const noFlash = `(function(){try{var d=document.documentElement;d.classList.add('is-loading');var t=localStorage.getItem('theme')==='light'?'light':'dark';d.dataset.theme=t;var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==='light'?'#fcfaf6':'#171412';var g=JSON.parse(localStorage.getItem('brand-vars-v2')||'null');if(g){for(var k in g){d.style.setProperty(k,g[k]);}}}catch(e){}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
