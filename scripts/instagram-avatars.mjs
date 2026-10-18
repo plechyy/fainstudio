@@ -199,10 +199,10 @@ async function fainOnWhite() {
   const mask = await sharp(svg(shape)).png().toBuffer();
   const field = smokeField(3.8, 11.1);
   // růžovo-černý kouř: z téměř černé přes tmavou magentu a primární po světle růžové záblesky
-  const ramp = [hex('#0c070f'), hex('#6a2270'), hex('#ee66df'), hex('#ffa3f5')];
+  const ramp = [hex('#0c070f'), hex('#6a2270'), hex('#ff9fff'), hex('#ffd1ff')]; // růžové stopy o ~20 % světlejší než primární (#ff9efe) → baby pink
   const px = new Uint8ClampedArray(W * W * 4);
   for (let i = 0; i < W * W; i++) {
-    const v = field[i] * 2.999;
+    const v = Math.min(0.9999, field[i] * 1.12 + 0.04) * 2.999; // víc plochy pro růžovou, ať černá nepřevládne
     const k = Math.min(2, Math.floor(v));
     const t = smooth(0, 1, v - k);
     for (let c = 0; c < 3; c++) px[i * 4 + c] = mix(ramp[k][c], ramp[k + 1][c], t);
@@ -211,7 +211,7 @@ async function fainOnWhite() {
   const fill = await sharp(await rgba(px)).blur(3).png().toBuffer();
   const letters = await sharp(fill).composite([{ input: mask, blend: 'dest-in' }]).png().toBuffer();
   const shadow = svg(
-    `<g filter="url(#s)" opacity=".3" transform="translate(0 12)">${glyphs('FaiN', size, W / 2, W / 2 + 4, '#e66bd8')}</g>`,
+    `<g filter="url(#s)" opacity=".3" transform="translate(0 12)">${glyphs('FaiN', size, W / 2, W / 2 + 4, '#ff9bf4')}</g>`,
     blur('s', 18),
   );
   return sharp({ create: { width: W, height: W, channels: 4, background: '#ffffff' } })
