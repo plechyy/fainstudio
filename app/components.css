@@ -1698,10 +1698,10 @@ html.is-loading .seq {
   transform: rotateX(10deg) rotateY(-16deg) rotateZ(1deg);
   animation: sc-float 11s ease-in-out infinite;
 }
-.sc__obj > *:not(.ob):not(.mx__flip) {
+.sc__obj > *:not(.ob):not(.mx__flip):not(.dk__docs) {
   transition: opacity 400ms;
 }
-.sc.is-out .sc__obj > *:not(.ob):not(.mx__flip) {
+.sc.is-out .sc__obj > *:not(.ob):not(.mx__flip):not(.dk__docs) {
   opacity: 0.2;
 }
 /* 3D skupiny (Procesy, přetáčecí schránka) se nesmí ztlumit vcelku: průhlednost
@@ -2574,6 +2574,9 @@ html.is-loading .seq {
     color 300ms,
     background 300ms;
 }
+.dk__drop span {
+  transition: opacity 300ms;
+}
 .dk__drop.is-on {
   border-color: var(--ac);
   background: color-mix(in oklab, var(--ac) 6%, transparent);
@@ -2599,7 +2602,6 @@ html.is-loading .seq {
   color: var(--ink-2);
   font-size: 0.68rem;
   font-weight: 600;
-  transition: border-color 300ms;
 }
 .dk__folder svg {
   flex: none;
@@ -2620,8 +2622,28 @@ html.is-loading .seq {
 .dk__folder.is-on b {
   color: var(--ac);
 }
+/* doklady: vlastní vrstva nad oknem. Vodorovný a svislý pohyb mají každý svou
+   křivku, takže let do složky je oblouk: doklad se nadzvedne a spadne dovnitř. */
+.dk__docs {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+.dk__doc-x,
+.dk__doc-y {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
 .dk__doc {
   position: absolute;
+  top: 0;
+  left: 0;
   display: grid;
   gap: 4px;
   width: 18%;
@@ -2632,11 +2654,49 @@ html.is-loading .seq {
   color: oklch(0.3 0.01 260);
   font-size: 0.56rem;
   line-height: 1.25;
+  will-change: transform, opacity;
+}
+/* hromádka se přisune s kurzorem */
+.dk__doc-x.is-drag,
+.dk__doc-x.is-drag > .dk__doc-y {
+  transition: transform 900ms var(--ease-out);
+}
+.dk__doc-x.is-drag .dk__doc {
   transition:
-    left 850ms cubic-bezier(0.5, 0, 0.2, 1),
-    top 850ms cubic-bezier(0.5, 0, 0.2, 1),
-    transform 850ms cubic-bezier(0.5, 0, 0.2, 1),
-    opacity 500ms;
+    transform 900ms var(--ease-out),
+    opacity 260ms;
+}
+/* na hromádce: jen jemné dosednutí */
+.dk__doc-x.is-stack,
+.dk__doc-x.is-stack > .dk__doc-y,
+.dk__doc-x.is-stack .dk__doc {
+  transition: transform 300ms var(--ease-out);
+}
+/* čte se: doklad se zvedne z hromádky */
+.dk__doc-x.is-read > .dk__doc-y,
+.dk__doc-x.is-read .dk__doc {
+  transition: transform 220ms var(--ease-out);
+}
+/* let do složky: do strany plynule, svisle se nejdřív nadzvedne a pak spadne */
+.dk__doc-x.is-fly {
+  transition: transform 640ms cubic-bezier(0.4, 0, 0.3, 1);
+}
+.dk__doc-x.is-fly > .dk__doc-y {
+  transition: transform 640ms cubic-bezier(0.5, -0.55, 0.75, 1);
+}
+.dk__doc-x.is-fly .dk__doc {
+  transition:
+    transform 640ms cubic-bezier(0.6, 0, 0.8, 0.6),
+    opacity 170ms linear 470ms;
+}
+.dk__folder.is-hit {
+  border-color: var(--ac);
+  transform: scale(1.06);
+}
+.dk__folder {
+  transition:
+    border-color 300ms,
+    transform 260ms var(--ease-out);
 }
 .dk__doc b {
   font-size: 0.62rem;

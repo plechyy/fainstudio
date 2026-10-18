@@ -1,21 +1,27 @@
 'use client';
 
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Cursor, ico, Layer, Scene, Svg, useLoop } from './scene';
 
 /*
- * Dokumenty účetní kanceláře: kurzor vtáhne do okna hromádku dokladů od
- * klienta. Rozprostřou se, každý dostane štítek, odletí do své složky a údaje
+ * Dokumenty účetní kanceláře: kurzor přinese do okna úhlednou hromádku dokladů
+ * od klienta. Systém je pak bere jeden po druhém z vršku: přečte, doklad dostane
+ * štítek a odletí do své složky, ve které cvakne počítadlo. Nakonec údaje
  * naskáčou do tabulky pro účetnictví.
  *
- * Fáze: 0 kurzor táhne hromádku · 1 pustí · 2 rozprostřou se · 3 odletí do složek
- *       4 tabulka · 5 drží · 6 doznění
+ * Fáze: 0 příprava (hromádka mimo okno) · 1 kurzor ji přitáhne · 2 pustí
+ *       3 třídění jeden po druhém · 4 tabulka · 5 drží · 6 doznění
  */
-const DUR = [1100, 350, 1000, 1100, 900, 2600, 450];
+const STEP = 430; // po kolika ms odletí další doklad
+const READ = 230; // jak dlouho se doklad „čte“ (štítek svítí), než odletí
+const FLY = 640; // let do složky
+const SORT = 8 * STEP + FLY + 150;
+const DUR = [80, 1050, 420, SORT, 900, 2600, 450];
 const DONE = 5;
 
 const folders = ['Faktury', 'Účtenky', 'Smlouvy', 'Výpisy'];
 
-// f = složka, kam doklad patří
+// pořadí = pořadí, ve kterém odletí (první je navrchu hromádky); f = složka
 const docs = [
   { kind: 'Faktura', who: 'Licence software', v: '1 450 Kč', f: 0 },
   { kind: 'Účtenka', who: 'Čerpací stanice', v: '1 820 Kč', f: 1 },
@@ -26,20 +32,75 @@ const docs = [
   { kind: 'Faktura', who: 'Mobilní operátor', v: '1 290 Kč', f: 0 },
   { kind: 'Účtenka', who: 'Papírnictví', v: '486 Kč', f: 1 },
 ];
+const N = docs.length;
 
-/** Kde doklad v dané fázi je: x, y v % plochy, natočení, hloubka, zmenšení, průhlednost. */
-function place(i: number, s: number) {
-  const d = docs[i];
-  if (s === 6) return { x: 108, y: 20 + i * 2, r: 8, z: 0, k: 1, o: 0 };
-  if (s <= 1) return { x: 39 + (i % 3) * 1.5, y: 22 + (i % 4) * 1.2, r: (i % 2 ? 1 : -1) * (2 + i), z: i * 4, k: 1, o: 1 };
-  if (s === 2) return { x: 4 + (i % 4) * 24, y: 19 + Math.floor(i / 4) * 31, r: (i % 3) - 1, z: [40, -20, 70, 10, -30, 60, 0, 30][i], k: 1, o: 1 };
-  return { x: 8 + d.f * 23.5, y: 72, r: 0, z: 0, k: 0.35, o: 0 };
+type Pt = { x: number; y: number };
+type Geo = { stack: Pt; folders: Pt[] };
+
+/** pozice prvku vůči předkovi `to` (offsety, takže je nezajímá 3D náklon ani zoom) */
+function rel(el: HTMLElement, to: HTMLElement): Pt {
+  let x = 0;
+  let y = 0;
+  for (let e: HTMLElement | null = el; e && e !== to; e = e.offsetParent as HTMLElement | null) {
+    x += e.offsetLeft;
+    y += e.offsetTop;
+  }
+  return { x: x + el.offsetWidth / 2, y: y + el.offsetHeight / 2 };
+}
+
+/** milisekundy od začátku fáze `phase`, jinak 0 */
+function useElapsed(s: number, phase: number) {
+  const [t, setT] = useState(0);
+  useEffect(() => {
+    if (s !== phase) return;
+    const t0 = performance.now();
+    setT(0);
+    const id = window.setInterval(() => setT(performance.now() - t0), 40);
+    return () => clearInterval(id);
+  }, [s, phase]);
+  return s === phase ? t : 0;
 }
 
 export default function DocLive() {
   const { s, ref } = useLoop(DUR, DONE);
-  const sorted = s >= 3 && s <= 5;
-  const count = (f: number) => (sorted ? docs.filter((d) => d.f === f).length : 0);
+  const t = useElapsed(s, 3);
+  const layer = useRef<HTMLDivElement>(null);
+  const drop = useRef<HTMLParagraphElement>(null);
+  const folderRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const [geo, setGeo] = useState<Geo | null>(null);
+
+  // kde je střed hromádky a středy složek (v px vrstvy s doklady)
+  useLayoutEffect(() => {
+    const L = layer.current;
+    const d = drop.current;
+    if (!L || !d) return;
+    const measure = () => {
+      const to = L.offsetParent as HTMLElement | null;
+      if (!to) return;
+      const o = rel(L, to);
+      const base = { x: o.x - L.offsetWidth / 2, y: o.y - L.offsetHeight / 2 };
+      const at = (el: HTMLElement) => {
+        const p = rel(el, to);
+        return { x: p.x - base.x, y: p.y - base.y };
+      };
+      setGeo({ stack: at(d), folders: folderRefs.current.map((f) => (f ? at(f) : { x: 0, y: 0 })) });
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(L);
+    return () => ro.disconnect();
+  }, []);
+
+  // stav každého dokladu ve fázi třídění
+  const launched = (i: number) => s > 3 || (s === 3 && t >= i * STEP + READ);
+  const reading = (i: number) => s === 3 && t >= i * STEP && !launched(i);
+  const arrived = (i: number) => s > 3 || (s === 3 && t >= i * STEP + READ + FLY);
+  const filed = s >= 3 && s <= 6;
+  const count = (f: number) => (filed ? docs.filter((d, i) => d.f === f && arrived(i)).length : 0);
+  // složka krátce blikne, když do ní doklad zrovna dopadl
+  const hit = (f: number) =>
+    s === 3 && docs.some((d, i) => d.f === f && t >= i * STEP + READ + FLY && t < i * STEP + READ + FLY + 320);
+  const allIn = s >= 4 && s <= 5;
 
   return (
     <Scene sceneRef={ref} base={480} className={`sc--doc${s === 6 ? ' is-out' : ''}`}>
@@ -49,13 +110,21 @@ export default function DocLive() {
         <div className="win__bar">
           <span className="win__dots" />
           <b className="win__name">Doklady · Studio Hana</b>
-          <span className="win__live">{sorted ? 'Roztříděno' : s >= 1 ? '8 nových' : 'Čeká na doklady'}</span>
+          <span className="win__live">{allIn ? 'Roztříděno' : s === 3 ? `Třídím ${Math.min(N, docs.filter((_, i) => launched(i)).length)}/${N}` : s >= 2 ? '8 nových' : 'Čeká na doklady'}</span>
         </div>
         <div className="dk__area">
-          <p className={`dk__drop${s === 0 ? ' is-on' : ''}`}>{sorted ? '8 dokladů je ve složkách' : 'Sem doklady přetáhněte'}</p>
+          <p className={`dk__drop${s === 1 ? ' is-on' : ''}`} ref={drop}>
+            <span className={allIn ? 'is-on' : ''}>{allIn || s === 6 ? '8 dokladů je ve složkách' : s >= 2 ? '' : 'Sem doklady přetáhněte'}</span>
+          </p>
           <div className="dk__folders">
             {folders.map((f, i) => (
-              <span className={`dk__folder${count(i) ? ' is-on' : ''}`} key={f} style={{ transitionDelay: sorted && s === 3 ? `${300 + i * 120}ms` : undefined }}>
+              <span
+                className={`dk__folder${count(i) ? ' is-on' : ''}${hit(i) ? ' is-hit' : ''}`}
+                key={f}
+                ref={(el) => {
+                  folderRefs.current[i] = el;
+                }}
+              >
                 <Svg>{ico.folder}</Svg>
                 {f}
                 <b className="num">{count(i)}</b>
@@ -65,31 +134,61 @@ export default function DocLive() {
         </div>
       </div>
 
-      {/* jednotlivé doklady: volně v prostoru, ať se můžou rozletět do hloubky */}
-      {docs.map((d, i) => {
-        const p = place(i, s);
-        return (
-          <div
-            className="dk__doc"
-            key={i}
-            style={{
-              left: `${p.x}%`,
-              top: `${p.y}%`,
-              opacity: p.o,
-              transform: `translateZ(${p.z}px) rotate(${p.r}deg) scale(${p.k})`,
-              transitionDelay: s === 2 || s === 3 ? `${i * 50}ms` : undefined,
-              zIndex: docs.length - i,
-            }}
-          >
-            <span className={`dk__kind dk__kind--${d.f}${s === 2 ? ' is-on' : ''}`}>{d.kind}</span>
-            <b>{d.who}</b>
-            <i />
-            <i />
-            <span className="num">{d.v}</span>
-            {i === 0 && <Cursor state={s === 0 ? 'click' : s === 1 ? 'in' : 'off'} className="dk__cur" />}
-          </div>
-        );
-      })}
+      {/* doklady: vlastní vrstva, ať je scéna při doznění neztlumí naráz se vším */}
+      <div className="dk__docs" ref={layer}>
+        {geo &&
+          docs.map((d, i) => {
+            const depth = N - 1 - i; // 0 = spodek hromádky
+            const st = geo.stack;
+            let x = st.x - 1.2 * depth;
+            let y = st.y - 2.2 * depth;
+            let r = (i % 2 ? 1 : -1) * (0.6 + (i % 3) * 0.7);
+            let k = 1;
+            let o = 1;
+            let mode = 'stack';
+            if (s === 0) {
+              // čeká mimo okno vpravo nahoře, neviditelná, bez animace
+              x += 150;
+              y -= 70;
+              r += 8;
+              o = 0;
+              mode = 'prep';
+            } else if (s === 1) {
+              mode = 'drag';
+            } else if (launched(i) && s !== 0) {
+              const f = geo.folders[d.f];
+              x = f.x;
+              y = f.y;
+              r = 0;
+              k = 0.22;
+              o = 0;
+              mode = 'fly';
+            } else if (reading(i)) {
+              y -= 10;
+              k = 1.05;
+              r = 0;
+              mode = 'read';
+            }
+            return (
+              <div
+                key={i}
+                className={`dk__doc-x is-${mode}`}
+                style={{ transform: `translate3d(${x}px, 0, 0)`, zIndex: N - i }}
+              >
+                <div className="dk__doc-y" style={{ transform: `translate3d(0, ${y}px, ${i === 0 ? 2 : 0}px)` }}>
+                  <div className="dk__doc" style={{ transform: `translate(-50%, -50%) rotate(${r}deg) scale(${k})`, opacity: o }}>
+                    <span className={`dk__kind dk__kind--${d.f}${reading(i) || launched(i) ? ' is-on' : ''}`}>{d.kind}</span>
+                    <b>{d.who}</b>
+                    <i />
+                    <i />
+                    <span className="num">{d.v}</span>
+                    {i === 0 && <Cursor state={s === 1 ? 'click' : s === 2 ? 'in' : 'off'} className="dk__cur" />}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+      </div>
 
       <Layer z={110} className={`dk__out-l${s === 4 || s === 5 ? ' is-in' : ''}`}>
         <div className="dk__out">
