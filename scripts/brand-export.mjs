@@ -24,51 +24,38 @@ const wm = JSON.parse(readFileSync(join(root, 'scripts/brand/wordmark.json'), 'u
 const C = {
   eye: '#1d1424',
   cream: '#ffe8fa',
-  wing: '#6b2a73',
-  dark: {
-    top: '#ffb9ff', bot: '#c16acf', word: '#ffffff', sub: '#ffa4fb',
-  },
-  light: {
-    top: '#e888ec', bot: '#a948b3', word: '#1d1424', sub: '#a63dad',
-  },
+  dark: { body: '#fea6fd', word: '#ffffff', sub: '#ffa4fb' },
+  light: { body: '#b959c2', word: '#1d1424', sub: '#a63dad' },
 };
 
 /* ── sova ───────────────────────────────────────────────────────── */
-const BODY = 'M24 24 41 37Q60 30 79 37L96 24Q102 44 102 64C102 92 86 109 60 109 34 109 18 92 18 64Q18 44 24 24Z';
-const WINGS = 'M20 68C20 90 33 103 47 107 38 96 33 84 33 70Z M100 68C100 90 87 103 73 107 82 96 87 84 87 70Z';
-const FACE = 'M60 41C48 31 27 38 27 59 27 77 43 85 60 82 77 85 93 77 93 59 93 38 72 31 60 41Z';
-const CHEST = 'M46 92l6 5 6-5M62 92l6 5 6-5';
-const BEAK = 'M55 71Q60 68.5 65 71L60 81Z';
+const BODY = 'M26 26 44 38Q60 33 76 38L94 26Q100 44 100 64C100 92 84 106 60 106 36 106 20 92 20 64Q20 44 26 26Z';
+const BEAK = 'M55 74Q60 72 65 74L60 83Z';
+const MOON = '<circle cx="47" cy="56" r="9.4" fill="#000"/>'; // výřez, ze kterého vznikne srpek
 
 /** @param {string} id předpona id (v jednom dokumentu může být víc sov) */
 function owl(id, mode, pal) {
+  const moonMask = `<mask id="${id}m" maskUnits="userSpaceOnUse" x="20" y="36" width="44" height="48"><rect x="20" y="36" width="44" height="48" fill="#fff"/>${MOON}</mask>`;
   if (mode === 'color') {
     return `
-<defs>
-  <linearGradient id="${id}g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${pal.top}"/><stop offset="1" stop-color="${pal.bot}"/></linearGradient>
-  <mask id="${id}m" maskUnits="userSpaceOnUse" x="20" y="35" width="44" height="48"><rect x="20" y="35" width="44" height="48" fill="#fff"/><circle cx="47" cy="56" r="9.4" fill="#000"/></mask>
-</defs>
-<path d="${BODY}" fill="url(#${id}g)" stroke="url(#${id}g)" stroke-width="5" stroke-linejoin="round"/>
-<path d="${WINGS}" fill="${C.wing}" fill-opacity=".22"/>
-<path d="${FACE}" fill="#fff" fill-opacity=".26"/>
-<path d="${CHEST}" fill="none" stroke="${C.wing}" stroke-opacity=".35" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<circle cx="42" cy="59" r="15.5" fill="${C.eye}"/><circle cx="78" cy="59" r="15.5" fill="${C.eye}"/>
-<circle cx="42" cy="59" r="10.5" fill="${C.cream}" mask="url(#${id}m)"/><circle cx="78" cy="59" r="10.5" fill="${C.cream}"/>
+<defs>${moonMask}</defs>
+<path d="${BODY}" fill="${pal.body}" stroke="${pal.body}" stroke-width="4" stroke-linejoin="round"/>
+<circle cx="42" cy="60" r="16" fill="${C.eye}"/><circle cx="78" cy="60" r="16" fill="${C.eye}"/>
+<circle cx="42" cy="60" r="10.5" fill="${C.cream}" mask="url(#${id}m)"/><circle cx="78" cy="60" r="10.5" fill="${C.cream}"/>
 <path d="${BEAK}" fill="${C.eye}" stroke="${C.eye}" stroke-width="2.6" stroke-linejoin="round"/>`;
   }
-  // jednobarevná: oční důlky, zobák a peří na hrudi jsou vyříznuté (průhledné), měsíc a slunce plné
+  // jednobarevná: oční důlky a zobák jsou vyříznuté (průhledné), měsíc a slunce plné
   return `
 <defs>
   <mask id="${id}k" maskUnits="userSpaceOnUse" x="0" y="0" width="120" height="120">
     <rect width="120" height="120" fill="#fff"/>
-    <circle cx="42" cy="59" r="15.5" fill="#000"/><circle cx="78" cy="59" r="15.5" fill="#000"/>
+    <circle cx="42" cy="60" r="16" fill="#000"/><circle cx="78" cy="60" r="16" fill="#000"/>
     <path d="${BEAK}" fill="#000" stroke="#000" stroke-width="2.6" stroke-linejoin="round"/>
-    <path d="${CHEST}" fill="none" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
   </mask>
-  <mask id="${id}m" maskUnits="userSpaceOnUse" x="20" y="35" width="44" height="48"><rect x="20" y="35" width="44" height="48" fill="#fff"/><circle cx="47" cy="56" r="9.4" fill="#000"/></mask>
+  ${moonMask}
 </defs>
-<path d="${BODY}" fill="${pal}" stroke="${pal}" stroke-width="5" stroke-linejoin="round" mask="url(#${id}k)"/>
-<circle cx="42" cy="59" r="10.5" fill="${pal}" mask="url(#${id}m)"/><circle cx="78" cy="59" r="10.5" fill="${pal}"/>`;
+<path d="${BODY}" fill="${pal}" stroke="${pal}" stroke-width="4" stroke-linejoin="round" mask="url(#${id}k)"/>
+<circle cx="42" cy="60" r="10.5" fill="${pal}" mask="url(#${id}m)"/><circle cx="78" cy="60" r="10.5" fill="${pal}"/>`;
 }
 
 /* ── slovo FaiN Studio z křivek ─────────────────────────────────── */
@@ -163,7 +150,7 @@ const tile = (rx, scale) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 
 <radialGradient id="h" cx="50%" cy="58%" r="50%"><stop offset="0" stop-color="#e68ae6" stop-opacity=".34"/><stop offset="1" stop-color="#e68ae6" stop-opacity="0"/></radialGradient>
 </defs>
 <rect width="120" height="120" rx="${rx}" fill="url(#t)"/><rect width="120" height="120" rx="${rx}" fill="url(#h)"/>
-<g transform="translate(60 60) scale(${scale}) translate(-60 -63)">${owl('i', 'color', C.dark)}</g></svg>`;
+<g transform="translate(60 60) scale(${scale}) translate(-60 -66)">${owl('i', 'color', C.dark)}</g></svg>`;
 const icon = (s, n) => sharp(Buffer.from(s), { density: 384 }).resize(n, n).png({ compressionLevel: 9 }).toBuffer();
 writeFileSync(join(root, 'app/icon.png'), await icon(tile(27, 0.78), 512));
 writeFileSync(join(root, 'app/apple-icon.png'), await icon(tile(0, 0.74), 180));

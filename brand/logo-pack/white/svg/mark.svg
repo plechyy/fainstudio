@@ -2,11 +2,10 @@
 <defs>
   <mask id="ok" maskUnits="userSpaceOnUse" x="0" y="0" width="120" height="120">
     <rect width="120" height="120" fill="#fff"/>
-    <circle cx="42" cy="59" r="15.5" fill="#000"/><circle cx="78" cy="59" r="15.5" fill="#000"/>
-    <path d="M55 71Q60 68.5 65 71L60 81Z" fill="#000" stroke="#000" stroke-width="2.6" stroke-linejoin="round"/>
-    <path d="M46 92l6 5 6-5M62 92l6 5 6-5" fill="none" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="42" cy="60" r="16" fill="#000"/><circle cx="78" cy="60" r="16" fill="#000"/>
+    <path d="M55 74Q60 72 65 74L60 83Z" fill="#000" stroke="#000" stroke-width="2.6" stroke-linejoin="round"/>
   </mask>
-  <mask id="om" maskUnits="userSpaceOnUse" x="20" y="35" width="44" height="48"><rect x="20" y="35" width="44" height="48" fill="#fff"/><circle cx="47" cy="56" r="9.4" fill="#000"/></mask>
+  <mask id="om" maskUnits="userSpaceOnUse" x="20" y="36" width="44" height="48"><rect x="20" y="36" width="44" height="48" fill="#fff"/><circle cx="47" cy="56" r="9.4" fill="#000"/></mask>
 </defs>
-<path d="M24 24 41 37Q60 30 79 37L96 24Q102 44 102 64C102 92 86 109 60 109 34 109 18 92 18 64Q18 44 24 24Z" fill="#ffffff" stroke="#ffffff" stroke-width="5" stroke-linejoin="round" mask="url(#ok)"/>
-<circle cx="42" cy="59" r="10.5" fill="#ffffff" mask="url(#om)"/><circle cx="78" cy="59" r="10.5" fill="#ffffff"/></svg>
+<path d="M26 26 44 38Q60 33 76 38L94 26Q100 44 100 64C100 92 84 106 60 106 36 106 20 92 20 64Q20 44 26 26Z" fill="#ffffff" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" mask="url(#ok)"/>
+<circle cx="42" cy="60" r="10.5" fill="#ffffff" mask="url(#om)"/><circle cx="78" cy="60" r="10.5" fill="#ffffff"/></svg>
