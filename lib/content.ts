@@ -8,30 +8,30 @@ export const hero = {
   // první řádek nadpisu; druhý se píše a maže (components/HeroRotate.tsx)
   title: 'Umělá inteligence,',
   rotateLead: 'která',
-  rotate: ['šetří čas', 'šetří peníze', 'usnadňuje práci', 'je FaiN'],
-  titleSr: 'Umělá inteligence, která šetří čas, šetří peníze, usnadňuje práci a je FaiN.',
-  lead: 'Skoro každá firma dělá něco, co by zvládl systém. Máte nápad? Postavíme ho. Nemáte? Projdeme to spolu.',
-  primary: 'Chci zjistit, co by šlo líp',
-  secondary: 'Co všechno umíme',
+  rotate: ['maká za vás', 'nespí', 'šetří peníze', 'je FaiN'],
+  titleSr: 'Umělá inteligence, která maká za vás, nespí, šetří peníze a je FaiN.',
+  lead: 'Spoustu toho, co ve firmě děláte ručně, zvládne systém. My ho postavíme. Vy se mezitím věnujte tomu, co opravdu vydělává.',
+  primary: 'Chci vidět, co umíte',
+  secondary: 'Co všechno zvládneme',
 };
 
 export const proof = {
-  title: 'Co z toho budete mít',
+  title: 'Čísla, za kterými si stojíme',
   stats: [
-    { value: 'až 90 %', label: 'Úspora času a peněz', text: 'Práci, která dnes bere hodiny, převezme systém. Méně ruční práce znamená méně chyb a přesčasů. Kolik to dělá u vás, spočítáme na prvním hovoru.' },
-    { value: 'Ihned', label: 'Adaptace', text: 'Systém se napojí na nástroje, které už používáte, a lidi zaučíme. Nikdo se nemusí učit nový program od nuly.' },
-    { value: '100 %', label: 'Spolehlivost', text: 'Umělá inteligence nezapomene, neunaví se a dělá pořád totéž stejně. O důležitých krocích rozhodujete dál vy.' },
-    { value: '24/7', label: 'Nonstop provoz', text: 'Systém nespí. Poptávky, dotazy i data zpracuje i o víkendu a o půlnoci.' },
+    { value: 'až 90 %', label: 'Úspora času a peněz', text: 'Hodiny ruční práce převezme systém. Méně chyb, méně přesčasů a víc peněz na účtu. Kolik přesně u vás, spočítáme na prvním hovoru.' },
+    { value: 'Ihned', label: 'Adaptace', text: 'Napojíme se na to, co už používáte, a lidi zaučíme. Žádné týdny zvykání, žádný nový program od nuly.' },
+    { value: '100 %', label: 'Spolehlivost', text: 'Systém nezapomene, neonemocní a nemá blbý den. O důležitých věcech pořád rozhodujete vy.' },
+    { value: '24/7', label: 'Nonstop provoz', text: 'Zatímco spíte, systém odpovídá, třídí a počítá. Ráno je hotovo.' },
   ],
   strip: {
     title: 'Efektivita',
-    text: 'Stejný tým zvládne víc. Nic nezapadne mezi e-maily a tabulkami a lidé se věnují práci, ke které je potřeba hlava.',
+    text: 'Stejný tým zvládne víc. Nikdo už nic nehledá v e-mailech a každý dělá práci, za kterou ho platíte.',
   },
 };
 
 export const systems = {
   title: 'Co vše zvládneme udělat',
-  lead: 'Tohle je jen pár příkladů. Zvládneme i mnohem víc, fantazii se meze nekladou. Každé firmě uděláme přesně to, co potřebuje.',
+  lead: 'Tohle je jen ochutnávka. Jestli se to dá udělat systémem, uděláme to. A když ne, řekneme vám to rovnou.',
   items: [
     {
       id: 'nastroje',
@@ -89,47 +89,47 @@ export const systems = {
 export const why = {
   title: 'Jak můžete být',
   accent: 'FaiN?',
-  lead: 'Nemusíte jí rozumět. Stačí vědět, co pro vás udělá.',
+  lead: 'Nemusíte jí rozumět. To je naše práce.',
   items: [
-    { k: 'Proč', t: 'Firma toho zvládne víc.', d: 'Se stejnými lidmi uděláte víc práce, odpovídáte rychleji a rozhodujete s lepšími informacemi.' },
-    { k: 'Kde', t: 'Napříč celou firmou.', d: 'Od administrativy přes procesy až po kreativu. Dokážeme digitalizovat jakoukoliv část vaší práce.' },
-    { k: 'Jakou roli', t: 'Chytrý pomocník, ne šéf.', d: 'Čte, počítá, odpovídá, píše a navrhuje. Rozhodujete pořád vy.' },
+    { k: 'Proč', t: 'Víc práce. Stejný tým.', d: 'Odpovídáte rychleji, rozhodujete s lepšími informacemi a nikoho nemusíte nabírat.' },
+    { k: 'Kde', t: 'Úplně všude.', d: 'Administrativa, procesy i kreativa. Ukažte nám kteroukoliv část firmy a najdeme, co v ní jde líp.' },
+    { k: 'Jakou roli', t: 'Dříč, ne šéf.', d: 'Čte, počítá, odpovídá, píše a navrhuje. Šéf jste pořád vy.' },
   ],
 };
 
 export const process = {
-  title: 'Čtyři kroky, žádná záhada',
-  lead: 'Každý krok skončí něčím, co si můžete otevřít a vyzkoušet.',
+  title: 'Čtyři kroky. Žádné zbytečné schůzky.',
+  lead: 'Každý krok končí něčím, co si můžete hned vyzkoušet. Ne slibem.',
   steps: [
-    { name: 'Úvodní hovor', text: 'Nemusíte vědět, co chcete. Probereme, jak ve firmě pracujete, a společně vymyslíme, co by šlo líp. Cenu znáte hned po hovoru.' },
-    { name: 'Návrh', text: 'Co systém udělá, co od vás potřebujeme a kdy bude hotovo. Pak podpis a zálohová faktura.' },
-    { name: 'Stavíme po týdnech', text: 'Fungujeme agilně. Každý týden dostanete živou ukázku, vyzkoušíte si ji a řeknete, co změnit. Další týden to doladíme. Jsme s vámi v kontaktu celou dobu.' },
-    { name: 'Zaučení a spuštění', text: 'Ukážeme to lidem, kteří s tím budou pracovat. Napojíme to na vaše nástroje a data a pustíme to do běžného provozu.' },
+    { name: 'Úvodní hovor', text: 'Nemusíte vědět, co chcete. To zjistíme spolu. Z hovoru odcházíte s tím, co vám systém přinese a kolik bude stát.' },
+    { name: 'Návrh', text: 'Černé na bílém: co systém udělá, co od vás potřebujeme a kdy bude hotovo. Podpis, záloha a jedeme.' },
+    { name: 'Stavíme po týdnech', text: 'Každý týden dostanete živou ukázku. Vyzkoušíte ji, řeknete, co jinak, a další týden to máte. Žádné čekání na velké odhalení.' },
+    { name: 'Zaučení a spuštění', text: 'Vaše lidi to naučíme, napojíme to na vaše nástroje a pustíme do provozu. Od té chvíle to maká za vás.' },
   ],
 };
 
 export const beforeAfter = {
   title: 'Jak to vypadá dneska. A jak potom.',
-  lead: 'Neměníme, co vaše firma dělá. Měníme to, kolik z toho musí dělat lidé ručně.',
+  lead: 'Neměníme, co děláte. Měníme, kolik se u toho nadřete.',
   before: {
     label: 'Dneska',
     items: [
-      { k: 'Informace', t: 'Rozházené po e-mailech, tabulkách a hlavách lidí.' },
-      { k: 'Práce', t: 'Dělají ji lidé ručně, krok za krokem.' },
-      { k: 'Rozhodování', t: 'Podle toho, co se zrovna stihlo dohledat.' },
-      { k: 'Růst', t: 'Víc práce znamená víc lidí.' },
+      { k: 'Informace', t: 'Rozházené po e-mailech, tabulkách a hlavách. Hodně štěstí při hledání.' },
+      { k: 'Práce', t: 'Ručně, krok za krokem. Pořád dokola.' },
+      { k: 'Rozhodování', t: 'Od oka, podle toho, co se stihlo dohledat.' },
+      { k: 'Růst', t: 'Víc práce? Víc lidí. Víc nákladů.' },
     ],
   },
   after: {
     label: 'Potom',
     items: [
-      { k: 'Informace', t: 'Na jednom místě a pořád aktuální.' },
-      { k: 'Práce', t: 'Udělá ji systém. Lidé ji řídí a kontrolují.' },
-      { k: 'Rozhodování', t: 'Podle čísel, která máte po ruce.' },
-      { k: 'Růst', t: 'Víc práce zvládne i stejný tým.' },
+      { k: 'Informace', t: 'Na jednom místě. Vždycky aktuální.' },
+      { k: 'Práce', t: 'Udělá ji systém. Lidé jen řídí a kontrolují.' },
+      { k: 'Rozhodování', t: 'Podle čísel, která máte okamžitě po ruce.' },
+      { k: 'Růst', t: 'Víc práce zvládne stejný tým. Bez náboru.' },
     ],
   },
-  cta: 'Chci to vidět u nás',
+  cta: 'Chci to taky',
 };
 
 export const compare = {
@@ -149,31 +149,31 @@ export const compare = {
 export const faq = [
   {
     q: 'Nevíme, co by šlo zlepšit. Je to pro nás?',
-    a: 'Ano. Na rutinu si člověk zvykne a přestane si jí všímat, takže je to normální. Na hovoru projdeme, jak ve firmě pracujete, a ukážeme, co by mohl převzít systém. Kdybychom nic nenašli, řekneme vám to.',
+    a: 'Přesně pro vás. Na rutinu si člověk zvykne a přestane ji vidět. My ji vidíme hned. A kdybychom nic nenašli, řekneme vám to na rovinu.',
   },
   {
     q: 'Nahradí to někoho z našich lidí?',
-    a: 'Ne. Odlehčí jim od práce, kterou stejně nikdo nedělá rád. Rozhodovat, vyjednávat a mluvit se zákazníkem budou dál oni.',
+    a: 'Ne. Vezme jim práci, kterou stejně nikdo nedělá rád. Rozhodovat, vyjednávat a mluvit se zákazníky budou dál oni, jen na to konečně budou mít čas.',
   },
   {
     q: 'Co když to nebude fungovat?',
-    a: 'Po spuštění to dolaďujeme na vašich skutečných datech, dokud to nesedí. Doplatek posíláme až po předání.',
+    a: 'Bude. Po spuštění to ladíme na vašich skutečných datech, dokud to nesedí, a doplatek posíláme až po předání. Riziko je na nás.',
   },
   {
     q: 'Kolik to stojí?',
-    a: 'Záleží na tom, co má systém dělat, takže cenu neříkáme od oka. Na prvním hovoru projdeme, co potřebujete, a konkrétní číslo dostanete ještě před podpisem.',
+    a: 'Míň, než vás stojí dělat to ručně. Přesné číslo dostanete po prvním hovoru, ještě před podpisem.',
   },
   {
     q: 'Jak dlouho to trvá?',
-    a: 'Podle rozsahu. Termín domluvíme na prvním hovoru a každý týden dostanete živou ukázku, takže vidíte, jak to postupuje. Kdybychom věděli, že to nestihneme, řekneme to dřív, než cokoli podepíšete.',
+    a: 'Rychleji, než čekáte. Termín domluvíme na prvním hovoru a každý týden uvidíte živou ukázku, takže víte, že se to hýbe.',
   },
   {
     q: 'Musíme u sebe něco měnit?',
-    a: 'Ne. Napojíme se na mail, web a nástroje, které už máte. Nikdo se nemusí učit nový program.',
+    a: 'Ne. Přizpůsobíme se my vám. Napojíme se na mail, web a nástroje, které už máte.',
   },
   {
     q: 'Napojíte to na náš systém?',
-    a: 'Na mail, web, tabulky a běžné cloudové nástroje ano. Starší podnikové systémy a stěhování dat ze starého softwaru neděláme, a řekneme vám to hned na prvním hovoru.',
+    a: 'Na mail, web, tabulky a běžné cloudové nástroje bez problému. Staré podnikové systémy a stěhování dat neděláme a řekneme vám to hned, ne až po podpisu.',
   },
 ];
 
@@ -194,9 +194,9 @@ export const about = {
 };
 
 export const cta = {
-  title: 'Jeden hovor a budete vědět, jestli to má smysl',
-  text: 'Přijďte s nápadem, nebo bez něj. Projdeme, jak ve firmě pracujete, a spočítáme, kolik by vám změna ušetřila. A když to nedává smysl, dozvíte se to hned.',
+  title: 'Jeden hovor. Pak už nebudete chtít zpátky.',
+  text: 'Přijďte s nápadem, nebo bez něj. Projdeme vaši firmu, ukážeme, co jde líp, a spočítáme, kolik vám to ušetří. A když to nedává smysl, řekneme vám to do očí.',
   button: 'Chci to u nás',
   // tlačítko pod čísly
-  priceButton: 'Chci úvodní hovor',
+  priceButton: 'Chci začít',
 };

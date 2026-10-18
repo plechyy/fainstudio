@@ -41,7 +41,7 @@ export default function Compare() {
           </p>
           <h2 className="h2 hd__title" id="srovnani-title">
             <span className="silver silver--block">Jiné cesty to taky umí.</span>
-            <span className="hd__accent">Jen jinak.</span>
+            <span className="hd__accent">Jen pomaleji.</span>
           </h2>
         </header>
 
