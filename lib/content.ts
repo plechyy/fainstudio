@@ -89,7 +89,7 @@ export const systems = {
 export const why = {
   title: 'Jak můžete být',
   accent: 'FaiN?',
-  lead: 'Nemusíte jí rozumět. Stačí vědět, co pro vás udělá.',
+  lead: 'Nemusíte AI rozumět. Stačí vědět, co pro vás udělá.',
   items: [
     { k: 'Proč', t: 'Víc práce. Stejný tým.', d: 'Odpovídáte rychleji, rozhodujete s lepšími informacemi a nikoho nemusíte nabírat.' },
     { k: 'Kde', t: 'Úplně všude.', d: 'Administrativa, procesy i kreativa. Ukažte nám kteroukoliv část firmy a najdeme, co v ní jde líp.' },
