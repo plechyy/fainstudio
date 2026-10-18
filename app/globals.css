@@ -63,12 +63,12 @@
  *   sekundární (--secondary-*) decentní doplňky a odstín neutrálů
  *   bílá       (--white)       text a drobné akcenty
  *   pozadí     (--bgd-* / --bgl-*) tmavé a světlé téma
- * Color studio (roh stránky) mění primární, sekundární a pozadí.
+ * Barvy se mění jen tady, v hodnotách -h / -c / -l-adj níže.
  */
 :root {
-  --secondary-h: 48.4;
-  --secondary-c: 0.0235;
-  --secondary-l-adj: 0.1052; /* posun světlosti od základních 0,78 */
+  --secondary-h: 305.6;
+  --secondary-c: 0.039;
+  --secondary-l-adj: 0.0832; /* posun světlosti od základních 0,78 */
 
   --secondary: oklch(calc(0.78 + var(--secondary-l-adj)) var(--secondary-c) var(--secondary-h));
   --secondary-strong: oklch(calc(0.7 + var(--secondary-l-adj)) var(--secondary-c) var(--secondary-h));
@@ -78,29 +78,29 @@
   --secondary-wash: oklch(calc(0.78 + var(--secondary-l-adj)) var(--secondary-c) var(--secondary-h) / 0.12);
   --on-accent: oklch(0.2 0.02 var(--secondary-h));
 
-  /* Primární barva: odstín, sytost, posun světlosti. Color studio je přepisuje. */
-  --primary-h: 62.3;
-  --primary-c: 0.0562;
-  --primary-l-adj: -0.0097;
+  /* Primární barva: odstín, sytost, posun světlosti. */
+  --primary-h: 327.3;
+  --primary-c: 0.1654;
+  --primary-l-adj: 0.0488;
   --primary: oklch(calc(0.78 + var(--primary-l-adj)) var(--primary-c) var(--primary-h));
   --primary-deep: oklch(calc(0.6 + var(--primary-l-adj)) calc(var(--primary-c) * 1.15) var(--primary-h));
   --primary-glow: oklch(calc(0.78 + var(--primary-l-adj)) var(--primary-c) var(--primary-h) / 0.5);
   --primary-text: var(--primary);
 
-  /* Bílá: čísla sekcí, hover šedých tlačítek, výběr textu. Pevná, Color studio ji nemění. */
+  /* Bílá: čísla sekcí, hover šedých tlačítek, výběr textu. */
   --white: #f9f4f4;
   --white-deep: color-mix(in oklab, var(--white) 70%, black);
   --white-text: var(--white);
 
   /* Tmavé téma (výchozí) */
-  /* Pozadí: světlost / sytost / odstín jedné barvy (Color studio), ostatní neutrály jsou její odvozeniny */
-  --bgd-l: 0.194;
-  --bgd-c: 0.0063;
-  --bgd-h: 56;
+  /* Pozadí: světlost / sytost / odstín jedné barvy, ostatní neutrály jsou její odvozeniny */
+  --bgd-l: 0.1869;
+  --bgd-c: 0.0105;
+  --bgd-h: 303.5;
   --bgl-l: 0.9194;
   --bgl-c: 0.0395;
   --bgl-h: 280.9;
-  /* tmavé karty s kouřem (před/po, srovnání, závěrečné CTA): o kus tmavší než pozadí, takže se mění s Color studiem */
+  /* tmavé karty s kouřem (před/po, srovnání, závěrečné CTA): o kus tmavší než pozadí */
   --smoke-bg: oklch(max(0.04, calc(var(--bgd-l) - 0.03)) var(--bgd-c) var(--bgd-h));
   --bg: oklch(var(--bgd-l) var(--bgd-c) var(--bgd-h));
   --bg-deep: oklch(calc(var(--bgd-l) - 0.035) var(--bgd-c) var(--bgd-h));
@@ -163,10 +163,10 @@
  * Barvy živých scén v sekci Systémy. Každá scéna má vlastní odstín, ale všechny
  * vycházejí z primární: stejná světlost a sytost, odstíny jsou posunuté o pevný úhel
  * (terakota, hlína, šalvěj, mořská zeleň, prachová modrá, švestka, růže).
- * Mění se tedy spolu s primární v Color studiu a pořád k sobě ladí.
+ * Mění se tedy spolu s primární a pořád k sobě ladí.
  */
 :root {
-  --ac-c: calc(var(--primary-c) * 1.45 + 0.025);
+  --ac-c: clamp(0.07, calc(var(--primary-c) * 1.45 + 0.025), 0.13); /* výrazná primární nesmí scény přesytit */
 }
 .art {
   --ac: oklch(calc(0.78 + var(--primary-l-adj)) var(--ac-c) var(--ac-h, var(--primary-h)));
