@@ -177,13 +177,25 @@
 :root[data-theme='light'] .art {
   --ac-text: oklch(calc(0.56 + var(--primary-l-adj)) calc(var(--ac-c) * 1.1) var(--ac-h, var(--primary-h)));
 }
-.art--poptavky { --ac-h: calc(var(--primary-h) - 38); }
-.art--dokumenty { --ac-h: calc(var(--primary-h) + 52); }
-.art--asistent { --ac-h: calc(var(--primary-h) + 165); }
-.art--data { --ac-h: calc(var(--primary-h) + 108); }
-.art--weby { --ac-h: calc(var(--primary-h) - 88); }
-.art--procesy { --ac-h: var(--primary-h); }
-.art--nastroje { --ac-h: calc(var(--primary-h) + 222); }
+.art--poptavky,
+.sys-ac--poptavky { --ac-h: calc(var(--primary-h) - 38); }
+.art--dokumenty,
+.sys-ac--dokumenty { --ac-h: calc(var(--primary-h) + 52); }
+.art--asistent,
+.sys-ac--asistent { --ac-h: calc(var(--primary-h) + 165); }
+.art--data,
+.sys-ac--data { --ac-h: calc(var(--primary-h) + 108); }
+.art--weby,
+.sys-ac--weby { --ac-h: calc(var(--primary-h) - 88); }
+.art--procesy,
+.sys-ac--procesy { --ac-h: var(--primary-h); }
+.art--nastroje,
+.sys-ac--nastroje { --ac-h: calc(var(--primary-h) + 222); }
+
+/* sekce 2: položky seznamu i karusel nesou barvu své scény (tečka, značka, rámeček) */
+[class*='sys-ac--'] {
+  --sys-ac: oklch(calc(0.78 + var(--primary-l-adj)) var(--ac-c) var(--ac-h, var(--primary-h)));
+}
 
 /* Proč AI: každá karta má vlastní barvu ze stejné palety jako scény v sekci 2
    (animace uvnitř karty ji berou jako --primary), dlaždice mozaiky střídají pět odstínů */

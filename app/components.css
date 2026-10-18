@@ -3861,16 +3861,32 @@ html.is-loading .seq {
 .sp__item[aria-selected='true'] {
   color: var(--ink);
 }
-/* vybraná položka: zlatá značka vlevo a rámeček, který se k dolní hraně ztrácí */
-.sp__item[aria-selected='true']::before {
+/* každá položka má vlevo tečku v barvě své scény; u vybrané se natáhne ve svislou značku */
+.sp__item::before {
   content: '';
   position: absolute;
+  left: 11px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-radius: 3px;
+  background: var(--sys-ac, var(--secondary));
+  opacity: 0.75;
+  transition: opacity 200ms, box-shadow 260ms;
+}
+.sp__item:hover::before {
+  opacity: 0.9;
+}
+.sp__item[aria-selected='true']::before {
+  width: 3px;
   left: 12px;
   top: 15px;
   bottom: 15px;
-  width: 3px;
-  border-radius: 2px;
-  background: var(--secondary);
+  height: auto;
+  margin-top: 0;
+  opacity: 1;
+  box-shadow: 0 0 10px var(--sys-ac, var(--secondary));
 }
 .sp__item[aria-selected='true']::after {
   content: '';
@@ -3880,9 +3896,9 @@ html.is-loading .seq {
   border-radius: 16px;
   background: linear-gradient(
     150deg,
-    var(--secondary) 0%,
-    color-mix(in oklab, var(--secondary) 62%, transparent) 42%,
-    color-mix(in oklab, var(--secondary) 22%, transparent) 100%
+    color-mix(in oklab, var(--sys-ac, var(--secondary)) 70%, transparent) 0%,
+    color-mix(in oklab, var(--sys-ac, var(--secondary)) 36%, transparent) 42%,
+    color-mix(in oklab, var(--sys-ac, var(--secondary)) 12%, transparent) 100%
   );
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
@@ -3964,6 +3980,18 @@ html.is-loading .seq {
   display: grid;
   gap: 18px;
   align-content: start;
+}
+/* mobil: stejná tečka v barvě scény před názvem */
+.sysx__name::before {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin: 0 9px 0.18em 0;
+  border-radius: 50%;
+  vertical-align: middle;
+  background: var(--sys-ac, var(--secondary));
+  box-shadow: 0 0 8px var(--sys-ac, var(--secondary));
 }
 .sysx__name {
   font-family: var(--font-display);

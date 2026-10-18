@@ -67,7 +67,7 @@ export default function Panel() {
               aria-selected={i === active}
               aria-controls="sp-panel"
               tabIndex={i === active ? 0 : -1}
-              className="sp__item"
+              className={`sp__item sys-ac--${it.id}`}
               onClick={() => setActive(i)}
             >
               {it.name}

@@ -90,7 +90,7 @@ export default function Carousel() {
     <div className="sysx" ref={ref} role="list" aria-label="Systémy">
       {slides.map((it, i) => (
         <article
-          className="sysx__slide"
+          className={`sysx__slide sys-ac--${it.id}`}
           key={`${it.id}-${i}`}
           role="listitem"
           aria-hidden={i < items.length || i >= items.length * 2 || undefined}
