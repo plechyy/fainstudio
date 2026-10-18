@@ -1,77 +1,124 @@
+import type { ReactNode } from 'react';
 import { why } from '@/lib/content';
 
 /*
  * Sekce „Proč AI“: tři krátké body (proč, kde, jakou roli hraje), každý s jednoduchou
- * obecnou animací. Záměrně obecně: bez konkrétních případů a bez dlouhých textů.
+ * obecnou animací, která ilustruje právě ten text. Záměrně obecně: bez konkrétních
+ * případů a bez dlouhých textů.
  */
 
-/* Proč: rozházené informace se propojí v jeden celek, uprostřed se rozsvítí */
-const NODES = [
-  [24, 38],
-  [58, 16],
-  [96, 30],
-  [100, 78],
-  [62, 104],
-  [20, 86],
-];
-function Network() {
+/* Proč: stejní tři lidé, ale každý toho zvládne víc (sloupce vyrostou nad čáru „dřív“) */
+const PEOPLE = [50, 100, 150];
+function More() {
   return (
-    <svg className="why-v why-v--net" viewBox="0 0 120 120" aria-hidden="true">
-      {NODES.map(([x, y], i) => (
-        <path
-          key={`l${i}`}
-          className="why-v__link"
-          d={`M${x} ${y}L60 60`}
-          pathLength="1"
-          style={{ animationDelay: `${i * 0.18}s` }}
+    <svg className="why-v" viewBox="0 0 200 124" aria-hidden="true">
+      <path className="why-v__before" d="M28 70H172" />
+      {PEOPLE.map((x, i) => (
+        <rect
+          key={`b${x}`}
+          className="why-v__bar"
+          x={x - 11}
+          y="18"
+          width="22"
+          height="68"
+          rx="5"
+          style={{ animationDelay: `${i * 0.14}s` }}
         />
       ))}
-      {NODES.map(([x, y], i) => (
-        <circle key={`n${i}`} className="why-v__bit" cx={x} cy={y} r="5" style={{ animationDelay: `${i * 0.18}s` }} />
+      <path className="why-v__base" d="M24 88H176" />
+      {PEOPLE.map((x) => (
+        <g key={`p${x}`} className="why-v__person">
+          <circle cx={x} cy="100" r="5" />
+          <path d={`M${x - 9} 119a9 9 0 0 1 18 0`} />
+        </g>
       ))}
-      <circle className="why-v__core" cx="60" cy="60" r="9" />
     </svg>
   );
 }
 
-/* Kde: mřížka, která se postupně rozsvítí celá, tedy všude */
-function Spots() {
+/* Kde: světlo projde administrativou, procesy i kreativou */
+const AREAS: { x: number; label: string; icon: ReactNode }[] = [
+  {
+    x: 40,
+    label: 'Administrativa',
+    icon: (
+      <>
+        <path d="M33 39h10l5 5v15H33z" />
+        <path d="M37 49h7M37 54h7" />
+      </>
+    ),
+  },
+  {
+    x: 105,
+    label: 'Procesy',
+    icon: (
+      <>
+        <path d="M113 45a9 9 0 0 0-16-2" />
+        <path d="M97 37v6h6" />
+        <path d="M97 53a9 9 0 0 0 16 2" />
+        <path d="M113 61v-6h-6" />
+      </>
+    ),
+  },
+  {
+    x: 170,
+    label: 'Kreativa',
+    icon: <path d="M170 38q2 9 11 11q-9 2-11 11q-2-9-11-11q9-2 11-11z" />,
+  },
+];
+function Across() {
   return (
-    <svg className="why-v why-v--spots" viewBox="0 0 120 120" aria-hidden="true">
-      {Array.from({ length: 16 }, (_, i) => {
-        const c = i % 4;
-        const r = Math.floor(i / 4);
-        return (
-          <circle
-            key={i}
-            className="why-v__spot"
-            cx={24 + c * 24}
-            cy={24 + r * 24}
-            r="6"
-            style={{ animationDelay: `${(c + r) * 0.16}s` }}
+    <svg className="why-v" viewBox="0 0 210 124" aria-hidden="true">
+      <path className="why-v__line" d="M40 49H170" />
+      <circle className="why-v__pulse" cx="40" cy="49" r="4" />
+      {AREAS.map((a, i) => (
+        <g key={a.label} className="why-v__area" style={{ animationDelay: `${i * 0.9}s` }}>
+          <rect x={a.x - 24} y="25" width="48" height="48" rx="13" />
+          <g className="why-v__ico">{a.icon}</g>
+          <text className="why-v__txt" x={a.x} y="96">
+            {a.label}
+          </text>
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+/* Jakou roli: AI připraví dva návrhy, vybíráte vy (kurzor „Vy“ klikne) */
+function Choice() {
+  return (
+    <svg className="why-v" viewBox="0 0 200 124" aria-hidden="true">
+      {[12, 66].map((y, i) => (
+        <g key={y} className={`why-v__card why-v__card--${i ? 'b' : 'a'}`}>
+          <rect x="14" y={y} width="122" height="44" rx="10" />
+          <text className="why-v__ai" x="31" y={y + 26}>
+            AI
+          </text>
+          <path className="why-v__w" d={`M48 ${y + 17}H120`} pathLength="1" style={{ animationDelay: `${i * 0.25}s` }} />
+          <path
+            className="why-v__w"
+            d={`M48 ${y + 28}H${i ? 104 : 96}`}
+            pathLength="1"
+            style={{ animationDelay: `${0.12 + i * 0.25}s` }}
           />
-        );
-      })}
+        </g>
+      ))}
+      <g className="why-v__pick">
+        <circle cx="136" cy="66" r="9" />
+        <path d="M131.5 66.5l3 3 6-6.5" />
+      </g>
+      <g className="why-v__cursor">
+        <path d="M0 0v15l4-4 3 7 3-1.5-3-6.5h6z" />
+        <rect x="11" y="15" width="24" height="15" rx="7.5" />
+        <text x="23" y="25.5">
+          Vy
+        </text>
+      </g>
     </svg>
   );
 }
 
-/* Jakou roli: AI připraví, vy potvrdíte */
-function Hand() {
-  return (
-    <svg className="why-v why-v--hand" viewBox="0 0 120 120" aria-hidden="true">
-      <path className="why-v__line" d="M34 60h52" />
-      <circle className="why-v__packet" cx="34" cy="60" r="4.5" />
-      <circle className="why-v__node" cx="28" cy="60" r="16" />
-      <text className="why-v__txt" x="28" y="64.5">AI</text>
-      <circle className="why-v__node why-v__node--you" cx="92" cy="60" r="16" />
-      <text className="why-v__txt" x="92" y="64.5">Vy</text>
-      <path className="why-v__ok" d="M85 60.5l5 5 9-10" pathLength="1" />
-    </svg>
-  );
-}
-
-const visuals = [Network, Spots, Hand];
+const visuals = [More, Across, Choice];
 
 export default function WhyAi() {
   return (

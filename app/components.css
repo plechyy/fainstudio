@@ -3866,12 +3866,10 @@ html.is-loading .seq {
   background: var(--surface);
 }
 .why__vis {
-  display: grid;
-  place-items: center;
-  aspect-ratio: 16 / 10;
-  margin-bottom: 10px;
-  border-radius: 14px;
-  background: radial-gradient(60% 70% at 50% 50%, color-mix(in oklab, var(--primary) 12%, transparent), transparent 75%), var(--sunk);
+  display: flex;
+  align-items: center;
+  height: 168px;
+  margin: 4px 0 8px;
 }
 .why__k {
   display: flex;
@@ -3902,211 +3900,348 @@ html.is-loading .seq {
   }
 }
 
-/* animace: kreslí jen primární barvou a čarami */
+/* animace: kreslí jen primární barvou a čarami, bez vlastního podkladu */
 .why-v {
-  width: min(150px, 60%);
-  height: auto;
+  width: 100%;
+  max-width: 290px;
+  height: 100%;
   overflow: visible;
   fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.why-v__track,
-.why-v__line {
-  stroke: var(--line-strong);
-  stroke-width: 2;
-}
-.why-v__packet {
-  fill: var(--primary);
-  filter: drop-shadow(0 0 6px var(--primary-glow));
-}
-.why-v__ok {
-  stroke: var(--primary);
-  stroke-width: 3;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: why-draw 3.2s var(--ease-out) infinite;
-}
-.why-v__spot {
-  fill: var(--line-strong);
-}
-.why-v__spot {
-  animation: why-spot 3s ease-in-out infinite;
-}
-/* síť: čáry se natáhnou k jádru, to se pak rozsvítí */
-.why-v__link {
-  stroke: var(--primary);
-  stroke-width: 1.6;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  opacity: 0.7;
-  animation: why-link 3.6s var(--ease-out) infinite;
-}
-.why-v__bit {
-  fill: var(--line-strong);
-  animation: why-bit 3.6s ease-in-out infinite;
-}
-.why-v__core {
-  fill: var(--surface-2);
-  stroke: var(--line-strong);
-  stroke-width: 2;
-  animation: why-core 3.6s ease-out infinite;
-}
-.why-v__node {
-  fill: var(--surface-2);
-  stroke: var(--line-strong);
-  stroke-width: 2;
-}
-.why-v__node--you {
-  animation: why-you 3.2s ease-out infinite;
-}
-.why-v__txt {
-  fill: var(--ink-2);
+.why-v text {
   stroke: none;
   font-family: var(--font-text);
-  font-size: 12px;
   font-weight: 650;
   text-anchor: middle;
 }
-.why-v__packet {
-  animation: why-send 3.2s cubic-bezier(0.5, 0, 0.3, 1) infinite;
+
+/* 01 víc práce: sloupce vyrostou z úrovně „dřív“ */
+.why-v__before {
+  stroke: var(--line-strong);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 5;
 }
-.why-v__ok {
-  animation-delay: 0.2s;
+.why-v__base {
+  stroke: var(--line-strong);
+  stroke-width: 2;
 }
-@keyframes why-draw {
+.why-v__bar {
+  fill: var(--primary);
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transform: scaleY(0.24);
+  animation: why-grow 3.6s var(--ease-out) infinite;
+}
+.why-v__person {
+  stroke: var(--ink-3);
+  stroke-width: 2;
+}
+@keyframes why-grow {
   0%,
-  45% {
-    stroke-dashoffset: 1;
-    opacity: 1;
-  }
-  62%,
-  88% {
-    stroke-dashoffset: 0;
-    opacity: 1;
-  }
-  100% {
-    stroke-dashoffset: 0;
-    opacity: 0;
-  }
-}
-@keyframes why-spot {
-  0%,
-  8% {
-    fill: var(--line-strong);
-  }
-  22%,
-  70% {
-    fill: var(--primary);
-  }
-  92%,
-  100% {
-    fill: var(--line-strong);
-  }
-}
-@keyframes why-link {
-  0%,
-  10% {
-    stroke-dashoffset: 1;
-    opacity: 0.7;
-  }
-  40%,
-  82% {
-    stroke-dashoffset: 0;
-    opacity: 0.7;
-  }
-  100% {
-    stroke-dashoffset: 0;
-    opacity: 0;
-  }
-}
-@keyframes why-bit {
-  0%,
-  6% {
-    fill: var(--line-strong);
-  }
-  18%,
-  82% {
-    fill: var(--primary);
-  }
-  100% {
-    fill: var(--line-strong);
-  }
-}
-@keyframes why-core {
-  0%,
-  50% {
-    fill: var(--surface-2);
-    stroke: var(--line-strong);
+  12% {
+    transform: scaleY(0.24);
+    opacity: 0.45;
     filter: none;
   }
-  62%,
+  46%,
   84% {
-    fill: var(--primary);
-    stroke: var(--primary);
-    filter: drop-shadow(0 0 10px var(--primary-glow));
+    transform: scaleY(1);
+    opacity: 0.9;
+    filter: drop-shadow(0 0 6px var(--primary-glow));
   }
   100% {
-    fill: var(--surface-2);
-    stroke: var(--line-strong);
+    transform: scaleY(0.24);
+    opacity: 0.45;
     filter: none;
   }
 }
-@keyframes why-send {
+
+/* 02 napříč firmou: světlo projde všemi oblastmi */
+.why-v__line {
+  stroke: var(--line-strong);
+  stroke-width: 2;
+  stroke-dasharray: 2 6;
+}
+.why-v__pulse {
+  fill: var(--primary);
+  filter: drop-shadow(0 0 6px var(--primary-glow));
+  animation: why-pulse 2.7s linear infinite;
+}
+.why-v__area rect {
+  fill: var(--surface-2);
+  stroke: var(--line-strong);
+  stroke-width: 1.5;
+}
+.why-v__ico {
+  stroke: var(--ink-3);
+  stroke-width: 2;
+}
+.why-v__area .why-v__txt {
+  fill: var(--ink-3);
+  font-size: 10px;
+}
+.why-v__area rect,
+.why-v__ico,
+.why-v__area .why-v__txt {
+  animation: inherit;
+  animation-name: why-area;
+}
+.why-v__area {
+  animation: why-area-glow 2.7s ease-out infinite;
+}
+.why-v__ico {
+  animation-name: why-area-ico;
+}
+.why-v__area .why-v__txt {
+  animation-name: why-area-txt;
+}
+@keyframes why-pulse {
   0% {
     transform: translateX(0);
     opacity: 0;
   }
-  10% {
+  4% {
     opacity: 1;
   }
-  45% {
-    transform: translateX(42px);
+  66% {
+    transform: translateX(130px);
     opacity: 1;
   }
-  52%,
+  74%,
   100% {
-    transform: translateX(42px);
+    transform: translateX(130px);
     opacity: 0;
   }
 }
-@keyframes why-you {
+@keyframes why-area-glow {
   0%,
-  45% {
+  2% {
+    filter: none;
+  }
+  10%,
+  56% {
+    filter: drop-shadow(0 0 10px var(--primary-glow));
+  }
+  80%,
+  100% {
+    filter: none;
+  }
+}
+@keyframes why-area {
+  0%,
+  2% {
     stroke: var(--line-strong);
   }
-  55%,
-  88% {
+  10%,
+  56% {
     stroke: var(--primary);
   }
+  80%,
   100% {
     stroke: var(--line-strong);
   }
 }
+@keyframes why-area-ico {
+  0%,
+  2% {
+    stroke: var(--ink-3);
+  }
+  10%,
+  56% {
+    stroke: var(--primary);
+  }
+  80%,
+  100% {
+    stroke: var(--ink-3);
+  }
+}
+@keyframes why-area-txt {
+  0%,
+  2% {
+    fill: var(--ink-3);
+  }
+  10%,
+  56% {
+    fill: var(--ink);
+  }
+  80%,
+  100% {
+    fill: var(--ink-3);
+  }
+}
+
+/* 03 pomocník: AI napíše dva návrhy, vy jeden vyberete */
+.why-v__card rect {
+  fill: var(--surface-2);
+  stroke: var(--line-strong);
+  stroke-width: 1.5;
+}
+.why-v__ai {
+  fill: var(--primary-text);
+  font-size: 10px;
+}
+.why-v__w {
+  stroke: var(--ink-3);
+  stroke-width: 4;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: why-write 4.4s var(--ease-out) infinite;
+}
+.why-v__card--a {
+  animation: why-dim 4.4s ease infinite;
+}
+.why-v__card--b rect {
+  animation: why-chosen 4.4s ease infinite;
+}
+.why-v__pick {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: why-pick 4.4s var(--ease-out) infinite;
+}
+.why-v__pick circle {
+  fill: var(--primary);
+  stroke: none;
+}
+.why-v__pick path {
+  stroke: var(--bg);
+  stroke-width: 2.4;
+}
+.why-v__cursor {
+  animation: why-cursor 4.4s cubic-bezier(0.6, 0, 0.3, 1) infinite;
+}
+.why-v__cursor path {
+  fill: var(--ink);
+  stroke: var(--bg);
+  stroke-width: 1.2;
+}
+.why-v__cursor rect {
+  fill: var(--primary);
+}
+.why-v__cursor text {
+  fill: var(--bg);
+  font-size: 9.5px;
+}
+@keyframes why-write {
+  0%,
+  6% {
+    stroke-dashoffset: 1;
+    opacity: 1;
+  }
+  26%,
+  90% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+@keyframes why-cursor {
+  0%,
+  34% {
+    transform: translate(160px, 26px);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  58% {
+    transform: translate(112px, 92px) scale(1);
+  }
+  61% {
+    transform: translate(112px, 92px) scale(0.86);
+  }
+  64%,
+  86% {
+    transform: translate(112px, 92px) scale(1);
+    opacity: 1;
+  }
+  96%,
+  100% {
+    transform: translate(112px, 92px);
+    opacity: 0;
+  }
+}
+@keyframes why-dim {
+  0%,
+  62% {
+    opacity: 1;
+  }
+  68%,
+  90% {
+    opacity: 0.35;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes why-chosen {
+  0%,
+  61% {
+    stroke: var(--line-strong);
+    filter: none;
+  }
+  65%,
+  90% {
+    stroke: var(--primary);
+    filter: drop-shadow(0 0 10px var(--primary-glow));
+  }
+  100% {
+    stroke: var(--line-strong);
+    filter: none;
+  }
+}
+@keyframes why-pick {
+  0%,
+  61% {
+    transform: scale(0);
+  }
+  67%,
+  90% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .why-v__ok,
-  .why-v__spot,
-  .why-v__link,
-  .why-v__bit,
-  .why-v__core,
-  .why-v__node--you,
-  .why-v__packet {
+  .why-v__bar,
+  .why-v__pulse,
+  .why-v__area,
+  .why-v__area rect,
+  .why-v__ico,
+  .why-v__area .why-v__txt,
+  .why-v__w,
+  .why-v__card--a,
+  .why-v__card--b rect,
+  .why-v__pick,
+  .why-v__cursor {
     animation: none;
   }
-  .why-v__ok,
-  .why-v__link {
+  .why-v__bar,
+  .why-v__pick {
+    transform: none;
+  }
+  .why-v__w {
     stroke-dashoffset: 0;
   }
-  .why-v__bit,
-  .why-v__spot {
-    fill: var(--primary);
-  }
-  .why-v__packet {
+  .why-v__pulse,
+  .why-v__cursor {
     opacity: 0;
+  }
+  .why-v__card--a {
+    opacity: 0.35;
+  }
+  .why-v__card--b rect {
+    stroke: var(--primary);
   }
 }
 @media (max-width: 899px) {
   .why__vis {
-    aspect-ratio: 2 / 1;
+    height: 140px;
   }
 }
