@@ -23,12 +23,13 @@ export const facts = [
 ];
 
 export const proof = {
-  title: 'Cena i termín, černé na bílém',
+  title: 'Co chcete vědět před podpisem',
+  // štítek je otázka, hodnota odpověď: čtyři věci, na které se majitel ptá jako první
   stats: [
-    { value: '10 dní', label: 'Od podpisu do spuštění', text: 'Pokud to nestihneme, uslyšíte to od nás ještě před podpisem.' },
-    { value: '14 dní', label: 'Ladění bez příplatku', text: 'Po spuštění to dva týdny dolaďujeme na vašich skutečných datech. Nic za to neúčtujeme.' },
-    { value: 'od 18 000 Kč', label: 'Nejmenší projekt, bez DPH', text: 'Ty větší stojí 28 až 45 tisíc. Přesné číslo znáte po prvním hovoru, ne po týdnech auditu.' },
-    { value: '0 Kč', label: 'Měsíční paušál', text: 'Platíte jednou. Doplatek posíláme až poté, co vám to předáme.' },
+    { value: 'od 18 000 Kč', label: 'Za kolik?', text: 'Bez DPH, předem. Větší projekty stojí 28 až 45 tisíc. Přesné číslo znáte po prvním hovoru, ne po týdnech auditu.' },
+    { value: '10 dní', label: 'Za jak dlouho?', text: 'Od podpisu do spuštění. Kdybychom věděli, že to nestihneme, uslyšíte to od nás ještě před podpisem.' },
+    { value: '14 dní', label: 'A když to nebude sedět?', text: 'Po spuštění to dva týdny dolaďujeme na vašich skutečných datech. Nic za to neúčtujeme a doplatek posíláme až po předání.' },
+    { value: '0 Kč', label: 'A co potom?', text: 'Měsíčně nic. Žádný paušál ani předplatné, platíte jednou.' },
   ],
   strip: {
     title: 'Přímá linka',

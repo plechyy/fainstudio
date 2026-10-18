@@ -8,22 +8,22 @@ export default function Proof() {
         <header className="hd reveal">
           <p className="label shead__index" aria-hidden="true">
             <b>07</b>
-            Cena
+            Cena a termín
           </p>
           <h2 className="h2 hd__title" id="proof-title">
-            <span className="silver silver--block">Cena i termín,</span>
-            <span className="hd__accent">černé na bílém.</span>
+            <span className="silver silver--block">Co chcete vědět</span>
+            <span className="hd__accent">před podpisem.</span>
           </h2>
         </header>
 
         <ul className="proof reveal">
           {proof.stats.map((f, i) => (
             <li className="proof__item" style={{ ['--n' as string]: i }} key={f.label}>
+              <p className="proof__label">{f.label}</p>
               <p className="proof__value num">
                 {f.value.startsWith('od ') && <span className="proof__pre">od </span>}
                 {f.value.replace(/^od /, '')}
               </p>
-              <p className="proof__label">{f.label}</p>
               <p className="proof__text">{f.text}</p>
             </li>
           ))}
