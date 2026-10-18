@@ -3947,7 +3947,7 @@ html.is-loading .seq {
   --gap: 10px;
   display: grid;
   align-content: center;
-  gap: 22px;
+  gap: 8px;
   width: 100%;
   max-width: 320px;
 }
@@ -3967,7 +3967,7 @@ html.is-loading .seq {
 }
 .we__track {
   position: relative;
-  height: 42px;
+  height: 56px; /* místo i pro rotující prstenec kolem brány, maska ho jinak ořízne */
   mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
 }
 .we__track::before {
