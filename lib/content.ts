@@ -94,8 +94,8 @@ export const systems = {
 
 // sekce „Proč AI“: krátký obecný explainer, žádné konkrétní případy
 export const why = {
-  title: 'Proč AI?',
-  accent: 'Ve třech větách.',
+  title: 'Jak můžete být',
+  accent: 'FaiN?',
   lead: 'Nemusíte jí rozumět. Stačí vědět, co pro vás udělá.',
   items: [
     { k: 'Proč', t: 'Firma toho zvládne víc.', d: 'Se stejnými lidmi uděláte víc práce, odpovídáte rychleji a rozhodujete s lepšími informacemi.' },
