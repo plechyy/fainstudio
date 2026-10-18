@@ -1,6 +1,5 @@
 'use client';
 
-import LogoMark from './LogoMark';
 import { useEffect, useRef, useState } from 'react';
 import { CAL_URL } from '@/lib/config';
 import ThemeToggle from './ThemeToggle';
@@ -20,7 +19,7 @@ type Lens = { x: number; w: number; on: boolean; snap: boolean };
 
 export default function Nav() {
   const [menu, setMenu] = useState(false);
-  const [compact, setCompact] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [hover, setHover] = useState<number | null>(null);
   const [active, setActive] = useState<string | null>(null);
   const [lens, setLens] = useState<Lens>({ x: 0, w: 0, on: false, snap: true });
@@ -42,13 +41,12 @@ export default function Nav() {
       const el = document.getElementById(id);
       if (el) io.observe(el);
     });
-    // Kompaktní stav: jakmile spodek hero tlačítek přejede pod úroveň navigace.
-    const actions = document.querySelector<HTMLElement>('.hero__actions');
+    // Navigace je pořád stejná; při scrollu se jen zapne rozostření obsahu pod ní.
     let ticking = false;
     const check = () => {
       ticking = false;
       if (window.scrollY < 240 && !lockRef.current) setActive(null);
-      if (actions) setCompact(actions.getBoundingClientRect().bottom < 86);
+      setScrolled(window.scrollY > 12);
     };
     const onScroll = () => {
       if (ticking) return;
@@ -96,9 +94,16 @@ export default function Nav() {
 
   return (
     <header className="nav">
-      <div className={`nav__pill${compact ? ' nav__pill--solid' : ''}`}>
+      <div className={`nav-veil${scrolled ? ' is-on' : ''}`} aria-hidden="true">
+        <i />
+        <i />
+        <i />
+        <i />
+        <i />
+        <i />
+      </div>
+      <div className="nav__pill">
         <a className="logo" href="#top" aria-label="FainStudio, na začátek stránky">
-          <LogoMark className="logo__mark" />
           <span className="logo__word">
             FaiN<span className="logo__sub">Studio</span>
           </span>

@@ -96,40 +96,8 @@ html.is-loading .seq {
   transition: max-width 460ms var(--ease-out), height 320ms var(--ease-out),
     padding 320ms var(--ease-out), background-color 280ms, box-shadow 280ms;
 }
-/* Po přejetí hero tlačítek: kompaktní, skoro černý, jen nepatrně průhledný.
-   Záměrně BEZ blur/backdrop-filter, bez lesku a bez světlých hran. */
-.nav__pill--solid {
-  max-width: 960px;
-  height: 54px;
-  padding: 0 8px 0 20px;
-  background: oklch(0.1 0.004 var(--secondary-h) / 0.93);
-  box-shadow: 0 10px 30px -10px oklch(0 0 0 / 0.55);
-  /* uvnitř černého pruhu vždy světlé písmo, i ve světlém tématu */
-  --ink: oklch(0.98 0.004 var(--secondary-h));
-  --ink-2: oklch(0.8 0.008 var(--secondary-h));
-  --white-text: var(--white);
-  --accent-text: var(--secondary);
-  --primary-text: var(--primary);
-  --chip: oklch(1 0 0 / 0.08);
-  --chip-hover: oklch(1 0 0 / 0.16);
-  --glass-top: oklch(1 0 0 / 0.22);
-  --glass-edge-lo: oklch(1 0 0 / 0.08);
-}
-.nav__pill--solid .logo {
-  font-size: 1.5rem;
-  color: #fff;
-}
 /* „Studio": stejná velikost jako „FaiN", ale šedé a tenčí (běžný řez místo syntetického
    boldu; Finger Paint má jen Regular, tenčí než regular už nejde) */
-.logo__mark {
-  flex: none;
-  height: 0.95em;
-  width: auto;
-  margin-right: 0.42em;
-  overflow: visible;
-  /* tmavý stín jako u písma loga: značka je vidět i na světlé záři za navigací */
-  filter: drop-shadow(0 1px 5px oklch(0 0 0 / 0.55));
-}
 .logo__word {
   display: inline-flex;
   align-items: baseline; /* „Studio" sedí na stejném účaří jako „FaiN" */
@@ -140,6 +108,195 @@ html.is-loading .seq {
   font-weight: 400;
   letter-spacing: 0.02em;
   color: var(--primary-text);
+}
+
+/* ── navigace je statická; pod ní se při scrollu rozostří obsah a k dolní hraně plynule zaostří ── */
+.nav-veil {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: -1;
+  height: 112px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 320ms var(--ease-out);
+}
+.nav-veil.is-on {
+  opacity: 1;
+}
+/* barva stránky pod rozostřením: písmo navigace zůstane čitelné i nad obsahem */
+.nav-veil::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, color-mix(in oklab, var(--bg) 82%, transparent) 0%, color-mix(in oklab, var(--bg) 46%, transparent) 55%, transparent 100%);
+}
+/* šest vrstev s rostoucí ostrostí směrem dolů, každá maskou zapadá do sousední */
+.nav-veil i {
+  position: absolute;
+  inset: 0;
+}
+.nav-veil i:nth-child(1) {
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 14%, transparent 34%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 14%, transparent 34%);
+}
+.nav-veil i:nth-child(2) {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 8%, #000 28%, #000 36%, transparent 54%);
+  mask-image: linear-gradient(to bottom, transparent 8%, #000 28%, #000 36%, transparent 54%);
+}
+.nav-veil i:nth-child(3) {
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 28%, #000 46%, #000 54%, transparent 70%);
+  mask-image: linear-gradient(to bottom, transparent 28%, #000 46%, #000 54%, transparent 70%);
+}
+.nav-veil i:nth-child(4) {
+  -webkit-backdrop-filter: blur(2.5px);
+  backdrop-filter: blur(2.5px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 46%, #000 62%, #000 70%, transparent 86%);
+  mask-image: linear-gradient(to bottom, transparent 46%, #000 62%, #000 70%, transparent 86%);
+}
+.nav-veil i:nth-child(5) {
+  -webkit-backdrop-filter: blur(1.2px);
+  backdrop-filter: blur(1.2px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 62%, #000 80%, #000 86%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 62%, #000 80%, #000 86%, transparent 100%);
+}
+.nav-veil i:nth-child(6) {
+  -webkit-backdrop-filter: blur(0.5px);
+  backdrop-filter: blur(0.5px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 78%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 78%, #000 92%, transparent 100%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-veil {
+    transition: none;
+  }
+}
+
+/* ── sova v hero ─────────────────────────────────────────────────── */
+.owl {
+  display: block;
+  overflow: visible;
+}
+.hero__owl {
+  width: clamp(76px, 7.4vw, 104px);
+  height: auto;
+  margin: 0 auto clamp(14px, 2vh, 22px);
+  filter: drop-shadow(0 6px 22px oklch(0 0 0 / 0.45)) drop-shadow(0 0 30px var(--primary-glow));
+}
+.owl__eye,
+.owl__pupil {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .owl--live {
+    animation: owl-in 900ms var(--ease-out) both, owl-float 6s ease-in-out 900ms infinite;
+  }
+  html.is-loading .owl--live {
+    animation-play-state: paused;
+  }
+  /* probudí se: oči se otevřou, pak se rozhlíží a občas mrknou */
+  .owl--live .owl__eye {
+    animation: owl-wake 900ms var(--ease-out) 350ms both, owl-blink 6.4s ease-in-out 3.2s infinite;
+  }
+  .owl--live .owl__pupil {
+    animation: owl-look 7.2s ease-in-out 1.4s infinite;
+  }
+  .owl--live .owl__pupil--sun {
+    animation-name: owl-look, owl-sun;
+    animation-duration: 7.2s, 3.6s;
+    animation-delay: 1.4s, 0s;
+  }
+  .owl--live .owl__phase {
+    animation: owl-phase 9s ease-in-out infinite;
+  }
+  html.is-loading .owl--live .owl__eye,
+  html.is-loading .owl--live .owl__pupil,
+  html.is-loading .owl--live .owl__phase {
+    animation-play-state: paused;
+  }
+}
+.owl__phase {
+  transform: translate(5px, -3px);
+}
+@keyframes owl-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.86);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes owl-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+@keyframes owl-wake {
+  from {
+    transform: scaleY(0.06);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@keyframes owl-blink {
+  0%,
+  92%,
+  100% {
+    transform: scaleY(1);
+  }
+  95.5% {
+    transform: scaleY(0.07);
+  }
+}
+@keyframes owl-look {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  18% {
+    transform: translate(3px, -1px);
+  }
+  44% {
+    transform: translate(3px, -1px);
+  }
+  56% {
+    transform: translate(-3px, 0.5px);
+  }
+  82% {
+    transform: translate(-3px, 0.5px);
+  }
+}
+@keyframes owl-sun {
+  0%,
+  100% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.07;
+  }
+}
+/* měsíc dorůstá a couvá: čas v noci plyne */
+@keyframes owl-phase {
+  0%,
+  100% {
+    transform: translate(5px, -3px);
+  }
+  50% {
+    transform: translate(11px, -6px);
+  }
 }
 @media (prefers-reduced-motion: no-preference) {
   .nav__pill {
@@ -1629,9 +1786,6 @@ html.is-loading .seq {
 
 :root[data-theme='light'] .logo {
   text-shadow: none;
-}
-:root[data-theme='light'] .nav__pill--solid .logo {
-  text-shadow: 0 1px 8px oklch(0 0 0 / 0.5);
 }
 :root[data-theme='light'] .proof__value {
   background: linear-gradient(180deg, color-mix(in oklab, var(--primary-text) 75%, black) 0%, var(--primary-text) 85%);
