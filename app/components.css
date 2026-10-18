@@ -1356,8 +1356,8 @@ html.is-loading .seq {
 }
 .proof__value {
   font-family: var(--font-display);
-  /* velikost se řídí šířkou sloupce, takže „od 18 000 Kč“ se vejde i ve čtyřech úzkých sloupcích */
-  font-size: min(3.1rem, 16.2cqw);
+  /* velikost se řídí šířkou sloupce, takže i „Spolehlivost“ se vejde do úzkého sloupce */
+  font-size: min(3.1rem, 13.4cqw);
   font-weight: 620;
   letter-spacing: -0.03em;
   line-height: 1.05;

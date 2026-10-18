@@ -10,7 +10,7 @@ const LINKS = [
   { href: '#postup', label: 'Postup' },
   { href: '#pred-po', label: 'Dneska a potom' },
   { href: '#srovnani', label: 'Srovnání' },
-  { href: '#proof', label: 'Cena' },
+  { href: '#proof', label: 'Přínosy' },
   { href: '#faq', label: 'Otázky' },
 ];
 const TRACKED = LINKS.map((l) => l.href.slice(1));

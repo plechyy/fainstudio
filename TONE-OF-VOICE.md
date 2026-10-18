@@ -14,7 +14,7 @@ Jako šikovný člověk, který vám u kávy vysvětlí, co umí, a nehraje si p
 4. **Kontrast místo superlativů.** „Jiné cesty to taky umí. Jen jinak.“ Vymezujeme se vůči hluku, ne vůči lidem.
 5. **Mluvíme jako my.** První osoba množného čísla, vykání. Občas lehce hovorové slovo („spadnou z vás“, „žádná záhada“), ale bez slangu, který by u majitele firmy zněl divně.
 6. **Pojmenujeme obavu dřív, než se zeptá.** Nenahradí to lidi. Cena je jasná. Když to nejde, řekneme to dřív, než se cokoli podepíše.
-7. **Konkrétní věci a čísla.** Jen ta, která opravdu platí (10 dní, 14 dní ladění, od 18 000 Kč, 28 až 45 tisíc, 0 Kč paušál, odpověď týž den). Nic nezaokrouhlujeme a nevymýšlíme.
+7. **Žádné pevné ceny, termíny ani počty dní.** Každá zakázka je jiná, cena i termín se domlouvají na prvním hovoru. Píšeme o výsledcích (čas, peníze, efektivita, spolehlivost), ne o číslech, která za nás nikdo nepodepíše. Nepíšeme ani „nejsme agentura“.
 8. **Nadpisy jsou krátké a často mají tečku nebo čárku.** „Čtyři kroky, žádná záhada“, „Cena i termín, černé na bílém“. Maximálně dva řádky.
 9. **Humor jen jemný.** Jedna lehká věta stačí. Nikdy na úkor zákazníka.
 10. **Anglicismy jen když je tak říká obor.** Jinak česky.

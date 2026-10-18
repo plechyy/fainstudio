@@ -8,11 +8,11 @@ export default function Proof() {
         <header className="hd reveal">
           <p className="label shead__index" aria-hidden="true">
             <b>07</b>
-            Cena a termín
+            Přínosy
           </p>
           <h2 className="h2 hd__title" id="proof-title">
-            <span className="silver silver--block">Co chcete vědět</span>
-            <span className="hd__accent">před podpisem.</span>
+            <span className="silver silver--block">Co z toho</span>
+            <span className="hd__accent">budete mít.</span>
           </h2>
         </header>
 

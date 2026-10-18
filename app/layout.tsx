@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE),
   title: 'FainStudio — automatizace procesů, interní nástroje a sběr dat',
   description:
-    'Postavíme systém, který převezme práci, co dnes děláte rukama. Spuštěno do 10 dní, od 18 000 Kč. Malé studio z Prahy.',
+    'Postavíme systém, který převezme práci, co dnes děláte rukama. Malé studio z Prahy.',
   alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     url: SITE,
     title: 'FainStudio — automatizace procesů, interní nástroje a sběr dat',
     description:
-      'Postavíme systém, který převezme práci, co dnes děláte rukama. Spuštěno do 10 dní, od 18 000 Kč.',
+      'Postavíme systém, který převezme práci, co dnes děláte rukama. Malé studio z Prahy.',
     images: ['/media/hero-poster.jpg'],
   },
 };

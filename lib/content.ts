@@ -1,7 +1,7 @@
 /**
  * Texty webu. Hlas a pravidla jsou v TONE-OF-VOICE.md — před úpravou si je přečti.
- * Čísla (10 dní, 14 dní, od 18 000 Kč, 28–45 tisíc, 0 Kč paušál, týž den) jsou z briefu:
- * nic nepřidávat ani nezaokrouhlovat.
+ * Žádné pevné ceny, termíny ani počty dní: každá zakázka je jiná, cena i termín se domlouvají
+ * na prvním hovoru. Nepsat ani „nejsme agentura“.
  */
 
 export const hero = {
@@ -15,25 +15,18 @@ export const hero = {
   secondary: 'Co všechno umíme',
 };
 
-export const facts = [
-  { value: '10 dní', label: 'Od podpisu do spuštění', text: 'Pokud to nestihneme, uslyšíte to od nás ještě před podpisem.' },
-  { value: 'od 18 000 Kč', label: 'Nejmenší projekt, bez DPH', text: 'Ty větší stojí 28 až 45 tisíc. Přesné číslo znáte po prvním hovoru.' },
-  { value: 'Bez agentury', label: 'Mluvíte přímo s tím, kdo to staví', text: 'Nejsme agentura, takže vám nikdo nepředává zadání z ruky do ruky.' },
-  { value: 'Týž den', label: 'Odpověď na mail nebo telefon', text: 'Napište nebo zavolejte. Ozveme se ještě ten samý den.' },
-];
-
 export const proof = {
-  title: 'Co chcete vědět před podpisem',
-  // štítek je otázka, hodnota odpověď: čtyři věci, na které se majitel ptá jako první
+  title: 'Co z toho budete mít',
+  // štítek je obava, hodnota přínos, který ji řeší
   stats: [
-    { value: 'od 18 000 Kč', label: 'Za kolik?', text: 'Bez DPH, předem. Větší projekty stojí 28 až 45 tisíc. Přesné číslo znáte po prvním hovoru, ne po týdnech auditu.' },
-    { value: '10 dní', label: 'Za jak dlouho?', text: 'Od podpisu do spuštění. Kdybychom věděli, že to nestihneme, uslyšíte to od nás ještě před podpisem.' },
-    { value: '14 dní', label: 'A když to nebude sedět?', text: 'Po spuštění to dva týdny dolaďujeme na vašich skutečných datech. Nic za to neúčtujeme a doplatek posíláme až po předání.' },
-    { value: '0 Kč', label: 'A co potom?', text: 'Měsíčně nic. Žádný paušál ani předplatné, platíte jednou.' },
+    { value: 'Úspora času', label: 'Zabere to víc času, než ušetří?', text: 'Práce, která dnes bere hodiny, se dělá sama. Čas, který zbyde, patří lidem, ne tabulkám.' },
+    { value: 'Úspora peněz', label: 'Vyplatí se to?', text: 'Méně ruční práce, méně chyb a méně přesčasů. Kolik to ve vaší firmě dělá, spočítáme spolu na prvním hovoru.' },
+    { value: 'Efektivita', label: 'Bude firma fungovat líp?', text: 'Stejný tým zvládne víc a nic nezapadne mezi e-maily a tabulkami. Úzká místa najdeme a odstraníme.' },
+    { value: 'Spolehlivost', label: 'Dá se na to spolehnout?', text: 'Systém dělá pořád totéž stejně, i o víkendu a o půlnoci. Po spuštění ho ladíme na vašich skutečných datech a o důležitých krocích rozhodujete dál vy.' },
   ],
   strip: {
-    title: 'Přímá linka',
-    text: 'Nejsme agentura, takže vám nikdo nepředává zadání z ruky do ruky. Napíšete nebo zavoláte a ještě týž den se ozveme.',
+    title: 'Zvyknete si hned',
+    text: 'Systém se napojí na nástroje, které už používáte, a lidi, kteří s ním budou pracovat, zaučíme. Nikdo se nemusí učit nový program od nuly, takže se firma přizpůsobí hned.',
   },
 };
 
@@ -165,15 +158,15 @@ export const faq = [
   },
   {
     q: 'Co když to nebude fungovat?',
-    a: 'Prvních 14 dní po spuštění to dolaďujeme na vašich skutečných datech a nic za to neúčtujeme. Doplatek posíláme až po předání.',
+    a: 'Po spuštění to dolaďujeme na vašich skutečných datech, dokud to nesedí. Doplatek posíláme až po předání.',
   },
   {
     q: 'Kolik to stojí?',
-    a: 'Od 18 000 Kč bez DPH, větší projekty vyjdou na 28 až 45 tisíc. Přesnou cenu znáte po prvním hovoru, ne po týdnech auditu.',
+    a: 'Záleží na tom, co má systém dělat, takže cenu neříkáme od oka. Na prvním hovoru projdeme, co potřebujete, a konkrétní číslo dostanete ještě před podpisem.',
   },
   {
     q: 'Jak dlouho to trvá?',
-    a: 'Do deseti dní od podpisu. Kdybychom věděli, že to nestihneme, řekneme to dřív, než cokoli podepíšete.',
+    a: 'Podle rozsahu. Termín domluvíme na prvním hovoru a každý týden dostanete živou ukázku, takže vidíte, jak to postupuje. Kdybychom věděli, že to nestihneme, řekneme to dřív, než cokoli podepíšete.',
   },
   {
     q: 'Musíme u sebe něco měnit?',
@@ -187,7 +180,7 @@ export const faq = [
 
 export const about = {
   name: 'Matyáš Plecháč',
-  text: 'Nejsme agentura, jsme malé studio z Prahy. Stavíme automatizace, interní nástroje, sběr dat a weby. Když napíšete, odpoví vám ten, kdo to pak bude dělat.',
+  text: 'Jsme malé studio z Prahy. Stavíme automatizace, interní nástroje, sběr dat a weby. Když napíšete, odpoví vám ten, kdo to pak bude dělat.',
   /*
    * REFERENCE — ZATÍM SKRYTÉ.
    * Nezobrazovat, dokud zadavatel nemá od každého klienta písemný souhlas
