@@ -9,7 +9,7 @@ export default function BeforeAfter() {
         <div className="ba reveal">
           <header className="ba-head">
             <p className="label shead__index" aria-hidden="true">
-              <b>04</b>
+              <b>05</b>
               Dneska a potom
             </p>
             <h2 className="h2 ba-head__title" id="ba-title">

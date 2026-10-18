@@ -5,7 +5,7 @@ export default function Faq() {
   return (
     <section className="section" id="faq" aria-labelledby="faq-title">
       <div className="wrap faq-grid">
-        <SectionHead index="07" name="Otázky" id="faq-title" title={
+        <SectionHead index="08" name="Otázky" id="faq-title" title={
             <>
               <span className="silver silver--block">Na co se ptáte</span>
               <span className="hd__accent">ještě před hovorem.</span>

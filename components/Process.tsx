@@ -98,7 +98,7 @@ export default function Process() {
       <div className="wrap">
         <header className="proc-head reveal">
           <p className="label shead__index" aria-hidden="true">
-            <b>03</b>
+            <b>04</b>
             Postup
           </p>
           <h2 className="h2 proc-head__title silver" id="postup-title">

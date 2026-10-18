@@ -36,7 +36,7 @@ export default function Compare() {
       <div className="wrap">
         <header className="hd reveal">
           <p className="label shead__index" aria-hidden="true">
-            <b>05</b>
+            <b>06</b>
             Srovnání
           </p>
           <h2 className="h2 hd__title" id="srovnani-title">

@@ -2,6 +2,7 @@ import Loader from '@/components/Loader';
 import Nav from '@/components/Nav';
 import Hero from '@/components/Hero';
 import Systems from '@/components/Systems';
+import WhyAi from '@/components/WhyAi';
 import Process from '@/components/Process';
 import BeforeAfter from '@/components/BeforeAfter';
 import Compare from '@/components/Compare';
@@ -22,6 +23,7 @@ export default function Home() {
       <main id="obsah">
         <Hero />
         <Systems />
+        <WhyAi />
         <Process />
         <BeforeAfter />
         <Compare />

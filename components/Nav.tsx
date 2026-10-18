@@ -6,6 +6,7 @@ import ThemeToggle from './ThemeToggle';
 
 const LINKS = [
   { href: '#systemy', label: 'Co zvládneme' },
+  { href: '#proc-ai', label: 'Proč AI' },
   { href: '#postup', label: 'Postup' },
   { href: '#pred-po', label: 'Dneska a potom' },
   { href: '#srovnani', label: 'Srovnání' },

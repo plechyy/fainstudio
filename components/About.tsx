@@ -19,7 +19,7 @@ export default function About() {
 
         <div className="about__copy">
           <p className="label shead__index reveal" aria-hidden="true">
-            <b>08</b>Kdo to staví
+            <b>09</b>Kdo to staví
           </p>
           <h2 className="h2 reveal" id="kdo-title">
             {about.name}

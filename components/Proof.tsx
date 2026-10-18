@@ -7,7 +7,7 @@ export default function Proof() {
       <div className="wrap">
         <header className="hd reveal">
           <p className="label shead__index" aria-hidden="true">
-            <b>06</b>
+            <b>07</b>
             Cena
           </p>
           <h2 className="h2 hd__title" id="proof-title">
