@@ -192,14 +192,14 @@ async function owlInTheDark() {
   return sharp(bg).composite([{ input: svg(inner, defs) }]).png().toBuffer();
 }
 
-/** jen slovo FaiN na bílé, vyplněné kouřem v primární barvě (bez záře, jen měkký stín) */
+/** jen slovo FaiN na bílé, vyplněné růžovo-černým kouřem (bez záře, jen měkký stín) */
 async function fainOnWhite() {
-  const size = 372;
+  const size = 290; // slovo je široké ~70 % plochy, takže bezpečně uvnitř kruhového ořezu
   const shape = glyphs('FaiN', size, W / 2, W / 2 + 4, '#fff');
   const mask = await sharp(svg(shape)).png().toBuffer();
-  const field = smokeField(2.3, 11.1);
-  // na bílé drží kouř čistě růžový: od sytější magenty přes primární po světlé záblesky (žádná tmavá hnědofialová)
-  const ramp = [hex('#cf46c3'), hex('#f06fe2'), hex('#ff9bf3'), hex('#ffd0fa')];
+  const field = smokeField(3.8, 11.1);
+  // růžovo-černý kouř: z téměř černé přes tmavou magentu a primární po světle růžové záblesky
+  const ramp = [hex('#0c070f'), hex('#6a2270'), hex('#ee66df'), hex('#ffa3f5')];
   const px = new Uint8ClampedArray(W * W * 4);
   for (let i = 0; i < W * W; i++) {
     const v = field[i] * 2.999;
