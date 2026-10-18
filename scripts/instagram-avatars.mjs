@@ -91,16 +91,16 @@ async function backdrop(f, strength = 1) {
   return rgba(px);
 }
 /** výplň písmen: kouř v primární barvě, na světlinách do bílé, nahoře o něco světlejší */
-async function smokeFill(f) {
+async function smokeFill(f, pal = { lo: 0.72, hi: HOT, white: 0.34, lift: 0.07 }) {
   const px = new Uint8ClampedArray(W * W * 4);
   for (let j = 0; j < W; j++) {
     for (let i = 0; i < W; i++) {
       const v = f[j * W + i];
       const o = (j * W + i) * 4;
-      const lift = 0.07 * (1 - j / W);
+      const lift = pal.lift * (1 - j / W);
       for (let c = 0; c < 3; c++) {
-        const base = mix(HOT[c] * 0.72, HOT[c], smooth(0.1, 0.85, v));
-        const white = mix(base, 255, 0.34 * smooth(0.62, 1, v) + lift);
+        const base = mix(pal.hi[c] * pal.lo, pal.hi[c], smooth(0.1, 0.85, v));
+        const white = mix(base, 255, pal.white * smooth(0.62, 1, v) + lift);
         px[o + c] = white;
       }
       px[o + 3] = 255;
@@ -192,12 +192,41 @@ async function owlInTheDark() {
   return sharp(bg).composite([{ input: svg(inner, defs) }]).png().toBuffer();
 }
 
+/** jen slovo FaiN na bílé, vyplněné kouřem v primární barvě (bez záře, jen měkký stín) */
+async function fainOnWhite() {
+  const size = 372;
+  const shape = glyphs('FaiN', size, W / 2, W / 2 + 4, '#fff');
+  const mask = await sharp(svg(shape)).png().toBuffer();
+  const field = smokeField(2.3, 11.1);
+  // na bílé drží kouř čistě růžový: od sytější magenty přes primární po světlé záblesky (žádná tmavá hnědofialová)
+  const ramp = [hex('#cf46c3'), hex('#f06fe2'), hex('#ff9bf3'), hex('#ffd0fa')];
+  const px = new Uint8ClampedArray(W * W * 4);
+  for (let i = 0; i < W * W; i++) {
+    const v = field[i] * 2.999;
+    const k = Math.min(2, Math.floor(v));
+    const t = smooth(0, 1, v - k);
+    for (let c = 0; c < 3; c++) px[i * 4 + c] = mix(ramp[k][c], ramp[k + 1][c], t);
+    px[i * 4 + 3] = 255;
+  }
+  const fill = await sharp(await rgba(px)).blur(3).png().toBuffer();
+  const letters = await sharp(fill).composite([{ input: mask, blend: 'dest-in' }]).png().toBuffer();
+  const shadow = svg(
+    `<g filter="url(#s)" opacity=".3" transform="translate(0 12)">${glyphs('FaiN', size, W / 2, W / 2 + 4, '#e66bd8')}</g>`,
+    blur('s', 18),
+  );
+  return sharp({ create: { width: W, height: W, channels: 4, background: '#ffffff' } })
+    .composite([{ input: shadow }, { input: letters }])
+    .png()
+    .toBuffer();
+}
+
 const out = join(root, 'brand/instagram');
 mkdirSync(out, { recursive: true });
 const sets = [
   ['a-fs-kour', await lettering('FS', 560)],
   ['b-oci-ve-tme', await owlInTheDark()],
   ['c-fain-kour', await lettering('FaiN', 340)],
+  ['d-fain-bily', await fainOnWhite()],
 ];
 for (const [name, buf] of sets) writeFileSync(join(out, `${name}.png`), buf);
 
