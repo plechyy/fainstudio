@@ -1,5 +1,5 @@
-import { CAL_URL, EMAIL } from '@/lib/config';
 import { cta } from '@/lib/content';
+import ContactForm from './ContactForm';
 import ShaderBackground from './ShaderBackground';
 
 export default function Cta() {
@@ -12,17 +12,14 @@ export default function Cta() {
             <ShaderBackground bgVar="--smoke-bg" brandVar="--primary" phase={95} />
             <div className="cta__shade" />
           </div>
-          <h2 className="display cta__title" id="cta-title">
-            {cta.title}
-          </h2>
-          <p className="cta__text">{cta.text}</p>
-          <div className="cta__actions">
-            <a className="btn btn--primary cta__btn" href={CAL_URL}>
-              {cta.button}
-            </a>
-            <p className="cta__mail">
-              Raději mailem? Pište na <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
-            </p>
+          <div className="cta__copy">
+            <h2 className="display cta__title" id="cta-title">
+              {cta.title}
+            </h2>
+            <p className="cta__text">{cta.text}</p>
+          </div>
+          <div className="cta__form">
+            <ContactForm />
           </div>
         </div>
       </div>

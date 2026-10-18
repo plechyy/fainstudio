@@ -11,8 +11,8 @@ export default function Proof() {
             Přínosy
           </p>
           <h2 className="h2 hd__title" id="proof-title">
-            <span className="silver silver--block">Co z toho</span>
-            <span className="hd__accent">budete mít.</span>
+            <span className="silver silver--block">Čísla, za kterými</span>
+            <span className="hd__accent">si stojíme.</span>
           </h2>
         </header>
 

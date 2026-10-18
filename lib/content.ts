@@ -16,12 +16,12 @@ export const hero = {
 };
 
 export const proof = {
-  title: 'Co z toho budete mít',
+  title: 'Čísla, za kterými si stojíme',
   stats: [
-    { value: 'až 90 %', label: 'Úspora času a peněz', text: 'Práci, která dnes bere hodiny, převezme systém. Méně ruční práce znamená méně chyb a přesčasů. Kolik to dělá u vás, spočítáme na prvním hovoru.' },
-    { value: 'Ihned', label: 'Adaptace', text: 'Systém se napojí na nástroje, které už používáte, a lidi zaučíme. Nikdo se nemusí učit nový program od nuly.' },
-    { value: '100 %', label: 'Spolehlivost', text: 'Umělá inteligence nezapomene, neunaví se a dělá pořád totéž stejně. O důležitých krocích rozhodujete dál vy.' },
-    { value: '24/7', label: 'Nonstop provoz', text: 'Systém nespí. Poptávky, dotazy i data zpracuje i o víkendu a o půlnoci.' },
+    { value: 'až 90 %', label: 'Úspora času a peněz', text: 'Hodiny ruční práce převezme systém. Méně chyb, méně přesčasů a víc peněz na účtu. Kolik přesně u vás, spočítáme na prvním hovoru.' },
+    { value: 'Ihned', label: 'Adaptace', text: 'Napojíme se na to, co už používáte, a lidi zaučíme. Žádné týdny zvykání, žádný nový program od nuly.' },
+    { value: '100 %', label: 'Spolehlivost', text: 'Systém nezapomene, neonemocní a nemá blbý den. O důležitých věcech pořád rozhodujete vy.' },
+    { value: '24/7', label: 'Nonstop provoz', text: 'Zatímco spíte, systém odpovídá, třídí a počítá. Ráno je hotovo.' },
   ],
   strip: {
     title: 'Efektivita',
@@ -31,7 +31,7 @@ export const proof = {
 
 export const systems = {
   title: 'Co vše zvládneme udělat',
-  lead: 'Tohle je jen pár příkladů. Zvládneme i mnohem víc, fantazii se meze nekladou. Každé firmě uděláme přesně to, co potřebuje.',
+  lead: 'Tohle je jen ochutnávka. Jestli se to dá udělat systémem, uděláme to. A když ne, řekneme vám to rovnou.',
   items: [
     {
       id: 'nastroje',
@@ -91,20 +91,20 @@ export const why = {
   accent: 'FaiN?',
   lead: 'Nemusíte jí rozumět. Stačí vědět, co pro vás udělá.',
   items: [
-    { k: 'Proč', t: 'Firma toho zvládne víc.', d: 'Se stejnými lidmi uděláte víc práce, odpovídáte rychleji a rozhodujete s lepšími informacemi.' },
-    { k: 'Kde', t: 'Napříč celou firmou.', d: 'Od administrativy přes procesy až po kreativu. Dokážeme digitalizovat jakoukoliv část vaší práce.' },
-    { k: 'Jakou roli', t: 'Chytrý pomocník, ne šéf.', d: 'Čte, počítá, odpovídá, píše a navrhuje. Rozhodujete pořád vy.' },
+    { k: 'Proč', t: 'Víc práce. Stejný tým.', d: 'Odpovídáte rychleji, rozhodujete s lepšími informacemi a nikoho nemusíte nabírat.' },
+    { k: 'Kde', t: 'Úplně všude.', d: 'Administrativa, procesy i kreativa. Ukažte nám kteroukoliv část firmy a najdeme, co v ní jde líp.' },
+    { k: 'Jakou roli', t: 'Dříč, ne šéf.', d: 'Čte, počítá, odpovídá, píše a navrhuje. Šéf jste pořád vy.' },
   ],
 };
 
 export const process = {
-  title: 'Čtyři kroky, žádná záhada',
-  lead: 'Každý krok skončí něčím, co si můžete otevřít a vyzkoušet.',
+  title: 'Čtyři kroky. Žádné zbytečné schůzky.',
+  lead: 'Každý krok končí něčím, co si můžete hned vyzkoušet. Ne slibem.',
   steps: [
-    { name: 'Úvodní hovor', text: 'Nemusíte vědět, co chcete. Probereme, jak ve firmě pracujete, a společně vymyslíme, co by šlo líp. Cenu znáte hned po hovoru.' },
-    { name: 'Návrh', text: 'Co systém udělá, co od vás potřebujeme a kdy bude hotovo. Pak podpis a zálohová faktura.' },
-    { name: 'Stavíme po týdnech', text: 'Fungujeme agilně. Každý týden dostanete živou ukázku, vyzkoušíte si ji a řeknete, co změnit. Další týden to doladíme. Jsme s vámi v kontaktu celou dobu.' },
-    { name: 'Zaučení a spuštění', text: 'Ukážeme to lidem, kteří s tím budou pracovat. Napojíme to na vaše nástroje a data a pustíme to do běžného provozu.' },
+    { name: 'Úvodní hovor', text: 'Nemusíte vědět, co chcete. To zjistíme spolu. Z hovoru odcházíte s tím, co vám systém přinese a kolik bude stát.' },
+    { name: 'Návrh', text: 'Černé na bílém: co systém udělá, co od vás potřebujeme a kdy bude hotovo. Podpis, záloha a jedeme.' },
+    { name: 'Stavíme po týdnech', text: 'Každý týden dostanete živou ukázku. Vyzkoušíte ji, řeknete, co jinak, a další týden to máte. Žádné čekání na velké odhalení.' },
+    { name: 'Zaučení a spuštění', text: 'Vaše lidi to naučíme, napojíme to na vaše nástroje a pustíme do provozu. Od té chvíle to maká za vás.' },
   ],
 };
 
@@ -194,8 +194,8 @@ export const about = {
 };
 
 export const cta = {
-  title: 'Jeden hovor a budete vědět, jestli to má smysl',
-  text: 'Přijďte s nápadem, nebo bez něj. Projdeme, jak ve firmě pracujete, a spočítáme, kolik by vám změna ušetřila. A když to nedává smysl, dozvíte se to hned.',
+  title: 'Jeden hovor. Pak už nebudete chtít zpátky.',
+  text: 'Přijďte s nápadem, nebo bez něj. Projdeme vaši firmu, ukážeme, co jde líp, a spočítáme, kolik vám to ušetří. A když to nedává smysl, řekneme vám to do očí.',
   button: 'Chci to u nás',
   // tlačítko pod čísly
   priceButton: 'Chci úvodní hovor',
