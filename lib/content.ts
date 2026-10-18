@@ -8,8 +8,8 @@ export const hero = {
   // první řádek nadpisu; druhý se píše a maže (components/HeroRotate.tsx)
   title: 'Umělá inteligence,',
   rotateLead: 'která',
-  rotate: ['šetří čas', 'šetří peníze', 'usnadňuje práci', 'je FaiN'],
-  titleSr: 'Umělá inteligence, která šetří čas, šetří peníze, usnadňuje práci a je FaiN.',
+  rotate: ['šetří čas', 'maká za vás', 'šetří peníze', 'usnadňuje práci', 'je FaiN'],
+  titleSr: 'Umělá inteligence, která šetří čas, maká za vás, šetří peníze, usnadňuje práci a je FaiN.',
   lead: 'Skoro každá firma dělá něco, co by zvládl systém. Máte nápad? Postavíme ho. Nemáte? Projdeme to spolu.',
   primary: 'Chci zjistit, co by šlo líp',
   secondary: 'Co všechno umíme',
