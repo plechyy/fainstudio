@@ -1,5 +1,6 @@
 'use client';
 
+import LogoMark from './LogoMark';
 import { useEffect, useRef, useState } from 'react';
 import { CAL_URL } from '@/lib/config';
 import ThemeToggle from './ThemeToggle';
@@ -97,6 +98,7 @@ export default function Nav() {
     <header className="nav">
       <div className={`nav__pill${compact ? ' nav__pill--solid' : ''}`}>
         <a className="logo" href="#top" aria-label="FainStudio, na začátek stránky">
+          <LogoMark className="logo__mark" />
           <span className="logo__word">
             FaiN<span className="logo__sub">Studio</span>
           </span>

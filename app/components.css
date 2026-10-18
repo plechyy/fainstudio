@@ -121,6 +121,15 @@ html.is-loading .seq {
 }
 /* „Studio": stejná velikost jako „FaiN", ale šedé a tenčí (běžný řez místo syntetického
    boldu; Finger Paint má jen Regular, tenčí než regular už nejde) */
+.logo__mark {
+  flex: none;
+  height: 0.95em;
+  width: auto;
+  margin-right: 0.42em;
+  overflow: visible;
+  /* tmavý stín jako u písma loga: značka je vidět i na světlé záři za navigací */
+  filter: drop-shadow(0 1px 5px oklch(0 0 0 / 0.55));
+}
 .logo__word {
   display: inline-flex;
   align-items: baseline; /* „Studio" sedí na stejném účaří jako „FaiN" */
