@@ -29,6 +29,8 @@ export default function Proof() {
           ))}
         </ul>
 
+        <p className="proof__src reveal">{proof.source}</p>
+
         <div className="proof-strip reveal">
           <h3 className="proof-strip__title">{proof.strip.title}</h3>
           <p className="proof-strip__text">{proof.strip.text}</p>

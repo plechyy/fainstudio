@@ -7,8 +7,8 @@ export default function Faq() {
       <div className="wrap faq-grid">
         <SectionHead index="08" name="Otázky" id="faq-title" title={
             <>
-              <span className="silver silver--block">Na co se ptáte</span>
-              <span className="hd__accent">ještě před hovorem.</span>
+              <span className="silver silver--block">Máte otázky?</span>
+              <span className="hd__accent">Máme odpovědi:</span>
             </>
           } />
 

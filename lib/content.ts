@@ -17,16 +17,17 @@ export const hero = {
 
 export const proof = {
   title: 'Co z toho budete mít',
-  // štítek je obava, hodnota přínos, který ji řeší
+  // čísla jsou z průzkumu Ipsos pro AMSP ČR (2026), žádné naše sliby: velké číslo je to, co firmy trápí, text říká, co s tím uděláme
   stats: [
-    { value: 'Úspora času', label: 'Zabere to víc času, než ušetří?', text: 'Práce, která dnes bere hodiny, se dělá sama. Čas, který zbyde, patří lidem, ne tabulkám.' },
-    { value: 'Úspora peněz', label: 'Vyplatí se to?', text: 'Méně ruční práce, méně chyb a méně přesčasů. Kolik to ve vaší firmě dělá, spočítáme spolu na prvním hovoru.' },
-    { value: 'Efektivita', label: 'Bude firma fungovat líp?', text: 'Stejný tým zvládne víc a nic nezapadne mezi e-maily a tabulkami. Úzká místa najdeme a odstraníme.' },
-    { value: 'Spolehlivost', label: 'Dá se na to spolehnout?', text: 'Systém dělá pořád totéž stejně, i o víkendu a o půlnoci. Po spuštění ho ladíme na vašich skutečných datech a o důležitých krocích rozhodujete dál vy.' },
+    { value: '31 %', label: 'Úspora času', text: 'firem trápí administrativa a byrokracie. Práce, která dnes bere hodiny, se dělá sama a čas zbyde na lidi.' },
+    { value: '51 %', label: 'Úspora peněz', text: 'firem trápí rostoucí náklady. Méně ruční práce znamená méně chyb a přesčasů. Kolik to ušetří u vás, spočítáme na prvním hovoru.' },
+    { value: '50 %', label: 'Efektivita', text: 'firem čeká, že jim umělá inteligence zrychlí administrativu. Stejný tým pak zvládne víc a nic nezapadne mezi e-maily a tabulkami.' },
+    { value: '26 %', label: 'Spolehlivost', text: 'firem se bojí chyb umělé inteligence. Proto o důležitých krocích rozhoduje člověk a systém po spuštění ladíme na vašich skutečných datech.' },
   ],
+  source: 'Čísla: průzkum Ipsos pro AMSP ČR, 2026, 201 majitelů a jednatelů firem.',
   strip: {
     title: 'Zvyknete si hned',
-    text: 'Systém se napojí na nástroje, které už používáte, a lidi, kteří s ním budou pracovat, zaučíme. Nikdo se nemusí učit nový program od nuly, takže se firma přizpůsobí hned.',
+    text: '31 % firem se bojí, že na to nemají znalosti. Nemusíte je mít. Systém se napojí na nástroje, které už používáte, a lidi, kteří s ním budou pracovat, zaučíme, takže se firma přizpůsobí hned.',
   },
 };
 
