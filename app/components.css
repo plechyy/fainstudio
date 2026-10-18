@@ -4053,8 +4053,9 @@ html.is-loading .seq {
   background: var(--primary);
   color: var(--why-on);
   font-family: 'FingerPaint', var(--font-display);
-  font-size: 1.1rem;
+  font-size: 0.84rem;
   font-weight: 700;
+  letter-spacing: -0.02em;
   line-height: 1;
   box-shadow: 0 0 22px var(--primary-glow);
 }
@@ -4199,8 +4200,9 @@ html.is-loading .seq {
 .why-v .wf__coret {
   fill: var(--why-on);
   font-family: 'FingerPaint', var(--font-display);
-  font-size: 17px;
+  font-size: 12.5px;
   font-weight: 700;
+  letter-spacing: -0.02em;
 }
 .wf__draw {
   --d: clamp(0, (var(--wt) - var(--at)) * 12, 1);
