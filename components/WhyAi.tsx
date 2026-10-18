@@ -2,38 +2,53 @@ import { why } from '@/lib/content';
 
 /*
  * Sekce „Proč AI“: tři krátké body (proč, kde, jakou roli hraje), každý s jednoduchou
- * obecnou animací. Záměrně bez konkrétních příkladů z praxe a bez dlouhých textů.
+ * obecnou animací. Záměrně obecně: bez konkrétních případů a bez dlouhých textů.
  */
 
-/* Proč: kolečko, které se pořád točí, a práce jde dokola sama */
-function Loop() {
+/* Proč: rozházené informace se propojí v jeden celek, uprostřed se rozsvítí */
+const NODES = [
+  [24, 38],
+  [58, 16],
+  [96, 30],
+  [100, 78],
+  [62, 104],
+  [20, 86],
+];
+function Network() {
   return (
-    <svg className="why-v why-v--loop" viewBox="0 0 120 120" aria-hidden="true">
-      <circle className="why-v__track" cx="60" cy="60" r="34" />
-      <g className="why-v__spin">
-        <circle className="why-v__arc" cx="60" cy="60" r="34" pathLength="100" />
-        <circle className="why-v__dot" cx="60" cy="26" r="5" />
-      </g>
-      <path className="why-v__tick" d="M48 60.5l8 8 16-17" pathLength="1" />
+    <svg className="why-v why-v--net" viewBox="0 0 120 120" aria-hidden="true">
+      {NODES.map(([x, y], i) => (
+        <path
+          key={`l${i}`}
+          className="why-v__link"
+          d={`M${x} ${y}L60 60`}
+          pathLength="1"
+          style={{ animationDelay: `${i * 0.18}s` }}
+        />
+      ))}
+      {NODES.map(([x, y], i) => (
+        <circle key={`n${i}`} className="why-v__bit" cx={x} cy={y} r="5" style={{ animationDelay: `${i * 0.18}s` }} />
+      ))}
+      <circle className="why-v__core" cx="60" cy="60" r="9" />
     </svg>
   );
 }
 
-/* Kde: mřížka teček, ve které se tu a tam rozsvítí místa, kde AI pomůže */
+/* Kde: mřížka, která se postupně rozsvítí celá, tedy všude */
 function Spots() {
-  const lit = [1, 5, 7, 10, 14];
   return (
     <svg className="why-v why-v--spots" viewBox="0 0 120 120" aria-hidden="true">
       {Array.from({ length: 16 }, (_, i) => {
-        const on = lit.indexOf(i);
+        const c = i % 4;
+        const r = Math.floor(i / 4);
         return (
           <circle
             key={i}
-            className={on >= 0 ? 'why-v__spot is-on' : 'why-v__spot'}
-            cx={24 + (i % 4) * 24}
-            cy={24 + Math.floor(i / 4) * 24}
+            className="why-v__spot"
+            cx={24 + c * 24}
+            cy={24 + r * 24}
             r="6"
-            style={on >= 0 ? { animationDelay: `${on * 0.55}s` } : undefined}
+            style={{ animationDelay: `${(c + r) * 0.16}s` }}
           />
         );
       })}
@@ -56,7 +71,7 @@ function Hand() {
   );
 }
 
-const visuals = [Loop, Spots, Hand];
+const visuals = [Network, Spots, Hand];
 
 export default function WhyAi() {
   return (

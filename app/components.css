@@ -3916,23 +3916,10 @@ html.is-loading .seq {
   stroke: var(--line-strong);
   stroke-width: 2;
 }
-.why-v__arc {
-  stroke: var(--primary);
-  stroke-width: 3;
-  stroke-dasharray: 26 74;
-  transform: rotate(-90deg);
-  transform-origin: 60px 60px;
-}
-.why-v__dot,
 .why-v__packet {
   fill: var(--primary);
   filter: drop-shadow(0 0 6px var(--primary-glow));
 }
-.why-v__spin {
-  transform-origin: 60px 60px;
-  animation: why-spin 3.2s linear infinite;
-}
-.why-v__tick,
 .why-v__ok {
   stroke: var(--primary);
   stroke-width: 3;
@@ -3943,8 +3930,27 @@ html.is-loading .seq {
 .why-v__spot {
   fill: var(--line-strong);
 }
-.why-v__spot.is-on {
-  animation: why-spot 2.75s ease-in-out infinite;
+.why-v__spot {
+  animation: why-spot 3s ease-in-out infinite;
+}
+/* síť: čáry se natáhnou k jádru, to se pak rozsvítí */
+.why-v__link {
+  stroke: var(--primary);
+  stroke-width: 1.6;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0.7;
+  animation: why-link 3.6s var(--ease-out) infinite;
+}
+.why-v__bit {
+  fill: var(--line-strong);
+  animation: why-bit 3.6s ease-in-out infinite;
+}
+.why-v__core {
+  fill: var(--surface-2);
+  stroke: var(--line-strong);
+  stroke-width: 2;
+  animation: why-core 3.6s ease-out infinite;
 }
 .why-v__node {
   fill: var(--surface-2);
@@ -3968,11 +3974,6 @@ html.is-loading .seq {
 .why-v__ok {
   animation-delay: 0.2s;
 }
-@keyframes why-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
 @keyframes why-draw {
   0%,
   45% {
@@ -3991,12 +3992,64 @@ html.is-loading .seq {
 }
 @keyframes why-spot {
   0%,
+  8% {
+    fill: var(--line-strong);
+  }
+  22%,
+  70% {
+    fill: var(--primary);
+  }
+  92%,
   100% {
     fill: var(--line-strong);
   }
-  30%,
-  60% {
+}
+@keyframes why-link {
+  0%,
+  10% {
+    stroke-dashoffset: 1;
+    opacity: 0.7;
+  }
+  40%,
+  82% {
+    stroke-dashoffset: 0;
+    opacity: 0.7;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+@keyframes why-bit {
+  0%,
+  6% {
+    fill: var(--line-strong);
+  }
+  18%,
+  82% {
     fill: var(--primary);
+  }
+  100% {
+    fill: var(--line-strong);
+  }
+}
+@keyframes why-core {
+  0%,
+  50% {
+    fill: var(--surface-2);
+    stroke: var(--line-strong);
+    filter: none;
+  }
+  62%,
+  84% {
+    fill: var(--primary);
+    stroke: var(--primary);
+    filter: drop-shadow(0 0 10px var(--primary-glow));
+  }
+  100% {
+    fill: var(--surface-2);
+    stroke: var(--line-strong);
+    filter: none;
   }
 }
 @keyframes why-send {
@@ -4031,17 +4084,22 @@ html.is-loading .seq {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .why-v__spin,
-  .why-v__tick,
   .why-v__ok,
-  .why-v__spot.is-on,
+  .why-v__spot,
+  .why-v__link,
+  .why-v__bit,
+  .why-v__core,
   .why-v__node--you,
   .why-v__packet {
     animation: none;
   }
-  .why-v__tick,
-  .why-v__ok {
+  .why-v__ok,
+  .why-v__link {
     stroke-dashoffset: 0;
+  }
+  .why-v__bit,
+  .why-v__spot {
+    fill: var(--primary);
   }
   .why-v__packet {
     opacity: 0;

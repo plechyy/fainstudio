@@ -92,15 +92,15 @@ export const systems = {
   ],
 };
 
-// sekce „Proč AI“: krátký obecný explainer, žádné konkrétní příklady z praxe
+// sekce „Proč AI“: krátký obecný explainer, žádné konkrétní případy
 export const why = {
   title: 'Proč AI?',
   accent: 'Ve třech větách.',
-  lead: 'Nemusíte jí rozumět. Stačí vědět, k čemu je.',
+  lead: 'Nemusíte jí rozumět. Stačí vědět, co pro vás udělá.',
   items: [
-    { k: 'Proč', t: 'Vrátí vám čas.', d: 'Každá firma má práci, která se pořád opakuje. AI ji udělá rychle, bez únavy a pokaždé stejně.' },
-    { k: 'Kde', t: 'Všude, kde se práce opakuje.', d: 'Čtení, třídění, přepisování, hlídání. Takovou práci má skoro každá firma.' },
-    { k: 'Jakou roli', t: 'Pomocník, ne šéf.', d: 'AI připraví a odbude rutinu. Rozhodujete pořád vy.' },
+    { k: 'Proč', t: 'Firma toho zvládne víc.', d: 'Se stejnými lidmi uděláte víc práce, odpovídáte rychleji a rozhodujete s lepšími informacemi.' },
+    { k: 'Kde', t: 'Všude, kde pracujete s informacemi.', d: 'Obchod, zákazníci, provoz, čísla, marketing i vedení. To je skoro každá část firmy.' },
+    { k: 'Jakou roli', t: 'Chytrý pomocník, ne šéf.', d: 'Čte, počítá, odpovídá, píše a navrhuje. Rozhodujete pořád vy.' },
   ],
 };
 
