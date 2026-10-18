@@ -3903,9 +3903,12 @@ html.is-loading .seq {
 }
 
 /* vizuály stojí přímo v kartě, bez vlastního podkladu */
+.why__vis {
+  container-type: inline-size;
+}
 .why-v {
   width: 100%;
-  max-width: 300px;
+  max-width: 320px;
   height: 100%;
   overflow: visible;
   fill: none;
@@ -3919,505 +3922,424 @@ html.is-loading .seq {
   text-anchor: middle;
 }
 
-/* 01 graf: tým stejný, práce roste */
-.why-v__grid {
-  stroke: var(--line);
-  stroke-width: 1;
+/* společná časová osa: --wt jde 0 → 1, pak chvíli drží a smyčka se rozplyne */
+@property --wt {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
 }
-.why-v__axis {
-  stroke: var(--line-strong);
-  stroke-width: 1.5;
+@property --wn {
+  syntax: '<integer>';
+  inherits: false;
+  initial-value: 0;
 }
-.why-v__team {
-  stroke: var(--ink-3);
-  stroke-width: 2;
-  stroke-dasharray: 4 5;
+.wt {
+  --dur: 5.2s;
+  animation:
+    why-t var(--dur) linear infinite,
+    why-fade var(--dur) ease infinite;
 }
-.why-v__lbl {
-  fill: var(--ink-3);
-  font-size: 9px;
-}
-.why-v text.why-v__lbl {
-  text-anchor: end;
-}
-.why-v__rise {
-  stroke: var(--primary);
-  stroke-width: 3;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  filter: drop-shadow(0 0 6px var(--primary-glow));
-  animation: why-rise 4.4s var(--ease-out) infinite;
-}
-.why-v__area {
-  opacity: 0;
-  animation: why-fill 4.4s ease infinite;
-}
-.why-v__end {
-  transform-box: view-box;
-  transform-origin: 222px 24px;
-  transform: scale(0);
-  animation: why-pop 4.4s var(--ease-out) infinite;
-}
-.why-v__end circle,
-.why-v__end rect {
-  fill: var(--primary);
-}
-.why-v__end circle {
-  filter: drop-shadow(0 0 8px var(--primary-glow));
-}
-.why-v__end text {
-  fill: var(--why-on);
-  font-size: 9px;
-}
-@keyframes why-rise {
-  0%,
-  6% {
-    stroke-dashoffset: 1;
-    opacity: 1;
-  }
-  50%,
-  88% {
-    stroke-dashoffset: 0;
-    opacity: 1;
-  }
-  100% {
-    stroke-dashoffset: 0;
-    opacity: 0;
-  }
-}
-@keyframes why-fill {
-  0%,
-  28% {
-    opacity: 0;
-  }
-  56%,
-  88% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-@keyframes why-pop {
-  0%,
-  48% {
-    transform: scale(0);
-  }
-  56%,
-  88% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(0);
-  }
-}
-
-/* 02 radar: otáčí se přes celou firmu a rozsvěcí oblasti */
-.wr {
-  --r: 62px;
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-.wr__ring,
-.wr__sweep,
-.wr__core,
-.wr__chip {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  translate: -50% -50%;
-}
-.wr__ring {
-  width: calc(var(--r) * 2);
-  aspect-ratio: 1;
-  border: 1px dashed var(--line-strong);
-  border-radius: 50%;
-}
-.wr__ring--in {
-  width: var(--r);
-  border-style: solid;
-  border-color: var(--line);
-}
-.wr__sweep {
-  width: calc(var(--r) * 2 + 24px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: conic-gradient(from 0deg, transparent 0deg 250deg, color-mix(in oklab, var(--primary) 40%, transparent) 360deg);
-  animation: why-sweep 4s linear infinite;
-}
-.wr__sweep::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: 2px;
-  height: 50%;
-  margin-left: -1px;
-  border-radius: 2px;
-  background: linear-gradient(var(--primary), transparent);
-}
-.wr__core {
-  display: grid;
-  place-items: center;
-  width: 36px;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--primary);
-  color: var(--why-on);
-  font-size: 0.72rem;
-  font-weight: 750;
-  box-shadow: 0 0 26px var(--primary-glow);
-}
-.wr__chip {
-  left: calc(50% + var(--sx) * var(--r));
-  top: calc(50% + var(--sy) * var(--r));
-  padding: 4px 10px;
-  border: 1px solid var(--line-strong);
-  border-radius: 999px;
-  background: var(--surface-2);
-  color: var(--ink-3);
-  font-size: 0.68rem;
-  font-weight: 600;
-  white-space: nowrap;
-  animation: why-chip 4s ease-out infinite;
-}
-@keyframes why-sweep {
-  to {
-    rotate: 360deg;
-  }
-}
-@keyframes why-chip {
+@keyframes why-t {
   0% {
-    border-color: var(--primary);
-    background: var(--primary);
-    color: var(--why-on);
-    box-shadow: 0 0 18px var(--primary-glow);
+    --wt: 0;
   }
-  12%,
-  62% {
-    border-color: var(--primary);
-    background: var(--surface-2);
-    color: var(--ink);
-    box-shadow: none;
-  }
-  82%,
+  85%,
   100% {
-    border-color: var(--line-strong);
-    background: var(--surface-2);
-    color: var(--ink-3);
-    box-shadow: none;
+    --wt: 1;
+  }
+}
+@keyframes why-fade {
+  0% {
+    opacity: 0;
+  }
+  4%,
+  93% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
 
-/* 03 pomocník: AI čte, počítá a píše, připraví dva návrhy, vybíráte vy */
-.wc {
-  position: relative;
+/* 01 efektivita: ručně vs. s AI za stejný čas */
+.we {
   display: grid;
-  grid-template-rows: auto 1fr;
-  gap: 12px;
+  align-content: center;
+  gap: 14px;
   width: 100%;
   max-width: 320px;
-  height: 100%;
-  padding: 6px 0;
 }
-.wc__status {
+.we__time {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: var(--ink-3);
+  font-size: 0.64rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.we__time i {
+  position: relative;
+  flex: 1;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--line);
+  overflow: hidden;
+}
+.we__time i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--ink-3);
+  transform-origin: left;
+  transform: scaleX(var(--wt));
+}
+.we__lane {
+  display: grid;
+  grid-template-columns: 44px 1fr 30px;
+  align-items: center;
+  gap: 10px;
+}
+.we__lane > b {
+  color: var(--ink-3);
+  font-size: 0.72rem;
+  font-weight: 650;
+}
+.we__lane--ai > b {
+  color: var(--primary-text);
+}
+.we__cells {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 4px;
+}
+.we__cells i {
+  --f: clamp(0, (var(--wt) - var(--s)) / var(--d), 1);
+  /* krátký záblesk ve chvíli, kdy je úkol hotový */
+  --flash: calc(clamp(0, (var(--f) - 0.98) * 50, 1) * clamp(0, 1 - (var(--wt) - var(--s) - var(--d)) * 7, 1));
+  position: relative;
+  aspect-ratio: 1;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.we__cells i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--ink-3);
+  transform-origin: bottom;
+  transform: scaleY(var(--f));
+}
+.we__lane--ai .we__cells i {
+  border-color: color-mix(in oklab, var(--primary) calc(var(--f) * 100%), var(--line));
+  box-shadow: 0 0 calc(var(--flash) * 16px) var(--primary-glow);
+  transform: scale(calc(1 + var(--flash) * 0.18));
+}
+.we__lane--ai .we__cells i::after {
+  background: var(--primary);
+}
+.we__n {
+  --wn: var(--n);
+  counter-reset: wn var(--wn);
+  color: var(--ink-3);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  text-align: right;
+}
+.we__n::after {
+  content: counter(wn);
+}
+.we__lane--ai .we__n {
+  color: var(--primary-text);
+  text-shadow: 0 0 18px var(--primary-glow);
+}
+
+/* 02 napříč firmou: vrstvy firmy, kterými projede sken */
+.wl {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.wl__stack {
+  position: absolute;
+  left: 30%;
+  top: 50%;
+}
+.wl__layer,
+.wl__scan {
+  --l: clamp(0, (var(--wt) - var(--at)) * 9, 1);
+  position: absolute;
+  left: -48px;
+  top: -48px;
+  width: 96px;
+  height: 96px;
+  border-radius: 14px;
+  transform: translateY(calc(var(--y) * 1px - var(--l) * 5px)) rotateX(60deg) rotateZ(45deg);
+}
+.wl__layer {
+  border: 1.5px solid color-mix(in oklab, var(--primary) calc(var(--l) * 100%), var(--line-strong));
+  background:
+    linear-gradient(color-mix(in oklab, var(--primary) calc(var(--l) * 45%), var(--line)) 1px, transparent 1px) 0 0 / 16px 16px,
+    linear-gradient(90deg, color-mix(in oklab, var(--primary) calc(var(--l) * 45%), var(--line)) 1px, transparent 1px) 0 0 / 16px 16px,
+    color-mix(in oklab, var(--primary) calc(var(--l) * 16%), var(--surface-2));
+  box-shadow: 0 0 calc(var(--l) * 26px) color-mix(in oklab, var(--primary-glow) calc(var(--l) * 100%), transparent);
+}
+/* digitální dlaždice, které na vrstvě naskočí */
+.wl__layer i {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  background: var(--primary);
+  opacity: calc(var(--l) * 0.9);
+  transform: scale(calc(0.4 + var(--l) * 0.6));
+}
+.wl__layer i:nth-child(1) {
+  left: 16px;
+  top: 16px;
+}
+.wl__layer i:nth-child(2) {
+  left: 48px;
+  top: 16px;
+  width: 32px;
+}
+.wl__layer i:nth-child(3) {
+  left: 16px;
+  top: 48px;
+  height: 32px;
+}
+.wl__layer i:nth-child(4) {
+  left: 48px;
+  top: 58px;
+  width: 32px;
+  height: 22px;
+  opacity: calc(var(--l) * 0.45);
+}
+.wl__scan {
+  --y: calc(-56 + var(--wt) * 136);
+  --l: 0;
+  z-index: 5;
+  border: 2px solid var(--primary);
+  background: color-mix(in oklab, var(--primary) 10%, transparent);
+  box-shadow:
+    0 0 26px var(--primary-glow),
+    inset 0 0 18px var(--primary-glow);
+  opacity: clamp(0, (0.82 - var(--wt)) * 8, 1);
+}
+.wl__labels {
+  position: absolute;
+  inset: 0 0 0 calc(30% + 74px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.wl__labels li {
+  --l: clamp(0, (var(--wt) - var(--at)) * 9, 1);
+  position: absolute;
+  left: 0;
+  top: calc(50% + var(--y) * 1px);
   display: flex;
   align-items: center;
   gap: 8px;
-  margin: 0;
-  color: var(--ink-2);
-  font-size: 0.76rem;
+  color: color-mix(in oklab, var(--ink) calc(var(--l) * 100%), var(--ink-3));
+  font-size: 0.74rem;
+  font-weight: 650;
+  white-space: nowrap;
+  transform: translateY(calc(-50% - var(--l) * 5px));
 }
-.wc__ai {
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: var(--primary);
-  color: var(--why-on);
-  font-size: 0.66rem;
+.wl__labels li::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--primary) calc(var(--l) * 100%), var(--line-strong));
+  box-shadow: 0 0 calc(var(--l) * 10px) var(--primary-glow);
+}
+@container (max-width: 270px) {
+  .wl,
+  .we,
+  .wf {
+    zoom: 0.82;
+  }
+}
+
+/* 03 pomocník: zdroje → AI → návrhy → vy vyberete → provede se */
+.wf {
+  --dur: 6.4s;
+}
+.wf__wire,
+.wf__track {
+  stroke: var(--line-strong);
+  stroke-width: 1.5;
+}
+.wf__track {
+  fill: var(--line);
+  stroke: none;
+}
+.wf__src,
+.wf__out {
+  --l: clamp(0, (var(--wt) - var(--at)) * 12, 1);
+}
+.wf__box {
+  fill: var(--surface-2);
+  stroke: color-mix(in oklab, var(--primary) calc(var(--l) * 100%), var(--line-strong));
+  stroke-width: 1.5;
+}
+.wf__ico {
+  stroke: color-mix(in oklab, var(--primary) calc(var(--l) * 100%), var(--ink-3));
+  stroke-width: 1.6;
+}
+.wf__comet {
+  stroke: var(--primary);
+  stroke-width: 2.4;
+  stroke-dasharray: 0.2 1;
+  filter: drop-shadow(0 0 4px var(--primary-glow));
+  opacity: calc(var(--l) * clamp(0, (0.42 - var(--wt)) * 12, 1));
+  animation: why-comet 0.9s linear infinite;
+}
+.wf__ring {
+  stroke: var(--primary);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 5;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: why-spin 5s linear infinite;
+}
+.wf__core {
+  fill: var(--primary);
+  filter: drop-shadow(0 0 calc(6px + clamp(0, (0.42 - var(--wt)) * 12, 1) * 10px) var(--primary-glow));
+}
+.why-v .wf__coret {
+  fill: var(--why-on);
+  font-size: 10px;
   font-weight: 750;
 }
-.wc__verbs {
-  display: inline-grid;
+.wf__draw {
+  --d: clamp(0, (var(--wt) - var(--at)) * 12, 1);
+  stroke: var(--primary);
+  stroke-width: 1.6;
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--d));
+  opacity: 0.8;
 }
-.wc__verbs span {
-  grid-area: 1 / 1;
-  opacity: 0;
-  animation: why-verb 5.2s ease infinite;
+.wf__card {
+  --l: clamp(0, (var(--wt) - var(--at)) * 10, 1);
+  --pick: clamp(0, (var(--wt) - 0.6) * 12, 1);
+  opacity: var(--l);
+  transform: translateX(calc((1 - var(--l)) * -8px));
 }
-.wc__dots {
-  display: flex;
-  gap: 3px;
+.wf__card--a {
+  opacity: calc(var(--l) * (1 - var(--pick) * 0.62));
 }
-.wc__dots i {
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: var(--ink-3);
-  animation: why-dot 1s ease-in-out infinite;
+.wf__cardbox {
+  fill: var(--surface-2);
+  stroke: var(--line-strong);
+  stroke-width: 1.5;
 }
-.wc__dots i:nth-child(2) {
-  animation-delay: 0.15s;
+.wf__card--b .wf__cardbox {
+  stroke: color-mix(in oklab, var(--primary) calc(var(--pick) * 100%), var(--line-strong));
+  filter: drop-shadow(0 0 calc(var(--pick) * 10px) var(--primary-glow));
 }
-.wc__dots i:nth-child(3) {
-  animation-delay: 0.3s;
+.why-v .wf__cardt {
+  fill: var(--ink-2);
+  font-size: 8.5px;
+  text-anchor: start;
 }
-.wc__opts {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-.wc__opt {
-  position: relative;
-  display: grid;
-  align-content: start;
-  gap: 8px;
-  padding: 11px 12px 13px;
-  border: 1px solid var(--line-strong);
-  border-radius: 12px;
-  background: var(--surface-2);
-}
-.wc__opt b {
-  color: var(--ink-2);
-  font-size: 0.7rem;
-  font-weight: 650;
-}
-.wc__opt i {
-  display: block;
-  height: 5px;
-  border-radius: 3px;
-  background: color-mix(in oklab, var(--ink-3) 60%, transparent);
+.wf__fill {
+  fill: var(--primary);
+  transform-box: fill-box;
   transform-origin: left;
-  transform: scaleX(0);
-  animation: why-type 5.2s var(--ease-out) infinite;
+  transform: scaleX(calc(clamp(0, (var(--wt) - var(--at) - 0.04) * 8, 1) * var(--w)));
 }
-.wc__opt i:nth-of-type(2) {
-  width: 82%;
+.wf__card--a .wf__fill {
+  fill: var(--ink-3);
 }
-.wc__opt i:nth-of-type(3) {
-  width: 58%;
+.wf__ok,
+.wf__done {
+  transform-box: fill-box;
+  transform-origin: center;
 }
-.wc__opt--a {
-  animation: why-opt-a 5.2s ease infinite;
+.wf__ok {
+  transform: scale(clamp(0, (var(--wt) - 0.61) * 12, 1));
 }
-.wc__opt--b {
-  animation: why-opt-b 5.2s ease infinite;
+.wf__done {
+  transform: scale(clamp(0, (var(--wt) - var(--at) - 0.06) * 12, 1));
 }
-.wc__ok {
-  position: absolute;
-  top: -9px;
-  right: -9px;
-  display: grid;
-  place-items: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--primary);
-  box-shadow: 0 0 14px var(--primary-glow);
-  transform: scale(0);
-  animation: why-ok 5.2s var(--ease-out) infinite;
+.wf__ok circle,
+.wf__done circle {
+  fill: var(--primary);
+  filter: drop-shadow(0 0 5px var(--primary-glow));
 }
-.wc__ok svg {
-  width: 13px;
-  fill: none;
+.wf__ok path,
+.wf__done path {
   stroke: var(--why-on);
-  stroke-width: 2.4;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  stroke-width: 1.8;
 }
-.wc__cur {
-  position: absolute;
-  display: flex;
-  align-items: flex-start;
-  gap: 1px;
-  pointer-events: none;
-  animation: why-cur 5.2s cubic-bezier(0.6, 0, 0.3, 1) infinite;
+.wf__out .wf__box {
+  filter: drop-shadow(0 0 calc(clamp(0, (var(--wt) - var(--at) - 0.06) * 12, 1) * 8px) var(--primary-glow));
 }
-.wc__cur svg {
-  width: 13px;
+.wf__ripple {
+  --rp: clamp(0, (var(--wt) - 0.6) * 7, 1);
+  stroke: var(--primary);
+  stroke-width: 1.5;
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(calc(0.3 + var(--rp) * 1.6));
+  opacity: calc(min(var(--rp) * 30, 1) * (1 - var(--rp)));
+}
+.wf__cur {
+  --p: clamp(0, (var(--wt) - 0.45) / 0.14, 1);
+  --e: calc(var(--p) * var(--p) * (3 - 2 * var(--p)));
+  opacity: clamp(0, (var(--wt) - 0.44) * 20, 1);
+  transform: translate(calc((292 - var(--e) * 116) * 1px), calc((152 - var(--e) * 38) * 1px));
+}
+.wf__cur path {
   fill: var(--ink);
   stroke: var(--bg);
-  stroke-width: 1.2;
-  stroke-linejoin: round;
+  stroke-width: 1.1;
 }
-.wc__cur b {
-  margin-top: 15px;
-  padding: 2px 7px;
-  border-radius: 999px;
-  background: var(--primary);
-  color: var(--why-on);
-  font-size: 0.62rem;
+.wf__cur rect {
+  fill: var(--primary);
+}
+.why-v .wf__cur text {
+  fill: var(--why-on);
+  font-size: 8px;
   font-weight: 750;
 }
-@keyframes why-verb {
-  0% {
-    opacity: 0;
-    transform: translateY(5px);
+@keyframes why-comet {
+  from {
+    stroke-dashoffset: 0.2;
   }
-  3%,
-  17% {
-    opacity: 1;
-    transform: none;
-  }
-  20%,
-  100% {
-    opacity: 0;
-    transform: translateY(-5px);
+  to {
+    stroke-dashoffset: -1;
   }
 }
-@keyframes why-dot {
-  0%,
-  100% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-@keyframes why-type {
-  0%,
-  6% {
-    transform: scaleX(0);
-  }
-  26%,
-  84% {
-    transform: scaleX(1);
-  }
-  92%,
-  100% {
-    transform: scaleX(0);
-  }
-}
-@keyframes why-opt-a {
-  0% {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  6%,
-  60% {
-    opacity: 1;
-    transform: none;
-  }
-  66%,
-  90% {
-    opacity: 0.38;
-    transform: scale(0.96);
-  }
-  100% {
-    opacity: 0;
-    transform: none;
-  }
-}
-@keyframes why-opt-b {
-  0% {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  6%,
-  60% {
-    opacity: 1;
-    transform: none;
-    border-color: var(--line-strong);
-    box-shadow: none;
-  }
-  64%,
-  90% {
-    opacity: 1;
-    transform: scale(1.03);
-    border-color: var(--primary);
-    box-shadow: 0 0 22px var(--primary-glow);
-  }
-  100% {
-    opacity: 0;
-    transform: none;
-    border-color: var(--line-strong);
-    box-shadow: none;
-  }
-}
-@keyframes why-ok {
-  0%,
-  61% {
-    transform: scale(0);
-  }
-  67%,
-  90% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(0);
-  }
-}
-@keyframes why-cur {
-  0%,
-  36% {
-    left: 92%;
-    top: 4%;
-    opacity: 0;
-    transform: none;
-  }
-  42% {
-    opacity: 1;
-  }
-  57% {
-    left: 70%;
-    top: 58%;
-    transform: none;
-  }
-  60% {
-    transform: scale(0.85);
-  }
-  63%,
-  86% {
-    left: 70%;
-    top: 58%;
-    opacity: 1;
-    transform: none;
-  }
-  96%,
-  100% {
-    left: 70%;
-    top: 58%;
-    opacity: 0;
+@keyframes why-spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .why-v__rise,
-  .why-v__area,
-  .why-v__end,
-  .wr__sweep,
-  .wr__chip,
-  .wc__verbs span,
-  .wc__dots i,
-  .wc__opt,
-  .wc__opt i,
-  .wc__ok,
-  .wc__cur {
+  .wt,
+  .wf__comet,
+  .wf__ring {
     animation: none;
   }
-  .why-v__rise {
-    stroke-dashoffset: 0;
+  .wt {
+    --wt: 0.9;
   }
-  .why-v__area,
-  .wc__verbs span:last-child {
-    opacity: 1;
-  }
-  .why-v__end,
-  .wc__opt i,
-  .wc__ok {
-    transform: none;
-  }
-  .wr__sweep,
-  .wc__cur {
+  .wf__cur,
+  .wf__ripple,
+  .wl__scan {
     display: none;
-  }
-  .wr__chip,
-  .wc__opt--b {
-    border-color: var(--primary);
-    color: var(--ink);
-  }
-  .wc__opt--a {
-    opacity: 0.38;
   }
 }
 @media (max-width: 899px) {
