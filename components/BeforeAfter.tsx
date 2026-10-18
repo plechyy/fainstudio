@@ -25,12 +25,15 @@ export default function BeforeAfter() {
               {ba.before.label}
             </h3>
             <ul className="ba__list">
-              {ba.before.items.map((t, i) => (
-                <li key={i}>
+              {ba.before.items.map((it) => (
+                <li key={it.k}>
                   <span className="ba__mark" aria-hidden="true">
                     –
                   </span>
-                  {t}
+                  <span className="ba__txt">
+                    <b className="ba__k">{it.k}</b>
+                    {it.t}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -46,8 +49,8 @@ export default function BeforeAfter() {
               {ba.after.label}
             </h3>
             <ul className="ba__list">
-              {ba.after.items.map((t, i) => (
-                <li key={i}>
+              {ba.after.items.map((it) => (
+                <li key={it.k}>
                   <span className="ba__mark" aria-hidden="true">
                     <svg viewBox="0 0 16 16" width="16" height="16">
                       <path
@@ -59,7 +62,10 @@ export default function BeforeAfter() {
                       />
                     </svg>
                   </span>
-                  {t}
+                  <span className="ba__txt">
+                    <b className="ba__k">{it.k}</b>
+                    {it.t}
+                  </span>
                 </li>
               ))}
             </ul>

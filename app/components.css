@@ -1072,6 +1072,21 @@ html.is-loading .seq {
   place-items: center;
   height: 1.5em;
 }
+/* téma řádku je stejné v obou kartách, takže se dá číst napříč: dneska → potom */
+.ba__txt {
+  display: grid;
+  gap: 2px;
+}
+.ba__k {
+  font-size: 0.7rem;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.ba__card--after .ba__k {
+  color: var(--accent-text);
+}
 .ba__card--after .ba__mark {
   color: var(--accent-text);
 }
@@ -1091,6 +1106,10 @@ html.is-loading .seq {
   }
   .ba__card {
     padding: 32px 36px 36px;
+  }
+  /* řádky obou karet mají stejnou výšku, ať dneska → potom sedí pod sebou */
+  .ba__list li {
+    min-height: 5.6rem;
   }
 }
 

@@ -117,24 +117,26 @@ export const process = {
 
 export const beforeAfter = {
   title: 'Jak to vypadá dneska. A jak potom.',
-  lead: 'Vlevo běžný den, jak ho znáte. Vpravo stejná práce poté, co rutinu převezme systém.',
+  lead: 'Neměníme, co vaše firma dělá. Měníme to, kolik z toho musí dělat lidé ručně.',
   before: {
     label: 'Dneska',
     items: [
-      'Poptávky a dotazy vyřizujete po jednom, ručně.',
-      'Čísla z faktur a objednávek přepisujete do tabulek sami.',
-      'Zákazník na odpověď čeká hodiny, občas až do druhého dne.',
+      { k: 'Informace', t: 'Rozházené po e-mailech, tabulkách a hlavách lidí.' },
+      { k: 'Práce', t: 'Dělají ji lidé ručně, krok za krokem.' },
+      { k: 'Rozhodování', t: 'Podle toho, co se zrovna stihlo dohledat.' },
+      { k: 'Růst', t: 'Víc práce znamená víc lidí.' },
     ],
   },
   after: {
     label: 'Potom',
     items: [
-      'Rutinu odbaví systém. Vám zbyde to, k čemu je potřeba lidská hlava.',
-      'Faktura dorazí a její údaje už na vás čekají v tabulce.',
-      'Zákazník má odpověď do dvou minut, i o půlnoci.',
+      { k: 'Informace', t: 'Na jednom místě a pořád aktuální.' },
+      { k: 'Práce', t: 'Udělá ji systém. Lidé ji řídí a kontrolují.' },
+      { k: 'Rozhodování', t: 'Podle čísel, která máte po ruce.' },
+      { k: 'Růst', t: 'Víc práce zvládne i stejný tým.' },
     ],
   },
-  cta: 'Chci to bez rutiny',
+  cta: 'Chci to vidět u nás',
 };
 
 export const compare = {
