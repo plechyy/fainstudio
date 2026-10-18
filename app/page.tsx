@@ -14,6 +14,9 @@ import Footer from '@/components/Footer';
 import Enhance from '@/components/Enhance';
 import ButtonSmoke from '@/components/ButtonSmoke';
 
+// Sekce „O nás“ (09) je zatím skrytá, komponenta zůstává. Vrátí se přepnutím na true.
+const SHOW_ABOUT = false;
+
 export default function Home() {
   return (
     <>
@@ -29,7 +32,7 @@ export default function Home() {
         <Compare />
         <Proof />
         <Faq />
-        <About />
+        {SHOW_ABOUT && <About />}
         <Cta />
       </main>
       <Footer />

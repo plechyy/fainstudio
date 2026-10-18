@@ -21,15 +21,13 @@ export default function Proof() {
             <li className="proof__item" style={{ ['--n' as string]: i }} key={f.label}>
               <p className="proof__label">{f.label}</p>
               <p className="proof__value num">
-                {f.value.startsWith('od ') && <span className="proof__pre">od </span>}
-                {f.value.replace(/^od /, '')}
+                {/^(od|až) /.test(f.value) && <span className="proof__pre">{f.value.slice(0, 3)}</span>}
+                {f.value.replace(/^(od|až) /, '')}
               </p>
               <p className="proof__text">{f.text}</p>
             </li>
           ))}
         </ul>
-
-        <p className="proof__src reveal">{proof.source}</p>
 
         <div className="proof-strip reveal">
           <h3 className="proof-strip__title">{proof.strip.title}</h3>

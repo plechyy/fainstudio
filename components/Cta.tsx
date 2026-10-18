@@ -1,11 +1,13 @@
 import { CAL_URL, EMAIL } from '@/lib/config';
 import { cta } from '@/lib/content';
+import PaintedWordmark from './PaintedWordmark';
 import ShaderBackground from './ShaderBackground';
 
 export default function Cta() {
   return (
     <section className="section" id="rezervace" aria-labelledby="cta-title">
       <div className="wrap">
+        <PaintedWordmark />
         <div className="cta reveal">
           <div className="cta__bg" aria-hidden="true">
             <div className="cta__fallback" />

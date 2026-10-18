@@ -1388,14 +1388,6 @@ html.is-loading .seq {
   color: var(--ink-3);
   text-wrap: pretty;
 }
-.proof__src {
-  margin-top: 28px;
-  font-size: 0.78rem;
-  color: var(--ink-3);
-}
-.proof__src + .proof-strip {
-  margin-top: 28px;
-}
 .proof-strip {
   position: relative;
   display: grid;
@@ -1646,6 +1638,53 @@ html.is-loading .seq {
 }
 
 /* ── závěrečné CTA ───────────────────────────────────────────────── */
+/* ── malovaný nápis FaiNStudio nad závěrečnou kartou ───────────────── */
+.paint {
+  margin: 0 auto clamp(20px, 3vw, 36px);
+  text-align: center;
+}
+.paint__svg {
+  display: block;
+  width: min(100%, 760px);
+  height: auto;
+  margin-inline: auto;
+  overflow: visible;
+}
+.paint__glyph {
+  stroke-linejoin: round;
+}
+.paint__glyph--fain {
+  fill: var(--ink);
+  stroke: var(--ink);
+}
+.paint__glyph--studio {
+  fill: var(--primary-text);
+}
+/* tah prstu v masce: dokud nejede, je písmeno schované */
+.paint__stroke {
+  fill: none;
+  stroke: #fff;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.paint.is-in .paint__stroke {
+  animation: paint-stroke 0.62s cubic-bezier(0.45, 0.05, 0.35, 1) both;
+}
+@keyframes paint-stroke {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .paint .paint__stroke,
+  .paint.is-in .paint__stroke {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
+
 .cta {
   position: relative;
   overflow: hidden;

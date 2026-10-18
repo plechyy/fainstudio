@@ -17,17 +17,15 @@ export const hero = {
 
 export const proof = {
   title: 'Co z toho budete mít',
-  // čísla jsou z průzkumu Ipsos pro AMSP ČR (2026), žádné naše sliby: velké číslo je to, co firmy trápí, text říká, co s tím uděláme
   stats: [
-    { value: '31 %', label: 'Úspora času', text: 'firem trápí administrativa a byrokracie. Práce, která dnes bere hodiny, se dělá sama a čas zbyde na lidi.' },
-    { value: '51 %', label: 'Úspora peněz', text: 'firem trápí rostoucí náklady. Méně ruční práce znamená méně chyb a přesčasů. Kolik to ušetří u vás, spočítáme na prvním hovoru.' },
-    { value: '50 %', label: 'Efektivita', text: 'firem čeká, že jim umělá inteligence zrychlí administrativu. Stejný tým pak zvládne víc a nic nezapadne mezi e-maily a tabulkami.' },
-    { value: '26 %', label: 'Spolehlivost', text: 'firem se bojí chyb umělé inteligence. Proto o důležitých krocích rozhoduje člověk a systém po spuštění ladíme na vašich skutečných datech.' },
+    { value: 'až 90 %', label: 'Úspora času a peněz', text: 'Práci, která dnes bere hodiny, převezme systém. Méně ruční práce znamená méně chyb a přesčasů. Kolik to dělá u vás, spočítáme na prvním hovoru.' },
+    { value: 'Ihned', label: 'Adaptace', text: 'Systém se napojí na nástroje, které už používáte, a lidi zaučíme. Nikdo se nemusí učit nový program od nuly.' },
+    { value: '100 %', label: 'Spolehlivost', text: 'Umělá inteligence nezapomene, neunaví se a dělá pořád totéž stejně. O důležitých krocích rozhodujete dál vy.' },
+    { value: '24/7', label: 'Nonstop provoz', text: 'Systém nespí. Poptávky, dotazy i data zpracuje i o víkendu a o půlnoci.' },
   ],
-  source: 'Čísla: průzkum Ipsos pro AMSP ČR, 2026, 201 majitelů a jednatelů firem.',
   strip: {
-    title: 'Zvyknete si hned',
-    text: '31 % firem se bojí, že na to nemají znalosti. Nemusíte je mít. Systém se napojí na nástroje, které už používáte, a lidi, kteří s ním budou pracovat, zaučíme, takže se firma přizpůsobí hned.',
+    title: 'Efektivita',
+    text: 'Stejný tým zvládne víc. Nic nezapadne mezi e-maily a tabulkami a lidé se věnují práci, ke které je potřeba hlava.',
   },
 };
 
