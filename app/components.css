@@ -4052,8 +4052,10 @@ html.is-loading .seq {
   border-color: var(--primary);
   background: var(--primary);
   color: var(--why-on);
-  font-size: 0.7rem;
-  font-weight: 750;
+  font-family: 'FingerPaint', var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1;
   box-shadow: 0 0 22px var(--primary-glow);
 }
 /* točící se prstenec kolem AI brány */
@@ -4196,8 +4198,9 @@ html.is-loading .seq {
 }
 .why-v .wf__coret {
   fill: var(--why-on);
-  font-size: 10px;
-  font-weight: 750;
+  font-family: 'FingerPaint', var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
 }
 .wf__draw {
   --d: clamp(0, (var(--wt) - var(--at)) * 12, 1);

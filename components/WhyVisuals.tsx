@@ -39,7 +39,7 @@ export function Efficiency() {
           <span className="we__track">
             <Belt />
             <Belt done />
-            <span className="we__gate">{l.gate ? <Svg>{l.gate}</Svg> : 'AI'}</span>
+            <span className="we__gate">{l.gate ? <Svg>{l.gate}</Svg> : 'F'}</span>
           </span>
           <span className="we__rate">{l.rate}</span>
         </div>
@@ -117,8 +117,8 @@ export function Flow() {
 
       <circle className="wf__ring" cx="80" cy="80" r="21" />
       <circle className="wf__core" cx="80" cy="80" r="15" />
-      <text className="wf__coret" x="80" y="83.6">
-        AI
+      <text className="wf__coret" x="80" y="85.6">
+        F
       </text>
 
       {/* AI → dva návrhy */}
