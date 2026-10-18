@@ -63,7 +63,7 @@ export function Mosaic() {
         const c = i % COLS;
         const r = Math.floor(i / COLS);
         return (
-          <span className="wm__tile" key={i} style={{ animationDelay: `${((c + r) * 0.14).toFixed(2)}s` }}>
+          <span className={`wm__tile wm__tile--${(c + r) % 5}`} key={i} style={{ animationDelay: `${((c + r) * 0.14).toFixed(2)}s` }}>
             <span className="wm__face">
               <Svg>{icon}</Svg>
             </span>

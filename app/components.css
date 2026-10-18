@@ -4097,6 +4097,10 @@ html.is-loading .seq {
   padding: 0;
   list-style: none;
 }
+.why__item,
+.wm__tile {
+  --why-on: oklch(from var(--primary) clamp(0.16, calc((0.66 - l) * 60), 0.98) 0.02 h);
+}
 .why__item {
   display: grid;
   align-content: start;
