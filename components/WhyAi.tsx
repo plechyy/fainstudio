@@ -1,5 +1,5 @@
 import { why } from '@/lib/content';
-import { Efficiency, Flow, Layers } from './WhyVisuals';
+import { Efficiency, Flow, Mosaic } from './WhyVisuals';
 
 /*
  * Sekce „Proč AI“: tři krátké body (proč, kde, jakou roli hraje), každý s jednoduchou
@@ -7,7 +7,7 @@ import { Efficiency, Flow, Layers } from './WhyVisuals';
  * případů a bez dlouhých textů.
  */
 
-const visuals = [Efficiency, Layers, Flow];
+const visuals = [Efficiency, Mosaic, Flow];
 
 export default function WhyAi() {
   return (

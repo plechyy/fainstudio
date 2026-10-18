@@ -1,78 +1,78 @@
+'use client';
+
 import type { CSSProperties } from 'react';
+import { ico, Svg } from './systems/live/scene';
 
 /*
- * Animace pro sekci „Proč AI“. Každá běží na jedné časové ose `--wt` (0 → 1,
- * viz .wt v components.css) a jednotlivé prvky si z ní v CSS spočítají, kdy se
- * rozsvítí. Díky tomu do sebe kroky přesně zapadají a smyčka se neposouvá.
+ * Animace pro sekci „Proč AI“. Všechny jsou nekonečné smyčky bez stmívání: konec
+ * plynule navazuje na začátek. Flow běží na časové ose `--wt` (0 → 1, viz .wt
+ * v components.css), ze které si prvky v CSS spočítají, kdy nastoupí a kdy odejdou.
  */
 
 const v = (o: Record<string, string | number>) => o as CSSProperties;
 
-/** součet „hotových“ kroků jako výraz pro CSS (pro počítadlo) */
-const countExpr = (ends: number[]) =>
-  `calc(${ends.map((e) => `clamp(0, (var(--wt) - ${e}) * 1000, 1)`).join(' + ')})`;
-
-/* 01 Efektivita: za stejný čas ručně pár úkolů, s AI celá řada */
-const CELLS = 10;
+/* 01 Efektivita: nekonečný pás úkolů. Ručně jede pomalu, s AI čtyřikrát rychleji. */
+const TOKENS = 12;
 const LANES = [
-  {
-    id: 'hand',
-    name: 'Ručně',
-    cells: Array.from({ length: CELLS }, (_, i) => ({ s: 0.02 + i * 0.3, d: 0.27 })),
-  },
-  {
-    id: 'ai',
-    name: 'S AI',
-    cells: Array.from({ length: CELLS }, (_, i) => ({ s: 0.06 + i * 0.07, d: 0.05 })),
-  },
+  { id: 'hand', name: 'Ručně', rate: '1×', gate: ico.user },
+  { id: 'ai', name: 'S AI', rate: '4×', gate: null },
 ];
+
+function Belt({ done }: { done?: boolean }) {
+  return (
+    <span className={`we__clip${done ? ' we__clip--done' : ''}`}>
+      <span className="we__belt">
+        {Array.from({ length: TOKENS }, (_, i) => (
+          <i key={i} />
+        ))}
+      </span>
+    </span>
+  );
+}
 
 export function Efficiency() {
   return (
-    <div className="wt we" aria-hidden="true">
-      <p className="we__time">
-        <span>Stejný čas</span>
-        <i />
-      </p>
+    <div className="we" aria-hidden="true">
       {LANES.map((l) => (
         <div className={`we__lane we__lane--${l.id}`} key={l.id}>
           <b>{l.name}</b>
-          <span className="we__cells">
-            {l.cells.map((c, i) => (
-              <i key={i} style={v({ '--s': c.s, '--d': c.d })} />
-            ))}
+          <span className="we__track">
+            <Belt />
+            <Belt done />
+            <span className="we__gate">{l.gate ? <Svg>{l.gate}</Svg> : 'AI'}</span>
           </span>
-          <span className="we__n" style={v({ '--n': countExpr(l.cells.map((c) => c.s + c.d)) })} />
+          <span className="we__rate">{l.rate}</span>
         </div>
       ))}
     </div>
   );
 }
 
-/* 02 Napříč firmou: vrstvy firmy, kterými projede sken a postupně je zdigitalizuje */
-const LAYERS = ['Administrativa', 'Procesy', 'Kreativa'];
+/* 02 Napříč firmou: mozaika všech možných druhů práce, přes kterou pořád běží vlna digitalizace */
+const WORK = [
+  ico.mail, ico.invoice, ico.cal, ico.table, ico.chat, ico.pen,
+  ico.user, ico.folder, ico.globe, ico.send, ico.search, ico.bell,
+  ico.board, ico.laptop, ico.approve, ico.lock, ico.clip, ico.key,
+];
+const COLS = 6;
 
-export function Layers() {
+export function Mosaic() {
   return (
-    <div className="wt wl" aria-hidden="true">
-      <div className="wl__stack">
-        {LAYERS.map((l, i) => (
-          <span className="wl__layer" key={l} style={v({ '--y': (i - 1) * 34, '--at': 0.15 + i * 0.25, zIndex: 3 - i })}>
-            <i />
-            <i />
-            <i />
-            <i />
+    <div className="wm" aria-hidden="true">
+      {WORK.map((icon, i) => {
+        const c = i % COLS;
+        const r = Math.floor(i / COLS);
+        return (
+          <span className="wm__tile" key={i} style={{ animationDelay: `${((c + r) * 0.14).toFixed(2)}s` }}>
+            <span className="wm__face">
+              <Svg>{icon}</Svg>
+            </span>
+            <span className="wm__face wm__face--on">
+              <Svg>{icon}</Svg>
+            </span>
           </span>
-        ))}
-        <span className="wl__scan" />
-      </div>
-      <ul className="wl__labels">
-        {LAYERS.map((l, i) => (
-          <li key={l} style={v({ '--y': (i - 1) * 34, '--at': 0.15 + i * 0.25 })}>
-            {l}
-          </li>
-        ))}
-      </ul>
+        );
+      })}
     </div>
   );
 }
@@ -98,9 +98,8 @@ export function Flow() {
     <svg className="wt why-v wf" viewBox="0 0 300 160" aria-hidden="true">
       {/* zdroje → AI */}
       {SRC.map((y, i) => {
-        const at = 0.02 + i * 0.05;
         return (
-          <g key={`s${y}`} className="wf__src" style={v({ '--at': at })}>
+          <g key={`s${y}`} className="wf__src">
             <path className="wf__wire" d={`M28 ${y}C46 ${y} 48 80 64 80`} />
             <path
               className="wf__comet"
@@ -124,13 +123,13 @@ export function Flow() {
 
       {/* AI → dva návrhy */}
       {[53, 107].map((y, n) => (
-        <path key={`p${y}`} className="wf__draw" d={`M95 80C104 80 102 ${y} 112 ${y}`} pathLength="1" style={v({ '--at': 0.3 + n * 0.05 })} />
+        <path key={`p${y}`} className="wf__draw" d={`M95 80C104 80 102 ${y} 112 ${y}`} pathLength="1" style={v({ '--at': 0.04 + n * 0.04 })} />
       ))}
       {[
         { k: 'A', y: 34, w: [0.5, 0.34] },
         { k: 'B', y: 88, w: [0.88, 0.72] },
       ].map((c, n) => (
-        <g key={c.k} className={`wf__card wf__card--${c.k.toLowerCase()}`} style={v({ '--at': 0.36 + n * 0.06 })}>
+        <g key={c.k} className={`wf__card wf__card--${c.k.toLowerCase()}`} style={v({ '--at': 0.08 + n * 0.05 })}>
           <rect className="wf__cardbox" x="112" y={c.y} width="88" height="38" rx="9" />
           <text className="wf__cardt" x="121" y={c.y + 14}>
             Návrh {c.k}
@@ -150,7 +149,7 @@ export function Flow() {
 
       {/* vybraný návrh → rovnou se provede v dalších systémech */}
       {OUT.map((y, j) => {
-        const at = 0.64 + j * 0.06;
+        const at = 0.5 + j * 0.06;
         return (
           <g key={`o${y}`} className="wf__out" style={v({ '--at': at })}>
             <path className="wf__draw" d={`M200 107C226 107 228 ${y} 250 ${y}`} pathLength="1" />

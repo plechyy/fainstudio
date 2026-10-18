@@ -3922,83 +3922,38 @@ html.is-loading .seq {
   text-anchor: middle;
 }
 
-/* společná časová osa: --wt jde 0 → 1, pak chvíli drží a smyčka se rozplyne */
+/* časová osa pro flow: --wt jde plynule 0 → 1 a hned znovu, konec navazuje na začátek */
 @property --wt {
   syntax: '<number>';
   inherits: true;
   initial-value: 0;
 }
-@property --wn {
-  syntax: '<integer>';
-  inherits: false;
-  initial-value: 0;
-}
 .wt {
   --dur: 5.2s;
-  animation:
-    why-t var(--dur) linear infinite,
-    why-fade var(--dur) ease infinite;
+  animation: why-t var(--dur) linear infinite;
 }
 @keyframes why-t {
-  0% {
+  from {
     --wt: 0;
   }
-  85%,
-  100% {
+  to {
     --wt: 1;
   }
 }
-@keyframes why-fade {
-  0% {
-    opacity: 0;
-  }
-  4%,
-  93% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
 
-/* 01 efektivita: ručně vs. s AI za stejný čas */
+/* 01 efektivita: nekonečný pás úkolů, brána je zpracuje */
 .we {
+  --tok: 22px;
+  --gap: 10px;
   display: grid;
   align-content: center;
-  gap: 14px;
+  gap: 22px;
   width: 100%;
   max-width: 320px;
 }
-.we__time {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0;
-  color: var(--ink-3);
-  font-size: 0.64rem;
-  font-weight: 650;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.we__time i {
-  position: relative;
-  flex: 1;
-  height: 3px;
-  border-radius: 2px;
-  background: var(--line);
-  overflow: hidden;
-}
-.we__time i::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--ink-3);
-  transform-origin: left;
-  transform: scaleX(var(--wt));
-}
 .we__lane {
   display: grid;
-  grid-template-columns: 44px 1fr 30px;
+  grid-template-columns: 40px 1fr 32px;
   align-items: center;
   gap: 10px;
 }
@@ -4010,160 +3965,179 @@ html.is-loading .seq {
 .we__lane--ai > b {
   color: var(--primary-text);
 }
-.we__cells {
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  gap: 4px;
-}
-.we__cells i {
-  --f: clamp(0, (var(--wt) - var(--s)) / var(--d), 1);
-  /* krátký záblesk ve chvíli, kdy je úkol hotový */
-  --flash: calc(clamp(0, (var(--f) - 0.98) * 50, 1) * clamp(0, 1 - (var(--wt) - var(--s) - var(--d)) * 7, 1));
+.we__track {
   position: relative;
-  aspect-ratio: 1;
-  border: 1px solid var(--line);
-  border-radius: 4px;
-  background: var(--surface-2);
-  overflow: hidden;
+  height: 42px;
+  mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
 }
-.we__cells i::after {
+.we__track::before {
   content: '';
   position: absolute;
+  inset: 50% 0 auto;
+  height: 1px;
+  background: var(--line);
+}
+.we__clip {
+  position: absolute;
   inset: 0;
+  overflow: hidden;
+  clip-path: inset(0 0 0 50%);
+}
+.we__clip--done {
+  clip-path: inset(0 50% 0 0);
+}
+.we__belt {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  display: flex;
+  gap: var(--gap);
+  translate: 0 -50%;
+  animation: why-belt 3.2s linear infinite;
+}
+.we__lane--ai .we__belt {
+  animation-duration: 0.8s;
+}
+.we__belt i {
+  flex: none;
+  width: var(--tok);
+  height: 28px;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 5px;
+  background:
+    linear-gradient(var(--line-strong) 0 0) 4px 8px / 10px 1.5px no-repeat,
+    linear-gradient(var(--line-strong) 0 0) 4px 13px / 7px 1.5px no-repeat,
+    var(--surface-2);
+}
+.we__clip--done .we__belt i {
+  position: relative;
+  border-color: var(--ink-3);
   background: var(--ink-3);
-  transform-origin: bottom;
-  transform: scaleY(var(--f));
 }
-.we__lane--ai .we__cells i {
-  border-color: color-mix(in oklab, var(--primary) calc(var(--f) * 100%), var(--line));
-  box-shadow: 0 0 calc(var(--flash) * 16px) var(--primary-glow);
-  transform: scale(calc(1 + var(--flash) * 0.18));
-}
-.we__lane--ai .we__cells i::after {
+.we__lane--ai .we__clip--done .we__belt i {
+  border-color: var(--primary);
   background: var(--primary);
+  box-shadow: 0 0 10px var(--primary-glow);
 }
-.we__n {
-  --wn: var(--n);
-  counter-reset: wn var(--wn);
+.we__clip--done .we__belt i::after {
+  content: '';
+  position: absolute;
+  left: 6.5px;
+  top: 7px;
+  width: 5px;
+  height: 9px;
+  border: solid var(--why-on);
+  border-width: 0 2px 2px 0;
+  rotate: 45deg;
+}
+.we__gate {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink-3);
+  translate: -50% -50%;
+}
+.we__gate svg {
+  width: 17px;
+}
+.we__lane--ai .we__gate {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--why-on);
+  font-size: 0.7rem;
+  font-weight: 750;
+  box-shadow: 0 0 22px var(--primary-glow);
+}
+/* točící se prstenec kolem AI brány */
+.we__lane--ai .we__gate::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border: 1.5px dashed var(--primary);
+  border-radius: 50%;
+  animation: why-spin 4s linear infinite;
+}
+.we__rate {
   color: var(--ink-3);
   font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-size: 1.3rem;
   font-weight: 700;
-  font-variant-numeric: tabular-nums;
   line-height: 1;
   text-align: right;
 }
-.we__n::after {
-  content: counter(wn);
-}
-.we__lane--ai .we__n {
+.we__lane--ai .we__rate {
   color: var(--primary-text);
   text-shadow: 0 0 18px var(--primary-glow);
 }
+@keyframes why-belt {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-1 * (var(--tok) + var(--gap))));
+  }
+}
 
-/* 02 napříč firmou: vrstvy firmy, kterými projede sken */
-.wl {
+/* 02 napříč firmou: mozaika práce, přes kterou pořád běží vlna a překlápí ji do digitálu */
+.wm {
   position: relative;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 7px;
   width: 100%;
-  height: 100%;
+  max-width: 300px;
+  perspective: 600px;
 }
-.wl__stack {
+.wm__tile {
+  position: relative;
+  aspect-ratio: 1;
+  transform-style: preserve-3d;
+  animation: why-flip 4.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+.wm__face {
   position: absolute;
-  left: 30%;
-  top: 50%;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 10px;
+  background: var(--surface-2);
+  color: var(--ink-3);
+  backface-visibility: hidden;
 }
-.wl__layer,
-.wl__scan {
-  --l: clamp(0, (var(--wt) - var(--at)) * 9, 1);
-  position: absolute;
-  left: -48px;
-  top: -48px;
-  width: 96px;
-  height: 96px;
-  border-radius: 14px;
-  transform: translateY(calc(var(--y) * 1px - var(--l) * 5px)) rotateX(60deg) rotateZ(45deg);
+.wm__face svg {
+  width: 52%;
 }
-.wl__layer {
-  border: 1.5px solid color-mix(in oklab, var(--primary) calc(var(--l) * 100%), var(--line-strong));
-  background:
-    linear-gradient(color-mix(in oklab, var(--primary) calc(var(--l) * 45%), var(--line)) 1px, transparent 1px) 0 0 / 16px 16px,
-    linear-gradient(90deg, color-mix(in oklab, var(--primary) calc(var(--l) * 45%), var(--line)) 1px, transparent 1px) 0 0 / 16px 16px,
-    color-mix(in oklab, var(--primary) calc(var(--l) * 16%), var(--surface-2));
-  box-shadow: 0 0 calc(var(--l) * 26px) color-mix(in oklab, var(--primary-glow) calc(var(--l) * 100%), transparent);
-}
-/* digitální dlaždice, které na vrstvě naskočí */
-.wl__layer i {
-  position: absolute;
-  width: 22px;
-  height: 22px;
-  border-radius: 5px;
+.wm__face--on {
+  border-color: var(--primary);
   background: var(--primary);
-  opacity: calc(var(--l) * 0.9);
-  transform: scale(calc(0.4 + var(--l) * 0.6));
+  color: var(--why-on);
+  box-shadow: 0 0 16px var(--primary-glow);
+  transform: rotateY(180deg);
 }
-.wl__layer i:nth-child(1) {
-  left: 16px;
-  top: 16px;
-}
-.wl__layer i:nth-child(2) {
-  left: 48px;
-  top: 16px;
-  width: 32px;
-}
-.wl__layer i:nth-child(3) {
-  left: 16px;
-  top: 48px;
-  height: 32px;
-}
-.wl__layer i:nth-child(4) {
-  left: 48px;
-  top: 58px;
-  width: 32px;
-  height: 22px;
-  opacity: calc(var(--l) * 0.45);
-}
-.wl__scan {
-  --y: calc(-56 + var(--wt) * 136);
-  --l: 0;
-  z-index: 5;
-  border: 2px solid var(--primary);
-  background: color-mix(in oklab, var(--primary) 10%, transparent);
-  box-shadow:
-    0 0 26px var(--primary-glow),
-    inset 0 0 18px var(--primary-glow);
-  opacity: clamp(0, (0.82 - var(--wt)) * 8, 1);
-}
-.wl__labels {
-  position: absolute;
-  inset: 0 0 0 calc(30% + 74px);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.wl__labels li {
-  --l: clamp(0, (var(--wt) - var(--at)) * 9, 1);
-  position: absolute;
-  left: 0;
-  top: calc(50% + var(--y) * 1px);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: color-mix(in oklab, var(--ink) calc(var(--l) * 100%), var(--ink-3));
-  font-size: 0.74rem;
-  font-weight: 650;
-  white-space: nowrap;
-  transform: translateY(calc(-50% - var(--l) * 5px));
-}
-.wl__labels li::before {
-  content: '';
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: color-mix(in oklab, var(--primary) calc(var(--l) * 100%), var(--line-strong));
-  box-shadow: 0 0 calc(var(--l) * 10px) var(--primary-glow);
+@keyframes why-flip {
+  0%,
+  6% {
+    transform: rotateY(0deg);
+  }
+  20%,
+  52% {
+    transform: rotateY(180deg);
+  }
+  66%,
+  100% {
+    transform: rotateY(360deg);
+  }
 }
 @container (max-width: 270px) {
-  .wl,
   .we,
   .wf {
     zoom: 0.82;
@@ -4171,9 +4145,6 @@ html.is-loading .seq {
 }
 
 /* 03 pomocník: zdroje → AI → návrhy → vy vyberete → provede se */
-.wf {
-  --dur: 6.4s;
-}
 .wf__wire,
 .wf__track {
   stroke: var(--line-strong);
@@ -4183,9 +4154,17 @@ html.is-loading .seq {
   fill: var(--line);
   stroke: none;
 }
-.wf__src,
+.wf {
+  --dur: 6.4s;
+  /* odchod: návrhy odjedou, čáry dotečou, kurzor zmizí z obrazu */
+  --x: clamp(0, (var(--wt) - 0.8) * 7, 1);
+  overflow: hidden;
+}
+.wf__src {
+  --l: 1;
+}
 .wf__out {
-  --l: clamp(0, (var(--wt) - var(--at)) * 12, 1);
+  --l: calc(clamp(0, (var(--wt) - var(--at)) * 12, 1) * (1 - var(--x)));
 }
 .wf__box {
   fill: var(--surface-2);
@@ -4201,7 +4180,6 @@ html.is-loading .seq {
   stroke-width: 2.4;
   stroke-dasharray: 0.2 1;
   filter: drop-shadow(0 0 4px var(--primary-glow));
-  opacity: calc(var(--l) * clamp(0, (0.42 - var(--wt)) * 12, 1));
   animation: why-comet 0.9s linear infinite;
 }
 .wf__ring {
@@ -4214,7 +4192,7 @@ html.is-loading .seq {
 }
 .wf__core {
   fill: var(--primary);
-  filter: drop-shadow(0 0 calc(6px + clamp(0, (0.42 - var(--wt)) * 12, 1) * 10px) var(--primary-glow));
+  filter: drop-shadow(0 0 12px var(--primary-glow));
 }
 .why-v .wf__coret {
   fill: var(--why-on);
@@ -4226,17 +4204,17 @@ html.is-loading .seq {
   stroke: var(--primary);
   stroke-width: 1.6;
   stroke-dasharray: 1;
-  stroke-dashoffset: calc(1 - var(--d));
+  stroke-dashoffset: calc(1 - var(--d) - var(--x));
   opacity: 0.8;
 }
 .wf__card {
   --l: clamp(0, (var(--wt) - var(--at)) * 10, 1);
-  --pick: clamp(0, (var(--wt) - 0.6) * 12, 1);
-  opacity: var(--l);
-  transform: translateX(calc((1 - var(--l)) * -8px));
+  --pick: clamp(0, (var(--wt) - 0.45) * 12, 1);
+  opacity: calc(var(--l) * (1 - var(--x)));
+  transform: translateX(calc((1 - var(--l)) * -8px + var(--x) * 46px));
 }
 .wf__card--a {
-  opacity: calc(var(--l) * (1 - var(--pick) * 0.62));
+  opacity: calc(var(--l) * (1 - var(--pick) * 0.62) * (1 - var(--x)));
 }
 .wf__cardbox {
   fill: var(--surface-2);
@@ -4267,10 +4245,10 @@ html.is-loading .seq {
   transform-origin: center;
 }
 .wf__ok {
-  transform: scale(clamp(0, (var(--wt) - 0.61) * 12, 1));
+  transform: translateX(calc(var(--x) * 46px)) scale(max(0, clamp(0, (var(--wt) - 0.46) * 12, 1) - var(--x)));
 }
 .wf__done {
-  transform: scale(clamp(0, (var(--wt) - var(--at) - 0.06) * 12, 1));
+  transform: scale(max(0, clamp(0, (var(--wt) - var(--at) - 0.06) * 12, 1) - var(--x)));
 }
 .wf__ok circle,
 .wf__done circle {
@@ -4283,10 +4261,10 @@ html.is-loading .seq {
   stroke-width: 1.8;
 }
 .wf__out .wf__box {
-  filter: drop-shadow(0 0 calc(clamp(0, (var(--wt) - var(--at) - 0.06) * 12, 1) * 8px) var(--primary-glow));
+  filter: drop-shadow(0 0 calc(var(--l) * 8px) var(--primary-glow));
 }
 .wf__ripple {
-  --rp: clamp(0, (var(--wt) - 0.6) * 7, 1);
+  --rp: clamp(0, (var(--wt) - 0.45) * 7, 1);
   stroke: var(--primary);
   stroke-width: 1.5;
   transform-box: fill-box;
@@ -4295,10 +4273,14 @@ html.is-loading .seq {
   opacity: calc(min(var(--rp) * 30, 1) * (1 - var(--rp)));
 }
 .wf__cur {
-  --p: clamp(0, (var(--wt) - 0.45) / 0.14, 1);
+  --p: clamp(0, (var(--wt) - 0.28) / 0.15, 1);
   --e: calc(var(--p) * var(--p) * (3 - 2 * var(--p)));
-  opacity: clamp(0, (var(--wt) - 0.44) * 20, 1);
-  transform: translate(calc((292 - var(--e) * 116) * 1px), calc((152 - var(--e) * 38) * 1px));
+  --q: clamp(0, (var(--wt) - 0.78) / 0.16, 1);
+  --o: calc(var(--q) * var(--q) * (3 - 2 * var(--q)));
+  transform: translate(
+    calc((322 - (var(--e) - var(--o)) * 146) * 1px),
+    calc((180 - (var(--e) - var(--o)) * 66) * 1px)
+  );
 }
 .wf__cur path {
   fill: var(--ink);
@@ -4330,15 +4312,17 @@ html.is-loading .seq {
 @media (prefers-reduced-motion: reduce) {
   .wt,
   .wf__comet,
-  .wf__ring {
+  .wf__ring,
+  .we__belt,
+  .we__gate::after,
+  .wm__tile {
     animation: none;
   }
   .wt {
-    --wt: 0.9;
+    --wt: 0.7;
   }
   .wf__cur,
-  .wf__ripple,
-  .wl__scan {
+  .wf__ripple {
     display: none;
   }
 }
