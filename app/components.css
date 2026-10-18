@@ -1653,6 +1653,13 @@ html.is-loading .seq {
 .paint__glyph {
   stroke-linejoin: round;
 }
+/* v patičce přes celou šířku, jako podpis na konci stránky */
+.foot__paint {
+  margin: clamp(28px, 5vw, 64px) 0 clamp(20px, 3vw, 40px);
+}
+.foot__paint .paint__svg {
+  width: 100%;
+}
 .paint__glyph--fain {
   fill: var(--ink);
   stroke: var(--ink);
