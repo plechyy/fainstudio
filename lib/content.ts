@@ -99,7 +99,7 @@ export const why = {
   lead: 'Nemusíte jí rozumět. Stačí vědět, co pro vás udělá.',
   items: [
     { k: 'Proč', t: 'Firma toho zvládne víc.', d: 'Se stejnými lidmi uděláte víc práce, odpovídáte rychleji a rozhodujete s lepšími informacemi.' },
-    { k: 'Kde', t: 'Všude, kde pracujete s informacemi.', d: 'Obchod, zákazníci, provoz, čísla, marketing i vedení. To je skoro každá část firmy.' },
+    { k: 'Kde', t: 'Napříč celou firmou.', d: 'Od administrativy přes procesy až po kreativu. Dokážeme digitalizovat jakoukoliv část vaší práce.' },
     { k: 'Jakou roli', t: 'Chytrý pomocník, ne šéf.', d: 'Čte, počítá, odpovídá, píše a navrhuje. Rozhodujete pořád vy.' },
   ],
 };
