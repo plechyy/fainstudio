@@ -1758,9 +1758,8 @@ html.is-loading .seq {
   text-shadow: none;
 }
 :root[data-theme='light'] .proof__value {
-  background: linear-gradient(180deg, color-mix(in oklab, var(--primary-text) 75%, black) 0%, var(--primary-text) 85%);
-  -webkit-background-clip: text;
-  background-clip: text;
+  background: none;
+  -webkit-text-fill-color: var(--primary-text);
   color: var(--primary-text);
 }
 
@@ -1794,9 +1793,8 @@ html.is-loading .seq {
 :root[data-theme='light'] .sys-head__accent,
 :root[data-theme='light'] .ba-head__accent,
 :root[data-theme='light'] .hd__accent {
-  background: linear-gradient(180deg, color-mix(in oklab, var(--primary-text) 75%, black) 0%, var(--primary-text) 85%);
-  -webkit-background-clip: text;
-  background-clip: text;
+  background: none;
+  -webkit-text-fill-color: var(--primary-text);
   color: var(--primary-text);
 }
 
