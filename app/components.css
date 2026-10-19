@@ -434,12 +434,13 @@ html.is-loading .seq {
 /* ── HERO ────────────────────────────────────────────────────────── */
 .hero {
   position: relative;
-  min-height: min(92vh, 900px);
+  min-height: 100vh; /* hero vyplní celou první obrazovku, sekce 2 není vidět */
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding-top: calc(clamp(40px, 9vw, 110px) + 78px);
-  padding-bottom: 16px; /* zbytek mezery k sekci 2 dělá odsazení sekce */
+  padding-bottom: clamp(14px, 3vh, 28px); /* pás log sedí úplně dole */
   overflow: clip;
   isolation: isolate;
 }
@@ -5246,5 +5247,5 @@ html.is-loading .seq {
 
 /* pod hero hned navazuje další sekce, bez velké prázdné mezery */
 .hero + .section {
-  padding-top: 0;
+  padding-top: clamp(40px, 6vw, 80px);
 }
