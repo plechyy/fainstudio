@@ -5024,7 +5024,6 @@ html.is-loading .seq {
   width: 100%;
   margin-top: clamp(40px, 9vh, 96px);
   padding-block: 18px;
-  border-block: 1px solid color-mix(in oklab, var(--line) 60%, transparent);
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
 }
@@ -5210,4 +5209,29 @@ html.is-loading .seq {
   font-weight: 500;
   letter-spacing: 0.5em;
   opacity: 0.75;
+}
+
+/* animované komponenty a vizuály nejdou označit ani přetáhnout (jsou to obrázky, ne text k citaci) */
+.hero__strip,
+.hero__rot,
+.art,
+.why__vis,
+.why-v,
+.we,
+.wm,
+.wf,
+.paint,
+.loader,
+.ab__mono,
+.lg {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+}
+.hero__strip *,
+.art *,
+.why__vis * {
+  -webkit-user-select: none;
+  user-select: none;
 }
