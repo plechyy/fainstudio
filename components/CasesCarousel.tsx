@@ -161,7 +161,6 @@ function Visual({ v }: { v: Item['visual'] }) {
 export default function CasesCarousel() {
   const items = cases.items;
   const track = useRef<HTMLDivElement>(null);
-  const tabs = useRef<HTMLDivElement>(null);
   // kam carousel právě jede: rychlé klikání na šipku počítá od cíle, ne od karty, která je ještě vidět
   const target = useRef<number | null>(null);
   const [active, setActive] = useState(0);
@@ -188,17 +187,6 @@ export default function CasesCarousel() {
     return () => io.disconnect();
   }, []);
 
-  // aktivní záložka musí být vidět i v řádku, který se nevejde (posune se jen řádek, ne stránka)
-  useEffect(() => {
-    const row = tabs.current;
-    const tab = row?.children[active] as HTMLElement | undefined;
-    if (!row || !tab) return;
-    const left = tab.offsetLeft - row.offsetLeft;
-    if (left < row.scrollLeft || left + tab.offsetWidth > row.scrollLeft + row.clientWidth) {
-      row.scrollTo({ left: left - 8, behavior: 'smooth' });
-    }
-  }, [active]);
-
   const go = useCallback((i: number) => {
     const el = track.current;
     if (!el) return;
@@ -217,20 +205,29 @@ export default function CasesCarousel() {
   return (
     <div className="cx">
       <div className="cx__bar">
-        <div className="cx__tabs" role="tablist" aria-label="Případy" ref={tabs}>
+        {/* počítadlo: velké číslo případu v jeho barvě a obor; mění se s kartou */}
+        <p className="cx__count" style={{ ['--co' as string]: items[active].hue }} aria-live="polite">
+          <b className="num">0{active + 1}</b>
+          <span className="num">/0{items.length}</span>
+          <em key={active}>{items[active].firm}</em>
+        </p>
+        {/* úseky jako v Postupu: hotové zůstanou podbarvené, aktuální svítí barvou případu */}
+        <div className="cx__segs" role="tablist" aria-label="Případy">
           {items.map((it, i) => (
             <button
               type="button"
               role="tab"
               aria-selected={i === active}
               aria-controls={`pripad-${it.id}`}
-              className="cx__tab"
+              aria-label={`${i + 1}. ${it.firm}`}
+              title={it.firm}
+              className="cx__seg"
+              data-state={i < active ? 'done' : i === active ? 'now' : 'next'}
               style={{ ['--co' as string]: it.hue }}
               onClick={() => go(i)}
               key={it.id}
             >
-              <b className="num">0{i + 1}</b>
-              <span>{it.firm}</span>
+              <i />
             </button>
           ))}
         </div>

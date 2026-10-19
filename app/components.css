@@ -4839,65 +4839,96 @@ html.is-loading .seq {
   min-width: 0;
 }
 .cx__bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas: 'count arrows' 'segs segs';
+  align-items: end;
+  gap: 6px 28px;
 }
-.cx__tabs {
+.cx__count {
+  --cn: oklch(calc(0.8 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) + var(--co, 0)));
+  grid-area: count;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 4px;
+  margin: 0;
+}
+.cx__count b {
+  color: var(--cn);
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 1.8rem + 1.6vw, 3rem);
+  font-weight: 650;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  transition: color 400ms var(--ease-out);
+}
+.cx__count > span {
+  color: var(--ink-3);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.cx__count em {
+  flex-basis: 100%;
+  margin-top: 6px;
+  color: var(--ink-2);
+  font-size: 0.72rem;
+  font-style: normal;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  animation: cx-name 420ms var(--ease-out) both;
+}
+@keyframes cx-name {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+}
+.cx__segs {
+  grid-area: segs;
   display: flex;
   gap: 6px;
-  min-width: 0;
-  overflow-x: auto;
-  scrollbar-width: none;
 }
-.cx__tabs::-webkit-scrollbar {
-  display: none;
-}
-.cx__tab {
+.cx__seg {
   --cn: oklch(calc(0.8 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) + var(--co, 0)));
-  display: inline-flex;
-  flex: none;
-  align-items: center;
-  gap: 8px;
-  padding: 9px 13px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--ink-3);
-  font: inherit;
-  font-size: 0.82rem;
-  font-weight: 560;
+  flex: 1;
+  min-width: 0;
+  padding: 12px 0;
+  border: 0;
+  background: none;
   cursor: pointer;
+}
+.cx__seg i {
+  display: block;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--line-strong);
   transition:
-    color 250ms,
-    border-color 250ms,
-    background-color 250ms;
+    background-color 400ms var(--ease-out),
+    box-shadow 400ms var(--ease-out),
+    transform 400ms var(--ease-out);
 }
-.cx__tab b {
-  font-size: 0.72rem;
-  font-weight: 700;
+.cx__seg:hover i {
+  background: var(--ink-3);
 }
-.cx__tab:hover {
-  color: var(--ink-2);
-  border-color: var(--line-strong);
+.cx__seg[data-state='done'] i {
+  background: color-mix(in oklab, var(--cn) 45%, var(--line-strong));
 }
-.cx__tab[aria-selected='true'] {
-  border-color: color-mix(in oklab, var(--cn) 55%, transparent);
-  background: color-mix(in oklab, var(--cn) 12%, transparent);
-  color: var(--ink);
+.cx__seg[data-state='now'] i {
+  background: var(--cn);
+  box-shadow: 0 0 12px -1px color-mix(in oklab, var(--cn) 70%, transparent);
+  transform: scaleY(1.6);
 }
-.cx__tab[aria-selected='true'] b {
-  color: var(--cn);
-}
-.cx__tab:focus-visible,
+.cx__seg:focus-visible,
 .cx__arrow:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 2px;
 }
 .cx__arrows {
+  grid-area: arrows;
   display: none;
-  flex: none;
+  justify-self: end;
   gap: 8px;
 }
 .cx__arrow {
@@ -4982,13 +5013,16 @@ html.is-loading .seq {
   color: var(--cc);
   font-weight: 700;
 }
+/* modelový případ: jen tichá poznámka za oborem, žádný odznak */
 .cx-case__tag span {
-  padding: 3px 9px;
-  border: 1px solid var(--line-strong);
-  border-radius: 999px;
   color: var(--ink-3);
   font-size: 0.62rem;
+  font-weight: 500;
   letter-spacing: 0.1em;
+}
+.cx-case__tag span::before {
+  content: '·';
+  margin-right: 12px;
 }
 .cx-case__title {
   margin: 0;
@@ -5631,6 +5665,11 @@ html.is-loading .seq {
 
 
 @media (min-width: 900px) {
+  .cx__bar {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas: 'count segs arrows';
+    align-items: center;
+  }
   .cx__arrows {
     display: flex;
   }
@@ -5805,7 +5844,8 @@ html.is-loading .seq {
 
 /* světlý motiv: barvy jako text jsou tmavší, aby se daly přečíst */
 :root[data-theme='light'] .cx-case,
-:root[data-theme='light'] .cx__tab {
+:root[data-theme='light'] .cx__count,
+:root[data-theme='light'] .cx__seg {
   --cc: oklch(calc(0.56 + var(--pal-adj)) calc(var(--ac-c) * 1.1) calc(var(--pal-h) + var(--co, 0)));
   --cn: var(--cc);
 }
