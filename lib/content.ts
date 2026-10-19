@@ -102,7 +102,7 @@ export const process = {
   lead: 'Každý krok končí něčím, co si můžete hned vyzkoušet. Ne slibem.',
   steps: [
     { name: 'Úvodní hovor', text: 'Nemusíte vědět, co chcete. To zjistíme spolu. Z hovoru odcházíte s tím, co vám systém přinese a kolik bude stát.' },
-    { name: 'Návrh', text: 'Černé na bílém: co systém udělá, co od vás potřebujeme a kdy bude hotovo. Podpis, záloha a jedeme.' },
+    { name: 'Návrh', text: 'Černé na bílém: co systém udělá, co od vás potřebujeme, kdy bude hotovo a kolik to bude stát. Podpis, záloha a jedeme.' },
     { name: 'Stavíme po týdnech', text: 'Každý týden dostanete živou ukázku. Vyzkoušíte ji, řeknete, co jinak, a další týden to máte. Žádné čekání na velké odhalení.' },
     { name: 'Zaučení a spuštění', text: 'Vaše lidi to naučíme, napojíme to na vaše nástroje a pustíme do provozu. Od té chvíle to maká za vás.' },
   ],
@@ -161,7 +161,7 @@ export const faq = [
   },
   {
     q: 'Kolik to stojí?',
-    a: 'Záleží na tom, co má systém dělat, takže cenu neříkáme od oka. Na prvním hovoru projdeme, co potřebujete, a konkrétní číslo dostanete ještě před podpisem.',
+    a: 'Cena se u každého projektu liší a odvíjí se od toho, co má systém dělat. Skládá se z rozsahu (kolik činností převezme), počtu nástrojů, které se mají napojit, počtu lidí, kteří s ním budou pracovat, a toho, jak složitá jsou vaše data. Na prvním hovoru projdeme, co potřebujete, a konkrétní číslo dostanete ještě před podpisem.',
   },
   {
     q: 'Jak dlouho to trvá?',
@@ -172,6 +172,10 @@ export const faq = [
     a: 'Ne. Napojíme se na mail, web a nástroje, které už máte. Nikdo se nemusí učit nový program.',
   },
   {
+    q: 'Kde jsou naše data a jsou v bezpečí?',
+    a: 'Data zůstávají vaše. Systém může běžet v cloudu, nebo lokálně u vás, podle toho, co vám víc vyhovuje. Přístup k datům mají jen lidé, které určíte. Před začátkem podepíšeme NDA a smlouvu o zpracování osobních údajů a předem se domluvíme, jaká data smí do AI modelů a jaká ne.',
+  },
+  {
     q: 'Napojíte to na náš systém?',
     a: 'Na mail, web, tabulky a běžné cloudové nástroje ano. Starší podnikové systémy a stěhování dat ze starého softwaru neděláme, a řekneme vám to hned na prvním hovoru.',
   },
@@ -179,17 +183,18 @@ export const faq = [
 
 export const about = {
   name: 'Matyáš Plecháč',
-  text: 'Jsme malé studio z Prahy. Stavíme automatizace, interní nástroje, sběr dat a weby. Když napíšete, odpoví vám ten, kdo to pak bude dělat.',
+  ico: '21019011',
+  title: 'Odpoví vám ten, kdo to pak postaví.',
+  text: 'Jsme malé studio z Prahy. Stavíme automatizace, interní nástroje, sběr dat a weby. Když napíšete, odpoví vám ten, kdo to pak bude dělat, a od prvního hovoru až po předání se nic neztrácí v mezivrstvách.',
   /*
-   * REFERENCE — ZATÍM SKRYTÉ.
-   * Nezobrazovat, dokud zadavatel nemá od každého klienta písemný souhlas
-   * se zveřejněním jména. Po získání souhlasu nastavit `show: true`
-   * (u každé položky zvlášť) — sekce se pak vykreslí sama.
+   * Názvy klientů se NEzveřejňují, dokud zadavatel nemá od každého písemný souhlas.
+   * Níže jsou proto jen anonymní popisy. Až souhlas bude, doplnit pole `client`
+   * (zobrazí se nad popisem) nebo přidat citaci do pole `quote`.
    */
-  references: [
-    { show: false, name: 'TheMAG', text: 'Nástroj na sběr dat, vizuály pro AirBank, TV spot pro Tugedr' },
-    { show: false, name: 'Kino Blansko', text: 'Animovaný spot, běží před filmy' },
-    { show: false, name: 'Tugedr', text: '3D produktová animace pro novou funkci v aplikaci' },
+  projects: [
+    { tag: 'Sběr dat', title: 'Nástroj na sběr dat', text: 'Nástroj, který data sbírá a ukládá na jednom místě. Součástí zakázky byly i vizuály a televizní spot.', client: '', quote: '' },
+    { tag: 'Animace', title: 'Animovaný spot pro kino', text: 'Krátký animovaný spot, který běží před filmy v kině.', client: '', quote: '' },
+    { tag: '3D', title: '3D produktová animace', text: 'Animace nové funkce v aplikaci, vytvořená ve 3D.', client: '', quote: '' },
   ],
 };
 

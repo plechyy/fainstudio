@@ -11,6 +11,7 @@ const LINKS = [
   { href: '#pred-po', label: 'Dneska a potom' },
   { href: '#srovnani', label: 'Srovnání' },
   { href: '#proof', label: 'Přínosy' },
+  { href: '#kdo', label: 'O nás' },
   { href: '#faq', label: 'Otázky' },
 ];
 const TRACKED = LINKS.map((l) => l.href.slice(1));

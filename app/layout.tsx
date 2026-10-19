@@ -30,7 +30,7 @@ export const viewport: Viewport = {
 };
 
 // Obnoví uložený motiv před prvním vykreslením → nic neprobliká.
-const noFlash = `(function(){try{var d=document.documentElement;d.classList.add('is-loading');var t=localStorage.getItem('theme')==='light'?'light':'dark';d.dataset.theme=t;var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==='light'?'#fcfaf6':'#0f0e12';}catch(e){}})();`;
+const noFlash = `(function(){try{var d=document.documentElement;if(location.pathname==='/')d.classList.add('is-loading');var t=localStorage.getItem('theme')==='light'?'light':'dark';d.dataset.theme=t;var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==='light'?'#fcfaf6':'#0f0e12';}catch(e){}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

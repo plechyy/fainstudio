@@ -35,6 +35,29 @@ export default function Hero() {
             {hero.secondary}
           </a>
         </div>
+
+        <ul className="hero__safe seq" style={{ ['--i' as string]: 4 }} aria-label="Vaše data">
+          <li>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="5" y="10.5" width="14" height="9.5" rx="2.6" />
+              <path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5M12 14.5v2" />
+            </svg>
+            Data zůstávají vaše
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 18.5h10.2a3.8 3.8 0 0 0 .6-7.55A5.3 5.3 0 0 0 7.6 9.6 4.5 4.5 0 0 0 7 18.5z" />
+            </svg>
+            V cloudu, nebo lokálně u vás
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3.5l7 2.8v5.1c0 4.1-2.8 7.2-7 9.1-4.2-1.9-7-5-7-9.1V6.3z" />
+              <path d="m9 12 2.2 2.2L15.2 10" />
+            </svg>
+            Přístup jen pro koho určíte
+          </li>
+        </ul>
       </div>
     </section>
   );

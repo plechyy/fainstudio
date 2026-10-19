@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { EMAIL } from '@/lib/config';
+import { EMAIL, PRIVACY_URL } from '@/lib/config';
 
 type State = 'idle' | 'sending' | 'ok' | 'error';
 
@@ -76,7 +76,7 @@ export default function ContactForm() {
         </p>
       )}
       <p className="cf__note">
-        Raději mailem? Pište na <a href={`mailto:${EMAIL}`}>{EMAIL}</a>. Údaje použijeme jen na odpověď.
+        Raději mailem? Pište na <a href={`mailto:${EMAIL}`}>{EMAIL}</a>. Údaje použijeme jen na odpověď, <a href={PRIVACY_URL}>více v zásadách</a>.
       </p>
     </form>
   );

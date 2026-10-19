@@ -1,4 +1,4 @@
-import { NAME, CITY, EMAIL } from '@/lib/config';
+import { NAME, CITY, EMAIL, ICO, PRIVACY_URL } from '@/lib/config';
 import PaintedWordmark from './PaintedWordmark';
 
 export default function Footer() {
@@ -8,7 +8,11 @@ export default function Footer() {
         <span>
           {NAME}, FainStudio
         </span>
+        <span>IČO {ICO}</span>
         <span>{CITY}</span>
+        <a className="foot__legal" href={PRIVACY_URL}>
+          Ochrana osobních údajů
+        </a>
         <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
       </div>
       {/* úplně dole: velký nápis, který se namaluje, když k němu dojedete */}
