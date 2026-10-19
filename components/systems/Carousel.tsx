@@ -72,13 +72,26 @@ export default function Carousel() {
     el.addEventListener('touchstart', onDown, { passive: true });
     el.addEventListener('touchend', onUp, { passive: true });
     el.addEventListener('touchcancel', onUp, { passive: true });
-    addEventListener('resize', center);
+    /* Na mobilu se při scrollu stránkou schovává a ukazuje adresní řádek, což spouští `resize`.
+       Carousel se kvůli tomu nesmí vracet na začátek: reaguje jen na změnu šířky a drží
+       aktuální kartu (stejný podíl v sadě). */
+    let lastW = innerWidth;
+    let lastSet = setWidth();
+    const onResize = () => {
+      if (innerWidth === lastW) return;
+      lastW = innerWidth;
+      const w = setWidth();
+      if (w > 0 && lastSet > 0) el.scrollLeft = (el.scrollLeft / lastSet) * w;
+      else center();
+      lastSet = w;
+    };
+    addEventListener('resize', onResize);
     return () => {
       el.removeEventListener('scroll', onScroll);
       el.removeEventListener('touchstart', onDown);
       el.removeEventListener('touchend', onUp);
       el.removeEventListener('touchcancel', onUp);
-      removeEventListener('resize', center);
+      removeEventListener('resize', onResize);
       clearTimeout(t);
     };
   }, [items.length]);
