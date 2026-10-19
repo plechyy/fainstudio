@@ -1,5 +1,6 @@
 import { logout } from '@/app/adminlogin/actions';
 import { requireAdmin } from '@/lib/admin-session';
+import AdminTodo from './AdminTodo';
 
 export default async function Admin() {
   await requireAdmin();
@@ -16,7 +17,9 @@ export default async function Admin() {
         </form>
       </header>
       <main className="adm__main">
-        <h1 className="adm__h1">Analytika</h1>
+        <AdminTodo />
+
+        <h2 className="adm__h2">Analytika</h2>
         <p className="adm__muted">Tady bude přehled. Obsah se doplní.</p>
       </main>
     </div>

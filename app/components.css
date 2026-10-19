@@ -5228,3 +5228,162 @@ html.is-loading .seq {
   letter-spacing: 0;
   color: var(--ink-3);
 }
+
+/* ── to do v administraci ─────────────────────────────────────────── */
+.adm__h2 {
+  margin: clamp(36px, 5vw, 56px) 0 8px;
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 620;
+  letter-spacing: -0.02em;
+}
+.td__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 18px;
+  margin-bottom: 20px;
+}
+.td__h {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  font-weight: 620;
+  letter-spacing: -0.02em;
+}
+.td__sum {
+  margin: 0;
+  color: var(--ink-2);
+  font-weight: 600;
+}
+.td__bar {
+  flex: 1 1 160px;
+  height: 6px;
+  max-width: 320px;
+  border-radius: 999px;
+  background: var(--line);
+  overflow: hidden;
+}
+.td__bar i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--primary-deep), var(--primary));
+  transition: width 320ms var(--ease-out);
+}
+.td__grid {
+  display: grid;
+  gap: 16px;
+}
+@media (min-width: 900px) {
+  .td__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.td__card {
+  padding: clamp(18px, 2.4vw, 26px);
+  border-radius: 20px;
+  background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface) 100%);
+  border: 1px solid var(--line);
+}
+.td__gh {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 0 10px;
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 620;
+}
+.td__gh small {
+  font-family: var(--font-text);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+}
+.td__card ul {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.td__card li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.td__card label {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 9px 4px;
+  cursor: pointer;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+.td__card label:hover {
+  color: var(--ink);
+}
+.td__card label.is-done span {
+  color: var(--ink-3);
+  text-decoration: line-through;
+  text-decoration-color: color-mix(in oklab, var(--ink-3) 60%, transparent);
+}
+.td__card input[type='checkbox'] {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--primary-deep);
+  cursor: pointer;
+}
+.td__x {
+  border: 0;
+  background: none;
+  color: var(--ink-3);
+  font-size: 1.3rem;
+  line-height: 1;
+  padding: 6px 8px;
+  cursor: pointer;
+}
+.td__x:hover {
+  color: var(--ink);
+}
+.td__add {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+.td__add input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  background: oklch(0 0 0 / 0.25);
+  color: inherit;
+  font: inherit;
+  outline: none;
+}
+.td__add input:focus {
+  border-color: var(--primary);
+}
+.td__add button {
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--chip-hover);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.td__note {
+  margin: 14px 2px 0;
+  font-size: 0.82rem;
+  color: var(--ink-3);
+}

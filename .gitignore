@@ -8,3 +8,7 @@ out/
 next-env.d.ts
 .vercel
 .env*
+
+# soukromé soubory (audity, loga a další) patří do administrace, ne do veřejného repozitáře
+reports/*.pdf
+.admin-files/
