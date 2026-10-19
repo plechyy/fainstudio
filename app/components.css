@@ -4866,3 +4866,119 @@ html.is-loading .seq {
   -webkit-text-fill-color: currentColor;
   filter: none;
 }
+
+/* ── administrace (/adminlogin, /admin) ───────────────────────────── */
+.adm {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--ink);
+}
+.adm--login {
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+.adm__card {
+  width: min(100%, 400px);
+  padding: clamp(24px, 5vw, 36px);
+  border-radius: 24px;
+  background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface) 100%);
+  border: 1px solid var(--line);
+  box-shadow: inset 0 1px 0 var(--glass-top), 0 40px 80px -40px oklch(0 0 0 / calc(0.8 * var(--sh)));
+}
+.adm__brand {
+  margin: 0 0 18px;
+  font-family: 'FingerPaint', var(--font-display);
+  font-size: 1.5rem;
+  color: var(--primary);
+}
+.adm__brand span {
+  color: var(--ink);
+  font-weight: 700;
+}
+.adm__brand small {
+  margin-left: 10px;
+  font-family: var(--font-text);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.adm__h1 {
+  margin: 0 0 22px;
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  font-weight: 620;
+  letter-spacing: -0.02em;
+}
+.adm__form {
+  display: grid;
+  gap: 14px;
+}
+.adm__f {
+  display: grid;
+  gap: 6px;
+}
+.adm__f span {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--ink-2);
+}
+.adm__f input {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1px solid var(--line-strong);
+  border-radius: 14px;
+  background: oklch(0 0 0 / 0.3);
+  color: inherit;
+  font: inherit;
+  outline: none;
+  transition: border-color 160ms, box-shadow 160ms;
+}
+.adm__f input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 28%, transparent);
+}
+.adm__err {
+  margin: 0;
+  padding: 11px 14px;
+  border-radius: 12px;
+  background: oklch(0.45 0.14 25 / 0.35);
+  font-size: 0.9rem;
+}
+.adm__btn {
+  width: 100%;
+  margin-top: 4px;
+}
+.adm__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px clamp(16px, 4vw, 40px);
+  border-bottom: 1px solid var(--line);
+}
+.adm__bar .adm__brand {
+  margin: 0;
+}
+.adm__out {
+  padding: 9px 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--chip);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.adm__out:hover {
+  background: var(--chip-hover);
+}
+.adm__main {
+  padding: clamp(24px, 5vw, 56px) clamp(16px, 4vw, 40px);
+}
+.adm__muted {
+  color: var(--ink-3);
+}
