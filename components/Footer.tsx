@@ -1,15 +1,12 @@
-import { NAME, CITY, EMAIL, ICO, PRIVACY_URL } from '@/lib/config';
+import { EMAIL, ICO, PRIVACY_URL } from '@/lib/config';
 import PaintedWordmark from './PaintedWordmark';
 
 export default function Footer() {
   return (
     <footer className="foot" id="paticka">
       <div className="wrap foot__in">
-        <span>
-          {NAME}, FaiN Studio
-        </span>
+        <span>FaiN Studio</span>
         <span>IČO {ICO}</span>
-        <span>{CITY}</span>
         <a className="foot__legal" href={PRIVACY_URL}>
           Ochrana osobních údajů
         </a>

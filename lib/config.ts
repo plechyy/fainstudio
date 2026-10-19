@@ -6,6 +6,5 @@
 export const EMAIL = 'matyas@fainstudio.com';
 export const CAL_URL = '#rezervace';
 export const NAME = 'Matyáš Plecháč';
-export const CITY = 'Praha';
 export const ICO = '21019011';
 export const PRIVACY_URL = '/ochrana-udaju';

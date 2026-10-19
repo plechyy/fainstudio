@@ -5,7 +5,7 @@
  * Klíčová slova, na která web míří (pořadí = priorita):
  *   AI automatizace · AI agentura · automatizace firemních procesů · umělá inteligence pro firmy
  *   AI asistent pro firmu · automatizace administrativy · zpracování faktur a dokumentů pomocí AI
- *   automatizace e-mailů a poptávek · CRM a interní nástroje na míru · AI agentura Praha
+ *   automatizace e-mailů a poptávek · CRM a interní nástroje na míru · AI agentura
  * Pravidlo: slova musí stát i ve viditelném textu, ne jen v metadatech.
  */
 import { about, faq, systems } from './content';
@@ -15,9 +15,9 @@ export const SITE = 'https://fainstudio.com';
 export const BRAND = 'FaiN Studio';
 
 export const seo = {
-  title: 'AI automatizace pro firmy | AI agentura FaiN Studio, Praha',
+  title: 'AI automatizace pro firmy | AI agentura FaiN Studio',
   description:
-    'AI agentura z Prahy. Automatizujeme firemní procesy pomocí umělé inteligence: e-maily, faktury, poptávky, dokumenty, CRM i AI asistenty na míru.',
+    'AI agentura. Automatizujeme firemní procesy pomocí umělé inteligence: e-maily, faktury, poptávky, dokumenty, CRM i AI asistenty na míru.',
   ogTitle: 'AI automatizace, která maká za vás | FaiN Studio',
   ogDescription:
     'Postavíme systém s umělou inteligencí, který převezme opakovanou práci ve vaší firmě. E-maily, faktury, poptávky, dokumenty i interní nástroje. Data zůstávají vaše.',
@@ -36,7 +36,6 @@ export const seo = {
     'zpracování poptávek',
     'CRM na míru',
     'interní nástroje na míru',
-    'AI agentura Praha',
     'digitalizace firmy',
   ],
 };
@@ -69,7 +68,7 @@ export function homeJsonLd() {
         name: BRAND,
         alternateName: ['FainStudio', 'FaiN'],
         description:
-          'AI agentura z Prahy. Navrhuje a staví systémy s umělou inteligencí, které ve firmách převezmou opakovanou práci: zpracování e-mailů, poptávek, faktur a dokumentů, CRM a interní nástroje, AI asistenty nad firemními daty a hlídání trhu.',
+          'AI agentura. Navrhujeme a stavíme systémy s umělou inteligencí, které ve firmách převezmou opakovanou práci: zpracování e-mailů, poptávek, faktur a dokumentů, CRM a interní nástroje, AI asistenty nad firemními daty a hlídání trhu.',
         slogan: 'Umělá inteligence, která maká za vás.',
         url: SITE,
         logo: `${SITE}/icon.png`,
@@ -77,7 +76,6 @@ export function homeJsonLd() {
         email: EMAIL,
         founder: { '@id': PERSON_ID },
         identifier: { '@type': 'PropertyValue', propertyID: 'IČO', value: ICO },
-        address: { '@type': 'PostalAddress', addressLocality: 'Praha', addressCountry: 'CZ' },
         areaServed: { '@type': 'Country', name: 'Česko' },
         availableLanguage: ['cs', 'en'],
         knowsAbout: KNOWS,

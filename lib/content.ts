@@ -22,7 +22,7 @@ export const proof = {
   stats: [
     { value: 'až 90 %', label: 'Úspora času a peněz', text: 'Méně ruční práce u procesů, které jsme dodali. K tomu méně chyb a přesčasů a víc peněz na účtu. Kolik přesně u vás, spočítáme na prvním hovoru.' },
     { value: 'Ihned', label: 'Adaptace', text: 'Napojíme se na to, co už používáte, a lidi zaučíme. Žádné týdny zvykání, žádný nový program od nuly.' },
-    { value: '100 %', label: 'Spolehlivost', text: 'Systém nezapomene, neonemocní a nemá blbý den. O důležitých věcech pořád rozhodujete vy.' },
+    { value: 'Vždy', label: 'Spolehlivost', text: 'Systém nezapomene, neonemocní a nemá blbý den. Pravidla se dodržují pokaždé stejně. O důležitých věcech pořád rozhodujete vy.' },
     { value: '24/7', label: 'Nonstop provoz', text: 'Zatímco spíte, systém odpovídá, třídí a počítá. Ráno je hotovo.' },
   ],
   strip: {
@@ -133,7 +133,7 @@ export const compare = {
   rows: [
     { label: 'Jak dlouho to trvá', values: ['Týdny', 'Měsíce', 'Dny', 'Měsíce'] },
     { label: 'Řeší právě váš proces', values: ['Ano', 'Ano', 'Ne', 'Ano'] },
-    { label: 'Mluvíte s tím, kdo to staví', values: ['Ano', 'Ne', 'Ne', 'Ano'] },
+    { label: 'Mluvíte přímo s těmi, kdo to staví', values: ['Ano', 'Ne', 'Ne', 'Ano'] },
     { label: 'Zaučení lidí v ceně', values: ['Ano', 'Někdy', 'Ne', 'Ne'] },
     { label: 'Cenu znáte po prvním hovoru', values: ['Ano', 'Ne', 'Ano', 'Někdy'] },
     { label: 'Platíte jednorázově', values: ['Ano', 'Ano', 'Ne, paušál navždy', 'Ano'] },
@@ -147,7 +147,7 @@ export const faq = [
   },
   {
     q: 'Pro koho to je? Nevíme, co by šlo zlepšit.',
-    a: 'Pro malé a střední firmy, kde se pořád něco opakuje. Jsme AI agentura z Prahy a spolupracovat můžeme osobně i na dálku. Obor nerozhoduje. Na rutinu si člověk zvykne a přestane si jí všímat, takže když nevíte, co by šlo zlepšit, je to normální. Na hovoru projdeme, jak ve firmě pracujete, a ukážeme, co by mohl převzít systém. Kdybychom nic nenašli, řekneme vám to.',
+    a: 'Pro malé a střední firmy, kde se pořád něco opakuje. Jsme AI agentura a spolupracovat můžeme osobně i na dálku. Obor nerozhoduje. Na rutinu si člověk zvykne a přestane si jí všímat, takže když nevíte, co by šlo zlepšit, je to normální. Na hovoru projdeme, jak ve firmě pracujete, a ukážeme, co by mohl převzít systém. Kdybychom nic nenašli, řekneme vám to.',
   },
   {
     q: 'Nahradí to někoho z našich lidí?',
@@ -174,7 +174,7 @@ export const faq = [
 export const about = {
   name: 'Matyáš Plecháč',
   ico: '21019011',
-  text: 'Jsme malé studio z Prahy. Stavíme automatizace, interní nástroje, sběr dat a weby. Když napíšete, odpoví vám ten, kdo to pak bude dělat.',
+  text: 'Stavíme automatizace, interní nástroje, sběr dat a weby. Od prvního hovoru až po předání se s vámi bavíme my, bez prostředníků.',
   /*
    * REFERENCE — ZATÍM SKRYTÉ.
    * Nezobrazovat, dokud zadavatel nemá od každého klienta písemný souhlas

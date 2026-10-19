@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
-import { CITY, EMAIL, ICO, NAME } from '@/lib/config';
+import { EMAIL, ICO, NAME } from '@/lib/config';
 
 export const metadata: Metadata = {
   title: 'Zásady zpracování osobních údajů',
@@ -28,7 +28,7 @@ export default function Privacy() {
 
         <h2>1. Kdo údaje zpracovává</h2>
         <p>
-          Správcem osobních údajů je <b>{NAME}</b>, IČO {ICO}, {CITY} (dále „FaiN Studio“). Kontakt:{' '}
+          Správcem osobních údajů je <b>{NAME}</b>, IČO {ICO} (dále „FaiN Studio“). Kontakt:{' '}
           <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
         </p>
 
