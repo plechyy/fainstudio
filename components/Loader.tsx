@@ -10,9 +10,9 @@ import { useEffect, useRef, useState } from 'react';
  * bez WebGL nebo při reduced motion zůstane slovo jednobarevné.
  */
 
-const MIN = 1450; // nejkratší doba zobrazení
-const FILL_MS = 1400; // vyplnění loga jede rovnoměrně přes celou dobu načítání
-const HOLD = 350; // pauza na plně vybarveném slově
+const MIN = 1150; // nejkratší doba zobrazení
+const FILL_MS = 1100; // vyplnění loga jede rovnoměrně přes celou dobu načítání
+const HOLD = 250; // pauza na plně vybarveném slově
 
 const FRAG = `#version 300 es
 precision highp float;
@@ -92,6 +92,15 @@ export default function Loader() {
     const root = document.documentElement;
     const word = wordRef.current!;
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // při dalším načtení v téže návštěvě se úvod jen mihne
+    let seen = false;
+    try {
+      seen = sessionStorage.getItem('fs-loaded') === '1';
+      sessionStorage.setItem('fs-loaded', '1');
+    } catch {}
+    const minMs = seen ? 250 : MIN;
+    const fillMs = seen ? 350 : FILL_MS;
+    const holdMs = seen ? 0 : HOLD;
     const t0 = performance.now();
     let ready = false;
     let finished = false;
@@ -107,7 +116,7 @@ export default function Loader() {
           setDone(true);
           root.classList.remove('is-loading');
           timers.push(setTimeout(() => setGone(true), 800));
-        }, HOLD),
+        }, holdMs),
       );
     };
 
@@ -125,7 +134,7 @@ export default function Loader() {
     const fallback = () => {
       word.classList.add('is-static');
       const tick = () => {
-        if (ready && performance.now() - t0 >= (reduce ? 600 : MIN)) finish();
+        if (ready && performance.now() - t0 >= (reduce ? 600 : minMs)) finish();
         else raf = requestAnimationFrame(tick);
       };
       tick();
@@ -208,14 +217,14 @@ export default function Loader() {
         const dt = Math.min(0.05, (now - last) / 1000);
         last = now;
         // rovnoměrně od 0 do plna přes celou dobu (nezrychluje se, když je web hotový dřív)
-        const target = Math.min(1, (now - t0) / FILL_MS);
+        const target = Math.min(1, (now - t0) / fillMs);
         fill += (target - fill) * (1 - Math.exp(-dt * 10));
         gl.uniform1f(uTime, (now - t0) / 1000 + 20);
         gl.uniform1f(uFill, fill);
         gl.clearColor(0, 0, 0, 0);
         gl.clear(gl.COLOR_BUFFER_BIT);
         gl.drawArrays(gl.TRIANGLES, 0, 3);
-        if (ready && fill > 0.985 && now - t0 >= MIN) finish();
+        if (ready && fill > 0.985 && now - t0 >= minMs) finish();
         else raf = requestAnimationFrame(frame);
       };
       raf = requestAnimationFrame(frame);

@@ -26,12 +26,13 @@ export const metadata: Metadata = {
     siteName: BRAND,
     title: seo.ogTitle,
     description: seo.ogDescription,
-    images: ['/media/hero-poster.jpg'],
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'FaiN Studio: AI agentura pro automatizaci firem' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: seo.ogTitle,
     description: seo.ogDescription,
+    images: ['/og.png'],
   },
   formatDetection: { telephone: false, address: false, email: false },
 };
