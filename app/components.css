@@ -4814,21 +4814,25 @@ html.is-loading .seq {
 .faq__item[open] .faq__icon::after {
   background: oklch(0.2 0.03 var(--pal-h));
 }
+@property --fk {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
 @media (prefers-reduced-motion: no-preference) {
-  /* okno tří barevných otázek se posouvá dolů o jednu každých ~0,55 s; přechody jsou plynulé */
+  /* barva se k otázce přelévá plynule: míchá se jediné číslo --fk (0 až 1) a ne dvě barvy po klíčových snímcích,
+     takže nikde neskočí a nebliká. Vlna putuje po otázkách s malým zpožděním. */
   .faq__q {
-    --step: 0.6s;
-    animation: faq-pluck calc(var(--n, 7) * var(--step)) linear infinite;
+    --step: 0.9s;
+    color: color-mix(in oklab, var(--fc) calc(var(--fk) * 100%), var(--ink));
+    animation: faq-pluck calc(var(--n, 7) * var(--step)) ease-in-out infinite;
     animation-delay: calc(var(--d, 0) * var(--step) * -1);
   }
 }
-/* n = 7 otázek (cyklus = 7 kroků): barva plynule narůstá 2 kroky, drží 2 kroky a 2 kroky mizí.
-   Díky dlouhým přechodům se vlna zabarvení přelévá, nic neblikne. */
 @keyframes faq-pluck {
-  0% { color: var(--ink); animation-timing-function: cubic-bezier(0.45, 0, 0.3, 1); }
-  28% { color: var(--fc); }
-  57% { color: var(--fc); animation-timing-function: cubic-bezier(0.45, 0, 0.3, 1); }
-  86%, 100% { color: var(--ink); }
+  0%, 100% { --fk: 0; }
+  25%, 45% { --fk: 1; }
+  70% { --fk: 0; }
 }
 
 /* ── hero: nadtitulek s klíčovými slovy (je součástí H1) ─────────── */
