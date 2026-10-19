@@ -34,7 +34,7 @@ export default function Privacy() {
 
         <h2>2. Jaké údaje a proč</h2>
         <p>
-          Když napíšete přes formulář na webu, zpracováváme <b>jméno, e-mail a text zprávy</b>, které sami vyplníte. Používáme je
+          Když napíšete přes formulář na webu, zpracováváme <b>jméno, e-mail, telefon (pokud ho uvedete) a text zprávy</b>, které sami vyplníte. Používáme je
           výhradně k tomu, abychom vám odpověděli a vyřídili vaši poptávku. Jiné údaje o návštěvnících webu nesbíráme.
         </p>
         <p>

@@ -5256,3 +5256,9 @@ html.is-loading .seq {
 .cta-row--right {
   justify-content: flex-end;
 }
+
+.cf__f span small {
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--ink-3);
+}

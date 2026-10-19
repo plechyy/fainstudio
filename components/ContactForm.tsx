@@ -12,7 +12,7 @@ type State = 'idle' | 'sending' | 'ok' | 'error';
  */
 export default function ContactForm() {
   const [state, setState] = useState<State>('idle');
-  const [fields, setFields] = useState({ name: '', email: '', message: '', web: '' });
+  const [fields, setFields] = useState({ name: '', email: '', phone: '', message: '', web: '' });
 
   const set = (k: keyof typeof fields) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setFields((f) => ({ ...f, [k]: e.target.value }));
@@ -34,7 +34,7 @@ export default function ContactForm() {
   };
 
   const mailto = `mailto:${EMAIL}?subject=${encodeURIComponent('Chci to u nás')}&body=${encodeURIComponent(
-    `${fields.message}\n\n${fields.name}${fields.email ? ` (${fields.email})` : ''}`,
+    `${fields.message}\n\n${fields.name}${fields.email ? ` (${fields.email})` : ''}${fields.phone ? `, tel. ${fields.phone}` : ''}`,
   )}`;
 
   if (state === 'ok') {
@@ -55,6 +55,12 @@ export default function ContactForm() {
       <label className="cf__f">
         <span>E-mail</span>
         <input type="email" name="email" autoComplete="email" required maxLength={160} placeholder="jan@firma.cz" value={fields.email} onChange={set('email')} />
+      </label>
+      <label className="cf__f">
+        <span>
+          Telefon <small>(nepovinné)</small>
+        </span>
+        <input type="tel" name="phone" autoComplete="tel" inputMode="tel" maxLength={32} placeholder="+420 777 123 456" value={fields.phone} onChange={set('phone')} />
       </label>
       <label className="cf__f">
         <span>Co by za vás měl dělat systém?</span>

@@ -10,8 +10,10 @@ import { EMAIL } from '@/lib/config';
  * Bez klíče vrací 503 a formulář nabídne e-mail jako náhradu.
  */
 
-const MAX = { name: 120, email: 160, message: 4000 };
+const MAX = { name: 120, email: 160, phone: 32, message: 4000 };
 const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+// telefon je nepovinný; když je vyplněný, musí vypadat jako číslo (číslice, mezery, +, závorky, pomlčky)
+const isPhone = (v: string) => /^\+?[\d\s()\-/.]{6,}$/.test(v) && (v.match(/\d/g) || []).length >= 6;
 const esc = (v: string) => v.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
 
 export async function POST(req: Request) {
@@ -27,10 +29,12 @@ export async function POST(req: Request) {
 
   const name = String(body.name ?? '').trim();
   const email = String(body.email ?? '').trim();
+  const phone = String(body.phone ?? '').trim();
   const message = String(body.message ?? '').trim();
 
   if (!name || name.length > MAX.name) return Response.json({ error: 'name' }, { status: 422 });
   if (!isEmail(email) || email.length > MAX.email) return Response.json({ error: 'email' }, { status: 422 });
+  if (phone && (phone.length > MAX.phone || !isPhone(phone))) return Response.json({ error: 'phone' }, { status: 422 });
   if (message.length > MAX.message) return Response.json({ error: 'message' }, { status: 422 });
 
   const key = process.env.RESEND_API_KEY;
@@ -44,8 +48,8 @@ export async function POST(req: Request) {
       to: [process.env.CONTACT_TO || EMAIL],
       reply_to: email,
       subject: `Web: zpráva od ${name}`,
-      text: `Jméno: ${name}\nE-mail: ${email}\n\n${message || '(bez zprávy)'}`,
-      html: `<p><b>Jméno:</b> ${esc(name)}<br><b>E-mail:</b> ${esc(email)}</p><p>${esc(message || '(bez zprávy)').replace(/\n/g, '<br>')}</p>`,
+      text: `Jméno: ${name}\nE-mail: ${email}${phone ? `\nTelefon: ${phone}` : ''}\n\n${message || '(bez zprávy)'}`,
+      html: `<p><b>Jméno:</b> ${esc(name)}<br><b>E-mail:</b> ${esc(email)}${phone ? `<br><b>Telefon:</b> ${esc(phone)}` : ''}</p><p>${esc(message || '(bez zprávy)').replace(/\n/g, '<br>')}</p>`,
     }),
   });
 
