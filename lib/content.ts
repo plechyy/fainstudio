@@ -281,13 +281,6 @@ export const cases = {
       result: { before: '3 týdny', after: '6 dní', unit: 'průměrné zpoždění platby', math: 'Dřív upomínka, až když si někdo vzpomněl. Teď první připomínka den po splatnosti.' },
     },
   ],
-  assurances: [
-    { k: 'Rozhodujete vy', t: 'O důležitých věcech pořád rozhoduje člověk, ne systém.' },
-    { k: 'Živá ukázka každý týden', t: 'Vidíte, jak to postupuje, ne až na konci.' },
-    { k: 'Vaše lidi zaučíme', t: 'Nikdo se nemusí učit nový program. Napojíme se na to, co už znáte.' },
-    { k: 'Cena před podpisem', t: 'Konkrétní číslo dostanete ještě předtím, než cokoli podepíšete.' },
-  ],
-  verify: { lead: 'Za webem stojí konkrétní člověk a firma, kterou si ověříte v rejstříku.', link: 'Ověřit v ARES' },
   cta: 'Chci zjistit, co by šlo líp',
 } as const;
 
@@ -338,6 +331,7 @@ export const faq = [
 export const about = {
   name: 'Matyáš Plecháč',
   ico: '21019011',
+  verify: 'Ověřit v ARES',
   text: 'Stavíme automatizace, interní nástroje, sběr dat a weby. Od prvního hovoru až po předání se s vámi bavíme my, bez prostředníků.',
   /*
    * REFERENCE — ZATÍM SKRYTÉ.

@@ -25,6 +25,15 @@ export default function About() {
             {about.name}
           </h2>
           <p className="about__text reveal">{about.text}</p>
+          {/* firma je dohledatelná ve veřejném rejstříku: jméno + IČO + odkaz do ARES */}
+          <p className="about__id reveal">
+            <span>
+              IČO <span className="num">{about.ico}</span>
+            </span>
+            <a href={`https://ares.gov.cz/ekonomicke-subjekty?ico=${about.ico}`} target="_blank" rel="noopener noreferrer">
+              {about.verify} <span aria-hidden="true">↗</span>
+            </a>
+          </p>
 
           {/* Podpis: ručně kreslená čmáranice (SVG), vykreslí se tahem při scrollu. Vizuálně jen ozdoba, jméno je v nadpisu. */}
           <div className="sig reveal" aria-hidden="true">
