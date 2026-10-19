@@ -2021,9 +2021,11 @@ html.is-loading .seq {
   text-shadow: none;
 }
 :root[data-theme='light'] .proof__value {
-  background: none;
-  -webkit-text-fill-color: var(--primary-text);
-  color: var(--primary-text);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--primary) 90%, white) 0%, var(--primary) 70%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--primary);
 }
 
 /* úzký telefon: tři vzorky + „Uložit na web“ se vejdou jen bez nápisu Barvy */
@@ -2063,9 +2065,11 @@ html.is-loading .seq {
 :root[data-theme='light'] .sys-head__accent,
 :root[data-theme='light'] .ba-head__accent,
 :root[data-theme='light'] .hd__accent {
-  background: none;
-  -webkit-text-fill-color: var(--primary-text);
-  color: var(--primary-text);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--primary) 90%, white) 0%, var(--primary) 70%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--primary);
 }
 
 /* ════════════════════════════════════════════════════════════════════
@@ -5126,10 +5130,6 @@ html.is-loading .seq {
   --pl2: oklch(calc(0.68 + var(--primary-l-adj)) calc(var(--ac-c) * 1.25) calc(var(--primary-h) + 52));
   --pl3: oklch(calc(0.68 + var(--primary-l-adj)) calc(var(--ac-c) * 1.25) calc(var(--primary-h) + 108));
   --pl4: oklch(calc(0.68 + var(--primary-l-adj)) calc(var(--ac-c) * 1.25) calc(var(--primary-h) + 165));
-}
-:root[data-theme='light'] .proof__item .proof__value {
-  -webkit-text-fill-color: var(--primary-text);
-  color: var(--primary-text);
 }
 :root[data-theme='light'] .proof-strip__title {
   color: var(--ink);
