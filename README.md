@@ -1,6 +1,6 @@
 # fainstudio.com
 
-Jednostránkový web FainStudio. Má jediný úkol: návštěvník si ověří, že jde o skutečného dodavatele, pochopí nabídku a zarezervuje si dvacetiminutový hovor.
+Jednostránkový web FaiN Studio. Má jediný úkol: návštěvník si ověří, že jde o skutečného dodavatele, pochopí nabídku a zarezervuje si dvacetiminutový hovor.
 
 - **Dev:** `npm run dev` → http://localhost:4321 (port 3000 je obsazený, proto Astro default 4321)
 - **Build:** `npm run build` → `dist/`

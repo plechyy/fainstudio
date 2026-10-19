@@ -11,14 +11,14 @@ export const hero = {
   rotate: ['šetří čas', 'maká za vás', 'šetří peníze', 'usnadňuje práci', 'je FaiN'],
   titleSr: 'Umělá inteligence, která šetří čas, maká za vás, šetří peníze, usnadňuje práci a je FaiN.',
   lead: 'Skoro každá firma dělá něco, co by zvládl systém. Máte nápad? Postavíme ho. Nemáte? Projdeme to spolu.',
-  primary: 'Chci zjistit, co by šlo líp',
+  primary: 'Mám zájem',
   secondary: 'Co všechno umíme',
 };
 
 export const proof = {
   title: 'Čísla, za kterými si stojíme',
   stats: [
-    { value: 'až 90 %', label: 'Úspora času a peněz', text: 'Hodiny ruční práce převezme systém. Méně chyb, méně přesčasů a víc peněz na účtu. Kolik přesně u vás, spočítáme na prvním hovoru.' },
+    { value: 'až 90 %', label: 'Úspora času a peněz', text: 'Méně ruční práce u procesů, které jsme dodali. K tomu méně chyb a přesčasů a víc peněz na účtu. Kolik přesně u vás, spočítáme na prvním hovoru.' },
     { value: 'Ihned', label: 'Adaptace', text: 'Napojíme se na to, co už používáte, a lidi zaučíme. Žádné týdny zvykání, žádný nový program od nuly.' },
     { value: '100 %', label: 'Spolehlivost', text: 'Systém nezapomene, neonemocní a nemá blbý den. O důležitých věcech pořád rozhodujete vy.' },
     { value: '24/7', label: 'Nonstop provoz', text: 'Zatímco spíte, systém odpovídá, třídí a počítá. Ráno je hotovo.' },
@@ -129,13 +129,13 @@ export const beforeAfter = {
       { k: 'Růst', t: 'Víc práce zvládne i stejný tým.' },
     ],
   },
-  cta: 'Chci to vidět u nás',
+  cta: 'Chci to u nás',
 };
 
 export const compare = {
   title: 'Jiné cesty to taky umí. Jen jinak.',
-  note: 'Agentura, hotový nástroj i vlastní vývojář tu stojí jako druhy řešení. Nemyslíme tím nikoho konkrétního.',
-  columns: ['FainStudio', 'Agentura', 'Hotový nástroj', 'Vlastní vývojář'],
+  note: 'Jiná agentura, hotový nástroj i vlastní vývojář tu stojí jako druhy řešení. Nemyslíme tím nikoho konkrétního.',
+  columns: ['FaiN Studio', 'Jiná agentura', 'Hotový nástroj', 'Vlastní vývojář'],
   rows: [
     { label: 'Jak dlouho to trvá', values: ['Týdny', 'Měsíce', 'Dny', 'Měsíce'] },
     { label: 'Řeší právě váš proces', values: ['Ano', 'Ano', 'Ne', 'Ano'] },
@@ -199,5 +199,5 @@ export const cta = {
   text: 'Přijďte s nápadem, nebo bez něj. Projdeme vaši firmu, ukážeme, co jde líp, a spočítáme, kolik vám to ušetří. A když to nedává smysl, řekneme vám to do očí.',
   button: 'Chci to u nás',
   // tlačítko pod čísly
-  priceButton: 'Chci úvodní hovor',
+  priceButton: 'Mám zájem',
 };

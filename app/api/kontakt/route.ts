@@ -6,7 +6,7 @@ import { EMAIL } from '@/lib/config';
  *   RESEND_API_KEY   povinné, klíč z Resendu
  *   CONTACT_TO       komu zprávy chodí (výchozí: EMAIL z lib/config.ts)
  *   CONTACT_FROM     odesílatel, např. "FainStudio <web@fainstudio.com>" (doména musí být v Resendu ověřená;
- *                    výchozí "FainStudio <onboarding@resend.dev>" pošle jen na e-mail majitele účtu Resend)
+ *                    výchozí "FaiN Studio <onboarding@resend.dev>" pošle jen na e-mail majitele účtu Resend)
  * Bez klíče vrací 503 a formulář nabídne e-mail jako náhradu.
  */
 
@@ -40,7 +40,7 @@ export async function POST(req: Request) {
     method: 'POST',
     headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      from: process.env.CONTACT_FROM || 'FainStudio <onboarding@resend.dev>',
+      from: process.env.CONTACT_FROM || 'FaiN Studio <onboarding@resend.dev>',
       to: [process.env.CONTACT_TO || EMAIL],
       reply_to: email,
       subject: `Web: zpráva od ${name}`,

@@ -1,4 +1,4 @@
-# Tone of voice FainStudio
+# Tone of voice FaiN Studio
 
 Odvozeno z toho, jak píšou lepshee.com (uvolněné, hravé, s pokrčením ramen) a lepshee.ai (sebejisté, věcné, s čísly). Přebíráme způsob psaní, nikdy jejich věty.
 

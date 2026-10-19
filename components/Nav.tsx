@@ -104,7 +104,7 @@ export default function Nav() {
         <i />
       </div>
       <div className="nav__pill">
-        <a className="logo" href="#top" aria-label="FainStudio, na začátek stránky">
+        <a className="logo" href="#top" aria-label="FaiN Studio, na začátek stránky">
           <span className="logo__word">
             FaiN<span className="logo__sub">Studio</span>
           </span>

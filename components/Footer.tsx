@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="foot">
       <div className="wrap foot__in">
         <span>
-          {NAME}, FainStudio
+          {NAME}, FaiN Studio
         </span>
         <span>IČO {ICO}</span>
         <span>{CITY}</span>

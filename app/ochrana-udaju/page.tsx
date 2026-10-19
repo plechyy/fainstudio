@@ -4,8 +4,8 @@ import Footer from '@/components/Footer';
 import { CITY, EMAIL, ICO, NAME } from '@/lib/config';
 
 export const metadata: Metadata = {
-  title: 'Zásady zpracování osobních údajů | FainStudio',
-  description: 'Jak FainStudio nakládá s osobními údaji z formuláře a jaké cookies a úložiště web používá.',
+  title: 'Zásady zpracování osobních údajů | FaiN Studio',
+  description: 'Jak FaiN Studio nakládá s osobními údaji z formuláře a jaké cookies a úložiště web používá.',
   alternates: { canonical: '/ochrana-udaju' },
   robots: { index: true, follow: true },
 };
@@ -28,7 +28,7 @@ export default function Privacy() {
 
         <h2>1. Kdo údaje zpracovává</h2>
         <p>
-          Správcem osobních údajů je <b>{NAME}</b>, IČO {ICO}, {CITY} (dále „FainStudio“). Kontakt:{' '}
+          Správcem osobních údajů je <b>{NAME}</b>, IČO {ICO}, {CITY} (dále „FaiN Studio“). Kontakt:{' '}
           <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
         </p>
 

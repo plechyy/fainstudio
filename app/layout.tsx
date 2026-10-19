@@ -5,7 +5,7 @@ const SITE = 'https://fainstudio.com';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
-  title: 'FainStudio — automatizace procesů, interní nástroje a sběr dat',
+  title: 'FaiN Studio — automatizace procesů, interní nástroje a sběr dat',
   description:
     'Postavíme systém, který převezme práci, co dnes děláte rukama. Malé studio z Prahy.',
   alternates: { canonical: '/' },
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'cs_CZ',
     url: SITE,
-    title: 'FainStudio — automatizace procesů, interní nástroje a sběr dat',
+    title: 'FaiN Studio — automatizace procesů, interní nástroje a sběr dat',
     description:
       'Postavíme systém, který převezme práci, co dnes děláte rukama. Malé studio z Prahy.',
     images: ['/media/hero-poster.jpg'],

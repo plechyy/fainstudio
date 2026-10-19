@@ -29,7 +29,7 @@ export default function About() {
             </span>
             <div>
               <h3 className="ab__name">{about.name}</h3>
-              <p className="ab__ico">FainStudio · Praha · IČO {about.ico}</p>
+              <p className="ab__ico">FaiN Studio · Praha · IČO {about.ico}</p>
             </div>
             <p className="ab__text">{about.text}</p>
             {/* podpis: ručně kreslená čmáranice, vykreslí se tahem při scrollu */}
