@@ -25,10 +25,6 @@ export const proof = {
     { value: 'Vždy', label: 'Spolehlivost', text: 'Systém nezapomene, neonemocní a nemá blbý den. Pravidla se dodržují pokaždé stejně. O důležitých věcech pořád rozhodujete vy.' },
     { value: '24/7', label: 'Nonstop provoz', text: 'Zatímco spíte, systém odpovídá, třídí a počítá. Ráno je hotovo.' },
   ],
-  strip: {
-    title: 'Efektivita',
-    text: 'Stejný tým zvládne víc. Nic nezapadne mezi e-maily a tabulkami a lidé se věnují práci, ke které je potřeba hlava.',
-  },
 };
 
 export const systems = {
@@ -121,7 +117,7 @@ export const beforeAfter = {
       { k: 'Informace', t: 'Na jednom místě a pořád aktuální.' },
       { k: 'Práce', t: 'Udělá ji systém. Lidé ji řídí a kontrolují.' },
       { k: 'Rozhodování', t: 'Podle čísel, která máte po ruce.' },
-      { k: 'Růst', t: 'Víc práce zvládne i stejný tým.' },
+      { k: 'Růst', t: 'Firma roste, papírování ne.' },
     ],
   },
   cta: 'Chci to u nás',

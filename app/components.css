@@ -1288,27 +1288,6 @@ html.is-loading .seq {
   color: var(--ink-3);
   text-wrap: pretty;
 }
-.proof-strip {
-  position: relative;
-  display: grid;
-  gap: 8px 40px;
-  margin-top: 56px;
-  padding: 26px 0 0 30px;
-  border-top: 1px dashed var(--line-strong);
-}
-.proof-strip__title {
-  font-family: var(--font-display);
-  font-size: var(--step-2);
-  font-weight: 620;
-  letter-spacing: -0.02em;
-  color: var(--white-text);
-}
-.proof-strip__text {
-  max-width: 64ch;
-  color: var(--ink-2);
-  line-height: 1.55;
-  text-wrap: pretty;
-}
 @media (min-width: 900px) {
   .proof {
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1329,16 +1308,7 @@ html.is-loading .seq {
     top: 1px;
     height: 6px;
   }
-  .proof-strip {
-    grid-template-columns: minmax(200px, 1fr) minmax(0, 3fr);
-    align-items: baseline;
-    padding-left: 0;
-    padding-top: 30px;
-  }
-  .proof-strip__title {
-    padding-left: 30px;
-  }
-}
+    }
 
 /* ── FAQ ─────────────────────────────────────────────────────────── */
 .faq {
@@ -4714,10 +4684,7 @@ html.is-loading .seq {
   --pl3: oklch(calc(0.68 + var(--pal-adj)) calc(var(--ac-c) * 1.25) calc(var(--pal-h) + 108));
   --pl4: oklch(calc(0.68 + var(--pal-adj)) calc(var(--ac-c) * 1.25) calc(var(--pal-h) + 165));
 }
-:root[data-theme='light'] .proof-strip__title {
-  color: var(--ink);
-}
-
+:root[data-theme='light'] 
 /* ── pruh o datech pod tlačítky v hero ───────────────────────────── */
 .hero__safe {
   display: flex;

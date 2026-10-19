@@ -29,11 +29,6 @@ export default function Proof() {
           ))}
         </ul>
 
-        <div className="proof-strip reveal">
-          <h3 className="proof-strip__title">{proof.strip.title}</h3>
-          <p className="proof-strip__text">{proof.strip.text}</p>
-        </div>
-
         <CtaRow label={cta.priceButton} />
       </div>
     </section>
