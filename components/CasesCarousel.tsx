@@ -2,154 +2,34 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { cases } from '@/lib/content';
+import CoachLive from './cases/CoachLive';
+import ContractLive from './cases/ContractLive';
+import DunningLive from './cases/DunningLive';
+import MasterLive from './cases/MasterLive';
+import MeetingLive from './cases/MeetingLive';
+import PhotoLive from './cases/PhotoLive';
+import RealtyLive from './cases/RealtyLive';
 
 type Item = (typeof cases.items)[number];
 const L = cases.labels;
 
-function Visual({ v }: { v: Item['visual'] }) {
+/* živá scéna případu: stejný 3D styl jako v sekci 2, každá ukazuje, co systém u té firmy dělá */
+function Live({ v }: { v: Item['visual'] }) {
   switch (v.type) {
     case 'feed':
-      // nové inzeráty: od majitelů jdou makléři, realitky a duplicity vypadnou
-      return (
-        <figure className="cx-vis cx-feed">
-          <ul>
-            {v.rows.map((r, i) => (
-              <li className={r.ok ? 'is-ok' : 'is-out'} key={r.t + r.meta} style={{ ['--i' as string]: i }}>
-                <span>
-                  <b>{r.t}</b>
-                  <small>{r.meta}</small>
-                </span>
-                <em>{r.tag}</em>
-              </li>
-            ))}
-          </ul>
-        </figure>
-      );
+      return <RealtyLive v={v} />;
     case 'score':
-      // hodnocení hovoru, jak ho obchodník uvidí v mobilu po zavěšení
-      return (
-        <figure className="cx-vis cx-score">
-          <p className="cx-score__call">{v.call}</p>
-          <ul>
-            {v.rows.map((r, i) => (
-              <li className={`is-${r.k}`} key={r.k} style={{ ['--i' as string]: i }}>
-                <b>{r.label}</b>
-                {r.t}
-              </li>
-            ))}
-          </ul>
-          <p className="cx-score__trend">
-            <span aria-hidden="true">▲</span> {v.trend}
-          </p>
-        </figure>
-      );
+      return <CoachLive v={v} />;
     case 'photo':
-      // „fotka“ koupelny (jen kreslené plochy, žádný obrázek), AI do ní připíchne, co poznala, a pod ní cena
-      return (
-        <figure className="cx-vis cx-photo">
-          <div className="cx-photo__img" aria-hidden="true">
-            <span className="cx-photo__tile" />
-            <span className="cx-photo__tub" />
-            <span className="cx-photo__sink" />
-            <span className="cx-photo__scan" />
-            {v.tags.map((t, i) => (
-              <em key={t.t} style={{ ...(t.x < 50 ? { left: `${t.x}%` } : { right: `${100 - t.x}%` }), top: `${t.y}%`, ['--i' as string]: i }}>
-                {t.t}
-              </em>
-            ))}
-          </div>
-          <p className="cx-photo__price">
-            <small>{v.price.k}</small>
-            <b className="num">{v.price.v}</b>
-            <span>{v.price.s}</span>
-          </p>
-          <ul className="sr-only">
-            {v.tags.map((t) => (
-              <li key={t.t}>{t.t}</li>
-            ))}
-          </ul>
-        </figure>
-      );
+      return <PhotoLive v={v} />;
     case 'contract':
-      // smlouva s barevně zvýrazněnými riziky a návrhem, co chtít jinak
-      return (
-        <figure className="cx-vis cx-con">
-          <div className="cx-con__page">
-            <b className="cx-con__h">{v.title}</b>
-            <span className="cx-con__lines" aria-hidden="true" />
-            <ol>
-              {v.flags.map((f, i) => (
-                <li className={`is-${f.lvl}`} key={f.at} style={{ ['--i' as string]: i }}>
-                  <small>{f.at}</small>
-                  <b>{f.t}</b>
-                  <span>→ {f.fix}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </figure>
-      );
-    case 'meeting':
-      // věta z porady → úkoly se jménem a termínem
-      return (
-        <figure className="cx-vis cx-meet">
-          <p className="cx-meet__q">
-            <span className="cx-meet__wave" aria-hidden="true">
-              {Array.from({ length: 5 }, (_, i) => (
-                <i key={i} style={{ ['--j' as string]: i }} />
-              ))}
-            </span>
-            {v.quote}
-          </p>
-          <ul>
-            {v.tasks.map((t, i) => (
-              <li key={t.t} style={{ ['--i' as string]: i }}>
-                <span className="cx-meet__who">{t.who[0]}</span>
-                <span>
-                  <b>{t.t}</b>
-                  <small>
-                    {t.who} · {t.when}
-                  </small>
-                </span>
-              </li>
-            ))}
-          </ul>
-        </figure>
-      );
-    case 'dunning':
-      // život jedné faktury: splatnost, dvě připomínky, zaplaceno
-      return (
-        <figure className="cx-vis cx-dun">
-          <p className="cx-dun__inv">{v.invoice}</p>
-          <ol>
-            {v.steps.map((st, i) => (
-              <li className={`is-${st.s}`} key={st.d} style={{ ['--i' as string]: i }}>
-                <i aria-hidden="true" />
-                <small>{st.d}</small>
-                <b>{st.t}</b>
-              </li>
-            ))}
-          </ol>
-        </figure>
-      );
+      return <ContractLive v={v} />;
     case 'brain':
-      // nováček se zeptá u stroje, asistent odpoví mistrovými slovy a ukáže, odkud to ví
-      return (
-        <figure className="cx-vis cx-brain">
-          <p className="cx-brain__q">{v.q}</p>
-          <div className="cx-brain__a">
-            <p>{v.a}</p>
-            <small>— {v.who}</small>
-          </div>
-          <ul className="cx-brain__src">
-            {v.sources.map((x, i) => (
-              <li key={x} style={{ ['--i' as string]: i }}>
-                {x}
-              </li>
-            ))}
-          </ul>
-        </figure>
-      );
+      return <MasterLive v={v} />;
+    case 'meeting':
+      return <MeetingLive v={v} />;
+    case 'dunning':
+      return <DunningLive v={v} />;
   }
 }
 
@@ -248,7 +128,7 @@ export default function CasesCarousel() {
       <div className="cx__track" ref={track}>
         {items.map((c, i) => (
           <article
-            className={`cx-case cx-case--${c.visual.type}${seen.has(i) ? ' is-seen' : ''}`}
+            className={`cx-case${seen.has(i) ? ' is-seen' : ''}${i === active ? ' is-active' : ''}`}
             id={`pripad-${c.id}`}
             style={{ ['--co' as string]: c.hue }}
             aria-roledescription="případ"
@@ -257,11 +137,22 @@ export default function CasesCarousel() {
           >
             <div className="cx-case__text">
               <p className="cx-case__tag">
-                <b className="num">0{i + 1}</b>
                 {c.firm}
                 {c.kind === 'model' && <span>{cases.modelLabel}</span>}
               </p>
               <h3 className="cx-case__title">{c.title}</h3>
+              <p className="cx-res">
+                <span className="cx-res__before">
+                  <small>{L.before}</small>
+                  <s className="num">{c.result.before}</s>
+                </span>
+                <span className="cx-res__arrow" aria-hidden="true" />
+                <span className="cx-res__after">
+                  <small>{L.after}</small>
+                  <b className="num">{c.result.after}</b>
+                </span>
+                <span className="cx-res__unit">{c.result.unit}</span>
+              </p>
               <dl className="cx-case__dl">
                 <div>
                   <dt>{L.problem}</dt>
@@ -278,26 +169,8 @@ export default function CasesCarousel() {
               </dl>
             </div>
 
-            <div className="cx-case__side">
-              <Visual v={c.visual} />
-              <div className="cx-res">
-                <p className="cx-res__k">{L.result}</p>
-                <p className="cx-res__nums">
-                  <span className="cx-res__before">
-                    <small>{L.before}</small>
-                    <s className="num">{c.result.before}</s>
-                  </span>
-                  <span className="cx-res__arrow" aria-hidden="true">
-                    →
-                  </span>
-                  <span className={`cx-res__after${c.result.after.length > 7 ? ' is-long' : ''}`}>
-                    <small>{L.after}</small>
-                    <b className="num">{c.result.after}</b>
-                  </span>
-                </p>
-                <p className="cx-res__unit">{c.result.unit}</p>
-                <p className="cx-res__math">{c.result.math}</p>
-              </div>
+            <div className="cx-case__stage art" style={{ ['--ac-h' as string]: `calc(var(--pal-h) + ${c.hue})` }} aria-hidden="true">
+              <Live v={c.visual} />
             </div>
           </article>
         ))}

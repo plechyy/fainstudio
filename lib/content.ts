@@ -126,6 +126,10 @@ export const cases = {
       why: 'U nabídek od majitelů rozhoduje rychlost. Makléř nic nehledá, jen zvedne telefon.',
       visual: {
         type: 'feed',
+        window: 'Hlídač nabídek · Brno',
+        scanning: 'Prochází 14 portálů',
+        found: '47 nových dnes',
+        alert: { title: 'Nový byt od majitele', sub: '3+kk Královo Pole · 6,2 mil. Kč, o 4 % pod trhem', btn: 'Zavolat' },
         rows: [
           { t: 'Byt 3+kk, Královo Pole', meta: 'před 2 min · majitel', ok: true, tag: 'Pošleno makléři' },
           { t: 'Byt 2+1, Žabovřesky', meta: 'před 6 min · realitní kancelář', ok: false, tag: 'Vyřazeno' },
@@ -147,6 +151,11 @@ export const cases = {
       visual: {
         type: 'score',
         call: 'Hovor s firmou Novotný stavby · 12 min',
+        who: 'Novotný stavby',
+        live: 'Hovor probíhá',
+        ended: 'Hovor ukončen',
+        card: 'Hodnocení hovoru',
+        analyzing: 'Vyhodnocuji hovor',
         rows: [
           { k: 'good', label: 'Dobře', t: 'Hned na začátku zjistil, kdo rozhoduje a jaký je rozpočet.' },
           { k: 'bad', label: 'Příště jinak', t: 'Třikrát skočil klientovi do řeči u otázky na cenu.' },
@@ -174,7 +183,8 @@ export const cases = {
           { t: 'Obklad 14 m²', x: 95, y: 10 },
           { t: 'Umyvadlo a baterie', x: 95, y: 62 },
         ],
-        price: { k: 'Předběžná cena', v: '148–172 tis. Kč', s: 'Obhlídka jen pro upřesnění' },
+        price: { k: 'Předběžná cena', v: '148–172 tis. Kč', s: 'Obhlídka jen pro upřesnění', btn: 'Domluvit obhlídku' },
+        analyzing: 'Poznávám, co na fotce je',
       },
       result: { before: 'pár dní', after: '1 min', unit: 'od poptávky k ceně', math: 'Dřív obhlídka a nacenění v kanceláři. Teď odhad hned, obhlídka jen u vážných zájemců.' },
     },
@@ -190,6 +200,8 @@ export const cases = {
       visual: {
         type: 'contract',
         title: 'Rámcová smlouva o dodávkách',
+        reading: 'Čtu smlouvu',
+        summary: { title: '3 rizika ve smlouvě', sub: 'Návrh změn je připravený k odeslání' },
         flags: [
           { lvl: 'high', at: 'Čl. 7.2', t: 'Sama se prodlouží o 36 měsíců', fix: 'Chtít prodloužení jen na rok' },
           { lvl: 'high', at: 'Čl. 9.1', t: 'Pokuta 0,5 % denně z celé zakázky', fix: 'Strop pokuty 10 %' },
@@ -212,6 +224,8 @@ export const cases = {
         q: 'Proč se trojce zasekává posuv?',
         a: 'Když je studená, nech ji deset minut běžet naprázdno a pak dotáhni vedení. Ráno to dělá skoro vždycky.',
         who: 'Jarda, mistr dílny',
+        app: 'Dílna · asistent',
+        thinking: 'Hledám v mistrových zápiscích',
         sources: ['Rozhovor u stroje 3', 'Poznámky z údržby', 'Fotka vedení'],
       },
       result: { before: '1 člověk', after: 'celá dílna', unit: 'ví, jak na každý stroj', math: 'Dřív jeden mistr a fronta otázek. Teď odpověď v mobilu u stroje.' },
@@ -227,11 +241,14 @@ export const cases = {
       why: 'Nikdo nic nepřepisuje a nic se neztratí. Před další poradou přijde přehled, co je hotové a co visí.',
       visual: {
         type: 'meeting',
-        quote: '„…takže Petr to pošle do pátku a Lenka objedná materiál.“',
+        window: 'Porada · pondělí 9:00',
+        writing: 'Porada skončila, zapisuji',
+        board: 'Úkoly z porady',
+        done: 'Zápis odeslán všem',
         tasks: [
-          { who: 'Petr', t: 'Poslat nabídku pro Kovo Brno', when: 'pátek' },
-          { who: 'Lenka', t: 'Objednat materiál na stavbu Lesná', when: 'úterý' },
-          { who: 'Tomáš', t: 'Zkontrolovat fakturu od statika', when: 'zítra' },
+          { who: 'Lenka', said: 'Materiál na Lesnou musíme objednat do úterka.', t: 'Objednat materiál na stavbu Lesná', when: 'úterý' },
+          { who: 'Petr', said: 'Nabídku pro Kovo Brno pošlu do pátku.', t: 'Poslat nabídku pro Kovo Brno', when: 'pátek' },
+          { who: 'Tomáš', said: 'Fakturu od statika zkontroluju zítra.', t: 'Zkontrolovat fakturu od statika', when: 'zítra' },
         ],
       },
       result: { before: '30 min', after: '0 min', unit: 'psaní zápisu po každé poradě', math: 'Dřív zápis ručně a úkoly v mailech. Teď zápis i úkoly hned po poradě.' },
@@ -248,6 +265,12 @@ export const cases = {
       visual: {
         type: 'dunning',
         invoice: 'Faktura 2026-0412 · 8 460 Kč',
+        number: 'Faktura 2026-0412',
+        amount: '8 460 Kč',
+        customer: 'Martin Kos · servis Octavia',
+        late: 'Po splatnosti',
+        paid: 'Zaplaceno',
+        bank: { title: 'Platba přijata', sub: '8 460 Kč · spárováno s fakturou 2026-0412' },
         steps: [
           { d: 'Splatnost', t: '12. 10.', s: 'wait' },
           { d: 'Den 1', t: 'Přátelská připomínka', s: 'sent' },
