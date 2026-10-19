@@ -4855,7 +4855,6 @@ html.is-loading .seq {
   57% { color: var(--fc); animation-timing-function: cubic-bezier(0.45, 0, 0.3, 1); }
   86%, 100% { color: var(--ink); }
 }
-}
 
 /* ── hero: nadtitulek s klíčovými slovy (je součástí H1) ─────────── */
 .hero__kicker {
@@ -4996,4 +4995,63 @@ html.is-loading .seq {
 }
 .hero__scene .art {
   pointer-events: none;
+}
+
+/* ── hero: místo pro létající scénu (verze B) a přepínač verzí ───── */
+.hero__slot {
+  width: min(100%, 540px);
+  min-height: 260px;
+  margin-top: clamp(36px, 6vh, 64px);
+}
+.sp__stage--dock {
+  animation: none;
+}
+.dock {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 40;
+  width: 540px;
+  pointer-events: none;
+  will-change: transform;
+  transition: transform 900ms cubic-bezier(0.65, 0, 0.2, 1), width 900ms cubic-bezier(0.65, 0, 0.2, 1), opacity 400ms;
+}
+.dock .art {
+  width: 100%;
+  max-width: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dock {
+    transition-duration: 0ms !important;
+  }
+}
+.hs-lab {
+  position: fixed;
+  left: 18px;
+  bottom: 18px;
+  z-index: 90;
+  display: flex;
+  gap: 4px;
+  padding: 5px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--bg) 80%, transparent);
+  border: 1px solid var(--line-strong);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+.hs-lab button {
+  padding: 7px 13px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--ink-2);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.hs-lab button[aria-pressed='true'] {
+  background: var(--primary);
+  color: oklch(0.2 0.03 var(--primary-h));
 }

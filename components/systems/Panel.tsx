@@ -17,7 +17,16 @@ export default function Panel() {
   const items = systems.items;
   const [active, setActive] = useState(0);
   const [mobile, setMobile] = useState(false);
+  // hero verze B: scéna CRM sem přiletí z hero, Panel jí nechá prázdné místo
+  const [dock, setDock] = useState(false);
   const s = items[active];
+
+  useEffect(() => {
+    const sync = () => setDock(document.documentElement.dataset.heroDock === 'on');
+    sync();
+    window.addEventListener('hero-dock', sync);
+    return () => window.removeEventListener('hero-dock', sync);
+  }, []);
 
   useEffect(() => {
     const mq = matchMedia('(max-width: 899px)');
@@ -77,9 +86,13 @@ export default function Panel() {
       </div>
 
       <div className="sp__right reveal" id="sp-panel" role="tabpanel" aria-labelledby={`sp-tab-${s.id}`}>
-        <div className="sp__stage" key={`p${active}`}>
-          <Artifact id={s.id} />
-        </div>
+        {dock && s.id === 'nastroje' ? (
+          <div className="sp__stage sp__stage--dock" data-dock="sys" key={`p${active}`} />
+        ) : (
+          <div className="sp__stage" key={`p${active}`}>
+            <Artifact id={s.id} />
+          </div>
+        )}
         <div className="sp__copy" key={`c${active}`}>
           <h3 className="sp__title">{s.name}</h3>
           <p className="sp__text">{s.text}</p>
