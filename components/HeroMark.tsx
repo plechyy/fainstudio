@@ -4,13 +4,14 @@ import { useEffect, useState, type CSSProperties } from 'react';
 import { ico, Svg } from './systems/live/scene';
 
 /*
- * Prvek nad nadpisem hero. Čtyři různé verze, vybírá se přes ?mark=1…4
+ * Prvek nad nadpisem hero. Čtyři různé verze, vybírá se přes ?mark=1…5
  * (na localhostu je vpravo dole přepínač). Všechny říkají totéž obecně:
  * práci za vás dělá systém, pořád a sám. Barvy jsou pevná paleta webu (--pal-h).
  *   1 Jádro    – veškerá práce firmy krouží kolem jednoho systému
  *   2 Hotovo   – úkoly se samy dokončují jeden za druhým
  *   3 Nonstop  – puls systému, který běží 24/7 a u každého úderu něco vyřídí
  *   4 Autopilot – seznam práce jede a kurzor ho sám odklikává
+ *   5 Proměny  – výjev se mění s rotující větou v nadpisu (čas, práce, peníze, snadnost, FaiN)
  */
 
 const v = (o: Record<string, string | number>) => o as CSSProperties;
@@ -154,11 +155,111 @@ function Autopilot() {
   );
 }
 
-const MARKS = [Orbit, Stack, Pulse, Autopilot];
-const NAMES = ['Jádro', 'Hotovo', 'Nonstop', 'Autopilot'];
+
+/* ── 5 Proměny ────────────────────────────────────────────────────── */
+/* Ilustrace se mění s rotující větou v nadpisu: každá věta má vlastní malý výjev. */
+const SCENE_HUES = [165, -38, 108, 52, 0];
+const TICKS = Array.from({ length: 12 }, (_, i) => i * 30);
+
+function SceneTime() {
+  return (
+    <g>
+      <circle className="mo-dim" cx="110" cy="76" r="54" />
+      {TICKS.map((a) => (
+        <line key={a} className="mo-tick" x1="110" y1="27" x2="110" y2={a % 90 ? 31 : 34} transform={`rotate(${a} 110 76)`} />
+      ))}
+      <circle className="mo-arc" cx="110" cy="76" r="54" pathLength="1" transform="translate(110 76) rotate(-90) scale(1 -1) translate(-110 -76)" />
+      <line className="mo-hand mo-hand--h" x1="110" y1="76" x2="110" y2="50" />
+      <line className="mo-hand mo-hand--m" x1="110" y1="76" x2="110" y2="36" />
+      <circle className="mo-fill" cx="110" cy="76" r="4.5" />
+    </g>
+  );
+}
+function SceneWork() {
+  return (
+    <g>
+      {[0, 1, 2].map((r) => (
+        <g key={r} className="mo-row" style={v({ '--d': `${0.25 + r * 0.42}s` })}>
+          <rect className="mo-box" x="44" y={30 + r * 34} width="22" height="22" rx="7" />
+          <path className="mo-check" d={`M49.5 ${41.5 + r * 34}l4 4 7.5-8`} pathLength="1" />
+          <rect className="mo-bar" x="78" y={37 + r * 34} width={[96, 74, 86][r]} height="8" rx="4" />
+          <rect className="mo-bar mo-bar--on" x="78" y={37 + r * 34} width={[96, 74, 86][r]} height="8" rx="4" />
+        </g>
+      ))}
+      <g className="mo-cursor">
+        <path d="M0 0v17l4.6-4.3 3.4 7.6 3.3-1.5-3.4-7.4h6.8z" />
+      </g>
+    </g>
+  );
+}
+function SceneMoney() {
+  const bars = [34, 52, 74, 104];
+  return (
+    <g>
+      <line className="mo-dim" x1="34" y1="134" x2="190" y2="134" />
+      {bars.map((h, i) => (
+        <rect key={i} className="mo-grow" x={44 + i * 38} y={134 - h} width="26" height={h} rx="7" style={v({ '--d': `${0.1 + i * 0.16}s` })} />
+      ))}
+      <path className="mo-trend" d="M42 104 86 86 124 64 170 24" pathLength="1" />
+      <path className="mo-trend mo-trend--head" d="M156 22h15v15" pathLength="1" />
+    </g>
+  );
+}
+function SceneEase() {
+  return (
+    <g>
+      <path
+        className="mo-knot"
+        d="M24 104C52 104 50 40 82 44S96 116 120 100 92 34 132 40 150 112 168 92 176 60 196 60"
+        pathLength="1"
+      />
+      <path className="mo-straight" d="M24 76H196" pathLength="1" />
+      <circle className="mo-fill mo-end" cx="24" cy="76" r="6" />
+      <circle className="mo-fill mo-end mo-end--b" cx="196" cy="76" r="6" />
+    </g>
+  );
+}
+function SceneFain() {
+  return (
+    <g>
+      {Array.from({ length: 10 }, (_, i) => (
+        <line key={i} className="mo-ray" x1="110" y1="34" x2="110" y2="20" transform={`rotate(${i * 36} 110 76)`} />
+      ))}
+      <circle className="mo-halo" cx="110" cy="76" r="40" />
+      <text className="mo-fs" x="110" y="91">
+        FS
+      </text>
+      <path className="mo-spark" d="M168 34l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" />
+      <path className="mo-spark mo-spark--b" d="M52 108l2.2 5 5 2.2-5 2.2-2.2 5-2.2-5-5-2.2 5-2.2z" />
+    </g>
+  );
+}
+const SCENES = [SceneTime, SceneWork, SceneMoney, SceneEase, SceneFain];
+
+function Morph() {
+  const [on, setOn] = useState(0);
+  useEffect(() => {
+    const f = (e: Event) => setOn(((e as CustomEvent<number>).detail ?? 0) % SCENES.length);
+    window.addEventListener('hero-phrase', f);
+    return () => window.removeEventListener('hero-phrase', f);
+  }, []);
+  return (
+    <div className="hm hm-morph" aria-hidden="true">
+      {SCENES.map((Scene, i) => (
+        <svg key={i} viewBox="0 0 220 150" className={`mo hm-c${i === on ? ' is-on' : ''}`} style={v({ '--o': SCENE_HUES[i] })}>
+          <Scene />
+        </svg>
+      ))}
+    </div>
+  );
+}
+
+const MARKS = [Orbit, Stack, Pulse, Autopilot, Morph];
+const NAMES = ['Jádro', 'Hotovo', 'Nonstop', 'Autopilot', 'Proměny'];
+const DEFAULT = 4;
 
 export default function HeroMark({ className = '', style }: { className?: string; style?: CSSProperties }) {
-  const [n, setN] = useState(0);
+  const [n, setN] = useState(DEFAULT);
   const [lab, setLab] = useState(false);
 
   useEffect(() => {

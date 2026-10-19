@@ -5408,7 +5408,7 @@ html.is-loading .hm * {
 .hm-lab {
   position: fixed;
   left: 50%;
-  bottom: 18px;
+  top: 86px;
   z-index: 90;
   display: flex;
   gap: 4px;
@@ -5438,7 +5438,237 @@ html.is-loading .hm * {
 }
 @media (max-width: 700px) {
   .hm-lab {
-    bottom: auto;
-    top: 84px;
+    max-width: calc(100vw - 24px);
+    overflow-x: auto;
+  }
+}
+
+/* 5 Proměny: výjev podle věty v nadpisu */
+.hm-morph {
+  position: relative;
+  width: clamp(230px, 24vw, 310px);
+  aspect-ratio: 220 / 150;
+}
+.mo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+  scale: 0.9;
+  filter: blur(6px);
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--c) 22%, transparent), transparent);
+  transition: opacity 420ms var(--ease-out), scale 520ms var(--ease-out), filter 420ms var(--ease-out);
+}
+.mo.is-on {
+  opacity: 1;
+  scale: 1;
+  filter: none;
+}
+.mo * {
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.mo-dim {
+  stroke: var(--line-strong);
+  stroke-width: 2;
+}
+.mo-fill {
+  fill: var(--c);
+  stroke: none;
+}
+/* čas: ručičky se protočí dozadu, barevný oblouk ukazuje vrácený čas */
+.mo-tick {
+  stroke: var(--ink-3);
+  stroke-width: 2.2;
+}
+.mo-arc {
+  stroke: var(--c);
+  stroke-width: 9;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  filter: drop-shadow(0 0 8px var(--c-glow));
+}
+.mo-hand {
+  stroke: var(--ink);
+  stroke-width: 3;
+  transform-box: view-box;
+  transform-origin: 110px 76px;
+}
+.mo-hand--h {
+  stroke-width: 4.5;
+}
+.is-on .mo-arc { animation: mo-draw-arc 1.5s 0.15s; }
+.is-on .mo-hand--m { animation: mo-spin-m 1.6s; }
+.is-on .mo-hand--h { animation: mo-spin-h 1.6s; }
+@keyframes mo-draw-arc { to { stroke-dashoffset: 0.27; } }
+@keyframes mo-spin-m { from { rotate: 0deg; } to { rotate: -1080deg; } }
+@keyframes mo-spin-h { from { rotate: 0deg; } to { rotate: -270deg; } }
+/* práce: kurzor odklikne tři úkoly */
+.mo-box {
+  stroke: var(--line-strong);
+  stroke-width: 2;
+}
+.mo-check {
+  stroke: oklch(0.2 0.03 var(--pal-h));
+  stroke-width: 3;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.mo-bar {
+  fill: var(--line-strong);
+  stroke: none;
+}
+.mo-bar--on {
+  transform-box: fill-box;
+  fill: var(--c);
+  transform-origin: 0 50%;
+  scale: 0 1;
+}
+.is-on .mo-box { animation: mo-box 0.3s var(--d); }
+.is-on .mo-check { animation: mo-dash 0.3s calc(var(--d) + 0.12s); }
+.is-on .mo-bar--on { animation: mo-bar 0.5s calc(var(--d) + 0.1s); }
+@keyframes mo-box { to { fill: var(--c); stroke: var(--c); } }
+@keyframes mo-dash { to { stroke-dashoffset: 0; } }
+@keyframes mo-bar { to { scale: 1 1; } }
+.mo-cursor path {
+  fill: #fff;
+  stroke: oklch(0.15 0.02 var(--pal-h));
+  stroke-width: 1.4;
+}
+.mo-cursor {
+  transform-box: view-box;
+  translate: 200px 150px;
+  filter: drop-shadow(0 3px 5px oklch(0 0 0 / 0.35));
+}
+.is-on .mo-cursor { animation: mo-cursor 1.7s linear; }
+@keyframes mo-cursor {
+  0% { translate: 120px 150px; opacity: 0; }
+  12% { translate: 56px 42px; opacity: 1; scale: 1; }
+  16% { scale: 0.82; }
+  20% { scale: 1; }
+  36% { translate: 56px 76px; }
+  41% { scale: 0.82; }
+  45% { scale: 1; }
+  60% { translate: 56px 110px; }
+  66% { scale: 0.82; }
+  70% { scale: 1; }
+  100% { translate: 84px 132px; opacity: 1; }
+}
+/* peníze: sloupce rostou, trend míří nahoru */
+.mo-grow {
+  transform-box: fill-box;
+  fill: color-mix(in oklab, var(--c) 85%, transparent);
+  stroke: none;
+  transform-origin: 50% 100%;
+  scale: 1 0;
+}
+.mo-trend {
+  stroke: var(--ink);
+  stroke-width: 3.4;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.is-on .mo-grow { animation: mo-bar 0.6s var(--d); }
+.is-on .mo-trend { animation: mo-dash 0.7s 0.65s; }
+.is-on .mo-trend--head { animation: mo-dash 0.3s 1.25s; }
+/* snadnost: zamotaná čára se rozplete na rovnou */
+.mo-knot {
+  stroke: var(--ink-3);
+  stroke-width: 3;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.mo-straight {
+  stroke: var(--c);
+  stroke-width: 5;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  filter: drop-shadow(0 0 8px var(--c-glow));
+}
+.mo-end {
+  transform-box: fill-box;
+  transform-origin: center;
+  scale: 0;
+}
+.is-on .mo-knot { animation: mo-knot 1.5s linear; }
+.is-on .mo-straight { animation: mo-dash 0.6s 0.95s; }
+.is-on .mo-end { animation: mo-pop 0.4s 0.9s; }
+.is-on .mo-end--b { animation-delay: 1.45s; }
+@keyframes mo-knot {
+  0% { stroke-dashoffset: 1; opacity: 1; }
+  45% { stroke-dashoffset: 0; opacity: 1; }
+  70%, 100% { stroke-dashoffset: 0; opacity: 0; }
+}
+@keyframes mo-pop {
+  0% { scale: 0; }
+  60% { scale: 1.35; }
+  100% { scale: 1; }
+}
+/* FaiN: značka s výbuchem paprsků */
+.mo-halo {
+  fill: var(--c);
+  stroke: none;
+  opacity: 0.22;
+  filter: blur(10px);
+}
+.mo-fs {
+  transform-box: fill-box;
+  fill: var(--c);
+  stroke: none;
+  font-family: 'FingerPaint', var(--font-display);
+  font-size: 46px;
+  text-anchor: middle;
+  transform-origin: center;
+  filter: drop-shadow(0 0 12px var(--c-glow));
+}
+.mo-ray {
+  stroke: var(--c);
+  stroke-width: 3;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.mo-ray {
+  stroke-dasharray: 14;
+  stroke-dashoffset: 14;
+}
+.mo-spark {
+  transform-box: fill-box;
+  fill: var(--c);
+  stroke: none;
+  transform-origin: center;
+  scale: 0;
+}
+.is-on .mo-fs { animation: mo-pop 0.6s 0.05s; }
+.is-on .mo-ray { animation: mo-ray 0.9s 0.25s; }
+.is-on .mo-spark { animation: mo-pop 0.5s 0.6s, mo-twinkle 1.8s 1.1s ease-in-out infinite; }
+.is-on .mo-spark--b { animation-delay: 0.8s, 1.3s; }
+@keyframes mo-ray {
+  0% { stroke-dashoffset: 14; opacity: 1; }
+  50% { stroke-dashoffset: 0; opacity: 1; }
+  100% { stroke-dashoffset: -14; opacity: 0; }
+}
+@keyframes mo-twinkle {
+  0%, 100% { scale: 1; opacity: 1; }
+  50% { scale: 0.6; opacity: 0.6; }
+}
+/* zkrácený zápis animation výše nuluje fill-mode a křivku, tady se vrací */
+.mo.is-on * {
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.mo.is-on .mo-cursor,
+.mo.is-on .mo-knot {
+  animation-timing-function: linear;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mo * {
+    animation-duration: 1ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
   }
 }

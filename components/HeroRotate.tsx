@@ -59,7 +59,11 @@ export default function HeroRotate({ lead, phrases }: { lead: string; phrases: s
       if (n > keep) later(() => erase(word, n - 1), DELETE_MS);
       else {
         i = (i + 1) % phrases.length;
-        later(() => type(next, keep + 1), GAP_MS);
+        later(() => {
+          // ilustrace nad nadpisem (HeroMark) se přepne na novou větu
+          window.dispatchEvent(new CustomEvent('hero-phrase', { detail: i }));
+          type(next, keep + 1);
+        }, GAP_MS);
       }
     };
 
