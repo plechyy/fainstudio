@@ -156,10 +156,6 @@ export const faq = [
     a: 'Ne. Odlehčí jim od práce, kterou stejně nikdo nedělá rád. Rozhodovat, vyjednávat a mluvit se zákazníkem budou dál oni.',
   },
   {
-    q: 'Co když to nebude fungovat?',
-    a: 'Po spuštění to dolaďujeme na vašich skutečných datech, dokud to nesedí. Doplatek posíláme až po předání.',
-  },
-  {
     q: 'Kolik to stojí?',
     a: 'Cena se u každého projektu liší a odvíjí se od toho, co má systém dělat. Skládá se z rozsahu (kolik činností převezme), počtu nástrojů, které se mají napojit, počtu lidí, kteří s ním budou pracovat, a toho, jak složitá jsou vaše data. Na prvním hovoru projdeme, co potřebujete, a konkrétní číslo dostanete ještě před podpisem.',
   },
