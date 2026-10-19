@@ -42,7 +42,7 @@ export default function BeforeAfter() {
           <div className="ba__card ba__card--after">
             {/* stejná karta jako závěrečné CTA: černá, kouř vpravo */}
             <div className="ba__smoke" aria-hidden="true">
-              <ShaderBackground bgVar="--smoke-bg" phase={95} />
+              <ShaderBackground bgVar="--smoke-bg" brandVar="--smoke-brand" phase={95} />
             </div>
             <h3 className="ba__label">
               <span className="ba__led" aria-hidden="true" />

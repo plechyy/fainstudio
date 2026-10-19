@@ -101,6 +101,7 @@
   --bgl-c: 0.0395;
   --bgl-h: 280.9;
   /* tmavé karty s kouřem (před/po, srovnání, závěrečné CTA): o kus tmavší než pozadí */
+  --smoke-brand: var(--secondary);
   --smoke-bg: oklch(max(0.04, calc(var(--bgd-l) - 0.03)) var(--bgd-c) var(--bgd-h));
   --bg: oklch(var(--bgd-l) var(--bgd-c) var(--bgd-h));
   --bg-deep: oklch(calc(var(--bgd-l) - 0.035) var(--bgd-c) var(--bgd-h));
@@ -208,7 +209,7 @@
   --primary-text: var(--primary);
 }
 :root[data-theme='light'] .why__item {
-  --primary-text: oklch(calc(0.56 + var(--primary-l-adj)) calc(var(--ac-c) * 1.1) var(--ac-h, var(--primary-h)));
+  --primary-text: oklch(calc(0.64 + var(--primary-l-adj)) calc(var(--ac-c) * 1.3) var(--ac-h, var(--primary-h)));
 }
 .why__item:nth-child(1) { --ac-h: calc(var(--primary-h) - 38); }
 .why__item:nth-child(2) { --ac-h: var(--primary-h); }
@@ -227,12 +228,14 @@
   --surface-2: oklch(calc(var(--bgl-l) - 0.02) calc(var(--bgl-c) + 0.001) var(--bgl-h));
   --sunk: oklch(calc(var(--bgl-l) - 0.045) calc(var(--bgl-c) + 0.003) var(--bgl-h));
   --ink: oklch(0.2 0.012 var(--secondary-h));
-  --ink-2: oklch(0.42 0.015 var(--secondary-h));
-  --ink-3: oklch(0.55 0.014 var(--secondary-h));
+  --ink-2: oklch(0.36 0.016 var(--secondary-h));
+  --ink-3: oklch(0.47 0.015 var(--secondary-h));
   --line: oklch(calc(var(--bgl-l) - 0.085) calc(var(--bgl-c) + 0.003) var(--bgl-h));
   --line-strong: oklch(calc(var(--bgl-l) - 0.185) calc(var(--bgl-c) + 0.005) var(--bgl-h));
-  --accent-text: oklch(calc(0.56 + var(--secondary-l-adj)) calc(var(--secondary-c) * 1.1) var(--secondary-h));
-  --primary-text: oklch(calc(0.56 + var(--primary-l-adj)) calc(var(--primary-c) * 1.1) var(--primary-h));
+  --accent-text: oklch(0.46 calc(var(--secondary-c) * 1.7) var(--secondary-h));
+  --primary-text: oklch(calc(0.64 + var(--primary-l-adj)) calc(var(--primary-c) * 1.3) var(--primary-h));
+  --smoke-brand: var(--primary);
+  --smoke-bg: oklch(calc(var(--bgl-l) + 0.035) calc(var(--bgl-c) - 0.012) var(--bgl-h));
   --tick: oklch(calc(0.6 + var(--secondary-l-adj)) var(--secondary-c) var(--secondary-h));
   --white-text: color-mix(in oklab, var(--white) 62%, black);
 
@@ -258,25 +261,6 @@
   --sh: 0.28;
   color-scheme: light;
 }
-/* karty, které jsou záměrně tmavé i ve světlém motivu (závěrečné CTA) */
-:root[data-theme='light'] .cta,
-:root[data-theme='light'] .ba__card--after,
-:root[data-theme='light'] .cmp-card.us {
-  --ink: oklch(0.97 0.006 var(--secondary-h));
-  --ink-2: oklch(0.73 0.012 var(--secondary-h));
-  --ink-3: oklch(0.56 0.012 var(--secondary-h));
-  --line: oklch(0.27 0.01 var(--secondary-h));
-  --line-strong: oklch(0.36 0.012 var(--secondary-h));
-  --accent-text: var(--secondary);
-  --white-text: var(--white);
-  --chip: oklch(1 0 0 / 0.08);
-  --chip-hover: oklch(1 0 0 / 0.16);
-  --glass-top: oklch(1 0 0 / 0.38);
-  --glass-edge-lo: oklch(1 0 0 / 0.07);
-  --sh: 0.6;
-  color-scheme: dark;
-}
-
 /* Mapování na Tailwind utility (bg-bg, text-ink, border-line, text-brand, …). */
 @theme inline {
   --color-bg: var(--bg);

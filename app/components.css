@@ -1577,7 +1577,7 @@ html.is-loading .seq {
   padding: clamp(40px, 8vw, 104px) clamp(20px, 6vw, 80px);
   border-radius: 28px;
   background: var(--smoke-bg);
-  color: oklch(0.97 0.01 var(--secondary-h));
+  color: var(--ink);
   isolation: isolate;
   /* aby karta nesplývala s pozadím stránky: světlý okraj + hluboký stín */
   box-shadow:
@@ -1759,8 +1759,8 @@ html.is-loading .seq {
 }
 :root[data-theme='light'] .proof__value {
   background: none;
-  -webkit-text-fill-color: var(--primary);
-  color: var(--primary);
+  -webkit-text-fill-color: var(--primary-text);
+  color: var(--primary-text);
 }
 
 /* mobil, sekce Postup: text nad kouřem vždy čitelný (nic se nedimuje, kouř je tlumenější) */
@@ -1794,8 +1794,8 @@ html.is-loading .seq {
 :root[data-theme='light'] .ba-head__accent,
 :root[data-theme='light'] .hd__accent {
   background: none;
-  -webkit-text-fill-color: var(--primary);
-  color: var(--primary);
+  -webkit-text-fill-color: var(--primary-text);
+  color: var(--primary-text);
 }
 
 /* ════════════════════════════════════════════════════════════════════
@@ -4896,4 +4896,67 @@ html.is-loading .seq {
   opacity: 0.4;
   cursor: default;
   text-decoration: none;
+}
+
+/* ── světlý motiv: karty s kouřem jsou světlé, kouř je barevný na světlém podkladu ── */
+:root[data-theme='light'] .cta,
+:root[data-theme='light'] .ba__card--after,
+:root[data-theme='light'] .cmp-card.us {
+  box-shadow: 0 0 0 1px var(--line-strong), 0 30px 70px -34px oklch(0 0 0 / 0.14);
+}
+:root[data-theme='light'] .us .cmp-ico--yes {
+  color: var(--primary-deep);
+}
+
+/* světlý motiv: závěrečná karta a formulář */
+:root[data-theme='light'] .cta__text,
+:root[data-theme='light'] .cta__mail {
+  color: var(--ink-2);
+}
+:root[data-theme='light'] .cta__mail a {
+  color: var(--ink);
+}
+:root[data-theme='light'] .cf {
+  background: oklch(1 0 0 / 0.62);
+  color: var(--ink);
+  box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.9), 0 0 0 1px var(--line-strong), 0 24px 60px -30px oklch(0 0 0 / 0.16);
+}
+:root[data-theme='light'] .cf__f span {
+  color: var(--ink-2);
+}
+:root[data-theme='light'] .cf input,
+:root[data-theme='light'] .cf textarea {
+  border-color: var(--line-strong);
+  background: oklch(1 0 0 / 0.75);
+}
+:root[data-theme='light'] .cf input::placeholder,
+:root[data-theme='light'] .cf textarea::placeholder {
+  color: var(--ink-3);
+}
+:root[data-theme='light'] .cf input:hover,
+:root[data-theme='light'] .cf textarea:hover {
+  border-color: color-mix(in oklab, var(--line-strong) 60%, var(--ink-3));
+}
+:root[data-theme='light'] .cf input:focus,
+:root[data-theme='light'] .cf textarea:focus {
+  background: #fff;
+}
+:root[data-theme='light'] .cta .btn.btn--primary {
+  --primary-h: unset;
+  --primary-c: unset;
+  --primary-l-adj: unset;
+  --primary: unset;
+}
+:root[data-theme='light'] thead .us {
+  color: var(--ink);
+}
+:root[data-theme='light'] .cf__note {
+  color: var(--ink-2);
+}
+
+:root[data-theme='light'] .step[data-state='next'] .step__text {
+  color: var(--ink-3);
+}
+:root[data-theme='light'] .step[data-state='next'] .step__name {
+  color: var(--ink-2);
 }

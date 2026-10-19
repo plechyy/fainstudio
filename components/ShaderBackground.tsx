@@ -203,7 +203,7 @@ export default function ShaderBackground({
     const uMotion = gl.getUniformLocation(prog, 'u_motion');
     const uSides = gl.getUniformLocation(prog, 'u_sides');
     const uLight = gl.getUniformLocation(prog, 'u_light');
-    const isLight = () => !bgHex && !bgVar && document.documentElement.dataset.theme === 'light';
+    const isLight = () => !bgHex && document.documentElement.dataset.theme === 'light';
 
     let brand = srgb(brandVar);
     const pickBg = () => (bgHex ? hex(bgHex) : srgb(bgVar ?? '--bg-deep'));
