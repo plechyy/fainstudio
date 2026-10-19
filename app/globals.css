@@ -202,18 +202,24 @@
 /* Proč AI: každá karta má vlastní barvu ze stejné palety jako scény v sekci 2
    (animace uvnitř karty ji berou jako --primary), dlaždice mozaiky střídají pět odstínů */
 .why__item,
-.wm__tile {
+.wm__tile,
+.proof__item {
   --primary: oklch(calc(0.78 + var(--primary-l-adj)) var(--ac-c) var(--ac-h, var(--primary-h)));
   --primary-glow: oklch(calc(0.78 + var(--primary-l-adj)) var(--ac-c) var(--ac-h, var(--primary-h)) / 0.5);
   --primary-deep: oklch(calc(0.6 + var(--primary-l-adj)) calc(var(--ac-c) * 1.15) var(--ac-h, var(--primary-h)));
   --primary-text: var(--primary);
 }
-:root[data-theme='light'] .why__item {
+:root[data-theme='light'] .why__item,
+:root[data-theme='light'] .proof__item {
   --primary-text: oklch(calc(0.64 + var(--primary-l-adj)) calc(var(--ac-c) * 1.3) var(--ac-h, var(--primary-h)));
 }
 .why__item:nth-child(1) { --ac-h: calc(var(--primary-h) - 38); }
 .why__item:nth-child(2) { --ac-h: var(--primary-h); }
 .why__item:nth-child(3) { --ac-h: calc(var(--primary-h) + 165); }
+.proof__item:nth-child(1) { --ac-h: calc(var(--primary-h) - 38); }
+.proof__item:nth-child(2) { --ac-h: calc(var(--primary-h) + 52); }
+.proof__item:nth-child(3) { --ac-h: calc(var(--primary-h) + 108); }
+.proof__item:nth-child(4) { --ac-h: calc(var(--primary-h) + 165); }
 .wm__tile--0 { --ac-h: var(--primary-h); }
 .wm__tile--1 { --ac-h: calc(var(--primary-h) - 38); }
 .wm__tile--2 { --ac-h: calc(var(--primary-h) - 88); }
