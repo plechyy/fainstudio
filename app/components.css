@@ -1658,7 +1658,7 @@ html.is-loading .seq {
   }
 }
 .cta__title {
-  font-size: var(--step-4);
+  font-size: calc(var(--step-4) * 0.8); /* o 20 % menší */
   max-width: 16ch;
 }
 .cta__text {
