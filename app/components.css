@@ -5052,6 +5052,7 @@ html.is-loading .seq {
 }
 .cx-res__nums {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-end;
   gap: 14px;
   margin: 4px 0 0;
@@ -5088,6 +5089,14 @@ html.is-loading .seq {
   letter-spacing: -0.03em;
   line-height: 1;
 }
+/* display písmo má široké mezery; u „15 min“ nebo „po hovoru“ je stáhneme */
+.cx-res__before s,
+.cx-res__after b {
+  word-spacing: -0.14em;
+}
+.cx-res__after.is-long b {
+  font-size: clamp(1.5rem, 1.25rem + 0.9vw, 1.9rem);
+}
 .cx-res__unit {
   margin: 2px 0 0;
   color: var(--ink-2);
@@ -5111,160 +5120,183 @@ html.is-loading .seq {
   background: color-mix(in oklab, var(--bg) 55%, transparent);
 }
 
-/* 1 · časová osa: od mailu po potvrzení */
-.cx-time {
+/* 1 · prodejní návrh: diktát z mobilu a návrh, který se poskládá */
+.cx-doc {
   display: grid;
-  gap: 14px;
+  gap: 12px;
 }
-.cx-time__row {
-  display: grid;
-  grid-template-columns: 2.6rem minmax(0, 1fr);
-  align-items: center;
-  gap: 10px;
+.cx-doc__voice {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 12px 12px 12px 4px;
+  background: var(--surface-2);
+  color: var(--ink-2);
+  font-size: 0.8rem;
+  font-style: italic;
+  line-height: 1.45;
 }
-.cx-time__l {
-  color: var(--ink-3);
-  font-size: 0.72rem;
+.cx-doc__voice svg {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+  fill: none;
+  stroke: var(--cc);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+.cx-doc__page {
+  padding: 14px 14px 12px;
+  border-radius: 10px;
+  background: oklch(0.975 0.004 90);
+  color: oklch(0.28 0.01 260);
+  box-shadow: 0 18px 34px -18px oklch(0 0 0 / calc(0.7 * var(--sh)));
+}
+.cx-doc__h {
+  display: block;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--cc);
+  font-family: var(--font-display);
+  font-size: 0.92rem;
   font-weight: 650;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
 }
-.cx-time__row.is-after .cx-time__l {
-  color: var(--cc);
-}
-.cx-time__axis {
-  position: relative;
-  height: 40px;
-  border-bottom: 1px solid var(--line-strong);
-}
-.cx-time__wait {
-  position: absolute;
-  bottom: 9px;
-  height: 8px;
-  border-radius: 4px;
-  background: repeating-linear-gradient(90deg, var(--line-strong) 0 6px, transparent 6px 10px);
-  transform-origin: left;
-}
-.cx-time__row.is-after .cx-time__wait {
-  background: var(--cc);
-}
-.cx-time__in,
-.cx-time__out {
-  position: absolute;
-  bottom: 6px;
-  width: 14px;
-  height: 14px;
-  margin-left: -7px;
-  border-radius: 50%;
-  border: 2px solid var(--ink-3);
-  background: var(--bg);
-}
-.cx-time__out {
-  border-color: var(--ink-2);
-  background: var(--ink-2);
-}
-.cx-time__row.is-after .cx-time__out {
-  border-color: var(--cc);
-  background: var(--cc);
-  box-shadow: 0 0 12px -1px var(--cc);
-}
-.cx-time__t {
-  position: absolute;
-  top: 0;
-  transform: translateX(-50%);
-  color: var(--ink-2);
-  font-size: 0.68rem;
-  white-space: nowrap;
-}
-.cx-time__row.is-after .cx-time__t {
-  transform: none;
-  margin-left: 10px;
-  color: var(--ink);
-  font-weight: 600;
-}
-.cx-time__scale {
-  display: flex;
-  justify-content: space-between;
-  margin: -6px 0 0 calc(2.6rem + 10px);
-  color: var(--ink-3);
-  font-size: 0.66rem;
-}
-
-/* 2 · tečky: co zvládl systém a co šlo k člověku */
-.cx-dots__grid {
+.cx-doc ol {
   display: grid;
-  grid-template-columns: repeat(15, minmax(0, 1fr));
-  gap: 5px;
-}
-.cx-dots__grid i {
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: color-mix(in oklab, var(--cc) 72%, transparent);
-}
-.cx-dots__grid i.is-human {
-  background: var(--ink);
-  box-shadow: 0 0 9px -1px color-mix(in oklab, var(--ink) 70%, transparent);
-}
-.cx-dots figcaption {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 20px;
-  margin-top: 12px;
-  color: var(--ink-2);
-  font-size: 0.76rem;
-}
-.cx-dots figcaption span {
-  display: inline-flex;
-  align-items: center;
   gap: 7px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
-.cx-dots figcaption i {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: color-mix(in oklab, var(--cc) 72%, transparent);
+.cx-doc li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.78rem;
+  font-weight: 560;
 }
-.cx-dots figcaption .is-human i {
-  background: var(--ink);
-}
-.cx-dots figcaption b {
-  color: var(--ink);
+.cx-doc li i {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--cc);
 }
 
-/* 3 · trychtýř: z tisíců záznamů tři */
-.cx-fun ol {
+/* 2 · realitní scraper: proud nových inzerátů */
+.cx-feed ul {
   display: grid;
   gap: 6px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
-.cx-fun li {
-  position: relative;
+.cx-feed li {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  min-height: 34px;
-  padding: 0 11px;
+  gap: 10px;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-2);
+}
+.cx-feed li span {
+  display: grid;
+  min-width: 0;
+}
+.cx-feed li b {
+  overflow: hidden;
   color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cx-feed li small {
+  color: var(--ink-3);
+  font-size: 0.68rem;
+}
+.cx-feed em {
+  flex: none;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.66rem;
+  font-style: normal;
+  font-weight: 650;
+}
+.cx-feed li.is-ok {
+  border-color: color-mix(in oklab, var(--cc) 45%, var(--line));
+}
+.cx-feed li.is-ok em {
+  background: var(--cc);
+  color: oklch(from var(--cc) clamp(0.16, calc((0.66 - l) * 60), 0.98) 0.02 h);
+}
+.cx-feed li.is-out {
+  background: transparent;
+}
+.cx-feed li.is-out b {
+  color: var(--ink-3);
+  text-decoration: line-through;
+  text-decoration-color: color-mix(in oklab, var(--ink-3) 60%, transparent);
+}
+.cx-feed li.is-out em {
+  border: 1px solid var(--line-strong);
+  color: var(--ink-3);
+}
+
+/* 3 · kouč obchodníků: hodnocení hovoru v mobilu */
+.cx-score {
+  display: grid;
+  gap: 10px;
+}
+.cx-score__call {
+  margin: 0;
+  color: var(--ink-3);
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+.cx-score ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.cx-score li {
+  --k: var(--cc);
+  padding: 8px 11px 9px;
+  border-left: 3px solid var(--k);
+  border-radius: 4px 10px 10px 4px;
+  background: color-mix(in oklab, var(--k) 8%, var(--surface-2));
+  color: var(--ink-2);
   font-size: 0.78rem;
+  line-height: 1.4;
 }
-.cx-fun__bar {
-  position: absolute;
-  inset: 0 auto 0 0;
-  border: 1px solid color-mix(in oklab, var(--cc) 35%, transparent);
-  border-radius: 9px;
-  background: linear-gradient(90deg, color-mix(in oklab, var(--cc) 10%, transparent), color-mix(in oklab, var(--cc) 32%, transparent));
-  transform-origin: left;
+.cx-score li b {
+  display: block;
+  margin-bottom: 1px;
+  color: var(--k);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
-.cx-fun__t,
-.cx-fun b {
-  position: relative;
-}
-.cx-fun b {
-  font-family: var(--font-display);
-  font-size: 0.92rem;
+.cx-score li.is-good { --k: oklch(0.8 0.14 150); }
+.cx-score li.is-bad { --k: oklch(0.76 0.14 25); }
+.cx-score li.is-skip { --k: var(--ink-3); }
+.cx-score li.is-miss { --k: oklch(0.84 0.13 85); }
+.cx-score__trend {
+  justify-self: start;
+  margin: 2px 0 0;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: color-mix(in oklab, oklch(0.8 0.14 150) 16%, transparent);
+  color: oklch(0.85 0.12 150);
+  font-size: 0.74rem;
   font-weight: 650;
 }
 
@@ -5399,13 +5431,20 @@ html.is-loading .seq {
   .cx-res__after b {
     font-size: 2rem;
   }
+  /* na mobilu by výpočet jen opakoval popis pod ním; každá karta má svou výšku */
+  .cx-res__math,
+  .cx-score__call {
+    display: none;
+  }
+  .cx__track {
+    align-items: flex-start;
+  }
+  .cx-score li {
+    font-size: 0.76rem;
+  }
 }
 
 @media (min-width: 640px) {
-  .cx-dots__grid {
-    grid-template-columns: repeat(25, minmax(0, 1fr));
-    gap: 6px;
-  }
   .cx-chain ol {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -5424,27 +5463,10 @@ html.is-loading .seq {
 
 /* přehrání vizuálu, když na případ přijdete poprvé */
 @media (prefers-reduced-motion: no-preference) {
-  .cx-case .cx-time__wait,
-  .cx-case .cx-fun__bar {
-    transform: scaleX(0);
-    transition: transform 900ms var(--ease-out);
-  }
-  .cx-case .cx-fun__bar {
-    transition-delay: calc(150ms + var(--i) * 130ms);
-  }
-  .cx-case .cx-time__row.is-after .cx-time__wait {
-    transition-delay: 500ms;
-  }
-  .cx-case .cx-time__out,
-  .cx-case .cx-time__t {
-    opacity: 0;
-    transition: opacity 400ms 900ms;
-  }
-  .cx-case .cx-time__row.is-after .cx-time__out,
-  .cx-case .cx-time__row.is-after .cx-time__t {
-    transition-delay: 1100ms;
-  }
-  .cx-case .cx-dots__grid i,
+  .cx-case .cx-doc li,
+  .cx-case .cx-feed li,
+  .cx-case .cx-score li,
+  .cx-case .cx-score__trend,
   .cx-case .cx-week li i,
   .cx-case .cx-chain li {
     opacity: 0;
@@ -5452,10 +5474,13 @@ html.is-loading .seq {
     transition:
       opacity 420ms var(--ease-out),
       transform 520ms var(--ease-out);
+    transition-delay: calc(250ms + var(--i, 0) * 120ms);
   }
-  .cx-case .cx-dots__grid i {
-    transform: scale(0.4);
-    transition-delay: calc(150ms + var(--i) * 5ms);
+  .cx-case .cx-doc li {
+    transition-delay: calc(450ms + var(--i) * 160ms);
+  }
+  .cx-case .cx-score__trend {
+    transition-delay: 900ms;
   }
   .cx-case .cx-week li i {
     transition-delay: calc(150ms + var(--i) * 60ms);
@@ -5466,17 +5491,14 @@ html.is-loading .seq {
   .cx-case .cx-chain li {
     transition-delay: calc(250ms + var(--i) * 110ms);
   }
-  .cx-case.is-seen .cx-time__wait,
-  .cx-case.is-seen .cx-fun__bar,
-  .cx-case.is-seen .cx-dots__grid i,
+  .cx-case.is-seen .cx-doc li,
+  .cx-case.is-seen .cx-feed li,
+  .cx-case.is-seen .cx-score li,
+  .cx-case.is-seen .cx-score__trend,
   .cx-case.is-seen .cx-week li i,
   .cx-case.is-seen .cx-chain li {
     opacity: 1;
     transform: none;
-  }
-  .cx-case.is-seen .cx-time__out,
-  .cx-case.is-seen .cx-time__t {
-    opacity: 1;
   }
 }
 

@@ -6,65 +6,65 @@ import { cases } from '@/lib/content';
 type Item = (typeof cases.items)[number];
 const L = cases.labels;
 
-/* sporné doklady jsou rozházené nepravidelně, ať to nevypadá jako vzor */
-const HUMAN = [6, 19, 33, 41, 58, 64, 77, 85, 93, 104, 112, 121, 130, 139, 147];
-
 function Visual({ v }: { v: Item['visual'] }) {
   switch (v.type) {
-    case 'timeline':
+    case 'doc':
+      // diktát z mobilu → návrh se poskládá po částech
       return (
-        <figure className="cx-vis cx-time">
-          {v.rows.map((r, i) => (
-            <div className={`cx-time__row${i ? ' is-after' : ''}`} key={r.label}>
-              <span className="cx-time__l">{r.label}</span>
-              <span className="cx-time__axis">
-                <span className="cx-time__wait" style={{ left: `${r.in}%`, width: `${r.out - r.in}%` }} />
-                <i className="cx-time__in" style={{ left: `${r.in}%` }} />
-                <i className="cx-time__out" style={{ left: `${r.out}%` }} />
-                <small className="cx-time__t" style={{ left: `${r.out}%` }}>
-                  {r.outT}
-                </small>
-              </span>
-            </div>
-          ))}
-          <p className="cx-time__scale" aria-hidden="true">
-            <span>{v.start}</span>
-            <span>{v.end}</span>
+        <figure className="cx-vis cx-doc">
+          <p className="cx-doc__voice">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="9" y="3" width="6" height="11" rx="3" />
+              <path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" />
+            </svg>
+            {v.voice}
           </p>
-        </figure>
-      );
-    case 'dots': {
-      const human = new Set(HUMAN.slice(0, v.human));
-      return (
-        <figure className="cx-vis cx-dots" aria-label={`${v.total} dokladů, ${v.human} z nich šlo ke kontrole`}>
-          <div className="cx-dots__grid" aria-hidden="true">
-            {Array.from({ length: v.total }, (_, i) => (
-              <i className={human.has(i) ? 'is-human' : undefined} style={{ ['--i' as string]: i }} key={i} />
-            ))}
+          <div className="cx-doc__page">
+            <b className="cx-doc__h">{v.title}</b>
+            <ol>
+              {v.parts.map((p, i) => (
+                <li key={p} style={{ ['--i' as string]: i }}>
+                  <i aria-hidden="true" />
+                  {p}
+                </li>
+              ))}
+            </ol>
           </div>
-          <figcaption>
-            <span>
-              <i /> {v.auto} <b className="num">{v.total - v.human}</b>
-            </span>
-            <span className="is-human">
-              <i /> {v.toHuman} <b className="num">{v.human}</b>
-            </span>
-          </figcaption>
         </figure>
       );
-    }
-    case 'funnel':
+    case 'feed':
+      // nové inzeráty: od majitelů jdou makléři, realitky a duplicity vypadnou
       return (
-        <figure className="cx-vis cx-fun">
-          <ol>
-            {v.steps.map((s, i) => (
-              <li key={s.label} style={{ ['--i' as string]: i }}>
-                <span className="cx-fun__bar" style={{ width: `${s.w}%` }} aria-hidden="true" />
-                <span className="cx-fun__t">{s.label}</span>
-                <b className="num">{s.n}</b>
+        <figure className="cx-vis cx-feed">
+          <ul>
+            {v.rows.map((r, i) => (
+              <li className={r.ok ? 'is-ok' : 'is-out'} key={r.t + r.meta} style={{ ['--i' as string]: i }}>
+                <span>
+                  <b>{r.t}</b>
+                  <small>{r.meta}</small>
+                </span>
+                <em>{r.tag}</em>
               </li>
             ))}
-          </ol>
+          </ul>
+        </figure>
+      );
+    case 'score':
+      // hodnocení hovoru, jak ho obchodník uvidí v mobilu po zavěšení
+      return (
+        <figure className="cx-vis cx-score">
+          <p className="cx-score__call">{v.call}</p>
+          <ul>
+            {v.rows.map((r, i) => (
+              <li className={`is-${r.k}`} key={r.k} style={{ ['--i' as string]: i }}>
+                <b>{r.label}</b>
+                {r.t}
+              </li>
+            ))}
+          </ul>
+          <p className="cx-score__trend">
+            <span aria-hidden="true">▲</span> {v.trend}
+          </p>
         </figure>
       );
     case 'week':
@@ -226,7 +226,7 @@ export default function CasesCarousel() {
                   <span className="cx-res__arrow" aria-hidden="true">
                     →
                   </span>
-                  <span className="cx-res__after">
+                  <span className={`cx-res__after${c.result.after.length > 7 ? ' is-long' : ''}`}>
                     <small>{L.after}</small>
                     <b className="num">{c.result.after}</b>
                   </span>
