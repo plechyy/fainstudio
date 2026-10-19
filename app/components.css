@@ -1759,8 +1759,8 @@ html.is-loading .seq {
 }
 :root[data-theme='light'] .proof__value {
   background: none;
-  -webkit-text-fill-color: var(--primary-text);
-  color: var(--primary-text);
+  -webkit-text-fill-color: var(--primary);
+  color: var(--primary);
 }
 
 /* mobil, sekce Postup: text nad kouřem vždy čitelný (nic se nedimuje, kouř je tlumenější) */
@@ -1794,8 +1794,8 @@ html.is-loading .seq {
 :root[data-theme='light'] .ba-head__accent,
 :root[data-theme='light'] .hd__accent {
   background: none;
-  -webkit-text-fill-color: var(--primary-text);
-  color: var(--primary-text);
+  -webkit-text-fill-color: var(--primary);
+  color: var(--primary);
 }
 
 /* ════════════════════════════════════════════════════════════════════
