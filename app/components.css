@@ -3865,8 +3865,21 @@ html.is-loading .seq {
   flex: 0 0 86%;
   scroll-snap-align: center;
   display: grid;
+  grid-template-rows: auto 1fr;
   gap: 18px;
   align-content: start;
+}
+/* všechny scény stojí ve stejně vysokém poli a jsou v něm na středu, takže název
+   a popis začínají u každého slidu na stejné čáře; scéna se podle toho zmenší, neořízne se */
+.sysx__slide .art {
+  height: 330px;
+  display: grid;
+  place-items: center;
+}
+.sysx__slide .sc-fit {
+  --sc-maxh: 330;
+  display: flex;
+  justify-content: center;
 }
 /* mobil: stejná tečka v barvě scény před názvem */
 .sysx__name::before {
@@ -3908,6 +3921,15 @@ html.is-loading .seq {
   .sysx__text {
     margin-top: 8px;
     line-height: 1.5;
+  }
+  /* tlačítko pod carouselem je stejně široké a na stejné ose jako karta nad ním */
+  .sysx + .cta-row {
+    margin-top: 24px;
+    padding-inline: 7%;
+  }
+  .sysx + .cta-row .btn {
+    width: 100%;
+    justify-content: center;
   }
 }
 

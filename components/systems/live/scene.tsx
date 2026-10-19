@@ -97,8 +97,18 @@ export function Scene({
   useEffect(() => {
     const el = fit.current;
     if (!el) return;
-    const ro = new ResizeObserver(([e]) => setK(Math.min(1, e.contentRect.width / base)));
+    const sc = el.firstElementChild as HTMLElement | null;
+    // kde je výška omezená (mobilní carousel: --sc-maxh), scéna se zmenší tak, aby se do ní celá vešla
+    const calc = () => {
+      const max = parseFloat(getComputedStyle(el).getPropertyValue('--sc-maxh'));
+      const byW = el.clientWidth / base;
+      const byH = max > 0 && sc && sc.offsetHeight > 0 ? max / sc.offsetHeight : 1;
+      setK(Math.min(1, byW, byH));
+    };
+    calc();
+    const ro = new ResizeObserver(calc);
     ro.observe(el);
+    if (sc) ro.observe(sc);
     return () => ro.disconnect();
   }, [base]);
 
