@@ -2,10 +2,10 @@
  * Uloží soubor do soukromého úložiště administrace (Soubory).
  *
  *   node scripts/admin-upload.mjs audity reports/audit.pdf
- *   node scripts/admin-upload.mjs loga brand/*.png
+ *   node scripts/admin-upload.mjs loga/hlavni brand/*.png      (složka může být vnořená, vznikne sama)
  *   node scripts/admin-upload.mjs --sync        pošle celou složku .admin-files/ do Vercel Blob
  *
- * Kategorie: audity | loga | ostatni. S proměnnou BLOB_READ_WRITE_TOKEN (z prostředí nebo .env.local)
+ * S proměnnou BLOB_READ_WRITE_TOKEN (z prostředí nebo .env.local)
  * jde soubor do Vercel Blob (private), jinak jen do lokální složky .admin-files/ (je v .gitignore).
  * Soubory nikdy nepatří do gitu ani do public/ (repozitář je veřejný).
  */
@@ -13,7 +13,6 @@ import { put } from '@vercel/blob';
 import { copyFile, mkdir, readFile, readdir } from 'node:fs/promises';
 import { basename, join } from 'node:path';
 
-const CATS = ['audity', 'loga', 'ostatni'];
 const TYPES = { pdf: 'application/pdf', png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', webp: 'image/webp', gif: 'image/gif', svg: 'image/svg+xml', ico: 'image/x-icon', zip: 'application/zip', md: 'text/markdown; charset=utf-8', txt: 'text/plain; charset=utf-8', csv: 'text/csv; charset=utf-8', json: 'application/json' };
 const root = join(import.meta.dirname, '..');
 const local = join(root, '.admin-files');
@@ -33,17 +32,17 @@ const clean = (raw) => basename(raw).normalize('NFC').replace(/[^\p{L}\p{N}._ ()
 const token = await loadToken();
 const args = process.argv.slice(2);
 
-async function store(cat, path) {
+async function store(dir, path) {
   const name = clean(path);
   if (token) {
     const data = await readFile(path);
     const ext = name.split('.').pop().toLowerCase();
-    await put(`admin/${cat}/${name}`, data, { access: 'private', allowOverwrite: true, addRandomSuffix: false, contentType: TYPES[ext] || 'application/octet-stream', token });
-    console.log(`Blob   ${cat}/${name}`);
+    await put(`admin/${dir ? `${dir}/` : ''}${name}`, data, { access: 'private', allowOverwrite: true, addRandomSuffix: false, contentType: TYPES[ext] || 'application/octet-stream', token });
+    console.log(`Blob    ${dir}/${name}`);
   } else {
-    await mkdir(join(local, cat), { recursive: true });
-    await copyFile(path, join(local, cat, name));
-    console.log(`lokálně ${cat}/${name}`);
+    await mkdir(join(local, dir), { recursive: true });
+    await copyFile(path, join(local, dir, name));
+    console.log(`lokálně ${dir}/${name}`);
   }
 }
 
@@ -52,16 +51,17 @@ if (args[0] === '--sync') {
     console.error('Chybí BLOB_READ_WRITE_TOKEN (Vercel → Storage → Blob → .env.local). Nic neposláno.');
     process.exit(1);
   }
-  for (const cat of CATS) {
-    let names = [];
-    try {
-      names = await readdir(join(local, cat));
-    } catch {}
-    for (const n of names) await store(cat, join(local, cat, n));
-  }
-} else if (CATS.includes(args[0]) && args.length > 1) {
-  for (const f of args.slice(1)) await store(args[0], f);
+  const walk = async (rel) => {
+    for (const e of await readdir(join(local, rel), { withFileTypes: true })) {
+      if (e.name.startsWith('.')) continue;
+      if (e.isDirectory()) await walk(rel ? `${rel}/${e.name}` : e.name);
+      else await store(rel, join(local, rel, e.name));
+    }
+  };
+  await walk('');
+} else if (args.length > 1 && /^[^.\\][^\\]*$/.test(args[0])) {
+  for (const f of args.slice(1)) await store(args[0].replace(/^\/|\/$/g, ''), f);
 } else {
-  console.error('Použití: node scripts/admin-upload.mjs <audity|loga|ostatni> <soubor...>  |  --sync');
+  console.error('Použití: node scripts/admin-upload.mjs <složka, např. loga/hlavni> <soubor...>  |  --sync');
   process.exit(1);
 }

@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
 import { COOKIE, verifySessionToken } from '@/lib/admin-auth';
-import { cleanName, contentType, isCat, isInline, readStored } from '@/lib/admin-files';
+import { cleanDir, cleanName, contentType, isInline, readStored } from '@/lib/admin-files';
 
 /*
  * Stažení souboru z administrace. Bez platného přihlášení vrací 404 (nezjistí se ani, že soubor existuje).
@@ -8,15 +8,18 @@ import { cleanName, contentType, isCat, isInline, readStored } from '@/lib/admin
  */
 const hidden = () => new Response('Not found', { status: 404, headers: { 'Cache-Control': 'no-store' } });
 
-export async function GET(_req: Request, ctx: { params: Promise<{ cat: string; name: string }> }) {
+export async function GET(_req: Request, ctx: { params: Promise<{ path: string[] }> }) {
   const store = await cookies();
   if (!verifySessionToken(store.get(COOKIE)?.value)) return hidden();
 
-  const { cat, name: raw } = await ctx.params;
-  const name = cleanName(decodeURIComponent(raw));
-  if (!isCat(cat) || !name || name !== decodeURIComponent(raw)) return hidden();
+  const { path } = await ctx.params;
+  const segs = path.map((s) => decodeURIComponent(s));
+  const rawName = segs.pop() || '';
+  const name = cleanName(rawName);
+  const dir = cleanDir(segs.join('/'));
+  if (dir === null || !name || name !== rawName) return hidden();
 
-  const file = await readStored(cat, name);
+  const file = await readStored(dir, name);
   if (!file) return hidden();
 
   const disp = isInline(name) ? 'inline' : 'attachment';
