@@ -4,7 +4,7 @@ import { useEffect, useState, type CSSProperties } from 'react';
 import { ico, Svg } from './systems/live/scene';
 
 /*
- * Prvek nad nadpisem hero. Čtyři různé verze, vybírá se přes ?mark=1…5
+ * Prvek nad nadpisem hero. Čtyři různé verze, vybírá se přes ?mark=1…7
  * (na localhostu je vpravo dole přepínač). Všechny říkají totéž obecně:
  * práci za vás dělá systém, pořád a sám. Barvy jsou pevná paleta webu (--pal-h).
  *   1 Jádro    – veškerá práce firmy krouží kolem jednoho systému
@@ -12,6 +12,8 @@ import { ico, Svg } from './systems/live/scene';
  *   3 Nonstop  – puls systému, který běží 24/7 a u každého úderu něco vyřídí
  *   4 Autopilot – seznam práce jede a kurzor ho sám odklikává
  *   5 Proměny  – výjev se mění s rotující větou v nadpisu (čas, práce, peníze, snadnost, FaiN)
+ *   6 Kolem    – kolem nadpisu se vznáší kousky práce, samy se dodělávají, reagují na myš
+ *   7 Pisatel  – nadpis píše kurzor se značkou FS (jako kolega ve sdíleném dokumentu)
  */
 
 const v = (o: Record<string, string | number>) => o as CSSProperties;
@@ -254,9 +256,104 @@ function Morph() {
   );
 }
 
-const MARKS = [Orbit, Stack, Pulse, Autopilot, Morph];
-const NAMES = ['Jádro', 'Hotovo', 'Nonstop', 'Autopilot', 'Proměny'];
-const DEFAULT = 4;
+/* ── 6 Kolem ──────────────────────────────────────────────────────── */
+/* Kolem nadpisu se vznáší kousky práce z celé firmy a samy se dodělávají. Reagují na myš. */
+function Around() {
+  const [ref, setRef] = useState<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (!ref || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let raf = 0;
+    const move = (e: PointerEvent) => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        ref.style.setProperty('--mx', ((e.clientX / innerWidth) * 2 - 1).toFixed(3));
+        ref.style.setProperty('--my', ((e.clientY / innerHeight) * 2 - 1).toFixed(3));
+      });
+    };
+    addEventListener('pointermove', move);
+    return () => {
+      removeEventListener('pointermove', move);
+      cancelAnimationFrame(raf);
+    };
+  }, [ref]);
+
+  return (
+    <div className="hm hm-around" ref={setRef} aria-hidden="true">
+      {/* e-mail se sám vyřídí */}
+      <div className="hm-frag hm-frag--1 hm-c" style={v({ '--o': -38, '--d': 1 })}>
+        <div className="hm-frag__in">
+          <div className="hm-frag__head">
+            <span className="hm-frag__ico"><Svg>{ico.mail}</Svg></span>
+            <span className="hm-frag__lines"><i style={v({ '--w': '78%' })} /><i style={v({ '--w': '52%' })} /></span>
+          </div>
+          <div className="hm-frag__send">
+            <span className="hm-frag__prog" />
+            <span className="hm-frag__done"><Svg>{ico.check}</Svg></span>
+          </div>
+        </div>
+      </div>
+      {/* faktura se zaplatí */}
+      <div className="hm-frag hm-frag--2 hm-c" style={v({ '--o': 108, '--d': 0.6 })}>
+        <div className="hm-frag__in">
+          <div className="hm-frag__head">
+            <span className="hm-frag__ico"><Svg>{ico.invoice}</Svg></span>
+            <span className="hm-frag__lines"><i style={v({ '--w': '64%' })} /><i style={v({ '--w': '40%' })} /></span>
+          </div>
+          <div className="hm-frag__sum">
+            <i />
+            <i />
+            <i />
+          </div>
+          <span className="hm-frag__stamp"><Svg>{ico.check}</Svg></span>
+        </div>
+      </div>
+      {/* kalendář se sám zaplní */}
+      <div className="hm-frag hm-frag--3 hm-c" style={v({ '--o': 165, '--d': 0.8 })}>
+        <div className="hm-frag__in">
+          <div className="hm-frag__head">
+            <span className="hm-frag__ico"><Svg>{ico.cal}</Svg></span>
+            <span className="hm-frag__lines"><i style={v({ '--w': '58%' })} /></span>
+          </div>
+          <div className="hm-frag__cal">
+            {Array.from({ length: 15 }, (_, i) => (
+              <i key={i} className={[1, 5, 7, 11, 13].includes(i) ? 'is-fill' : ''} style={v({ '--k': [1, 5, 7, 11, 13].indexOf(i) })} />
+            ))}
+          </div>
+        </div>
+      </div>
+      {/* report se sám spočítá */}
+      <div className="hm-frag hm-frag--4 hm-c" style={v({ '--o': 52, '--d': 1.2 })}>
+        <div className="hm-frag__in">
+          <div className="hm-frag__head">
+            <span className="hm-frag__ico"><Svg>{ico.table}</Svg></span>
+            <span className="hm-frag__lines"><i style={v({ '--w': '60%' })} /></span>
+          </div>
+          <svg className="hm-frag__chart" viewBox="0 0 180 56" preserveAspectRatio="none">
+            <path className="hm-frag__area" d="M0 50 26 44 52 46 78 32 104 34 130 20 156 16 180 6V56H0Z" />
+            <path className="hm-frag__spark" d="M0 50 26 44 52 46 78 32 104 34 130 20 156 16 180 6" pathLength="1" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── 7 Pisatel ────────────────────────────────────────────────────── */
+/* Nad nadpisem nic. Nadpis sám píše kurzor se značkou FS, jako kolega ve sdíleném dokumentu:
+   umělá inteligence tu doslova maká za vás. */
+function Writer() {
+  useEffect(() => {
+    document.documentElement.dataset.heroWriter = '';
+    return () => {
+      delete document.documentElement.dataset.heroWriter;
+    };
+  }, []);
+  return null;
+}
+
+const MARKS = [Orbit, Stack, Pulse, Autopilot, Morph, Around, Writer];
+const NAMES = ['Jádro', 'Hotovo', 'Nonstop', 'Autopilot', 'Proměny', 'Kolem', 'Pisatel'];
+const DEFAULT = 5; // 6 Kolem
 
 export default function HeroMark({ className = '', style }: { className?: string; style?: CSSProperties }) {
   const [n, setN] = useState(DEFAULT);
