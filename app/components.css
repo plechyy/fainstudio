@@ -1308,7 +1308,7 @@ html.is-loading .seq {
     top: 1px;
     height: 6px;
   }
-    }
+}
 
 /* ── FAQ ─────────────────────────────────────────────────────────── */
 .faq {
@@ -4684,7 +4684,6 @@ html.is-loading .seq {
   --pl3: oklch(calc(0.68 + var(--pal-adj)) calc(var(--ac-c) * 1.25) calc(var(--pal-h) + 108));
   --pl4: oklch(calc(0.68 + var(--pal-adj)) calc(var(--ac-c) * 1.25) calc(var(--pal-h) + 165));
 }
-:root[data-theme='light'] 
 /* ── pruh o datech pod tlačítky v hero ───────────────────────────── */
 .hero__safe {
   display: flex;
