@@ -1206,10 +1206,10 @@ html.is-loading .seq {
 .proof {
   --cycle: 6s;
   /* sběrnice nese barvy všech čtyř položek, stejné jako jejich čísla */
-  --pl1: oklch(calc(0.74 + var(--primary-l-adj)) var(--ac-c) calc(var(--primary-h) - 38));
-  --pl2: oklch(calc(0.74 + var(--primary-l-adj)) var(--ac-c) calc(var(--primary-h) + 52));
-  --pl3: oklch(calc(0.74 + var(--primary-l-adj)) var(--ac-c) calc(var(--primary-h) + 108));
-  --pl4: oklch(calc(0.74 + var(--primary-l-adj)) var(--ac-c) calc(var(--primary-h) + 165));
+  --pl1: oklch(calc(0.74 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) - 38));
+  --pl2: oklch(calc(0.74 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) + 52));
+  --pl3: oklch(calc(0.74 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) + 108));
+  --pl4: oklch(calc(0.74 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) + 165));
   position: relative;
   display: grid;
   gap: 40px;
@@ -4919,7 +4919,7 @@ html.is-loading .seq {
   opacity: 0.6;
 }
 .hs__item {
-  --hc: oklch(calc(0.78 + var(--primary-l-adj)) var(--ac-c) calc(var(--primary-h) + var(--h)));
+  --hc: oklch(calc(0.78 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) + var(--h)));
 }
 .hs__dot {
   fill: var(--hc);
@@ -5126,10 +5126,10 @@ html.is-loading .seq {
 }
 
 :root[data-theme='light'] .proof {
-  --pl1: oklch(calc(0.68 + var(--primary-l-adj)) calc(var(--ac-c) * 1.25) calc(var(--primary-h) - 38));
-  --pl2: oklch(calc(0.68 + var(--primary-l-adj)) calc(var(--ac-c) * 1.25) calc(var(--primary-h) + 52));
-  --pl3: oklch(calc(0.68 + var(--primary-l-adj)) calc(var(--ac-c) * 1.25) calc(var(--primary-h) + 108));
-  --pl4: oklch(calc(0.68 + var(--primary-l-adj)) calc(var(--ac-c) * 1.25) calc(var(--primary-h) + 165));
+  --pl1: oklch(calc(0.68 + var(--pal-adj)) calc(var(--ac-c) * 1.25) calc(var(--pal-h) - 38));
+  --pl2: oklch(calc(0.68 + var(--pal-adj)) calc(var(--ac-c) * 1.25) calc(var(--pal-h) + 52));
+  --pl3: oklch(calc(0.68 + var(--pal-adj)) calc(var(--ac-c) * 1.25) calc(var(--pal-h) + 108));
+  --pl4: oklch(calc(0.68 + var(--pal-adj)) calc(var(--ac-c) * 1.25) calc(var(--pal-h) + 165));
 }
 :root[data-theme='light'] .proof-strip__title {
   color: var(--ink);
