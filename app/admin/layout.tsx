@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { logout } from '@/app/adminlogin/actions';
 import { requireAdmin } from '@/lib/admin-session';
+import Link from 'next/link';
+import AdminCrumb from './AdminCrumb';
 import AdminNav from './AdminNav';
 import './admin.css';
 
@@ -16,11 +18,26 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <div className="adm adm--app">
       <aside className="adm__side">
-        <p className="adm__brand">
-          FaiN Studio <small>Admin</small>
-        </p>
+        <Link className="adm__logo" href="/admin/todo" aria-label="FaiN Studio administrace">
+          <span className="adm__word">
+            FaiN<span>Studio</span>
+          </span>
+          <small>Admin</small>
+        </Link>
         <AdminNav />
-        <div className="adm__logout">
+        <a className="adm__site" href="/" target="_blank" rel="noopener">
+          Zobrazit web
+          <span aria-hidden="true">↗</span>
+        </a>
+        <form action={logout} className="adm__logout--m">
+          <button type="submit" className="adm__out">
+            Odhlásit se
+          </button>
+        </form>
+      </aside>
+      <header className="adm__top">
+        <AdminCrumb />
+        <div className="adm__user">
           <div className="adm__me">
             <span className="adm__av" aria-hidden="true">
               {(email[0] || 'A').toUpperCase()}
@@ -36,7 +53,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             </button>
           </form>
         </div>
-      </aside>
+      </header>
       <main className="adm__content">
         <div className="adm__page">{children}</div>
       </main>

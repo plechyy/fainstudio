@@ -53,7 +53,7 @@ const GROUPS: { id: string; name: string; from: string; items: Item[] }[] = [
   },
 ];
 
-const COLORS: Record<string, string> = { visitor: '#7a4df0', copy: '#d9398f', design: '#0d9488', rival: '#d97706' };
+const COLORS: Record<string, string> = { visitor: 'oklch(0.58 0.2 324)', copy: 'oklch(0.62 0.2 352)', design: '#0d9488', rival: '#d97706' };
 
 const KEY = 'fs-admin-todo-v1';
 type Saved = { done: Record<string, boolean>; custom: { id: string; t: string; done: boolean }[] };

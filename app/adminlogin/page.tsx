@@ -14,7 +14,11 @@ export default async function AdminLogin() {
   return (
     <main className="adm adm--login">
       <section className="adm__hero" aria-hidden="true">
-        <p className="adm__brand">FaiN Studio</p>
+        <p className="adm__logo">
+          <span className="adm__word">
+            FaiN<span>Studio</span>
+          </span>
+        </p>
         <div>
           <h2>Všechno na jednom místě.</h2>
           <p>Úkoly, soubory a analytika webu. Jen pro vás.</p>
@@ -22,8 +26,10 @@ export default async function AdminLogin() {
       </section>
       <div className="adm__panel">
         <div className="adm__card">
-          <p className="adm__brand" aria-hidden="true">
-            FaiN Studio
+          <p className="adm__logo" aria-hidden="true">
+            <span className="adm__word">
+              FaiN<span>Studio</span>
+            </span>
           </p>
           <h1 className="adm__h1">Vítejte zpět</h1>
           <p className="adm__lead">Přihlaste se do administrace.</p>

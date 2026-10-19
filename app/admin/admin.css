@@ -5,25 +5,28 @@
  */
 html:has(.adm),
 body:has(.adm) {
-  background: #f4f2fa;
   color-scheme: light;
-}
-html:has(.adm) {
-  background: #f6f4fb;
 }
 body:has(.adm) {
   background: transparent;
 }
-/* barevné přechody v pozadí: pevná vrstva (levnější než background-attachment: fixed) */
-.adm::before {
+html:has(.adm--login) {
+  background: #f6f4fb;
+}
+/* přihlášení: barevné přechody v pozadí jako pevná vrstva */
+.adm--login::before {
   content: '';
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(900px 520px at 92% -8%, #e6dcff 0%, transparent 62%),
+    radial-gradient(900px 520px at 92% -8%, #f3dcff 0%, transparent 62%),
     radial-gradient(760px 480px at -6% 104%, #ffe1f1 0%, transparent 62%);
+}
+/* v administraci je pod obsahem tmavý rám */
+html:has(.adm--app) {
+  background: var(--d-bg);
 }
 
 .adm {
@@ -34,16 +37,25 @@ body:has(.adm) {
   --line-2: #d9d5e6;
   --card: #ffffff;
   --soft: #f6f4fb;
-  --a: #7a4df0;
-  --a-2: #d946a8;
-  --a-ink: #5a30d0;
-  --a-soft: #efe9ff;
+  /* značka FaiN Studio: pink-fialová z webu (odstín 327) */
+  --a: oklch(0.6 0.2 324);
+  --a-2: oklch(0.66 0.19 352);
+  --a-ink: oklch(0.46 0.19 324);
+  --a-soft: oklch(0.95 0.035 324);
+  --brand: oklch(0.8288 0.13 327.3);
+  /* tmavý rám (panel a hlavička), přesně barvy tmavého webu */
+  --d-bg: oklch(0.1668 0.0084 296.9);
+  --d-deep: oklch(0.1318 0.0084 296.9);
+  --d-line: oklch(0.2918 0.0124 296.9);
+  --d-ink: oklch(0.96 0.005 297);
+  --d-ink-2: oklch(0.74 0.012 297);
+  --d-ink-3: oklch(0.58 0.014 297);
   --ok: #0f9d6e;
   --bad: #d92d20;
   --r: 18px;
   --sh-1: 0 1px 2px #1b13370a, 0 1px 1px #1b13370a;
   --sh-2: 0 1px 2px #1b13370d, 0 10px 28px -10px #1b133726;
-  --ring: 0 0 0 4px #7a4df02e;
+  --ring: 0 0 0 4px color-mix(in oklab, var(--a) 22%, transparent);
 
   min-height: 100vh;
   min-height: 100dvh;
@@ -73,33 +85,37 @@ body:has(.adm) {
   box-shadow: var(--ring);
 }
 
-/* ── značka ───────────────────────────────────────────────────────── */
-.adm__brand {
-  display: flex;
+/* ── značka: logo FaiN Studio (Finger Paint jako na webu) ─────────── */
+.adm__logo {
+  display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  color: inherit;
+  text-decoration: none;
 }
-.adm__brand::before {
-  content: '';
-  flex: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, var(--a) 0%, var(--a-2) 100%);
-  box-shadow: 0 6px 14px -4px #7a4df080, inset 0 1px 0 #ffffff59;
+.adm__word {
+  display: inline-flex;
+  align-items: baseline;
+  font-family: 'FingerPaint', var(--font-display), sans-serif;
+  font-size: 26px;
+  font-weight: 700; /* Finger Paint má jen Regular, tučné je syntetické jako na webu */
+  line-height: 1;
+  letter-spacing: 0.01em;
 }
-.adm__brand small {
-  margin-left: 2px;
+.adm__word span {
+  margin-left: 0.14em;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--brand);
+}
+.adm__logo small {
   padding: 2px 8px;
   border-radius: 999px;
-  background: var(--a-soft);
-  color: var(--a-ink);
+  background: color-mix(in oklab, var(--brand) 18%, transparent);
+  color: var(--brand);
   font-size: 11px;
   font-weight: 650;
-  letter-spacing: 0;
+  letter-spacing: 0.02em;
 }
 
 /* ── tlačítka a pole ──────────────────────────────────────────────── */
@@ -136,13 +152,13 @@ body:has(.adm) {
 .adm__btn,
 .fl__up:not(.fl__new) button {
   border-color: transparent;
-  background: linear-gradient(180deg, #8a5cff 0%, var(--a) 100%);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--a) 86%, #fff) 0%, var(--a) 100%);
   color: #fff;
-  box-shadow: 0 1px 0 #ffffff40 inset, 0 8px 18px -8px #7a4df0b3;
+  box-shadow: 0 1px 0 #ffffff40 inset, 0 8px 18px -8px color-mix(in oklab, var(--a) 70%, transparent);
 }
 .adm__btn:hover,
 .fl__up:not(.fl__new) button:hover {
-  background: linear-gradient(180deg, #7f4ff5 0%, #6a3fe0 100%);
+  background: linear-gradient(180deg, var(--a) 0%, color-mix(in oklab, var(--a) 86%, #000) 100%);
 }
 .adm__btn:disabled,
 .fl__up button:disabled {
@@ -233,8 +249,12 @@ body:has(.adm) {
   background: #ffffffeb;
   box-shadow: var(--sh-2);
 }
-.adm__card .adm__brand {
+.adm__card .adm__logo {
   margin-bottom: 26px;
+  color: var(--ink);
+}
+.adm__card .adm__word span {
+  color: var(--a);
 }
 .adm__h1 {
   margin-bottom: 4px;
@@ -277,7 +297,7 @@ body:has(.adm) {
     min-height: calc(100dvh - 28px);
     padding: 40px;
     border-radius: 28px;
-    background: linear-gradient(150deg, #5a30d0 0%, #8b4df0 45%, #e04fae 100%);
+    background: linear-gradient(150deg, oklch(0.2 0.03 305) 0%, oklch(0.3 0.12 320) 55%, oklch(0.5 0.19 335) 100%);
     color: #fff;
   }
   .adm__hero::before,
@@ -301,18 +321,17 @@ body:has(.adm) {
     bottom: -120px;
     background: #ffffff17;
   }
-  .adm__hero .adm__brand,
+  .adm__hero .adm__logo,
   .adm__hero p,
   .adm__hero h2 {
     position: relative;
     z-index: 1;
   }
-  .adm__hero .adm__brand {
+  .adm__hero .adm__logo {
     color: #fff;
   }
-  .adm__hero .adm__brand::before {
-    background: #ffffff;
-    box-shadow: 0 6px 16px -6px #00000059;
+  .adm__hero .adm__word {
+    font-size: 32px;
   }
   .adm__hero h2 {
     max-width: 14ch;
@@ -329,22 +348,21 @@ body:has(.adm) {
   }
 }
 
-/* ── rám: plovoucí panel vlevo, obsah vpravo ──────────────────────── */
+/* ── rám: tmavý panel vlevo + tmavá hlavička, světlý jen hlavní obsah ── */
 .adm--app {
   display: grid;
   grid-template-columns: 1fr;
-  align-content: start;
+  grid-template-rows: auto 1fr;
+  background: var(--d-bg);
 }
 .adm__side {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin: 10px;
-  padding: 12px;
-  border: 1px solid #ffffffb3;
-  border-radius: 22px;
-  background: #ffffffeb;
-  box-shadow: var(--sh-2);
+  gap: 14px;
+  padding: 14px 14px 12px;
+  background: var(--d-bg);
+  color: var(--d-ink);
 }
 .adm__nav {
   display: flex;
@@ -354,37 +372,39 @@ body:has(.adm) {
 .adm__nav a {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
-  flex: none;
-  height: 44px;
-  padding: 0 14px 0 8px;
-  border-radius: 14px;
-  color: var(--ink-2);
+  flex: 1 1 0;
+  height: 42px;
+  padding: 0 10px 0 6px;
+  border-radius: 12px;
+  color: var(--d-ink-2);
   font-weight: 600;
+  white-space: nowrap;
   text-decoration: none;
   transition: background-color 120ms, color 120ms;
 }
 .adm__nav a:hover {
-  background: var(--soft);
-  color: var(--ink);
+  background: #ffffff12;
+  color: var(--d-ink);
 }
 .adm__nav a[aria-current='page'] {
-  background: var(--ink);
+  background: linear-gradient(135deg, color-mix(in oklab, var(--a) 90%, #000) 0%, color-mix(in oklab, var(--a-2) 90%, #000) 100%);
   color: #fff;
-  box-shadow: 0 8px 18px -8px #17151f80;
+  box-shadow: 0 8px 20px -8px color-mix(in oklab, var(--a) 70%, transparent), inset 0 1px 0 #ffffff33;
 }
 .adm__ico {
   display: grid;
   place-items: center;
   flex: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 10px;
-  background: var(--t-soft);
-  color: var(--t);
+  width: 28px;
+  height: 28px;
+  border-radius: 9px;
+  background: #ffffff12;
+  color: var(--d-ink-2);
 }
 .adm__nav a[aria-current='page'] .adm__ico {
-  background: #ffffff1f;
+  background: #ffffff26;
   color: #fff;
 }
 .adm__ico svg {
@@ -396,44 +416,33 @@ body:has(.adm) {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.adm__nav a[data-i='todo'] {
-  --t: #7a4df0;
-  --t-soft: #efe9ff;
-}
-.adm__nav a[data-i='files'] {
-  --t: #d9398f;
-  --t-soft: #ffe8f4;
-}
-.adm__nav a[data-i='stats'] {
-  --t: #0d9488;
-  --t-soft: #dcf7f2;
-}
-.adm__side {
-  position: relative;
-}
-.adm__logout {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-}
-.adm__me {
+.adm__site {
   display: none;
 }
-.adm__logout .adm__out {
+.adm__logout--m {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+}
+.adm__logout--m .adm__out {
   height: 32px;
   padding: 0 12px;
   font-size: 13px;
+  background: #ffffff14;
+  border-color: transparent;
+  color: var(--d-ink);
   box-shadow: none;
 }
-.adm__nav a {
-  flex: 1 1 0;
-  justify-content: center;
-  padding: 0 10px 0 6px;
-  white-space: nowrap;
+.adm__top {
+  display: none;
 }
 .adm__content {
   min-width: 0;
-  padding: 10px 16px 64px;
+  padding: 22px 16px 64px;
+  border-radius: 24px 24px 0 0;
+  background:
+    radial-gradient(760px 420px at 100% 0%, color-mix(in oklab, var(--a) 9%, transparent) 0%, transparent 62%),
+    #f6f4fa;
 }
 .adm__page {
   max-width: 1080px;
@@ -459,17 +468,21 @@ body:has(.adm) {
 }
 @media (min-width: 900px) {
   .adm--app {
-    grid-template-columns: 268px minmax(0, 1fr);
+    grid-template-columns: 252px minmax(0, 1fr);
+    grid-template-rows: 68px 1fr;
+    min-height: 100dvh;
   }
   .adm__side {
     position: sticky;
-    top: 12px;
-    height: calc(100dvh - 24px);
-    margin: 12px 0 12px 12px;
-    padding: 16px 12px 12px;
+    top: 0;
+    grid-row: 1 / span 2;
+    height: 100dvh;
+    padding: 20px 14px 16px;
+    gap: 22px;
+    border-right: 1px solid var(--d-line);
   }
-  .adm__side .adm__brand {
-    padding: 4px 8px 14px;
+  .adm__side .adm__logo {
+    padding: 0 8px;
   }
   .adm__nav {
     flex-direction: column;
@@ -478,27 +491,67 @@ body:has(.adm) {
   .adm__nav a {
     flex: none;
     justify-content: flex-start;
-    padding: 0 14px 0 8px;
+    padding: 0 12px 0 8px;
   }
-  .adm__logout {
-    position: static;
-    display: grid;
+  .adm__logout--m {
+    display: none;
+  }
+  .adm__site {
+    display: flex;
+    align-items: center;
     gap: 8px;
     margin-top: auto;
-    padding-top: 12px;
-    border-top: 1px solid var(--line);
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: #ffffff0d;
+    color: var(--d-ink-2);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
   }
-  .adm__logout .adm__out {
-    height: 38px;
-    padding: 0 16px;
-    font-size: inherit;
+  .adm__site:hover {
+    background: #ffffff17;
+    color: var(--d-ink);
+  }
+  .adm__top {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 0 32px;
+    background: var(--d-bg);
+    color: var(--d-ink);
+  }
+  .adm__crumb {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--d-ink-3);
+    font-size: 14px;
+  }
+  .adm__crumb b {
+    color: var(--d-ink);
+    font-weight: 650;
+  }
+  .adm__crumb i {
+    font-style: normal;
+    opacity: 0.5;
+  }
+  .adm__user {
+    display: flex;
+    align-items: center;
+    gap: 14px;
   }
   .adm__me {
     display: flex;
     align-items: center;
     gap: 10px;
     min-width: 0;
-    padding: 4px 6px;
+    font-size: 13px;
+    line-height: 1.3;
   }
   .adm__av {
     display: grid;
@@ -511,36 +564,31 @@ body:has(.adm) {
     color: #fff;
     font-weight: 700;
   }
-  .adm__who {
-    min-width: 0;
-    font-size: 13px;
-    line-height: 1.3;
-  }
   .adm__who b {
     display: block;
     font-weight: 650;
   }
   .adm__who span {
     display: block;
+    max-width: 220px;
     overflow: hidden;
-    color: var(--ink-3);
+    color: var(--d-ink-3);
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .adm__logout .adm__out {
-    width: 100%;
-    height: 38px;
-    box-shadow: none;
-    background: var(--soft);
+  .adm__user .adm__out {
+    height: 36px;
+    background: #ffffff14;
     border-color: transparent;
-    color: var(--ink-2);
+    color: var(--d-ink);
+    box-shadow: none;
   }
-  .adm__logout .adm__out:hover {
-    background: var(--a-soft);
-    color: var(--a-ink);
+  .adm__user .adm__out:hover {
+    background: #ffffff24;
   }
   .adm__content {
-    padding: 34px 40px 80px 28px;
+    padding: 30px 40px 80px 36px;
+    border-radius: 24px 0 0 0;
   }
 }
 
@@ -847,12 +895,12 @@ body:has(.adm) {
   font-size: 12.5px;
 }
 .fl__fc[data-c='0'] {
-  --t: #7a4df0;
-  --t-soft: #efe9ff;
+  --t: oklch(0.58 0.2 324);
+  --t-soft: oklch(0.95 0.035 324);
 }
 .fl__fc[data-c='1'] {
-  --t: #d9398f;
-  --t-soft: #ffe8f4;
+  --t: oklch(0.62 0.2 352);
+  --t-soft: oklch(0.95 0.04 352);
 }
 .fl__fc[data-c='2'] {
   --t: #0d9488;
