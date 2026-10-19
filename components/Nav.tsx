@@ -14,7 +14,9 @@ const LINKS = [
   { href: '#kdo', label: 'O nás' },
   { href: '#faq', label: 'Otázky' },
 ];
-const TRACKED = LINKS.map((l) => l.href.slice(1));
+// sekce bez položky v menu: když je uprostřed obrazovky, nesvítí nic
+const NO_LINK = ['rezervace', 'paticka'];
+const TRACKED = [...LINKS.map((l) => l.href.slice(1)), ...NO_LINK];
 
 type Lens = { x: number; w: number; on: boolean; snap: boolean };
 
@@ -34,7 +36,7 @@ export default function Nav() {
     const io = new IntersectionObserver(
       (entries) => {
         if (lockRef.current) return;
-        for (const e of entries) if (e.isIntersecting) setActive('#' + e.target.id);
+        for (const e of entries) if (e.isIntersecting) setActive(NO_LINK.includes(e.target.id) ? null : '#' + e.target.id);
       },
       { rootMargin: '-45% 0px -50% 0px' },
     );

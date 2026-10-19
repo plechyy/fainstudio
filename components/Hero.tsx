@@ -1,6 +1,7 @@
 import { CAL_URL } from '@/lib/config';
 import { hero } from '@/lib/content';
 import HeroRotate from './HeroRotate';
+import Artifact from './systems/Artifact';
 import ShaderBackground from './ShaderBackground';
 
 export default function Hero() {
@@ -61,6 +62,11 @@ export default function Hero() {
             Přístup jen pro koho určíte
           </li>
         </ul>
+
+        {/* ukázka toho, co systém dělá: stejná scéna jako v sekci 2, jen menší */}
+        <div className="hero__scene seq" style={{ ['--i' as string]: 5 }}>
+          <Artifact id="nastroje" />
+        </div>
       </div>
     </section>
   );

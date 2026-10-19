@@ -10,9 +10,9 @@ import { useEffect, useRef, useState } from 'react';
  * bez WebGL nebo při reduced motion zůstane slovo jednobarevné.
  */
 
-const MIN = 1150; // nejkratší doba zobrazení
-const FILL_MS = 1100; // vyplnění loga jede rovnoměrně přes celou dobu načítání
-const HOLD = 250; // pauza na plně vybarveném slově
+const MIN = 700; // nejkratší doba zobrazení
+const FILL_MS = 650; // vyplnění loga jede rovnoměrně přes celou dobu načítání
+const HOLD = 120; // pauza na plně vybarveném slově
 
 const FRAG = `#version 300 es
 precision highp float;
@@ -98,8 +98,8 @@ export default function Loader() {
       seen = sessionStorage.getItem('fs-loaded') === '1';
       sessionStorage.setItem('fs-loaded', '1');
     } catch {}
-    const minMs = seen ? 250 : MIN;
-    const fillMs = seen ? 350 : FILL_MS;
+    const minMs = seen ? 200 : MIN;
+    const fillMs = seen ? 250 : FILL_MS;
     const holdMs = seen ? 0 : HOLD;
     const t0 = performance.now();
     let ready = false;
@@ -115,7 +115,7 @@ export default function Loader() {
         setTimeout(() => {
           setDone(true);
           root.classList.remove('is-loading');
-          timers.push(setTimeout(() => setGone(true), 800));
+          timers.push(setTimeout(() => setGone(true), 500));
         }, holdMs),
       );
     };

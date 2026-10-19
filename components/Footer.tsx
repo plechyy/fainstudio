@@ -3,7 +3,7 @@ import PaintedWordmark from './PaintedWordmark';
 
 export default function Footer() {
   return (
-    <footer className="foot">
+    <footer className="foot" id="paticka">
       <div className="wrap foot__in">
         <span>
           {NAME}, FaiN Studio

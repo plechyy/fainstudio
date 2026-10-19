@@ -12,7 +12,7 @@ html.is-loading .seq {
   display: grid;
   place-items: center;
   background: var(--bg-deep);
-  transition: opacity 600ms var(--ease-out), visibility 0s linear 600ms;
+  transition: opacity 400ms var(--ease-out), visibility 0s linear 400ms;
 }
 .loader.is-done {
   opacity: 0;
@@ -4981,4 +4981,15 @@ html.is-loading .seq {
 }
 .adm__muted {
   color: var(--ink-3);
+}
+
+/* ── hero: zmenšená scéna z CRM pod tlačítky (ukázat, ne vyprávět) ── */
+.hero__scene {
+  width: min(100%, 540px);
+  margin-top: clamp(36px, 6vh, 64px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+}
+.hero__scene .art {
+  pointer-events: none;
 }
