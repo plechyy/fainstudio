@@ -4,7 +4,7 @@ import Footer from '@/components/Footer';
 import { CITY, EMAIL, ICO, NAME } from '@/lib/config';
 
 export const metadata: Metadata = {
-  title: 'Zásady zpracování osobních údajů | FaiN Studio',
+  title: 'Zásady zpracování osobních údajů',
   description: 'Jak FaiN Studio nakládá s osobními údaji z formuláře a jaké cookies a úložiště web používá.',
   alternates: { canonical: '/ochrana-udaju' },
   robots: { index: true, follow: true },

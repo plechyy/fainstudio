@@ -4817,6 +4817,7 @@ html.is-loading .seq {
 .faq__item:nth-child(6) { --fo: 0; }
 .faq__item:nth-child(7) { --fo: 222; }
 .faq__item:nth-child(8) { --fo: 140; }
+.faq__item:nth-child(9) { --fo: 75; }
 .faq__item:hover {
   background: linear-gradient(90deg, color-mix(in oklab, var(--fc) 7%, transparent), transparent 70%);
 }
@@ -4850,4 +4851,18 @@ html.is-loading .seq {
   4% { color: var(--fc); }
   41% { color: var(--fc); }
   45%, 100% { color: var(--ink); }
+}
+
+/* ── hero: nadtitulek s klíčovými slovy (je součástí H1) ─────────── */
+.hero__kicker {
+  display: block;
+  margin-bottom: 18px;
+  font-family: var(--font-text);
+  font-size: clamp(0.72rem, 0.68rem + 0.2vw, 0.82rem);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  color: var(--ink-2);
+  -webkit-text-fill-color: currentColor;
+  filter: none;
 }

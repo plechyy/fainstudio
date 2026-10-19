@@ -1,23 +1,39 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
-
-const SITE = 'https://fainstudio.com';
+import { NAME } from '@/lib/config';
+import { BRAND, SITE, seo } from '@/lib/seo';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
-  title: 'FaiN Studio — automatizace procesů, interní nástroje a sběr dat',
-  description:
-    'Postavíme systém, který převezme práci, co dnes děláte rukama. Malé studio z Prahy.',
+  title: { default: seo.title, template: `%s | ${BRAND}` },
+  description: seo.description,
+  keywords: seo.keywords,
+  applicationName: BRAND,
+  authors: [{ name: NAME, url: SITE }],
+  creator: NAME,
+  publisher: BRAND,
+  category: 'technology',
   alternates: { canonical: '/' },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 },
+  },
   openGraph: {
     type: 'website',
     locale: 'cs_CZ',
     url: SITE,
-    title: 'FaiN Studio — automatizace procesů, interní nástroje a sběr dat',
-    description:
-      'Postavíme systém, který převezme práci, co dnes děláte rukama. Malé studio z Prahy.',
+    siteName: BRAND,
+    title: seo.ogTitle,
+    description: seo.ogDescription,
     images: ['/media/hero-poster.jpg'],
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: seo.ogTitle,
+    description: seo.ogDescription,
+  },
+  formatDetection: { telephone: false, address: false, email: false },
 };
 
 // přesná barva pozadí webu — lišta iOS pak na stránku navazuje bez šedého pruhu

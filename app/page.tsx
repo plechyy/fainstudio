@@ -13,10 +13,13 @@ import Cta from '@/components/Cta';
 import Footer from '@/components/Footer';
 import Enhance from '@/components/Enhance';
 import ButtonSmoke from '@/components/ButtonSmoke';
+import { homeJsonLd, ld } from '@/lib/seo';
 
 export default function Home() {
   return (
     <>
+      {/* strukturovaná data: firma, služby, autor, FAQ (pro Google, Seznam i AI asistenty) */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: ld(homeJsonLd()) }} />
       <Loader />
       <span id="top" />
       <Nav />

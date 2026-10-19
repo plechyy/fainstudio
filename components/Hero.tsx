@@ -16,6 +16,9 @@ export default function Hero() {
       <div className="wrap hero__inner">
         <h1 id="hero-title" className="display hero__title seq seq--rise-only" style={{ ['--i' as string]: 1 }}>
           <span className="sr-only">{hero.titleSr}</span>
+          <span className="hero__kicker label" aria-hidden="true">
+            {hero.kicker}
+          </span>
           <span className="silver silver--block" aria-hidden="true">
             {hero.title}
           </span>

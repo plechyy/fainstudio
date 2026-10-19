@@ -6,10 +6,12 @@
 
 export const hero = {
   // první řádek nadpisu; druhý se píše a maže (components/HeroRotate.tsx)
+  // malý nadtitulek nad nadpisem: hlavní klíčová slova, viditelná a uvnitř H1
+  kicker: 'AI agentura pro automatizaci firem',
   title: 'Umělá inteligence,',
   rotateLead: 'která',
   rotate: ['šetří čas', 'maká za vás', 'šetří peníze', 'usnadňuje práci', 'je FaiN'],
-  titleSr: 'Umělá inteligence, která šetří čas, maká za vás, šetří peníze, usnadňuje práci a je FaiN.',
+  titleSr: 'AI agentura pro automatizaci firem. Umělá inteligence, která šetří čas, maká za vás, šetří peníze, usnadňuje práci a je FaiN.',
   lead: 'Skoro každá firma dělá něco, co by zvládl systém. Máte nápad? Postavíme ho. Nemáte? Projdeme to spolu.',
   primary: 'Mám zájem',
   secondary: 'Co všechno umíme',
@@ -147,6 +149,14 @@ export const compare = {
 };
 
 export const faq = [
+  {
+    q: 'Co je AI automatizace?',
+    a: 'Systém, který za vás dělá opakovanou práci a přitom rozumí textu. Přečte e-mail, fakturu nebo poptávku, pochopí, co v ní je, a podle toho jedná. Běžná automatizace jen přesouvá data podle pevných pravidel. S umělou inteligencí zvládne i práci, ke které byl dřív potřeba člověk.',
+  },
+  {
+    q: 'Pro koho to děláte?',
+    a: 'Pro malé a střední firmy, které chtějí zapojit umělou inteligenci do běžné práce. Jsme AI agentura z Prahy a spolupracovat můžeme osobně i na dálku. Obor nerozhoduje. Rozhoduje, kolik práce se u vás pořád opakuje.',
+  },
   {
     q: 'Nevíme, co by šlo zlepšit. Je to pro nás?',
     a: 'Ano. Na rutinu si člověk zvykne a přestane si jí všímat, takže je to normální. Na hovoru projdeme, jak ve firmě pracujete, a ukážeme, co by mohl převzít systém. Kdybychom nic nenašli, řekneme vám to.',
