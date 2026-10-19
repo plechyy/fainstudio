@@ -20,7 +20,7 @@ export default function LoginForm() {
           {state.error}
         </p>
       )}
-      <button type="submit" className="btn btn--primary adm__btn" disabled={pending}>
+      <button type="submit" className="adm__btn" disabled={pending}>
         {pending ? 'Přihlašuji…' : 'Přihlásit se'}
       </button>
     </form>

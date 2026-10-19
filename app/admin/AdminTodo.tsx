@@ -97,16 +97,19 @@ export default function AdminTodo() {
 
   return (
     <section className="td" aria-labelledby="td-title">
-      <header className="td__head">
-        <h2 className="td__h" id="td-title">
-          To do
-        </h2>
+      <header className="adm__head">
+        <div>
+          <h1 className="adm__title" id="td-title">
+            To do
+          </h1>
+          <p className="adm__sub">Co zbývá, aby web byl na 9/10.</p>
+        </div>
         <p className="td__sum">
           {stats.done} z {stats.total} hotovo
+          <span className="td__bar" aria-hidden="true">
+            <i style={{ width: `${stats.total ? (stats.done / stats.total) * 100 : 0}%` }} />
+          </span>
         </p>
-        <span className="td__bar" aria-hidden="true">
-          <i style={{ width: `${stats.total ? (stats.done / stats.total) * 100 : 0}%` }} />
-        </span>
       </header>
 
       <div className="td__grid">

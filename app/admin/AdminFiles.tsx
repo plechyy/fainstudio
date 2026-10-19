@@ -1,153 +1,121 @@
-import Link from "next/link";
-import { listFiles, storageStatus } from "@/lib/admin-files";
-import { deleteFile } from "./files-actions";
-import FileUpload from "./FileUpload";
+import Link from 'next/link';
+import { listFiles, storageStatus } from '@/lib/admin-files';
+import { deleteFile } from './files-actions';
+import FileUpload from './FileUpload';
 
-const size = (n: number) =>
-  n < 1024
-    ? `${n} B`
-    : n < 1_048_576
-      ? `${Math.round(n / 1024)} kB`
-      : `${(n / 1_048_576).toFixed(1).replace(".", ",")} MB`;
-const when = (t: number) =>
-  new Date(t).toLocaleString("cs-CZ", {
-    day: "numeric",
-    month: "numeric",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-const url = (dir: string) =>
-  `/admin/soubory${dir ? `/${dir.split("/").map(encodeURIComponent).join("/")}` : ""}`;
+const size = (n: number) => (n < 1024 ? `${n} B` : n < 1_048_576 ? `${Math.round(n / 1024)} kB` : `${(n / 1_048_576).toFixed(1).replace('.', ',')} MB`);
+const when = (t: number) => new Date(t).toLocaleString('cs-CZ', { day: 'numeric', month: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+const url = (dir: string) => `/admin/soubory${dir ? `/${dir.split('/').map(encodeURIComponent).join('/')}` : ''}`;
 const label = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 const IMG = /\.(png|jpe?g|webp|gif)$/i;
 
 export default async function AdminFiles({ dir }: { dir: string }) {
   const st = storageStatus();
   const all = st.ok ? await listFiles() : [];
-  const inside = (d: string) =>
-    dir ? d === dir || d.startsWith(`${dir}/`) : true;
+  const inside = (d: string) => (dir ? d === dir || d.startsWith(`${dir}/`) : true);
 
   // podsložky přímo pod aktuální složkou a počet souborů v nich
   const folders = new Map<string, number>();
   for (const f of all) {
     if (!inside(f.dir) || f.dir === dir) continue;
     const rest = dir ? f.dir.slice(dir.length + 1) : f.dir;
-    const first = rest.split("/")[0];
+    const first = rest.split('/')[0];
     folders.set(first, (folders.get(first) || 0) + 1);
   }
-  const files = all
-    .filter((f) => f.dir === dir)
-    .sort((a, b) => a.name.localeCompare(b.name, "cs", { numeric: true }));
-  const crumbs = dir ? dir.split("/") : [];
+  const files = all.filter((f) => f.dir === dir).sort((a, b) => a.name.localeCompare(b.name, 'cs', { numeric: true }));
+  const crumbs = dir ? dir.split('/') : [];
+  const sortedFolders = [...folders.entries()].sort((a, b) => a[0].localeCompare(b[0], 'cs'));
 
   return (
-    <section className="fl" aria-labelledby="fl-title">
-      <header className="fl__head">
-        <h2 className="td__h" id="fl-title">
-          Soubory
-        </h2>
-        <p className="fl__where">{st.where}</p>
+    <section aria-labelledby="fl-title">
+      <header className="adm__head">
+        <div>
+          <h1 className="adm__title" id="fl-title">
+            Soubory
+          </h1>
+          <p className="adm__sub">Úložiště: {st.where}.</p>
+        </div>
       </header>
 
-      <nav className="fl__crumbs" aria-label="Cesta">
-        <Link href="/admin/soubory">Vše</Link>
-        {crumbs.map((c, i) => (
-          <span key={c + i}>
-            <i aria-hidden="true">/</i>
-            {i === crumbs.length - 1 ? (
-              <b>{label(c)}</b>
-            ) : (
-              <Link href={url(crumbs.slice(0, i + 1).join("/"))}>
-                {label(c)}
-              </Link>
-            )}
-          </span>
-        ))}
-      </nav>
+      <div className="fl__bar">
+        <nav className="fl__crumbs" aria-label="Cesta">
+          <Link href="/admin/soubory">Vše</Link>
+          {crumbs.map((c, i) => (
+            <span key={c + i} style={{ display: 'contents' }}>
+              <i aria-hidden="true">/</i>
+              {i === crumbs.length - 1 ? <b>{label(c)}</b> : <Link href={url(crumbs.slice(0, i + 1).join('/'))}>{label(c)}</Link>}
+            </span>
+          ))}
+        </nav>
+        {st.ok && <FileUpload dir={dir} />}
+      </div>
 
-      {st.ok && <FileUpload dir={dir} />}
+      <div className="fl__table">
+        {sortedFolders.length === 0 && files.length === 0 ? (
+          <p className="fl__empty">Tady zatím nic není. Nahrajte první soubor.</p>
+        ) : (
+          <>
+            <div className="fl__row fl__row--head" aria-hidden="true">
+              <span />
+              <span>Název</span>
+              <span className="fl__cell-size">Velikost</span>
+              <span className="fl__cell-at">Změněno</span>
+              <span />
+            </div>
 
-      {folders.size > 0 && (
-        <ul className="fl__folders">
-          {[...folders.entries()]
-            .sort((a, b) => a[0].localeCompare(b[0], "cs"))
-            .map(([name, n]) => (
-              <li key={name}>
-                <Link href={url(dir ? `${dir}/${name}` : name)}>
-                  <svg
-                    viewBox="0 0 24 24"
-                    width="22"
-                    height="22"
-                    aria-hidden="true"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.7"
-                    strokeLinejoin="round"
-                  >
+            {sortedFolders.map(([name, n]) => (
+              <div className="fl__row fl__row--folder" key={`d-${name}`}>
+                <span className="fl__ico" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
                     <path d="M3 7.5A1.5 1.5 0 0 1 4.5 6h4.2l2 2.2h8.8A1.5 1.5 0 0 1 21 9.7v8.8a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z" />
                   </svg>
-                  <span>{label(name)}</span>
-                  <small>{n}</small>
+                </span>
+                <Link className="fl__name" href={url(dir ? `${dir}/${name}` : name)}>
+                  {label(name)}
                 </Link>
-              </li>
+                <span className="fl__cell-size">{n} souborů</span>
+                <span className="fl__cell-at" />
+                <span />
+              </div>
             ))}
-        </ul>
-      )}
 
-      {(files.length > 0 || folders.size === 0) && (
-        <div className="td__card">
-          {files.length === 0 ? (
-            <p className="fl__empty">Zatím nic. Nahrajte první soubor.</p>
-          ) : (
-            <ul className="fl__list">
-              {files.map((f) => {
-                const href = `/admin/files/${[...(dir ? dir.split("/") : []), f.name].map(encodeURIComponent).join("/")}`;
-                return (
-                  <li key={f.name}>
-                    {IMG.test(f.name) ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        className="fl__th"
-                        src={href}
-                        alt=""
-                        loading="lazy"
-                        width={44}
-                        height={44}
-                      />
-                    ) : (
-                      <span className="fl__th fl__th--ext" aria-hidden="true">
-                        {(f.name.split(".").pop() || "").slice(0, 4)}
-                      </span>
-                    )}
-                    <a href={href} target="_blank" rel="noopener">
+            {files.map((f) => {
+              const href = `/admin/files/${[...(dir ? dir.split('/') : []), f.name].map(encodeURIComponent).join('/')}`;
+              return (
+                <div className="fl__row" key={f.name}>
+                  {IMG.test(f.name) ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img className="fl__th" src={href} alt="" loading="lazy" width={32} height={32} />
+                  ) : (
+                    <span className="fl__th fl__th--ext" aria-hidden="true">
+                      {(f.name.split('.').pop() || '').slice(0, 4)}
+                    </span>
+                  )}
+                  <div>
+                    <a className="fl__name" href={href} target="_blank" rel="noopener">
                       {f.name}
                     </a>
                     <span className="fl__meta">
                       {size(f.size)} · {when(f.at)}
                     </span>
+                  </div>
+                  <span className="fl__cell-size">{size(f.size)}</span>
+                  <span className="fl__cell-at">{when(f.at)}</span>
+                  <div className="fl__act">
                     <form action={deleteFile}>
                       <input type="hidden" name="dir" value={dir} />
                       <input type="hidden" name="name" value={f.name} />
-                      <button
-                        type="submit"
-                        className="td__x"
-                        aria-label={`Smazat ${f.name}`}
-                      >
+                      <button type="submit" className="td__x" aria-label={`Smazat ${f.name}`}>
                         ×
                       </button>
                     </form>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-        </div>
-      )}
-      <p className="td__note">
-        Soubory vidí jen přihlášený správce. Nejsou ve veřejné složce ani v
-        gitu.
-      </p>
+                  </div>
+                </div>
+              );
+            })}
+          </>
+        )}
+      </div>
     </section>
   );
 }

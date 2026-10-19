@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { logout } from '@/app/adminlogin/actions';
 import { requireAdmin } from '@/lib/admin-session';
 import AdminNav from './AdminNav';
+import './admin.css';
 
 export const metadata: Metadata = {
   title: { default: 'Administrace', template: '%s | Administrace' },
@@ -15,7 +16,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     <div className="adm adm--app">
       <aside className="adm__side">
         <p className="adm__brand">
-          <span>FaiN</span> Studio <small>administrace</small>
+          FaiN Studio <small>Admin</small>
         </p>
         <AdminNav />
         <form action={logout} className="adm__logout">
@@ -24,7 +25,9 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           </button>
         </form>
       </aside>
-      <main className="adm__content">{children}</main>
+      <main className="adm__content">
+        <div className="adm__page">{children}</div>
+      </main>
     </div>
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { isAdmin } from '@/lib/admin-session';
 import LoginForm from './LoginForm';
+import '../admin/admin.css';
 
 export const metadata: Metadata = {
   title: 'Přihlášení',
@@ -14,9 +15,9 @@ export default async function AdminLogin() {
     <main className="adm adm--login">
       <div className="adm__card">
         <p className="adm__brand" aria-hidden="true">
-          <span>FaiN</span> Studio
+          FaiN Studio
         </p>
-        <h1 className="adm__h1">Administrace</h1>
+        <h1 className="adm__h1">Přihlášení do administrace</h1>
         <LoginForm />
       </div>
     </main>
