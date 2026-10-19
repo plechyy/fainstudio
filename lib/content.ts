@@ -147,12 +147,8 @@ export const faq = [
     a: 'Systém, který za vás dělá opakovanou práci a přitom rozumí textu. Přečte e-mail, fakturu nebo poptávku, pochopí, co v ní je, a podle toho jedná. Běžná automatizace jen přesouvá data podle pevných pravidel. S umělou inteligencí zvládne i práci, ke které byl dřív potřeba člověk.',
   },
   {
-    q: 'Pro koho to děláte?',
-    a: 'Pro malé a střední firmy, které chtějí zapojit umělou inteligenci do běžné práce. Jsme AI agentura z Prahy a spolupracovat můžeme osobně i na dálku. Obor nerozhoduje. Rozhoduje, kolik práce se u vás pořád opakuje.',
-  },
-  {
-    q: 'Nevíme, co by šlo zlepšit. Je to pro nás?',
-    a: 'Ano. Na rutinu si člověk zvykne a přestane si jí všímat, takže je to normální. Na hovoru projdeme, jak ve firmě pracujete, a ukážeme, co by mohl převzít systém. Kdybychom nic nenašli, řekneme vám to.',
+    q: 'Pro koho to je? Nevíme, co by šlo zlepšit.',
+    a: 'Pro malé a střední firmy, kde se pořád něco opakuje. Jsme AI agentura z Prahy a spolupracovat můžeme osobně i na dálku. Obor nerozhoduje. Na rutinu si člověk zvykne a přestane si jí všímat, takže když nevíte, co by šlo zlepšit, je to normální. Na hovoru projdeme, jak ve firmě pracujete, a ukážeme, co by mohl převzít systém. Kdybychom nic nenašli, řekneme vám to.',
   },
   {
     q: 'Nahradí to někoho z našich lidí?',
@@ -167,16 +163,12 @@ export const faq = [
     a: 'Podle rozsahu. Termín domluvíme na prvním hovoru a každý týden dostanete živou ukázku, takže vidíte, jak to postupuje. Kdybychom věděli, že to nestihneme, řekneme to dřív, než cokoli podepíšete.',
   },
   {
-    q: 'Musíme u sebe něco měnit?',
-    a: 'Ne. Napojíme se na mail, web a nástroje, které už máte. Nikdo se nemusí učit nový program.',
+    q: 'Musíme u sebe něco měnit? Napojíte to na naše nástroje?',
+    a: 'Nic měnit nemusíte a nikdo se nemusí učit nový program. Napojíme se na mail, web, tabulky a běžné cloudové nástroje, které už máte. Starší podnikové systémy a stěhování dat ze starého softwaru neděláme, a řekneme vám to hned na prvním hovoru.',
   },
   {
     q: 'Kde jsou naše data a jsou v bezpečí?',
     a: 'Data zůstávají vaše. Systém může běžet v cloudu, nebo lokálně u vás, podle toho, co vám víc vyhovuje. Přístup k datům mají jen lidé, které určíte. Před začátkem podepíšeme NDA a smlouvu o zpracování osobních údajů a předem se domluvíme, jaká data smí do AI modelů a jaká ne.',
-  },
-  {
-    q: 'Napojíte to na náš systém?',
-    a: 'Na mail, web, tabulky a běžné cloudové nástroje ano. Starší podnikové systémy a stěhování dat ze starého softwaru neděláme, a řekneme vám to hned na prvním hovoru.',
   },
 ];
 

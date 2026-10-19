@@ -4840,17 +4840,19 @@ html.is-loading .seq {
   background: oklch(0.2 0.03 var(--pal-h));
 }
 @media (prefers-reduced-motion: no-preference) {
-  /* okno tří barevných otázek se posouvá dolů o jednu každé 3 s; přechody jsou plynulé */
+  /* okno tří barevných otázek se posouvá dolů o jednu každých ~0,55 s; přechody jsou plynulé */
   .faq__q {
-    animation: faq-pluck calc(var(--n, 7) * 3s) linear infinite;
-    animation-delay: calc(var(--d, 0) * -3s);
+    --step: 0.55s;
+    animation: faq-pluck calc(var(--n, 7) * var(--step)) linear infinite;
+    animation-delay: calc(var(--d, 0) * var(--step) * -1);
   }
 }
+/* n = 7 otázek: tři barevné naráz = 3/7 cyklu, přechod ~0,3 s */
 @keyframes faq-pluck {
   0% { color: var(--ink); }
-  4% { color: var(--fc); }
-  41% { color: var(--fc); }
-  45%, 100% { color: var(--ink); }
+  7% { color: var(--fc); }
+  40% { color: var(--fc); }
+  47%, 100% { color: var(--ink); }
 }
 
 /* ── hero: nadtitulek s klíčovými slovy (je součástí H1) ─────────── */
