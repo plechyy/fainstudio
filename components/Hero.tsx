@@ -1,7 +1,7 @@
 import { CAL_URL } from '@/lib/config';
 import { hero } from '@/lib/content';
 import HeroRotate from './HeroRotate';
-import HeroScene from './HeroScene';
+import HeroStrip from './HeroStrip';
 import ShaderBackground from './ShaderBackground';
 
 export default function Hero() {
@@ -62,10 +62,9 @@ export default function Hero() {
             Přístup jen pro koho určíte
           </li>
         </ul>
-
-        {/* ukázka toho, co systém dělá (dvě verze, viz HeroScene) */}
-        <HeroScene />
       </div>
+
+      <HeroStrip />
     </section>
   );
 }

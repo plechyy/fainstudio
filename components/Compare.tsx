@@ -102,8 +102,6 @@ export default function Compare() {
             </section>
           ))}
         </div>
-
-        <p className="cmp-note">{compare.note}</p>
       </div>
     </section>
   );

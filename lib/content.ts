@@ -129,7 +129,6 @@ export const beforeAfter = {
 
 export const compare = {
   title: 'Jiné cesty to taky umí. Jen jinak.',
-  note: 'Jiná agentura, hotový nástroj i vlastní vývojář tu stojí jako druhy řešení. Nemyslíme tím nikoho konkrétního.',
   columns: ['FaiN Studio', 'Jiná agentura', 'Hotový nástroj', 'Vlastní vývojář'],
   rows: [
     { label: 'Jak dlouho to trvá', values: ['Týdny', 'Měsíce', 'Dny', 'Měsíce'] },
