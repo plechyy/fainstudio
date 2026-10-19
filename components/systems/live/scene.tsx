@@ -73,6 +73,11 @@ export function useCount(from: number, to: number, s: number, phase: number, ms:
   return v;
 }
 
+/** Počítadlo jako samostatná komponenta: při každém snímku se překreslí jen číslo, ne celá scéna. */
+export function CountUp(props: { from: number; to: number; s: number; phase: number; ms: number }) {
+  return <>{fmt(useCount(props.from, props.to, props.s, props.phase, props.ms))}</>;
+}
+
 /** 1290000 → „1 290 000“ */
 export const fmt = (n: number) => n.toLocaleString('cs-CZ').replace(/\u00a0/g, ' ');
 

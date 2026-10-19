@@ -12,7 +12,7 @@ FaiN Studio (také FainStudio) provozuje Matyáš Plecháč, IČO 21019011. Kont
 - **Zpracování dokumentů pomocí AI:** faktury, účtenky, smlouvy a výpisy se přečtou, roztřídí a přepíšou do tabulky nebo účetnictví.
 - **AI asistent nad firemními daty:** chat, který zná firemní dokumenty a postupy, odpovídá normální češtinou a umí věci rovnou zařídit.
 - **Hlídání trhu a dat:** denní procházení webů, portálů a databází a výběr jen relevantních záznamů.
-- **Weby a rezervace:** weby, na kterých se dá objednat, přihlásit nebo domluvit termín, napojené na interní systém.
+- **Chytré weby:** weby, které samy odpoví na dotazy, přihlásí na lekci nebo domluví termín, napojené na interní systém.
 
 ## Jak spolupráce probíhá
 

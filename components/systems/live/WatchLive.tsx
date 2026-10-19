@@ -1,6 +1,6 @@
 'use client';
 
-import { Cursor, fmt, ico, Layer, Scene, Svg, useCount, useLoop } from './scene';
+import { CountUp, Cursor, ico, Layer, Scene, Svg, useLoop } from './scene';
 
 /*
  * Hlídání trhu pro stavební firmu: systém ráno projde desítky portálů
@@ -47,9 +47,15 @@ const draft = ['Reference ze 3 podobných staveb', 'Rozpočet podle výkazu vým
 export default function WatchLive() {
   const { s, ref } = useLoop(DUR, DONE);
   const f = Math.min(s, 4);
-  const scan = useCount(0, nums[0], s, 0, 1450);
-  const step = useCount(nums[Math.max(0, f - 1)], nums[f], s, s >= 1 && s <= 4 ? s : -1, 420);
-  const n = s === 0 ? scan : s === 10 ? 3 : step;
+  // počítadlo běží ve vlastní komponentě, ať se kvůli němu nepřekresluje celá scéna v každém snímku
+  const n =
+    s === 0 ? (
+      <CountUp from={0} to={nums[0]} s={s} phase={0} ms={1450} />
+    ) : s <= 4 ? (
+      <CountUp key={s} from={nums[f - 1]} to={nums[f]} s={s} phase={s} ms={420} />
+    ) : (
+      nums[4]
+    );
   const view = s === 0 ? 'scan' : s <= 4 ? 'funnel' : 'results';
 
   return (
@@ -64,7 +70,7 @@ export default function WatchLive() {
         </div>
 
         <p className="tn__count">
-          <b className="num">{fmt(n)}</b>
+          <b className="num">{n}</b>
           <span>{s === 0 ? 'nových zakázek dnes' : s <= 4 ? 'po filtrech' : 'zakázky pro vás'}</span>
         </p>
 

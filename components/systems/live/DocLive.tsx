@@ -48,15 +48,20 @@ function rel(el: HTMLElement, to: HTMLElement): Pt {
   return { x: x + el.offsetWidth / 2, y: y + el.offsetHeight / 2 };
 }
 
-/** milisekundy od začátku fáze `phase`, jinak 0 */
+/* okamžiky ve fázi třídění, kdy se na scéně něco mění: doklad se zvedne, odletí, dopadne
+   a složka dobliká. Scéna se překreslí jen v nich, ne každých pár ms, takže na mobilu necuká. */
+const EVENTS = [
+  ...new Set(docs.flatMap((_, i) => [i * STEP, i * STEP + READ, i * STEP + READ + FLY, i * STEP + READ + FLY + 320])),
+].sort((a, b) => a - b);
+
+/** milisekundy od začátku fáze `phase` zaokrouhlené dolů na poslední událost, jinak 0 */
 function useElapsed(s: number, phase: number) {
   const [t, setT] = useState(0);
   useEffect(() => {
     if (s !== phase) return;
-    const t0 = performance.now();
     setT(0);
-    const id = window.setInterval(() => setT(performance.now() - t0), 40);
-    return () => clearInterval(id);
+    const ids = EVENTS.map((e) => window.setTimeout(() => setT(e), e));
+    return () => ids.forEach(clearTimeout);
   }, [s, phase]);
   return s === phase ? t : 0;
 }

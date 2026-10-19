@@ -69,9 +69,9 @@ export const systems = {
     },
     {
       id: 'weby',
-      name: 'Weby a rezervace',
+      name: 'Chytré weby',
       short: 'Weby',
-      text: 'Web, na kterém se dá rovnou něco udělat: objednat, přihlásit se, domluvit termín. Vám to naskočí v systému, na počítači i v mobilu.',
+      text: 'Web, který za vás odpoví na dotazy, přihlásí na lekci nebo domluví termín. Vám to rovnou naskočí v systému, na počítači i v mobilu.',
     },
   ],
 };
