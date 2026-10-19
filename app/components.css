@@ -4960,3 +4960,16 @@ html.is-loading .seq {
 :root[data-theme='light'] .step[data-state='next'] .step__name {
   color: var(--ink-2);
 }
+
+/* světlý motiv: sloupec FainStudio je světlejší než tabulka, kouř v něm je vidět */
+:root[data-theme='light'] .cmp-smoke {
+  background: var(--smoke-bg);
+  box-shadow: 0 0 0 1px var(--line-strong), 0 18px 40px -22px oklch(0 0 0 / 0.18);
+}
+:root[data-theme='light'] .cmp-smoke::after {
+  background: color-mix(in oklab, var(--smoke-bg) 32%, transparent);
+}
+:root[data-theme='light'] td.us,
+:root[data-theme='light'] td.us.yes {
+  color: var(--ink);
+}
