@@ -5120,72 +5120,6 @@ html.is-loading .seq {
   background: color-mix(in oklab, var(--bg) 55%, transparent);
 }
 
-/* 1 · prodejní návrh: diktát z mobilu a návrh, který se poskládá */
-.cx-doc {
-  display: grid;
-  gap: 12px;
-}
-.cx-doc__voice {
-  display: flex;
-  align-items: flex-start;
-  gap: 9px;
-  margin: 0;
-  padding: 10px 12px;
-  border-radius: 12px 12px 12px 4px;
-  background: var(--surface-2);
-  color: var(--ink-2);
-  font-size: 0.8rem;
-  font-style: italic;
-  line-height: 1.45;
-}
-.cx-doc__voice svg {
-  flex: none;
-  width: 16px;
-  height: 16px;
-  margin-top: 1px;
-  fill: none;
-  stroke: var(--cc);
-  stroke-width: 1.8;
-  stroke-linecap: round;
-}
-.cx-doc__page {
-  padding: 14px 14px 12px;
-  border-radius: 10px;
-  background: oklch(0.975 0.004 90);
-  color: oklch(0.28 0.01 260);
-  box-shadow: 0 18px 34px -18px oklch(0 0 0 / calc(0.7 * var(--sh)));
-}
-.cx-doc__h {
-  display: block;
-  margin-bottom: 10px;
-  padding-bottom: 8px;
-  border-bottom: 2px solid var(--cc);
-  font-family: var(--font-display);
-  font-size: 0.92rem;
-  font-weight: 650;
-}
-.cx-doc ol {
-  display: grid;
-  gap: 7px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.cx-doc li {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  font-size: 0.78rem;
-  font-weight: 560;
-}
-.cx-doc li i {
-  flex: none;
-  width: 8px;
-  height: 8px;
-  border-radius: 2px;
-  background: var(--cc);
-}
-
 /* 2 · realitní scraper: proud nových inzerátů */
 .cx-feed ul {
   display: grid;
@@ -5300,109 +5234,228 @@ html.is-loading .seq {
   font-weight: 650;
 }
 
-/* 4 · týden: večery u telefonu → večery volno */
-.cx-week {
+/* fotka koupelny: kreslené plochy, AI do ní připíchne štítky, pod ní předběžná cena */
+.cx-photo {
   display: grid;
-  gap: 14px;
+  gap: 12px;
 }
-.cx-week__row {
+.cx-photo__img {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  background: linear-gradient(180deg, oklch(0.42 0.015 250) 0%, oklch(0.32 0.012 250) 62%, oklch(0.27 0.01 60) 62%, oklch(0.24 0.01 60) 100%);
+}
+/* obklad: mřížka spár */
+.cx-photo__tile {
+  position: absolute;
+  inset: 0 0 38% 0;
+  background:
+    repeating-linear-gradient(90deg, oklch(1 0 0 / 0.07) 0 1px, transparent 1px 34px),
+    repeating-linear-gradient(0deg, oklch(1 0 0 / 0.07) 0 1px, transparent 1px 34px);
+}
+.cx-photo__tub {
+  position: absolute;
+  left: 6%;
+  bottom: 14%;
+  width: 46%;
+  height: 30%;
+  border-radius: 10px 10px 18px 18px;
+  background: linear-gradient(180deg, oklch(0.93 0.005 250), oklch(0.78 0.01 250));
+  box-shadow: 0 12px 24px -10px oklch(0 0 0 / 0.6);
+}
+.cx-photo__sink {
+  position: absolute;
+  right: 12%;
+  top: 44%;
+  width: 22%;
+  height: 12%;
+  border-radius: 6px 6px 40% 40%;
+  background: linear-gradient(180deg, oklch(0.95 0.005 250), oklch(0.8 0.01 250));
+}
+/* proužek, který „skenuje“ fotku, když na případ přijdete */
+.cx-photo__scan {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 30%;
+  background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--cc) 35%, transparent), transparent);
+  opacity: 0;
+}
+.cx-photo__img em {
+  position: absolute;
+  padding: 4px 9px 4px 20px;
+  border: 1px solid color-mix(in oklab, var(--cc) 70%, transparent);
+  border-radius: 999px;
+  background: oklch(0.18 0.01 300 / 0.82);
+  color: var(--ink);
+  font-size: 0.68rem;
+  font-style: normal;
+  font-weight: 600;
+  white-space: nowrap;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.cx-photo__img em::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-radius: 50%;
+  background: var(--cc);
+  box-shadow: 0 0 8px var(--cc);
+}
+.cx-photo__price {
   display: grid;
-  gap: 8px;
-}
-.cx-week__l {
-  color: var(--ink-3);
-  font-size: 0.72rem;
-  font-weight: 650;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-.cx-week__row.is-after .cx-week__l {
-  color: var(--cc);
-}
-.cx-week ol {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 6px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 12px;
   margin: 0;
-  padding: 0;
-  list-style: none;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--surface-2);
 }
-.cx-week li {
-  display: grid;
-  gap: 5px;
-  justify-items: center;
+.cx-photo__price small {
   color: var(--ink-3);
   font-size: 0.66rem;
-  font-weight: 600;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
-.cx-week li i {
-  width: 100%;
-  height: 34px;
-  border-radius: 8px;
-  background: repeating-linear-gradient(135deg, color-mix(in oklab, var(--ink-3) 45%, transparent) 0 4px, transparent 4px 8px);
-  border: 1px solid var(--line-strong);
+.cx-photo__price b {
+  grid-row: span 2;
+  align-self: center;
+  color: var(--cc);
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 650;
+  word-spacing: -0.1em;
+  white-space: nowrap;
 }
-.cx-week__row.is-after li i {
-  display: grid;
-  place-items: center;
-  background: color-mix(in oklab, var(--cc) 16%, transparent);
-  border-color: color-mix(in oklab, var(--cc) 50%, transparent);
-}
-/* volný večer: měsíček v barvě případu */
-.cx-week__row.is-after li i::after {
-  content: '';
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  box-shadow: inset -4px -3px 0 0 var(--cc);
-  transform: rotate(-20deg);
+.cx-photo__price span {
+  color: var(--ink-2);
+  font-size: 0.74rem;
 }
 
-/* 5 · řetěz: jeden tah, sedm věcí */
-.cx-chain__trigger {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0 0 12px;
-  color: var(--ink-3);
-  font-size: 0.8rem;
-}
-.cx-chain__card {
-  padding: 6px 11px;
-  border: 1px solid var(--line-strong);
-  border-radius: 8px;
-  background: var(--surface-2);
-  color: var(--ink);
-  font-weight: 600;
-}
-.cx-chain__trigger b {
-  padding: 6px 11px;
-  border-radius: 8px;
-  background: var(--cc);
-  color: oklch(from var(--cc) clamp(0.16, calc((0.66 - l) * 60), 0.98) 0.02 h);
-  font-weight: 650;
-}
-.cx-chain ol {
+/* odcházející zákazníci: objednávky za šest týdnů, poznámka a co s tím */
+.cx-radar ul {
   display: grid;
-  gap: 5px;
+  gap: 8px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
-.cx-chain li {
-  display: flex;
+.cx-radar li {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
   align-items: center;
-  gap: 9px;
-  padding: 7px 10px;
-  border-radius: 8px;
+  gap: 4px 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
   background: var(--surface-2);
+}
+.cx-radar__bars {
+  grid-row: span 2;
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 34px;
+}
+.cx-radar__bars i {
+  flex: 1;
+  border-radius: 2px;
+  background: color-mix(in oklab, var(--cc) 75%, transparent);
+  transform-origin: bottom;
+}
+.cx-radar__bars i:nth-last-child(-n + 3) {
+  background: oklch(0.76 0.14 25);
+}
+.cx-radar__bars i.is-zero {
+  background: oklch(0.76 0.14 25 / 0.5);
+}
+.cx-radar__t {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 8px;
+  min-width: 0;
+}
+.cx-radar__t b {
   color: var(--ink);
   font-size: 0.8rem;
+  font-weight: 620;
 }
-.cx-chain li svg {
-  flex: none;
-  width: 14px;
-  height: 14px;
+.cx-radar__t small {
+  color: oklch(0.8 0.12 25);
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+.cx-radar em {
+  justify-self: start;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--cc) 16%, transparent);
+  color: var(--ink);
+  font-size: 0.7rem;
+  font-style: normal;
+  font-weight: 560;
+}
+
+/* know-how mistra: otázka nováčka, odpověď jeho slovy a odkud to asistent ví */
+.cx-brain {
+  display: grid;
+  gap: 10px;
+}
+.cx-brain__q {
+  justify-self: end;
+  max-width: 85%;
+  margin: 0;
+  padding: 9px 13px;
+  border-radius: 14px 14px 4px 14px;
+  background: var(--line);
+  color: var(--ink);
+  font-size: 0.82rem;
+}
+.cx-brain__a {
+  max-width: 92%;
+  padding: 12px 14px;
+  border: 1px solid color-mix(in oklab, var(--cc) 40%, var(--line));
+  border-radius: 14px 14px 14px 4px;
+  background: color-mix(in oklab, var(--cc) 8%, var(--surface-2));
+}
+.cx-brain__a p {
+  margin: 0;
+  color: var(--ink);
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+.cx-brain__a small {
+  display: block;
+  margin-top: 6px;
+  color: var(--cc);
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+.cx-brain__src {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.cx-brain__src li {
+  padding: 4px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  color: var(--ink-2);
+  font-size: 0.7rem;
+}
+.cx-brain__src li::before {
+  content: '↳ ';
   color: var(--cc);
 }
 
@@ -5444,11 +5497,7 @@ html.is-loading .seq {
   }
 }
 
-@media (min-width: 640px) {
-  .cx-chain ol {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
+
 @media (min-width: 900px) {
   .cx__arrows {
     display: flex;
@@ -5463,12 +5512,14 @@ html.is-loading .seq {
 
 /* přehrání vizuálu, když na případ přijdete poprvé */
 @media (prefers-reduced-motion: no-preference) {
-  .cx-case .cx-doc li,
   .cx-case .cx-feed li,
   .cx-case .cx-score li,
   .cx-case .cx-score__trend,
-  .cx-case .cx-week li i,
-  .cx-case .cx-chain li {
+  .cx-case .cx-photo__img em,
+  .cx-case .cx-photo__price,
+  .cx-case .cx-radar li,
+  .cx-case .cx-brain__a,
+  .cx-case .cx-brain__src li {
     opacity: 0;
     transform: translateY(6px);
     transition:
@@ -5476,30 +5527,49 @@ html.is-loading .seq {
       transform 520ms var(--ease-out);
     transition-delay: calc(250ms + var(--i, 0) * 120ms);
   }
-  .cx-case .cx-doc li {
-    transition-delay: calc(450ms + var(--i) * 160ms);
-  }
   .cx-case .cx-score__trend {
     transition-delay: 900ms;
   }
-  .cx-case .cx-week li i {
-    transition-delay: calc(150ms + var(--i) * 60ms);
+  /* fotka: nejdřív proskenuje, pak naskočí štítky a cena */
+  .cx-case.is-seen .cx-photo__scan {
+    animation: cx-scan 1100ms var(--ease-out) 200ms both;
   }
-  .cx-case .cx-week__row.is-after li i {
-    transition-delay: calc(700ms + var(--i) * 60ms);
+  .cx-case .cx-photo__img em {
+    transform: translateY(6px) scale(0.9);
+    transition-delay: calc(900ms + var(--i) * 180ms);
   }
-  .cx-case .cx-chain li {
-    transition-delay: calc(250ms + var(--i) * 110ms);
+  .cx-case .cx-photo__price {
+    transition-delay: 1500ms;
   }
-  .cx-case.is-seen .cx-doc li,
+  .cx-case .cx-radar__bars i {
+    transform: scaleY(0);
+    transition: transform 600ms var(--ease-out);
+    transition-delay: calc(350ms + var(--i, 0) * 150ms + var(--j) * 50ms);
+  }
+  .cx-case .cx-brain__a {
+    transition-delay: 600ms;
+  }
+  .cx-case .cx-brain__src li {
+    transition-delay: calc(1000ms + var(--i) * 120ms);
+  }
   .cx-case.is-seen .cx-feed li,
   .cx-case.is-seen .cx-score li,
   .cx-case.is-seen .cx-score__trend,
-  .cx-case.is-seen .cx-week li i,
-  .cx-case.is-seen .cx-chain li {
+  .cx-case.is-seen .cx-photo__img em,
+  .cx-case.is-seen .cx-photo__price,
+  .cx-case.is-seen .cx-radar li,
+  .cx-case.is-seen .cx-radar__bars i,
+  .cx-case.is-seen .cx-brain__a,
+  .cx-case.is-seen .cx-brain__src li {
     opacity: 1;
     transform: none;
   }
+}
+@keyframes cx-scan {
+  0% { opacity: 0; transform: translateX(-100%); }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(340%); }
 }
 
 /* poznámka, co platí vždy, ověření firmy a tlačítko */

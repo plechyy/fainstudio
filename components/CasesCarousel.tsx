@@ -8,30 +8,6 @@ const L = cases.labels;
 
 function Visual({ v }: { v: Item['visual'] }) {
   switch (v.type) {
-    case 'doc':
-      // diktát z mobilu → návrh se poskládá po částech
-      return (
-        <figure className="cx-vis cx-doc">
-          <p className="cx-doc__voice">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="9" y="3" width="6" height="11" rx="3" />
-              <path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" />
-            </svg>
-            {v.voice}
-          </p>
-          <div className="cx-doc__page">
-            <b className="cx-doc__h">{v.title}</b>
-            <ol>
-              {v.parts.map((p, i) => (
-                <li key={p} style={{ ['--i' as string]: i }}>
-                  <i aria-hidden="true" />
-                  {p}
-                </li>
-              ))}
-            </ol>
-          </div>
-        </figure>
-      );
     case 'feed':
       // nové inzeráty: od majitelů jdou makléři, realitky a duplicity vypadnou
       return (
@@ -67,42 +43,71 @@ function Visual({ v }: { v: Item['visual'] }) {
           </p>
         </figure>
       );
-    case 'week':
+    case 'photo':
+      // „fotka“ koupelny (jen kreslené plochy, žádný obrázek), AI do ní připíchne, co poznala, a pod ní cena
       return (
-        <figure className="cx-vis cx-week">
-          {[v.beforeLabel, v.afterLabel].map((label, row) => (
-            <div className={`cx-week__row${row ? ' is-after' : ''}`} key={label}>
-              <span className="cx-week__l">{label}</span>
-              <ol>
-                {v.days.map((d, i) => (
-                  <li key={d} style={{ ['--i' as string]: i }}>
-                    <span>{d}</span>
-                    <i />
-                  </li>
-                ))}
-              </ol>
-            </div>
-          ))}
+        <figure className="cx-vis cx-photo">
+          <div className="cx-photo__img" aria-hidden="true">
+            <span className="cx-photo__tile" />
+            <span className="cx-photo__tub" />
+            <span className="cx-photo__sink" />
+            <span className="cx-photo__scan" />
+            {v.tags.map((t, i) => (
+              <em key={t.t} style={{ ...(t.x < 50 ? { left: `${t.x}%` } : { right: `${100 - t.x}%` }), top: `${t.y}%`, ['--i' as string]: i }}>
+                {t.t}
+              </em>
+            ))}
+          </div>
+          <p className="cx-photo__price">
+            <small>{v.price.k}</small>
+            <b className="num">{v.price.v}</b>
+            <span>{v.price.s}</span>
+          </p>
+          <ul className="sr-only">
+            {v.tags.map((t) => (
+              <li key={t.t}>{t.t}</li>
+            ))}
+          </ul>
         </figure>
       );
-    case 'chain':
+    case 'radar':
+      // zákazníci, kteří začínají odcházet: graf objednávek za posledních šest týdnů a co s tím
       return (
-        <figure className="cx-vis cx-chain">
-          <p className="cx-chain__trigger">
-            <span className="cx-chain__card">Zakázka</span>
-            <span aria-hidden="true">→</span>
-            <b>Podepsáno</b>
-          </p>
-          <ol>
-            {v.steps.map((s, i) => (
-              <li key={s} style={{ ['--i' as string]: i }}>
-                <svg viewBox="0 0 16 16" aria-hidden="true">
-                  <path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" />
-                </svg>
-                {s}
+        <figure className="cx-vis cx-radar">
+          <ul>
+            {v.rows.map((r, i) => (
+              <li key={r.name} style={{ ['--i' as string]: i }}>
+                <span className="cx-radar__bars" aria-hidden="true">
+                  {r.bars.map((h, j) => (
+                    <i key={j} style={{ height: `${Math.max(1, h) * 10}%`, ['--j' as string]: j }} className={h === 0 ? 'is-zero' : undefined} />
+                  ))}
+                </span>
+                <span className="cx-radar__t">
+                  <b>{r.name}</b>
+                  <small>{r.note}</small>
+                </span>
+                <em>{r.act}</em>
               </li>
             ))}
-          </ol>
+          </ul>
+        </figure>
+      );
+    case 'brain':
+      // nováček se zeptá u stroje, asistent odpoví mistrovými slovy a ukáže, odkud to ví
+      return (
+        <figure className="cx-vis cx-brain">
+          <p className="cx-brain__q">{v.q}</p>
+          <div className="cx-brain__a">
+            <p>{v.a}</p>
+            <small>— {v.who}</small>
+          </div>
+          <ul className="cx-brain__src">
+            {v.sources.map((x, i) => (
+              <li key={x} style={{ ['--i' as string]: i }}>
+                {x}
+              </li>
+            ))}
+          </ul>
         </figure>
       );
   }
