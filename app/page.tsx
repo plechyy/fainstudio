@@ -13,7 +13,6 @@ import Cta from '@/components/Cta';
 import Footer from '@/components/Footer';
 import Enhance from '@/components/Enhance';
 import ButtonSmoke from '@/components/ButtonSmoke';
-import ColorStudio from '@/components/ColorStudio';
 
 // Sekce „O nás“ (09) je zatím skrytá, komponenta zůstává. Vrátí se přepnutím na true.
 const SHOW_ABOUT = false;
@@ -37,7 +36,6 @@ export default function Home() {
         <Cta />
       </main>
       <Footer />
-      <ColorStudio />
       <Enhance />
       <ButtonSmoke />
     </>

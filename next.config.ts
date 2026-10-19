@@ -1,7 +1,6 @@
 import type { NextConfig } from 'next';
 
-// Stránky se předrenderují staticky. Server běží jen lokálně pro tlačítko „Uložit na web“
-// v Color studiu (/api/brand/save); na produkci ta cesta vrací 404.
+// Stránky se předrenderují staticky; jen API cesta formuláře (/api/kontakt) běží na serveru.
 const nextConfig: NextConfig = {
   images: { unoptimized: true },
   trailingSlash: false,
