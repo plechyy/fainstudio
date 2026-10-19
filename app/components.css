@@ -497,6 +497,8 @@ html.is-loading .seq {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  flex: 1; /* text je vystředěný nad pásem log, který sedí úplně dole v hero */
 }
 .hero__title {
   /* nejdelší řádek („která usnadňuje práci.“) měří 9,4 em: písmo se nikdy nezvětší přes šířku okna */
@@ -5028,8 +5030,8 @@ html.is-loading .seq {
 .hero__strip {
   position: relative;
   width: 100%;
-  margin-top: clamp(40px, 9vh, 96px);
-  padding-block: 18px;
+  margin-top: clamp(24px, 5vh, 56px);
+  padding-block: 12px;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
 }
@@ -5240,4 +5242,9 @@ html.is-loading .seq {
 .why__vis * {
   -webkit-user-select: none;
   user-select: none;
+}
+
+/* pod hero hned navazuje další sekce, bez velké prázdné mezery */
+.hero + .section {
+  padding-top: 0;
 }
