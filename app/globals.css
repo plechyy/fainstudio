@@ -101,7 +101,7 @@
   --bgl-c: 0.0395;
   --bgl-h: 280.9;
   /* tmavé karty s kouřem (před/po, srovnání, závěrečné CTA): o kus tmavší než pozadí */
-  --smoke-brand: var(--secondary);
+  --smoke-brand: var(--primary);
   --smoke-bg: oklch(max(0.04, calc(var(--bgd-l) - 0.03)) var(--bgd-c) var(--bgd-h));
   --bg: oklch(var(--bgd-l) var(--bgd-c) var(--bgd-h));
   --bg-deep: oklch(calc(var(--bgd-l) - 0.035) var(--bgd-c) var(--bgd-h));
@@ -109,8 +109,8 @@
   --surface-2: oklch(calc(var(--bgd-l) + 0.065) calc(var(--bgd-c) + 0.003) var(--bgd-h));
   --sunk: oklch(calc(var(--bgd-l) - 0.02) var(--bgd-c) var(--bgd-h));
   --ink: oklch(0.97 0.006 var(--secondary-h));
-  --ink-2: oklch(0.73 0.012 var(--secondary-h));
-  --ink-3: oklch(0.56 0.012 var(--secondary-h));
+  --ink-2: oklch(0.8 0.012 var(--secondary-h));
+  --ink-3: oklch(0.67 0.012 var(--secondary-h));
   --line: oklch(calc(var(--bgd-l) + 0.125) calc(var(--bgd-c) + 0.004) var(--bgd-h));
   --line-strong: oklch(calc(var(--bgd-l) + 0.215) calc(var(--bgd-c) + 0.006) var(--bgd-h));
   --accent-text: var(--secondary);

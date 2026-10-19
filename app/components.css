@@ -873,7 +873,7 @@ html.is-loading .seq {
 }
 /* sloupec srovnání má barvu pozadí webu, takže se mění s Color studiem */
 .cmp-smoke {
-  background: var(--bg-deep);
+  background: var(--smoke-bg);
 }
 .cmp-smoke--card {
   background: var(--smoke-bg);
@@ -894,14 +894,8 @@ html.is-loading .seq {
 }
 /* úzký sloupec srovnání: kouř je celý tlumenější, aby fajfky zůstaly čitelné */
 .cmp-smoke::after {
-  background: none;
-}
-/* kouř v úzkém sloupci je zblízka kontrastní (díry do černé, jasné skvrny): zprůhledněný nad středním tónem je vyrovnanější */
-.cmp-smoke {
-  background: color-mix(in oklab, var(--primary-deep) 34%, var(--bg-deep));
-}
-.cmp-smoke canvas {
-  opacity: 0.62;
+  /* lehké ztmavení kvůli čitelnosti fajfek, stejně jako v ostatních kartách */
+  background: color-mix(in oklab, var(--smoke-bg) 38%, transparent);
 }
 .cmp-smoke--card::after {
   background: color-mix(in oklab, var(--smoke-bg) 30%, transparent);
@@ -1435,110 +1429,56 @@ html.is-loading .seq {
 }
 
 /* ── kdo to staví ────────────────────────────────────────────────── */
-.ab {
+.about {
   display: grid;
-  gap: 20px;
-  margin-top: clamp(28px, 4vw, 48px);
+  gap: 36px;
 }
-.ab__who,
-.ab__proj {
-  padding: clamp(22px, 3vw, 34px);
-  border-radius: 24px;
-  background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface) 100%);
-  border: 1px solid var(--line);
-  box-shadow: inset 0 1px 0 var(--glass-top);
-}
-.ab__who {
-  display: grid;
-  gap: 18px;
-  align-content: start;
-}
-.ab__mono {
+.about__photo {
+  aspect-ratio: 4 / 5;
+  width: 100%;
+  max-width: 440px;
   display: grid;
   place-items: center;
-  width: 68px;
-  height: 68px;
-  border-radius: 22px;
-  background: linear-gradient(160deg, color-mix(in oklab, var(--primary) 70%, white), var(--primary-deep));
-  color: oklch(0.2 0.03 var(--primary-h));
-  font-family: 'FingerPaint', var(--font-display);
-  font-size: 28px;
-  box-shadow: 0 10px 30px -10px var(--primary-glow);
 }
-.ab__name {
-  font-family: var(--font-display);
-  font-size: var(--step-2);
-  font-weight: 620;
-  letter-spacing: -0.02em;
-}
-.ab__ico {
-  margin-top: 4px;
+.about__ph {
+  display: grid;
+  gap: 10px;
+  max-width: 24ch;
+  text-align: center;
   font-size: 0.9rem;
-  color: var(--ink-3);
+  line-height: 1.45;
+  color: var(--plate-ink);
+  padding: 20px;
 }
-.ab__text {
-  max-width: 46ch;
+.about__ph .label {
+  color: var(--plate-ink);
+}
+.about__copy .shead__index {
+  margin-bottom: 20px;
+}
+.about__text {
+  margin-top: 20px;
   font-size: var(--step-1);
   line-height: 1.5;
   color: var(--ink-2);
+  max-width: 44ch;
   text-wrap: pretty;
 }
-.ab__who .sig {
-  margin-top: 0;
+.refs {
+  margin-top: 40px;
 }
-.ab__proj ul {
-  margin: 14px 0 0;
-  padding: 0;
-  list-style: none;
+.refs ul {
+  margin-top: 12px;
   border-top: 1px solid var(--line);
 }
-.ab__proj li {
-  position: relative;
+.refs li {
   display: grid;
-  gap: 4px;
-  padding: 18px 0;
+  gap: 2px;
+  padding: 14px 0;
   border-bottom: 1px solid var(--line);
 }
-.ab__proj li:last-child {
-  border-bottom: 0;
-  padding-bottom: 0;
-}
-.ab__proj b {
-  font-family: var(--font-display);
-  font-size: var(--step-1);
-  font-weight: 620;
-  letter-spacing: -0.015em;
-}
-.ab__proj p {
-  margin: 0;
-  max-width: 52ch;
+.refs span {
   color: var(--ink-2);
-  line-height: 1.5;
-}
-.ab__tag {
-  justify-self: start;
-  padding: 2px 10px;
-  border-radius: 999px;
-  background: color-mix(in oklab, var(--primary) 16%, transparent);
-  color: var(--primary-text);
-  font-size: 0.72rem;
-  font-weight: 650;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.ab__q {
-  display: block;
-  margin-top: 6px;
-  padding-left: 14px;
-  border-left: 2px solid var(--primary);
-  color: var(--ink);
-  font-style: italic;
-}
-@media (min-width: 900px) {
-  .ab {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-    gap: 24px;
-  }
 }
 /* podpis */
 .sig {
@@ -1579,6 +1519,21 @@ html.is-loading .seq {
     stroke-dashoffset: 0;
   }
 }
+@media (min-width: 900px) {
+  .about {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: 64px;
+    align-items: center;
+  }
+  .about__copy {
+    order: 1;
+  }
+  .about__photo {
+    order: 2;
+    justify-self: end;
+  }
+}
+
 /* ── závěrečné CTA ───────────────────────────────────────────────── */
 /* ── malovaný nápis FaiNStudio nad závěrečnou kartou ───────────────── */
 .paint {
@@ -4052,14 +4007,6 @@ html.is-loading .seq {
   outline-offset: 4px;
 }
 
-/* závěrečná karta: kouř má barvu tlačítek, tlačítko má primární barvu (prohozeno) */
-.cta .btn.btn--primary {
-  --primary-h: var(--secondary-h);
-  --primary-c: var(--secondary-c);
-  --primary-l-adj: var(--secondary-l-adj);
-  --primary: var(--secondary);
-}
-
 /* podle Web Interface Guidelines: bez dvojitého tapu, bez pohybu při omezené animaci */
 .btn {
   touch-action: manipulation;
@@ -4723,12 +4670,6 @@ html.is-loading .seq {
 :root[data-theme='light'] .cf textarea:focus {
   background: #fff;
 }
-:root[data-theme='light'] .cta .btn.btn--primary {
-  --primary-h: unset;
-  --primary-c: unset;
-  --primary-l-adj: unset;
-  --primary: unset;
-}
 :root[data-theme='light'] thead .us {
   color: var(--ink);
 }
@@ -4860,4 +4801,53 @@ html.is-loading .seq {
 }
 .cf__note a {
   text-underline-offset: 3px;
+}
+
+/* ── FAQ: každá otázka má svou barvu; brnknutí přes struny a jemný hover ── */
+.faq__item {
+  --fo: 0;
+  --fc: oklch(calc(0.8 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) + var(--fo)));
+  transition: background-color 220ms;
+}
+.faq__item:nth-child(1) { --fo: -38; }
+.faq__item:nth-child(2) { --fo: 52; }
+.faq__item:nth-child(3) { --fo: 165; }
+.faq__item:nth-child(4) { --fo: 108; }
+.faq__item:nth-child(5) { --fo: -88; }
+.faq__item:nth-child(6) { --fo: 0; }
+.faq__item:nth-child(7) { --fo: 222; }
+.faq__item:nth-child(8) { --fo: 140; }
+.faq__item:hover {
+  background: linear-gradient(90deg, color-mix(in oklab, var(--fc) 7%, transparent), transparent 70%);
+}
+.faq summary:hover .faq__icon {
+  border-color: color-mix(in oklab, var(--fc) 70%, transparent);
+  background: color-mix(in oklab, var(--fc) 12%, transparent);
+}
+.faq__item[open] .faq__q,
+.faq__item[open] summary:hover .faq__q {
+  color: var(--fc);
+  animation: none;
+}
+.faq__item[open] .faq__icon {
+  background: var(--fc);
+  border-color: var(--fc);
+  box-shadow: 0 0 16px -4px var(--fc);
+}
+.faq__item[open] .faq__icon::before,
+.faq__item[open] .faq__icon::after {
+  background: oklch(0.2 0.03 var(--pal-h));
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* okno tří barevných otázek se posouvá dolů o jednu každé 3 s; přechody jsou plynulé */
+  .faq__q {
+    animation: faq-pluck calc(var(--n, 7) * 3s) linear infinite;
+    animation-delay: calc(var(--d, 0) * -3s);
+  }
+}
+@keyframes faq-pluck {
+  0% { color: var(--ink); }
+  4% { color: var(--fc); }
+  41% { color: var(--fc); }
+  45%, 100% { color: var(--ink); }
 }

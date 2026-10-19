@@ -180,17 +180,17 @@ export const faq = [
 export const about = {
   name: 'Matyáš Plecháč',
   ico: '21019011',
-  title: 'Odpoví vám ten, kdo to pak postaví.',
-  text: 'Jsme malé studio z Prahy. Stavíme automatizace, interní nástroje, sběr dat a weby. Když napíšete, odpoví vám ten, kdo to pak bude dělat, a od prvního hovoru až po předání se nic neztrácí v mezivrstvách.',
+  text: 'Jsme malé studio z Prahy. Stavíme automatizace, interní nástroje, sběr dat a weby. Když napíšete, odpoví vám ten, kdo to pak bude dělat.',
   /*
-   * Názvy klientů se NEzveřejňují, dokud zadavatel nemá od každého písemný souhlas.
-   * Níže jsou proto jen anonymní popisy. Až souhlas bude, doplnit pole `client`
-   * (zobrazí se nad popisem) nebo přidat citaci do pole `quote`.
+   * REFERENCE — ZATÍM SKRYTÉ.
+   * Nezobrazovat, dokud zadavatel nemá od každého klienta písemný souhlas
+   * se zveřejněním jména. Po získání souhlasu nastavit `show: true`
+   * (u každé položky zvlášť) — sekce se pak vykreslí sama.
    */
-  projects: [
-    { tag: 'Sběr dat', title: 'Nástroj na sběr dat', text: 'Nástroj, který data sbírá a ukládá na jednom místě. Součástí zakázky byly i vizuály a televizní spot.', client: '', quote: '' },
-    { tag: 'Animace', title: 'Animovaný spot pro kino', text: 'Krátký animovaný spot, který běží před filmy v kině.', client: '', quote: '' },
-    { tag: '3D', title: '3D produktová animace', text: 'Animace nové funkce v aplikaci, vytvořená ve 3D.', client: '', quote: '' },
+  references: [
+    { show: false, name: 'TheMAG', text: 'Nástroj na sběr dat, vizuály pro AirBank, TV spot pro Tugedr' },
+    { show: false, name: 'Kino Blansko', text: 'Animovaný spot, běží před filmy' },
+    { show: false, name: 'Tugedr', text: '3D produktová animace pro novou funkci v aplikaci' },
   ],
 };
 

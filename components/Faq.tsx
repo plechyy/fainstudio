@@ -13,8 +13,8 @@ export default function Faq() {
           } />
 
         <div className="faq reveal">
-          {faq.map((f) => (
-            <details className="faq__item" id={f.q.startsWith('Kolik') ? 'cena' : f.q.startsWith('Kde jsou') ? 'data' : undefined} key={f.q}>
+          {faq.map((f, i) => (
+            <details className="faq__item" style={{ ['--n' as string]: faq.length, ['--d' as string]: (((2 - i) % faq.length) + faq.length) % faq.length }} id={f.q.startsWith('Kolik') ? 'cena' : f.q.startsWith('Kde jsou') ? 'data' : undefined} key={f.q}>
               <summary>
                 <span className="faq__q">{f.q}</span>
                 <span className="faq__icon" aria-hidden="true" />
