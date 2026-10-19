@@ -46,6 +46,8 @@ export function cleanDir(raw: string): string | null {
 }
 
 const useBlob = () => Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+// token se předává výslovně, jinak by knihovna při zapnutém OIDC zkoušela jiné přihlášení
+const auth = () => ({ token: process.env.BLOB_READ_WRITE_TOKEN });
 const localDir = () => join(process.cwd(), '.admin-files');
 const key = (dir: string, name: string) => `admin/${dir ? `${dir}/` : ''}${name}`;
 
@@ -77,7 +79,7 @@ export async function listFiles(): Promise<FileRow[]> {
   if (useBlob()) {
     let cursor: string | undefined;
     do {
-      const r = await list({ prefix: 'admin/', cursor, limit: 500 });
+      const r = await list({ prefix: 'admin/', cursor, limit: 500, ...auth() });
       for (const b of r.blobs) {
         const parts = b.pathname.split('/').slice(1);
         const name = parts.pop() || '';
@@ -93,7 +95,7 @@ export async function listFiles(): Promise<FileRow[]> {
 
 export async function saveFile(dir: string, name: string, data: Buffer) {
   if (useBlob()) {
-    await put(key(dir, name), data, { access: 'private', allowOverwrite: true, contentType: contentType(name), addRandomSuffix: false });
+    await put(key(dir, name), data, { access: 'private', allowOverwrite: true, contentType: contentType(name), addRandomSuffix: false, ...auth() });
     return;
   }
   if (process.env.NODE_ENV === 'production') throw new Error('storage_not_configured');
@@ -103,7 +105,7 @@ export async function saveFile(dir: string, name: string, data: Buffer) {
 
 export async function readStored(dir: string, name: string): Promise<{ body: ReadableStream<Uint8Array> | Buffer; size: number } | null> {
   if (useBlob()) {
-    const r = await get(key(dir, name), { access: 'private' });
+    const r = await get(key(dir, name), { access: 'private', ...auth() });
     if (!r || r.statusCode !== 200) return null;
     return { body: r.stream, size: r.blob.size };
   }
@@ -118,7 +120,7 @@ export async function readStored(dir: string, name: string): Promise<{ body: Rea
 
 export async function removeFile(dir: string, name: string) {
   if (useBlob()) {
-    await del(key(dir, name));
+    await del(key(dir, name), auth());
     return;
   }
   if (process.env.NODE_ENV === 'production') return;
