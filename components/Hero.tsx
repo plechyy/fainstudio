@@ -1,7 +1,7 @@
 import { CAL_URL } from '@/lib/config';
 import { hero } from '@/lib/content';
 import HeroRotate from './HeroRotate';
-import HeroSort from './HeroSort';
+import HeroMark from './HeroMark';
 import ShaderBackground from './ShaderBackground';
 
 export default function Hero() {
@@ -15,7 +15,7 @@ export default function Hero() {
       </div>
 
       <div className="wrap hero__inner">
-        <HeroSort className="hero__sort seq" style={{ ['--i' as string]: 0 }} />
+        <HeroMark className="seq" style={{ ['--i' as string]: 0 }} />
 
 
         <h1 id="hero-title" className="display hero__title seq seq--rise-only" style={{ ['--i' as string]: 1 }}>
