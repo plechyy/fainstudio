@@ -1,7 +1,6 @@
 import { CAL_URL } from '@/lib/config';
 import { hero } from '@/lib/content';
 import HeroRotate from './HeroRotate';
-import HeroStrip from './HeroStrip';
 import ShaderBackground from './ShaderBackground';
 
 export default function Hero() {
@@ -63,8 +62,6 @@ export default function Hero() {
           </li>
         </ul>
       </div>
-
-      <HeroStrip />
     </section>
   );
 }
