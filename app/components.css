@@ -4828,51 +4828,145 @@ html.is-loading .seq {
 }
 
 /* ════════════════════════════════════════════════════════════════════
-   SEKCE 5 — případy: tři obavy, každá se svým „spisem“. Vlevo přilepený nadpis a obsah,
-   vpravo karty. Každý případ má barvu z palety scén (--co = posun odstínu).
+   SEKCE 5 — případy: carousel pěti případů. Každý má barvu z palety scén (--co = posun
+   odstínu), jiný vizuál a jiný druh výsledku. Vizuál se přehraje, když na případ přijdete
+   poprvé (.is-seen). Animuje se jen průhlednost a posun, nic 3D.
    ════════════════════════════════════════════════════════════════════ */
-.cs {
+.cx {
   display: grid;
-  gap: 40px;
-}
-.cs__side .hd {
-  margin-bottom: 0;
-}
-.cs__cta {
-  margin-top: 26px;
-}
-.cs__side .hd__title {
-  font-size: clamp(2.1rem, 1.3rem + 2.6vw, 3.2rem);
-}
-.cs__side .cs__cta {
-  display: none;
-}
-.cs__cta--m {
-  margin-top: 8px;
-}
-.cs-nav {
-  display: none;
-}
-.cs__main {
-  display: grid;
-  gap: 20px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
   min-width: 0;
 }
-.cs-case {
-  --cc: oklch(calc(0.8 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) + var(--co, 0)));
-  --cc-dim: color-mix(in oklab, var(--cc) 22%, var(--line));
-  position: relative;
-  display: grid;
-  gap: 22px;
-  padding: 26px 22px 24px;
-  border: 1px solid var(--line-strong);
-  border-radius: 20px;
-  background:
-    radial-gradient(60% 40% at 0% 0%, color-mix(in oklab, var(--cc) 11%, transparent), transparent 70%),
-    linear-gradient(180deg, var(--surface-2) 0%, var(--surface) 100%);
-  scroll-margin-top: 110px;
+.cx__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
-.cs-case__tag {
+.cx__tabs {
+  display: flex;
+  gap: 6px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.cx__tabs::-webkit-scrollbar {
+  display: none;
+}
+.cx__tab {
+  --cn: oklch(calc(0.8 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) + var(--co, 0)));
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-3);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 560;
+  cursor: pointer;
+  transition:
+    color 250ms,
+    border-color 250ms,
+    background-color 250ms;
+}
+.cx__tab b {
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+.cx__tab:hover {
+  color: var(--ink-2);
+  border-color: var(--line-strong);
+}
+.cx__tab[aria-selected='true'] {
+  border-color: color-mix(in oklab, var(--cn) 55%, transparent);
+  background: color-mix(in oklab, var(--cn) 12%, transparent);
+  color: var(--ink);
+}
+.cx__tab[aria-selected='true'] b {
+  color: var(--cn);
+}
+.cx__tab:focus-visible,
+.cx__arrow:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+.cx__arrows {
+  display: none;
+  flex: none;
+  gap: 8px;
+}
+.cx__arrow {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    opacity 200ms,
+    border-color 200ms;
+}
+.cx__arrow:hover:not(:disabled) {
+  border-color: var(--ink-3);
+}
+.cx__arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.cx__arrow svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* koleje: na kraji přesah do okraje stránky, ať je vidět, že je tam další případ */
+.cx__track {
+  display: flex;
+  gap: 14px;
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: var(--gutter);
+  padding-bottom: 4px;
+  scroll-padding-inline: var(--gutter);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.cx__track::-webkit-scrollbar {
+  display: none;
+}
+.cx-case {
+  --cc: oklch(calc(0.8 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) + var(--co, 0)));
+  flex: 0 0 90%;
+  display: grid;
+  align-content: start;
+  gap: 24px;
+  padding: 24px 20px 22px;
+  border: 1px solid var(--line-strong);
+  border-radius: 22px;
+  background:
+    radial-gradient(70% 45% at 0% 0%, color-mix(in oklab, var(--cc) 12%, transparent), transparent 70%),
+    linear-gradient(180deg, var(--surface-2) 0%, var(--surface) 100%);
+  scroll-snap-align: start;
+}
+.cx-case__text {
+  display: grid;
+  align-content: start;
+  gap: 16px;
+}
+.cx-case__tag {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -4884,280 +4978,521 @@ html.is-loading .seq {
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
-.cs-case__tag b {
+.cx-case__tag b {
   color: var(--cc);
   font-weight: 700;
 }
-.cs-case__tag span {
-  margin-left: auto;
-  padding: 4px 10px;
+.cx-case__tag span {
+  padding: 3px 9px;
   border: 1px solid var(--line-strong);
   border-radius: 999px;
   color: var(--ink-3);
-  font-size: 0.66rem;
+  font-size: 0.62rem;
   letter-spacing: 0.1em;
 }
-.cs-case__fear {
+.cx-case__title {
   margin: 0;
+  color: var(--ink);
   font-family: var(--font-display);
-  font-size: clamp(1.55rem, 1.1rem + 1.9vw, 2.3rem);
+  font-size: clamp(1.45rem, 1.05rem + 1.6vw, 2.1rem);
   font-weight: 620;
   letter-spacing: -0.025em;
   line-height: 1.1;
   text-wrap: balance;
 }
-.cs-case__pair {
+.cx-case__dl {
   display: grid;
-  gap: 16px;
+  gap: 14px;
+  margin: 4px 0 0;
 }
-.cs-case__pair p {
-  margin: 0;
-  color: var(--ink-2);
-  font-size: 0.95rem;
-  line-height: 1.55;
-  text-wrap: pretty;
+.cx-case__dl div {
+  padding-left: 14px;
+  border-left: 2px solid var(--line-strong);
 }
-.cs-case__pair b {
-  display: block;
-  margin-bottom: 4px;
+.cx-case__dl div:first-child {
+  border-left-color: color-mix(in oklab, var(--cc) 70%, transparent);
+}
+.cx-case__dl dt {
+  margin-bottom: 3px;
   color: var(--cc);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 650;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
-
-/* malé vizualizace: každá jiná, všechny tiché */
-.cs-vis {
+.cx-case__dl dd {
   margin: 0;
-  padding: 18px;
+  color: var(--ink-2);
+  font-size: 0.93rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+.cx-case__side {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+}
+
+/* výsledek: velké dřív → teď, pod tím jednotka a výpočet */
+.cx-res {
+  display: grid;
+  gap: 6px;
+  padding: 18px 18px 16px;
+  border-radius: 16px;
+  background: color-mix(in oklab, var(--cc) 9%, var(--bg));
+  border: 1px solid color-mix(in oklab, var(--cc) 30%, var(--line));
+}
+.cx-res__k {
+  margin: 0;
+  color: var(--cc);
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.cx-res__nums {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  margin: 4px 0 0;
+}
+.cx-res__nums > span:not(.cx-res__arrow) {
+  display: grid;
+  gap: 2px;
+}
+.cx-res__nums small {
+  color: var(--ink-3);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.cx-res__before s {
+  color: var(--ink-3);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-decoration-thickness: 2px;
+  text-decoration-color: color-mix(in oklab, var(--ink-3) 70%, transparent);
+}
+.cx-res__arrow {
+  padding-bottom: 6px;
+  color: var(--ink-3);
+  font-size: 1.2rem;
+}
+.cx-res__after b {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 1.6rem + 1.6vw, 2.8rem);
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.cx-res__unit {
+  margin: 2px 0 0;
+  color: var(--ink-2);
+  font-size: 0.84rem;
+}
+.cx-res__math {
+  margin: 6px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  color: var(--ink-3);
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+
+/* vizuály: každý jiný, všechny tiché */
+.cx-vis {
+  margin: 0;
+  padding: 16px;
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: 16px;
   background: color-mix(in oklab, var(--bg) 55%, transparent);
 }
-.cs-dots__grid {
+
+/* 1 · časová osa: od mailu po potvrzení */
+.cx-time {
+  display: grid;
+  gap: 14px;
+}
+.cx-time__row {
+  display: grid;
+  grid-template-columns: 2.6rem minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+}
+.cx-time__l {
+  color: var(--ink-3);
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.cx-time__row.is-after .cx-time__l {
+  color: var(--cc);
+}
+.cx-time__axis {
+  position: relative;
+  height: 40px;
+  border-bottom: 1px solid var(--line-strong);
+}
+.cx-time__wait {
+  position: absolute;
+  bottom: 9px;
+  height: 8px;
+  border-radius: 4px;
+  background: repeating-linear-gradient(90deg, var(--line-strong) 0 6px, transparent 6px 10px);
+  transform-origin: left;
+}
+.cx-time__row.is-after .cx-time__wait {
+  background: var(--cc);
+}
+.cx-time__in,
+.cx-time__out {
+  position: absolute;
+  bottom: 6px;
+  width: 14px;
+  height: 14px;
+  margin-left: -7px;
+  border-radius: 50%;
+  border: 2px solid var(--ink-3);
+  background: var(--bg);
+}
+.cx-time__out {
+  border-color: var(--ink-2);
+  background: var(--ink-2);
+}
+.cx-time__row.is-after .cx-time__out {
+  border-color: var(--cc);
+  background: var(--cc);
+  box-shadow: 0 0 12px -1px var(--cc);
+}
+.cx-time__t {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  color: var(--ink-2);
+  font-size: 0.68rem;
+  white-space: nowrap;
+}
+.cx-time__row.is-after .cx-time__t {
+  transform: none;
+  margin-left: 10px;
+  color: var(--ink);
+  font-weight: 600;
+}
+.cx-time__scale {
+  display: flex;
+  justify-content: space-between;
+  margin: -6px 0 0 calc(2.6rem + 10px);
+  color: var(--ink-3);
+  font-size: 0.66rem;
+}
+
+/* 2 · tečky: co zvládl systém a co šlo k člověku */
+.cx-dots__grid {
   display: grid;
   grid-template-columns: repeat(15, minmax(0, 1fr));
   gap: 5px;
 }
-@media (min-width: 640px) {
-  .cs-dots__grid {
-    grid-template-columns: repeat(25, minmax(0, 1fr));
-    gap: 6px;
-  }
-}
-.cs-dots__grid i {
+.cx-dots__grid i {
   aspect-ratio: 1;
   border-radius: 50%;
-  background: color-mix(in oklab, var(--cc) 75%, transparent);
+  background: color-mix(in oklab, var(--cc) 72%, transparent);
 }
-.cs-dots__grid i.is-human {
-  background: oklch(0.84 0.15 82);
-  box-shadow: 0 0 10px -1px oklch(0.84 0.15 82 / 0.7);
+.cx-dots__grid i.is-human {
+  background: var(--ink);
+  box-shadow: 0 0 9px -1px color-mix(in oklab, var(--ink) 70%, transparent);
 }
-.cs-dots figcaption {
+.cx-dots figcaption {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 22px;
-  margin-top: 14px;
+  gap: 6px 20px;
+  margin-top: 12px;
   color: var(--ink-2);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
 }
-.cs-dots figcaption span {
+.cx-dots figcaption span {
   display: inline-flex;
   align-items: center;
   gap: 7px;
 }
-.cs-dots figcaption i {
+.cx-dots figcaption i {
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: color-mix(in oklab, var(--cc) 75%, transparent);
+  background: color-mix(in oklab, var(--cc) 72%, transparent);
 }
-.cs-dots figcaption .is-human i {
-  background: oklch(0.84 0.15 82);
+.cx-dots figcaption .is-human i {
+  background: var(--ink);
 }
-.cs-dots figcaption b {
+.cx-dots figcaption b {
   color: var(--ink);
 }
-.cs-fun ol {
+
+/* 3 · trychtýř: z tisíců záznamů tři */
+.cx-fun ol {
   display: grid;
-  gap: 7px;
+  gap: 6px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
-.cs-fun li {
+.cx-fun li {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  min-height: 38px;
-  padding: 0 12px;
-  font-size: 0.8rem;
+  min-height: 34px;
+  padding: 0 11px;
   color: var(--ink);
+  font-size: 0.78rem;
 }
-.cs-fun__bar {
+.cx-fun__bar {
   position: absolute;
   inset: 0 auto 0 0;
-  z-index: 0;
-  border-radius: 9px;
-  background: linear-gradient(90deg, color-mix(in oklab, var(--cc) 12%, transparent), color-mix(in oklab, var(--cc) 34%, transparent));
   border: 1px solid color-mix(in oklab, var(--cc) 35%, transparent);
+  border-radius: 9px;
+  background: linear-gradient(90deg, color-mix(in oklab, var(--cc) 10%, transparent), color-mix(in oklab, var(--cc) 32%, transparent));
   transform-origin: left;
 }
-.cs-fun__t,
-.cs-fun b {
+.cx-fun__t,
+.cx-fun b {
   position: relative;
-  z-index: 1;
 }
-.cs-fun b {
+.cx-fun b {
   font-family: var(--font-display);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 650;
 }
-.cs-peri {
+
+/* 4 · týden: večery u telefonu → večery volno */
+.cx-week {
   display: grid;
-  gap: 12px;
+  gap: 14px;
 }
-.cs-peri__in {
-  padding: 14px;
-  border: 1.5px dashed color-mix(in oklab, var(--cc) 60%, transparent);
-  border-radius: 14px;
-  background: color-mix(in oklab, var(--cc) 6%, transparent);
+.cx-week__row {
+  display: grid;
+  gap: 8px;
 }
-.cs-peri__lab {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  margin: 0 0 12px;
-  color: var(--cc);
-  font-size: 0.7rem;
+.cx-week__l {
+  color: var(--ink-3);
+  font-size: 0.72rem;
   font-weight: 650;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
-.cs-peri__lab svg {
-  width: 14px;
-  height: 14px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.cx-week__row.is-after .cx-week__l {
+  color: var(--cc);
 }
-.cs-peri ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+.cx-week ol {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
-.cs-peri li {
-  padding: 8px 12px;
+.cx-week li {
+  display: grid;
+  gap: 5px;
+  justify-items: center;
+  color: var(--ink-3);
+  font-size: 0.66rem;
+  font-weight: 600;
+}
+.cx-week li i {
+  width: 100%;
+  height: 34px;
+  border-radius: 8px;
+  background: repeating-linear-gradient(135deg, color-mix(in oklab, var(--ink-3) 45%, transparent) 0 4px, transparent 4px 8px);
   border: 1px solid var(--line-strong);
-  border-radius: 10px;
+}
+.cx-week__row.is-after li i {
+  display: grid;
+  place-items: center;
+  background: color-mix(in oklab, var(--cc) 16%, transparent);
+  border-color: color-mix(in oklab, var(--cc) 50%, transparent);
+}
+/* volný večer: měsíček v barvě případu */
+.cx-week__row.is-after li i::after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  box-shadow: inset -4px -3px 0 0 var(--cc);
+  transform: rotate(-20deg);
+}
+
+/* 5 · řetěz: jeden tah, sedm věcí */
+.cx-chain__trigger {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 12px;
+  color: var(--ink-3);
+  font-size: 0.8rem;
+}
+.cx-chain__card {
+  padding: 6px 11px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--ink);
+  font-weight: 600;
+}
+.cx-chain__trigger b {
+  padding: 6px 11px;
+  border-radius: 8px;
+  background: var(--cc);
+  color: oklch(from var(--cc) clamp(0.16, calc((0.66 - l) * 60), 0.98) 0.02 h);
+  font-weight: 650;
+}
+.cx-chain ol {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.cx-chain li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 10px;
+  border-radius: 8px;
   background: var(--surface-2);
   color: var(--ink);
   font-size: 0.8rem;
-  font-weight: 560;
 }
-.cs-peri__out {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px 12px;
-  margin: 0;
-  padding-inline: 4px;
-  color: var(--ink-3);
-  font-size: 0.76rem;
-  line-height: 1.4;
-}
-.cs-peri__out span {
-  padding: 4px 10px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  text-decoration: line-through;
-  text-decoration-color: color-mix(in oklab, var(--ink-3) 60%, transparent);
+.cx-chain li svg {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  color: var(--cc);
 }
 
-/* výsledek: dva pruhy hodin a pod nimi výpočet */
-.cs-res {
-  display: grid;
-  gap: 10px;
-  padding-top: 20px;
-  border-top: 1px solid var(--line-strong);
+/* mobil: obě poloviny se rozpustí do jednoho sloupce a výsledek jde hned pod nadpis,
+   ať je to hlavní vidět bez scrollování; popis a vizuál pod ním */
+@media (max-width: 899px) {
+  .cx-case {
+    gap: 16px;
+  }
+  .cx-case__text,
+  .cx-case__side {
+    display: contents;
+  }
+  .cx-case__tag { order: 1; }
+  .cx-case__title { order: 2; }
+  .cx-res { order: 3; }
+  .cx-case__dl { order: 4; margin-top: 6px; }
+  .cx-vis { order: 5; }
+  .cx-case__dl dd {
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+  .cx-res {
+    padding: 14px 16px 13px;
+  }
+  .cx-res__after b {
+    font-size: 2rem;
+  }
 }
-.cs-res__row {
-  display: grid;
-  grid-template-columns: 5.6rem minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 12px;
+
+@media (min-width: 640px) {
+  .cx-dots__grid {
+    grid-template-columns: repeat(25, minmax(0, 1fr));
+    gap: 6px;
+  }
+  .cx-chain ol {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
-.cs-res__l {
-  color: var(--ink-3);
-  font-size: 0.74rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+@media (min-width: 900px) {
+  .cx__arrows {
+    display: flex;
+  }
+  .cx-case {
+    flex-basis: min(86%, 1060px);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: clamp(28px, 3.5vw, 52px);
+    padding: 34px 34px 32px;
+  }
 }
-.cs-res__row--after .cs-res__l {
-  color: var(--ink-2);
+
+/* přehrání vizuálu, když na případ přijdete poprvé */
+@media (prefers-reduced-motion: no-preference) {
+  .cx-case .cx-time__wait,
+  .cx-case .cx-fun__bar {
+    transform: scaleX(0);
+    transition: transform 900ms var(--ease-out);
+  }
+  .cx-case .cx-fun__bar {
+    transition-delay: calc(150ms + var(--i) * 130ms);
+  }
+  .cx-case .cx-time__row.is-after .cx-time__wait {
+    transition-delay: 500ms;
+  }
+  .cx-case .cx-time__out,
+  .cx-case .cx-time__t {
+    opacity: 0;
+    transition: opacity 400ms 900ms;
+  }
+  .cx-case .cx-time__row.is-after .cx-time__out,
+  .cx-case .cx-time__row.is-after .cx-time__t {
+    transition-delay: 1100ms;
+  }
+  .cx-case .cx-dots__grid i,
+  .cx-case .cx-week li i,
+  .cx-case .cx-chain li {
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+      opacity 420ms var(--ease-out),
+      transform 520ms var(--ease-out);
+  }
+  .cx-case .cx-dots__grid i {
+    transform: scale(0.4);
+    transition-delay: calc(150ms + var(--i) * 5ms);
+  }
+  .cx-case .cx-week li i {
+    transition-delay: calc(150ms + var(--i) * 60ms);
+  }
+  .cx-case .cx-week__row.is-after li i {
+    transition-delay: calc(700ms + var(--i) * 60ms);
+  }
+  .cx-case .cx-chain li {
+    transition-delay: calc(250ms + var(--i) * 110ms);
+  }
+  .cx-case.is-seen .cx-time__wait,
+  .cx-case.is-seen .cx-fun__bar,
+  .cx-case.is-seen .cx-dots__grid i,
+  .cx-case.is-seen .cx-week li i,
+  .cx-case.is-seen .cx-chain li {
+    opacity: 1;
+    transform: none;
+  }
+  .cx-case.is-seen .cx-time__out,
+  .cx-case.is-seen .cx-time__t {
+    opacity: 1;
+  }
 }
-.cs-res__bar {
-  display: block;
-  height: 10px;
-  border-radius: 6px;
-  transform-origin: left;
-}
-.cs-res__bar--before {
-  background: var(--line-strong);
-}
-.cs-res__bar--after {
-  width: var(--w);
-  background: linear-gradient(90deg, color-mix(in oklab, var(--cc) 70%, transparent), var(--cc));
-  box-shadow: 0 0 16px -2px color-mix(in oklab, var(--cc) 60%, transparent);
-}
-.cs-res__v {
-  min-width: 4.6rem;
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 650;
-  text-align: right;
-  white-space: nowrap;
-}
-.cs-res__v small {
-  color: var(--ink-3);
-  font-family: var(--font-text);
-  font-size: 0.66rem;
-  font-weight: 500;
-}
-.cs-res__math {
-  display: grid;
-  gap: 2px;
-  margin: 6px 0 0;
-  padding: 0;
-  list-style: none;
-  color: var(--ink-3);
-  font-size: 0.76rem;
-  line-height: 1.5;
-}
+
+/* poznámka, co platí vždy, ověření firmy a tlačítko */
 .cs__note {
-  margin: 0;
-  padding-inline: 4px;
-  max-width: 62ch;
+  max-width: 70ch;
+  margin: 18px 0 0;
   color: var(--ink-3);
   font-size: 0.8rem;
   line-height: 1.55;
   text-wrap: pretty;
 }
-
-/* co platí vždy + ověření firmy */
 .cs-ass {
   display: grid;
   gap: 18px;
+  margin-top: 28px;
   padding: 22px;
   border: 1px solid var(--line-strong);
   border-radius: 20px;
@@ -5214,167 +5549,24 @@ html.is-loading .seq {
   font-weight: 600;
   text-underline-offset: 3px;
 }
-
+.cs__cta {
+  margin-top: 28px;
+}
 @media (min-width: 640px) {
-  .cs-case__pair {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
-  }
   .cs-ass ul {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 18px 26px;
   }
 }
-@media (min-width: 900px) {
-  .cs {
-    grid-template-columns: minmax(0, 4.4fr) minmax(0, 7fr);
-    gap: clamp(40px, 5vw, 80px);
-    align-items: start;
-  }
-  /* nadpis a obsah zůstávají na místě, zatímco se čtou případy vpravo */
-  .cs__side {
-    position: sticky;
-    top: 104px;
-  }
-  .cs__side .cs__cta {
-    display: block;
-  }
-  .cs__cta--m {
-    display: none;
-  }
-  .cs-nav {
-    display: block;
-    margin-top: 24px;
-  }
-  .cs-case {
-    padding: 32px 32px 28px;
-  }
-  .cs-nav ol {
-    display: grid;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    border-top: 1px solid var(--line-strong);
-  }
-  .cs-nav li {
-    --cn: oklch(calc(0.8 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) + var(--co, 0)));
-    border-bottom: 1px solid var(--line-strong);
-  }
-  .cs-nav a {
-    display: grid;
-    grid-template-columns: 2.2rem minmax(0, 1fr);
-    align-items: center;
-    gap: 6px;
-    padding: 11px 0 11px 14px;
-    color: var(--ink-3);
-    text-decoration: none;
-    box-shadow: inset 2px 0 0 transparent;
-    transition:
-      color 300ms var(--ease-out),
-      box-shadow 300ms var(--ease-out),
-      background-color 300ms;
-  }
-  .cs-nav a b {
-    font-size: 0.8rem;
-    font-weight: 650;
-  }
-  .cs-nav a span {
-    font-family: var(--font-display);
-    font-size: 1.15rem;
-    font-weight: 600;
-    letter-spacing: -0.015em;
-  }
-  .cs-nav a small {
-    display: block;
-    margin-top: 1px;
-    color: var(--ink-3);
-    font-family: var(--font-text);
-    font-size: 0.74rem;
-    font-weight: 500;
-    letter-spacing: 0;
-  }
-  .cs-nav a:hover {
-    color: var(--ink-2);
-  }
-  .cs-nav a[data-active] {
-    color: var(--ink);
-    box-shadow: inset 2px 0 0 var(--cn);
-    background: linear-gradient(90deg, color-mix(in oklab, var(--cn) 9%, transparent), transparent 70%);
-  }
-  .cs-nav a[data-active] b {
-    color: var(--cn);
-  }
-}
-@media (max-width: 420px) {
-  .cs-res__row {
-    grid-template-columns: 4.4rem minmax(0, 1fr) auto;
-    gap: 9px;
-  }
-  .cs-dots__grid {
-    gap: 4px;
-  }
-}
-
-/* animace: jen průhlednost a posun, jednou, když karta vjede do obrazu */
-@media (prefers-reduced-motion: no-preference) {
-  .cs-case .cs-dots__grid i {
-    opacity: 0;
-    transform: scale(0.4);
-    transition:
-      opacity 420ms var(--ease-out),
-      transform 520ms var(--ease-out);
-    transition-delay: calc(350ms + var(--i) * 6ms);
-  }
-  .cs-case.is-in .cs-dots__grid i {
-    opacity: 1;
-    transform: none;
-  }
-  .cs-case .cs-fun__bar {
-    transform: scaleX(0);
-    transition: transform 800ms var(--ease-out);
-    transition-delay: calc(350ms + var(--i) * 140ms);
-  }
-  .cs-case.is-in .cs-fun__bar {
-    transform: none;
-  }
-  .cs-case .cs-peri__in li,
-  .cs-case .cs-peri__out {
-    opacity: 0;
-    transform: translateY(8px);
-    transition:
-      opacity 500ms var(--ease-out),
-      transform 600ms var(--ease-out);
-    transition-delay: calc(400ms + var(--i, 4) * 130ms);
-  }
-  .cs-case.is-in .cs-peri__in li,
-  .cs-case.is-in .cs-peri__out {
-    opacity: 1;
-    transform: none;
-  }
-  .cs-case .cs-res__bar {
-    transform: scaleX(0);
-    transition: transform 900ms var(--ease-out);
-  }
-  .cs-case .cs-res__bar--before {
-    transition-delay: 900ms;
-  }
-  .cs-case .cs-res__bar--after {
-    transition-delay: 1300ms;
-  }
-  .cs-case.is-in .cs-res__bar {
-    transform: none;
+@media (min-width: 1000px) {
+  .cs-ass ul {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
 /* světlý motiv: barvy jako text jsou tmavší, aby se daly přečíst */
-:root[data-theme='light'] .cs-case {
+:root[data-theme='light'] .cx-case,
+:root[data-theme='light'] .cx__tab {
   --cc: oklch(calc(0.56 + var(--pal-adj)) calc(var(--ac-c) * 1.1) calc(var(--pal-h) + var(--co, 0)));
-}
-:root[data-theme='light'] .cs-nav li {
-  --cn: oklch(calc(0.56 + var(--pal-adj)) calc(var(--ac-c) * 1.1) calc(var(--pal-h) + var(--co, 0)));
-}
-:root[data-theme='light'] .cs-dots__grid i.is-human,
-:root[data-theme='light'] .cs-dots figcaption .is-human i {
-  background: oklch(0.72 0.16 70);
-  box-shadow: none;
+  --cn: var(--cc);
 }
