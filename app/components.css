@@ -4732,15 +4732,21 @@ html.is-loading .seq {
   align-items: center;
   gap: 9px;
 }
+.hero__safe li {
+  --sc: oklch(calc(0.8 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) + var(--so, 0)));
+}
+.hero__safe li:nth-child(1) { --so: 165; }
+.hero__safe li:nth-child(2) { --so: 52; }
+.hero__safe li:nth-child(3) { --so: 108; }
 .hero__safe svg {
   width: 18px;
   height: 18px;
   fill: none;
-  stroke: var(--primary);
+  stroke: var(--sc);
   stroke-width: 1.7;
   stroke-linecap: round;
   stroke-linejoin: round;
-  filter: drop-shadow(0 0 8px var(--primary-glow));
+  filter: drop-shadow(0 0 8px color-mix(in oklab, var(--sc) 55%, transparent));
 }
 
 /* ── patička: právní údaje a stránka s ochranou údajů ────────────── */
