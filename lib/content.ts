@@ -100,7 +100,7 @@ export const process = {
 };
 
 /*
- * Sekce „Případy“: carousel pěti případů z různých oborů. Zatím jsou všechny MODELOVÉ:
+ * Sekce „Případy“: carousel sedmi případů z různých oborů. Zatím jsou všechny MODELOVÉ:
  * typická firma, typické objemy a výpočet výsledku napsaný celý. Nejsou to reference klientů
  * a sekce to říká (lead, štítek na kartě, poznámka pod carouselem).
  * Až bude skutečný případ s písemným souhlasem klienta, přepiš u něj kind na 'real': štítek zmizí,
@@ -108,8 +108,8 @@ export const process = {
  * Každý případ má jiný vizuál (visual.type) a jiný druh výsledku, ať nejsou všechny stejné.
  */
 export const cases = {
-  title: 'Pět firem.',
-  accent: 'Pět úplně jiných řešení.',
+  title: 'Sedm firem.',
+  accent: 'Sedm úplně jiných řešení.',
   lead: 'Modelové případy z oborů, kde to dává největší smysl. U každého vidíte, co bylo potřeba vyřešit, jak jsme to postavili, proč zrovna takhle a co to přineslo.',
   modelLabel: 'Modelový případ',
   note: 'Modelové případy: typická firma, typické objemy a výpočet, který vidíte celý. Skutečná čísla u vás spočítáme na prvním hovoru. Jména klientů zveřejníme jen s jejich souhlasem.',
@@ -179,23 +179,24 @@ export const cases = {
       result: { before: 'pár dní', after: '1 min', unit: 'od poptávky k ceně', math: 'Dřív obhlídka a nacenění v kanceláři. Teď odhad hned, obhlídka jen u vážných zájemců.' },
     },
     {
-      id: 'odchody',
+      id: 'smlouvy',
       hue: 222,
       kind: 'model',
-      firm: 'Distributor kávy',
-      title: 'Pozná, že zákazník odchází, dřív než odejde.',
-      problem: 'Kavárny přestávaly objednávat potichu. Nikdo si toho nevšiml, dokud nebylo pozdě, a obchodníci volali hlavně těm, kdo objednávali tak jako tak.',
-      how: 'Systém každý týden projde objednávky a pozná, kdo kupuje míň, nepravidelně, nebo přestal úplně. Obchodník dostane seznam s důvodem a návrhem, co nabídnout.',
-      why: 'Udržet zákazníka je mnohem levnější než získat nového. Obchodník volá tam, kde to má smysl, a ví, co říct.',
+      firm: 'Výrobce nábytku',
+      title: 'Smlouva od dodavatele. Za pět minut víte, kde je háček.',
+      problem: 'Majitel podepisoval smlouvy s dodavateli a odběrateli bez právníka, protože na něj nebyl čas. Jednou ho to stálo tři roky drahé smlouvy, která se sama prodloužila.',
+      how: 'AI smlouvu přečte, porovná ji s tím, co firma běžně přijímá, a zvýrazní rizika: prodloužení, pokuty, jednostranné změny ceny. Ke každému navrhne, co chtít jinak.',
+      why: 'Majitel ví hned, co podepisuje, a k právníkovi jde jen se smlouvou, která to opravdu potřebuje. Poslední slovo má on nebo právník, ne AI.',
       visual: {
-        type: 'radar',
-        rows: [
-          { name: 'Kavárna U Mostu', note: 'Objednává o 40 % méně', bars: [9, 9, 8, 7, 5, 4], act: 'Nabídnout ochutnávku nové směsi' },
-          { name: 'Bistro Lípa', note: '6 týdnů bez objednávky', bars: [7, 8, 7, 0, 0, 0], act: 'Zavolat dnes' },
-          { name: 'Café Nora', note: 'Přešla na menší balení', bars: [8, 8, 6, 6, 5, 5], act: 'Ověřit, jestli nekupuje i jinde' },
+        type: 'contract',
+        title: 'Rámcová smlouva o dodávkách',
+        flags: [
+          { lvl: 'high', at: 'Čl. 7.2', t: 'Sama se prodlouží o 36 měsíců', fix: 'Chtít prodloužení jen na rok' },
+          { lvl: 'high', at: 'Čl. 9.1', t: 'Pokuta 0,5 % denně z celé zakázky', fix: 'Strop pokuty 10 %' },
+          { lvl: 'mid', at: 'Čl. 11', t: 'Dodavatel může zvednout cenu bez souhlasu', fix: 'Změna ceny jen dohodou' },
         ],
       },
-      result: { before: 'po odchodu', after: 'týdny předem', unit: 'víte, kdo odchází', math: 'Dřív si toho nikdo nevšiml. Teď upozornění, jakmile se objednávky začnou měnit.' },
+      result: { before: 'naslepo', after: '5 min', unit: 'a víte, co podepisujete', math: 'Dřív podpis bez čtení drobného písma. Teď přehled rizik a návrh změn ještě před podpisem.' },
     },
     {
       id: 'knowhow',
@@ -214,6 +215,47 @@ export const cases = {
         sources: ['Rozhovor u stroje 3', 'Poznámky z údržby', 'Fotka vedení'],
       },
       result: { before: '1 člověk', after: 'celá dílna', unit: 'ví, jak na každý stroj', math: 'Dřív jeden mistr a fronta otázek. Teď odpověď v mobilu u stroje.' },
+    },
+    {
+      id: 'porady',
+      hue: 0,
+      kind: 'model',
+      firm: 'Projektová kancelář',
+      title: 'Z porady rovnou úkoly. Zápis nikdo nepíše.',
+      problem: 'Po poradě si každý pamatoval něco jiného. Zápis psal ten, kdo se nestihl vymluvit, a úkoly se ztrácely v mailech.',
+      how: 'AI poradu poslouchá, na stole i online. Po konci pošle krátký zápis a úkoly se jménem a termínem rovnou založí v nástroji, který tým používá.',
+      why: 'Nikdo nic nepřepisuje a nic se neztratí. Před další poradou přijde přehled, co je hotové a co visí.',
+      visual: {
+        type: 'meeting',
+        quote: '„…takže Petr to pošle do pátku a Lenka objedná materiál.“',
+        tasks: [
+          { who: 'Petr', t: 'Poslat nabídku pro Kovo Brno', when: 'pátek' },
+          { who: 'Lenka', t: 'Objednat materiál na stavbu Lesná', when: 'úterý' },
+          { who: 'Tomáš', t: 'Zkontrolovat fakturu od statika', when: 'zítra' },
+        ],
+      },
+      result: { before: '30 min', after: '0 min', unit: 'psaní zápisu po každé poradě', math: 'Dřív zápis ručně a úkoly v mailech. Teď zápis i úkoly hned po poradě.' },
+    },
+    {
+      id: 'upominky',
+      hue: 165,
+      kind: 'model',
+      firm: 'Autoservis',
+      title: 'Faktury se zaplatí včas, aniž by je někdo hlídal.',
+      problem: 'Neuhrazené faktury hlídala účetní v Excelu, když si vzpomněla. Peníze ležely u zákazníků týdny a nikomu se nechtělo volat.',
+      how: 'Systém hlídá splatnost, posílá zdvořilé připomínky s QR platbou a zaplacené rovnou spáruje s bankou. Když ani to nepomůže, řekne účetní, komu zavolat.',
+      why: 'Většina lidí nezaplatí, protože zapomněli. Připomínka ve správnou chvíli to vyřeší bez trapného telefonátu.',
+      visual: {
+        type: 'dunning',
+        invoice: 'Faktura 2026-0412 · 8 460 Kč',
+        steps: [
+          { d: 'Splatnost', t: '12. 10.', s: 'wait' },
+          { d: 'Den 1', t: 'Přátelská připomínka', s: 'sent' },
+          { d: 'Den 5', t: 'Připomínka s QR platbou', s: 'sent' },
+          { d: 'Den 6', t: 'Zaplaceno a spárováno', s: 'paid' },
+        ],
+      },
+      result: { before: '3 týdny', after: '6 dní', unit: 'průměrné zpoždění platby', math: 'Dřív upomínka, až když si někdo vzpomněl. Teď první připomínka den po splatnosti.' },
     },
   ],
   assurances: [

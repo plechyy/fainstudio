@@ -70,26 +70,66 @@ function Visual({ v }: { v: Item['visual'] }) {
           </ul>
         </figure>
       );
-    case 'radar':
-      // zákazníci, kteří začínají odcházet: graf objednávek za posledních šest týdnů a co s tím
+    case 'contract':
+      // smlouva s barevně zvýrazněnými riziky a návrhem, co chtít jinak
       return (
-        <figure className="cx-vis cx-radar">
+        <figure className="cx-vis cx-con">
+          <div className="cx-con__page">
+            <b className="cx-con__h">{v.title}</b>
+            <span className="cx-con__lines" aria-hidden="true" />
+            <ol>
+              {v.flags.map((f, i) => (
+                <li className={`is-${f.lvl}`} key={f.at} style={{ ['--i' as string]: i }}>
+                  <small>{f.at}</small>
+                  <b>{f.t}</b>
+                  <span>→ {f.fix}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </figure>
+      );
+    case 'meeting':
+      // věta z porady → úkoly se jménem a termínem
+      return (
+        <figure className="cx-vis cx-meet">
+          <p className="cx-meet__q">
+            <span className="cx-meet__wave" aria-hidden="true">
+              {Array.from({ length: 5 }, (_, i) => (
+                <i key={i} style={{ ['--j' as string]: i }} />
+              ))}
+            </span>
+            {v.quote}
+          </p>
           <ul>
-            {v.rows.map((r, i) => (
-              <li key={r.name} style={{ ['--i' as string]: i }}>
-                <span className="cx-radar__bars" aria-hidden="true">
-                  {r.bars.map((h, j) => (
-                    <i key={j} style={{ height: `${Math.max(1, h) * 10}%`, ['--j' as string]: j }} className={h === 0 ? 'is-zero' : undefined} />
-                  ))}
+            {v.tasks.map((t, i) => (
+              <li key={t.t} style={{ ['--i' as string]: i }}>
+                <span className="cx-meet__who">{t.who[0]}</span>
+                <span>
+                  <b>{t.t}</b>
+                  <small>
+                    {t.who} · {t.when}
+                  </small>
                 </span>
-                <span className="cx-radar__t">
-                  <b>{r.name}</b>
-                  <small>{r.note}</small>
-                </span>
-                <em>{r.act}</em>
               </li>
             ))}
           </ul>
+        </figure>
+      );
+    case 'dunning':
+      // život jedné faktury: splatnost, dvě připomínky, zaplaceno
+      return (
+        <figure className="cx-vis cx-dun">
+          <p className="cx-dun__inv">{v.invoice}</p>
+          <ol>
+            {v.steps.map((st, i) => (
+              <li className={`is-${st.s}`} key={st.d} style={{ ['--i' as string]: i }}>
+                <i aria-hidden="true" />
+                <small>{st.d}</small>
+                <b>{st.t}</b>
+              </li>
+            ))}
+          </ol>
         </figure>
       );
     case 'brain':
@@ -121,6 +161,9 @@ function Visual({ v }: { v: Item['visual'] }) {
 export default function CasesCarousel() {
   const items = cases.items;
   const track = useRef<HTMLDivElement>(null);
+  const tabs = useRef<HTMLDivElement>(null);
+  // kam carousel právě jede: rychlé klikání na šipku počítá od cíle, ne od karty, která je ještě vidět
+  const target = useRef<number | null>(null);
   const [active, setActive] = useState(0);
   const [seen, setSeen] = useState<Set<number>>(() => new Set());
 
@@ -133,6 +176,8 @@ export default function CasesCarousel() {
         for (const e of entries) {
           if (!e.isIntersecting) continue;
           const i = slides.indexOf(e.target as HTMLElement);
+          if (target.current !== null && target.current !== i) continue;
+          target.current = null;
           setActive(i);
           setSeen((s) => (s.has(i) ? s : new Set(s).add(i)));
         }
@@ -143,10 +188,27 @@ export default function CasesCarousel() {
     return () => io.disconnect();
   }, []);
 
+  // aktivní záložka musí být vidět i v řádku, který se nevejde (posune se jen řádek, ne stránka)
+  useEffect(() => {
+    const row = tabs.current;
+    const tab = row?.children[active] as HTMLElement | undefined;
+    if (!row || !tab) return;
+    const left = tab.offsetLeft - row.offsetLeft;
+    if (left < row.scrollLeft || left + tab.offsetWidth > row.scrollLeft + row.clientWidth) {
+      row.scrollTo({ left: left - 8, behavior: 'smooth' });
+    }
+  }, [active]);
+
   const go = useCallback((i: number) => {
     const el = track.current;
     if (!el) return;
     const n = Math.max(0, Math.min(items.length - 1, i));
+    target.current = n;
+    setActive(n);
+    // pojistka: kdyby se cíl nikdy „neprotnul“ (už byl vidět), za chvíli se hlídání vrátí k normálu
+    window.setTimeout(() => {
+      if (target.current === n) target.current = null;
+    }, 1200);
     const slide = el.children[n] as HTMLElement;
     const pad = parseFloat(getComputedStyle(el).scrollPaddingLeft) || 0;
     el.scrollTo({ left: slide.offsetLeft - el.offsetLeft - pad, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
@@ -155,7 +217,7 @@ export default function CasesCarousel() {
   return (
     <div className="cx">
       <div className="cx__bar">
-        <div className="cx__tabs" role="tablist" aria-label="Případy">
+        <div className="cx__tabs" role="tablist" aria-label="Případy" ref={tabs}>
           {items.map((it, i) => (
             <button
               type="button"
@@ -173,12 +235,12 @@ export default function CasesCarousel() {
           ))}
         </div>
         <div className="cx__arrows">
-          <button type="button" className="cx__arrow" aria-label={L.prev} disabled={active === 0} onClick={() => go(active - 1)}>
+          <button type="button" className="cx__arrow" aria-label={L.prev} disabled={active === 0} onClick={() => go((target.current ?? active) - 1)}>
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M15 5l-7 7 7 7" />
             </svg>
           </button>
-          <button type="button" className="cx__arrow" aria-label={L.next} disabled={active === items.length - 1} onClick={() => go(active + 1)}>
+          <button type="button" className="cx__arrow" aria-label={L.next} disabled={active === items.length - 1} onClick={() => go((target.current ?? active) + 1)}>
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M9 5l7 7-7 7" />
             </svg>

@@ -5339,69 +5339,201 @@ html.is-loading .seq {
   font-size: 0.74rem;
 }
 
-/* odcházející zákazníci: objednávky za šest týdnů, poznámka a co s tím */
-.cx-radar ul {
+/* smlouva: papír, šedé řádky textu a tři zvýrazněná rizika s návrhem změny */
+.cx-con__page {
+  padding: 14px 14px 12px;
+  border-radius: 10px;
+  background: oklch(0.975 0.004 90);
+  color: oklch(0.28 0.01 260);
+  box-shadow: 0 18px 34px -18px oklch(0 0 0 / calc(0.7 * var(--sh)));
+}
+.cx-con__h {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+.cx-con__lines {
+  display: block;
+  height: 22px;
+  margin: 8px 0 10px;
+  background: repeating-linear-gradient(180deg, oklch(0.82 0.005 260) 0 3px, transparent 3px 8px);
+  -webkit-mask: linear-gradient(90deg, #000 70%, transparent);
+  mask: linear-gradient(90deg, #000 70%, transparent);
+}
+.cx-con ol {
   display: grid;
-  gap: 8px;
+  gap: 7px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
-.cx-radar li {
+.cx-con li {
+  --f: oklch(0.62 0.19 25);
   display: grid;
-  grid-template-columns: 54px minmax(0, 1fr);
-  align-items: center;
-  gap: 4px 12px;
-  padding: 10px 12px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--surface-2);
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1px 10px;
+  padding: 7px 10px;
+  border-left: 3px solid var(--f);
+  border-radius: 3px 8px 8px 3px;
+  background: color-mix(in oklab, var(--f) 13%, white);
+  font-size: 0.76rem;
 }
-.cx-radar__bars {
+.cx-con li.is-mid {
+  --f: oklch(0.72 0.15 70);
+}
+.cx-con li small {
   grid-row: span 2;
-  display: flex;
-  align-items: flex-end;
-  gap: 3px;
-  height: 34px;
+  color: oklch(0.45 0.02 260);
+  font-size: 0.66rem;
+  font-weight: 700;
 }
-.cx-radar__bars i {
-  flex: 1;
-  border-radius: 2px;
-  background: color-mix(in oklab, var(--cc) 75%, transparent);
-  transform-origin: bottom;
+.cx-con li b {
+  font-weight: 650;
 }
-.cx-radar__bars i:nth-last-child(-n + 3) {
-  background: oklch(0.76 0.14 25);
-}
-.cx-radar__bars i.is-zero {
-  background: oklch(0.76 0.14 25 / 0.5);
-}
-.cx-radar__t {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 2px 8px;
-  min-width: 0;
-}
-.cx-radar__t b {
-  color: var(--ink);
-  font-size: 0.8rem;
-  font-weight: 620;
-}
-.cx-radar__t small {
-  color: oklch(0.8 0.12 25);
-  font-size: 0.7rem;
+.cx-con li span {
+  color: oklch(0.42 0.1 150);
   font-weight: 600;
 }
-.cx-radar em {
-  justify-self: start;
-  padding: 3px 9px;
-  border-radius: 999px;
-  background: color-mix(in oklab, var(--cc) 16%, transparent);
+
+/* porada: věta z mikrofonu a úkoly, které z ní vzniknou */
+.cx-meet {
+  display: grid;
+  gap: 10px;
+}
+.cx-meet__q {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--surface-2);
+  color: var(--ink-2);
+  font-size: 0.8rem;
+  font-style: italic;
+  line-height: 1.4;
+}
+.cx-meet__wave {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 2px;
+  height: 18px;
+}
+.cx-meet__wave i {
+  width: 3px;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--cc);
+  transform: scaleY(calc(0.3 + 0.17 * var(--j)));
+}
+.cx-meet__wave i:nth-child(even) {
+  transform: scaleY(0.45);
+}
+.cx-meet ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.cx-meet li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-2);
+}
+.cx-meet__who {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--cc) 25%, var(--surface));
   color: var(--ink);
-  font-size: 0.7rem;
-  font-style: normal;
-  font-weight: 560;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+.cx-meet li > span:last-child {
+  display: grid;
+  min-width: 0;
+}
+.cx-meet li b {
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.cx-meet li small {
+  color: var(--ink-3);
+  font-size: 0.68rem;
+}
+
+/* upomínky: život jedné faktury od splatnosti po zaplacení */
+.cx-dun__inv {
+  margin: 0 0 12px;
+  color: var(--ink);
+  font-size: 0.82rem;
+  font-weight: 620;
+}
+.cx-dun ol {
+  position: relative;
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0 0 0 22px;
+  list-style: none;
+}
+.cx-dun ol::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: var(--line-strong);
+}
+.cx-dun li {
+  position: relative;
+  display: grid;
+  gap: 1px;
+}
+.cx-dun li i {
+  position: absolute;
+  left: -22px;
+  top: 3px;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--ink-3);
+  border-radius: 50%;
+  background: var(--bg);
+}
+.cx-dun li.is-sent i {
+  border-color: var(--cc);
+}
+.cx-dun li.is-paid i {
+  border-color: oklch(0.8 0.14 150);
+  background: oklch(0.8 0.14 150);
+  box-shadow: 0 0 10px -1px oklch(0.8 0.14 150);
+}
+.cx-dun li small {
+  color: var(--ink-3);
+  font-size: 0.66rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.cx-dun li b {
+  color: var(--ink);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+.cx-dun li.is-paid b {
+  color: oklch(0.85 0.12 150);
 }
 
 /* know-how mistra: otázka nováčka, odpověď jeho slovy a odkud to asistent ví */
@@ -5517,7 +5649,9 @@ html.is-loading .seq {
   .cx-case .cx-score__trend,
   .cx-case .cx-photo__img em,
   .cx-case .cx-photo__price,
-  .cx-case .cx-radar li,
+  .cx-case .cx-con li,
+  .cx-case .cx-meet li,
+  .cx-case .cx-dun li,
   .cx-case .cx-brain__a,
   .cx-case .cx-brain__src li {
     opacity: 0;
@@ -5541,10 +5675,17 @@ html.is-loading .seq {
   .cx-case .cx-photo__price {
     transition-delay: 1500ms;
   }
-  .cx-case .cx-radar__bars i {
-    transform: scaleY(0);
-    transition: transform 600ms var(--ease-out);
-    transition-delay: calc(350ms + var(--i, 0) * 150ms + var(--j) * 50ms);
+  .cx-case .cx-con li {
+    transition-delay: calc(500ms + var(--i) * 260ms);
+  }
+  .cx-case .cx-meet li {
+    transition-delay: calc(600ms + var(--i) * 180ms);
+  }
+  .cx-case .cx-dun li {
+    transition-delay: calc(250ms + var(--i) * 280ms);
+  }
+  .cx-case.is-seen .cx-meet__wave i {
+    animation: cx-talk 900ms ease-in-out calc(var(--j) * -170ms) 3;
   }
   .cx-case .cx-brain__a {
     transition-delay: 600ms;
@@ -5557,12 +5698,18 @@ html.is-loading .seq {
   .cx-case.is-seen .cx-score__trend,
   .cx-case.is-seen .cx-photo__img em,
   .cx-case.is-seen .cx-photo__price,
-  .cx-case.is-seen .cx-radar li,
-  .cx-case.is-seen .cx-radar__bars i,
+  .cx-case.is-seen .cx-con li,
+  .cx-case.is-seen .cx-meet li,
+  .cx-case.is-seen .cx-dun li,
   .cx-case.is-seen .cx-brain__a,
   .cx-case.is-seen .cx-brain__src li {
     opacity: 1;
     transform: none;
+  }
+}
+@keyframes cx-talk {
+  50% {
+    transform: scaleY(1);
   }
 }
 @keyframes cx-scan {
