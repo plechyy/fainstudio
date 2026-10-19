@@ -30,7 +30,7 @@ export const viewport: Viewport = {
 };
 
 // Obnoví uložený motiv před prvním vykreslením → nic neprobliká.
-const noFlash = `(function(){try{var d=document.documentElement;d.classList.add('is-loading');var t=localStorage.getItem('theme')==='light'?'light':'dark';d.dataset.theme=t;var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==='light'?'#fcfaf6':'#141217';var a=JSON.parse(localStorage.getItem('accent')||'null');if(a&&isFinite(a.h)&&isFinite(a.c)){d.style.setProperty('--primary-h',String(a.h));d.style.setProperty('--primary-c',String(a.c));}}catch(e){}})();`;
+const noFlash = `(function(){try{var d=document.documentElement;d.classList.add('is-loading');var t=localStorage.getItem('theme')==='light'?'light':'dark';d.dataset.theme=t;var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==='light'?'#fcfaf6':'#141217';var g=JSON.parse(localStorage.getItem('brand-vars-v3')||'null');if(g){for(var k in g){d.style.setProperty(k,g[k]);}}}catch(e){}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
