@@ -2766,7 +2766,9 @@ html.is-loading .seq {
 .dk__docs {
   position: absolute;
   inset: 0;
-  transform-style: preserve-3d;
+  /* jedna plochá vrstva kousek před oknem (jen ta je ve 3D); uvnitř už se skládá ploše.
+     Dřív měl každý doklad tři vnořené 3D roviny a ty se pletly s oknem, což třáslo obraz. */
+  transform: translateZ(8px);
   pointer-events: none;
 }
 .dk__doc-x,
@@ -2776,7 +2778,6 @@ html.is-loading .seq {
   left: 0;
   width: 100%;
   height: 0;
-  transform-style: preserve-3d;
   will-change: transform;
 }
 .dk__doc {
@@ -3132,6 +3133,8 @@ html.is-loading .seq {
   padding: 14px 16px 6px;
 }
 .tn__count b {
+  /* číslo se mění každý snímek: vlastní vrstva, ať se nepřekresluje celé okno */
+  will-change: transform;
   /* šířka pro „2 341“, ať popisek vedle při počítání neposkakuje */
   min-width: 2.7em;
   color: var(--ink);
@@ -3168,6 +3171,7 @@ html.is-loading .seq {
   gap: 6px;
 }
 .tn__src li {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -3179,24 +3183,39 @@ html.is-loading .seq {
   color: var(--ink-3);
   font-size: 0.6rem;
   white-space: nowrap;
+  transition:
+    border-color 600ms,
+    color 600ms;
 }
 .tn__src li svg {
   flex: none;
   width: 12px;
   height: 12px;
 }
+/* „ping“ zdroje: svítí jen obrys přes průhlednost (běží na grafické kartě), nemění se stín ani barvy */
+.tn__src li::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--ac);
+  border-radius: inherit;
+  box-shadow: inset 0 0 12px -4px var(--ac-glow);
+  opacity: 0;
+  pointer-events: none;
+}
 .tn__src.is-on li {
+  border-color: color-mix(in oklab, var(--ac) 25%, var(--line));
+  color: var(--ink-2);
+}
+.tn__src.is-on li::after {
   animation: tn-ping 1.4s ease both;
 }
 @keyframes tn-ping {
   30% {
-    border-color: var(--ac);
-    box-shadow: 0 0 14px -4px var(--ac-glow);
-    color: var(--ink);
+    opacity: 1;
   }
   100% {
-    border-color: color-mix(in oklab, var(--ac) 25%, var(--line));
-    color: var(--ink-2);
+    opacity: 0;
   }
 }
 .tn__fun {
@@ -3765,7 +3784,7 @@ html.is-loading .seq {
   .win__live::before,
   .sc-spin,
   .sc-caret,
-  .tn__src li,
+  .tn__src li::after,
   .fw__b {
     animation: none !important;
   }
