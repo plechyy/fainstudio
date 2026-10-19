@@ -12,3 +12,5 @@ next-env.d.ts
 # soukromé soubory (audity, loga a další) patří do administrace, ne do veřejného repozitáře
 reports/*.pdf
 .admin-files/
+reports/
+research_notes/
