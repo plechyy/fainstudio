@@ -4973,3 +4973,11 @@ html.is-loading .seq {
 :root[data-theme='light'] td.us.yes {
   color: var(--ink);
 }
+@media (min-width: 900px) {
+  :root[data-theme='light'] .cmp-table {
+    background: color-mix(in oklab, var(--bg) 55%, white);
+  }
+}
+:root[data-theme='light'] .cmp-card:not(.us) {
+  background: color-mix(in oklab, var(--bg) 55%, white);
+}
