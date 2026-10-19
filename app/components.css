@@ -755,21 +755,34 @@ html.is-loading .seq {
   background: var(--line);
   overflow: visible;
 }
+/* každý krok má svou barvu ze stejné palety jako systémy a otázky */
+.step {
+  --sc: oklch(calc(0.8 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) + var(--so, 0)));
+}
+.step:nth-child(1) { --so: -38; }
+.step:nth-child(2) { --so: 52; }
+.step:nth-child(3) { --so: 165; }
+.step:nth-child(4) { --so: 108; }
+.step:nth-child(5) { --so: -88; }
+.step:nth-child(6) { --so: 222; }
+.step__bar {
+  background: color-mix(in oklab, var(--sc) 16%, var(--line));
+}
 .step__fill {
   position: absolute;
   inset: 0;
   border-radius: inherit;
   transform-origin: left;
   transform: scaleX(0);
-  background: linear-gradient(90deg, var(--white-deep), var(--white-text));
+  background: linear-gradient(90deg, color-mix(in oklab, var(--sc) 70%, transparent), var(--sc));
 }
 .step[data-state='done'] .step__fill {
   transform: none;
-  background: var(--white-deep);
+  background: color-mix(in oklab, var(--sc) 85%, transparent);
 }
 .step[data-state='now'] .step__fill {
   transform: none;
-  box-shadow: 0 0 14px -2px color-mix(in oklab, var(--white-text) 55%, transparent);
+  box-shadow: 0 0 14px -2px color-mix(in oklab, var(--sc) 70%, transparent);
 }
 .step__fill[data-run] {
   animation: step-fill var(--step) linear both;
