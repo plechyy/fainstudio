@@ -177,127 +177,6 @@ html.is-loading .seq {
   }
 }
 
-/* ── sova v hero ─────────────────────────────────────────────────── */
-.owl {
-  display: block;
-  overflow: visible;
-}
-.hero__owl {
-  width: clamp(76px, 7.4vw, 104px);
-  height: auto;
-  margin: 0 auto clamp(14px, 2vh, 22px);
-  filter: drop-shadow(0 6px 22px oklch(0 0 0 / 0.45)) drop-shadow(0 0 30px var(--primary-glow));
-}
-.owl__eye,
-.owl__pupil {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .owl--live {
-    animation: owl-in 900ms var(--ease-out) both, owl-float 6s ease-in-out 900ms infinite;
-  }
-  html.is-loading .owl--live {
-    animation-play-state: paused;
-  }
-  /* probudí se: oči se otevřou, pak se rozhlíží a občas mrknou */
-  .owl--live .owl__eye {
-    animation: owl-wake 900ms var(--ease-out) 350ms both, owl-blink 6.4s ease-in-out 3.2s infinite;
-  }
-  .owl--live .owl__pupil {
-    animation: owl-look 7.2s ease-in-out 1.4s infinite;
-  }
-  .owl--live .owl__pupil--sun {
-    animation-name: owl-look, owl-sun;
-    animation-duration: 7.2s, 3.6s;
-    animation-delay: 1.4s, 0s;
-  }
-  .owl--live .owl__phase {
-    animation: owl-phase 9s ease-in-out infinite;
-  }
-  html.is-loading .owl--live .owl__eye,
-  html.is-loading .owl--live .owl__pupil,
-  html.is-loading .owl--live .owl__phase {
-    animation-play-state: paused;
-  }
-}
-.owl__phase {
-  transform: translate(5px, -3px);
-}
-@keyframes owl-in {
-  from {
-    opacity: 0;
-    transform: translateY(14px) scale(0.86);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes owl-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
-}
-@keyframes owl-wake {
-  from {
-    transform: scaleY(0.06);
-  }
-  to {
-    transform: scaleY(1);
-  }
-}
-@keyframes owl-blink {
-  0%,
-  92%,
-  100% {
-    transform: scaleY(1);
-  }
-  95.5% {
-    transform: scaleY(0.07);
-  }
-}
-@keyframes owl-look {
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-  18% {
-    transform: translate(3px, -1px);
-  }
-  44% {
-    transform: translate(3px, -1px);
-  }
-  56% {
-    transform: translate(-3px, 0.5px);
-  }
-  82% {
-    transform: translate(-3px, 0.5px);
-  }
-}
-@keyframes owl-sun {
-  0%,
-  100% {
-    scale: 1;
-  }
-  50% {
-    scale: 1.07;
-  }
-}
-/* měsíc dorůstá a couvá: čas v noci plyne */
-@keyframes owl-phase {
-  0%,
-  100% {
-    transform: translate(5px, -3px);
-  }
-  50% {
-    transform: translate(11px, -6px);
-  }
-}
 @media (prefers-reduced-motion: no-preference) {
   .nav__pill {
     animation: nav-in 700ms var(--ease-out) both;
@@ -323,7 +202,7 @@ html.is-loading .seq {
   font-weight: 700; /* Finger Paint má jen Regular → syntetický bold */
   letter-spacing: 0.01em;
   color: var(--ink);
-  text-shadow: 0 1px 8px oklch(0 0 0 / 0.5);
+  text-shadow: 0 1px 8px oklch(0 0 0 / calc(0.5 * var(--sh)));
   margin-right: auto;
   transition: font-size 320ms var(--ease-out);
 }
@@ -625,7 +504,7 @@ html.is-loading .seq {
   max-width: 17ch;
   /* Lift: s průhlednou výplní (stříbrný text) by text-shadow prosvítal skrz písmena,
      proto filter: drop-shadow — stín jen kolem tvaru písmen. Statický, nikdy se neanimuje. */
-  filter: drop-shadow(0 1px 0 oklch(0 0 0 / 0.35)) drop-shadow(0 10px 22px oklch(0 0 0 / 0.4))
+  filter: drop-shadow(0 1px 0 oklch(0 0 0 / calc(0.35 * var(--sh)))) drop-shadow(0 10px 22px oklch(0 0 0 / calc(0.4 * var(--sh))))
     drop-shadow(0 0 46px color-mix(in oklab, var(--secondary) 22%, transparent));
 }
 .hero__accent {
@@ -985,8 +864,8 @@ html.is-loading .seq {
   box-shadow:
     inset 0 1px 0 oklch(1 0 0 / 0.14),
     0 0 0 1px oklch(1 0 0 / 0.09),
-    0 40px 90px -28px oklch(0 0 0 / 0.85),
-    0 14px 34px -14px oklch(0 0 0 / 0.6);
+    0 40px 90px -28px oklch(0 0 0 / calc(0.85 * var(--sh))),
+    0 14px 34px -14px oklch(0 0 0 / calc(0.6 * var(--sh)));
 }
 /* kouř jako v závěrečném CTA: žije vpravo, zleva ho stíní kvůli čitelnosti textu */
 .ba__smoke {
@@ -1217,7 +1096,7 @@ html.is-loading .seq {
 .cmp-card.us {
   border-color: transparent;
   background: var(--smoke-bg);
-  box-shadow: 0 40px 90px -28px oklch(0 0 0 / 0.85), 0 14px 34px -14px oklch(0 0 0 / 0.6);
+  box-shadow: 0 40px 90px -28px oklch(0 0 0 / calc(0.85 * var(--sh))), 0 14px 34px -14px oklch(0 0 0 / calc(0.6 * var(--sh)));
 }
 .cmp-card__title {
   font-family: var(--font-display);
@@ -1704,8 +1583,8 @@ html.is-loading .seq {
   box-shadow:
     inset 0 1px 0 oklch(1 0 0 / 0.14),
     0 0 0 1px oklch(1 0 0 / 0.09),
-    0 40px 90px -28px oklch(0 0 0 / 0.85),
-    0 14px 34px -14px oklch(0 0 0 / 0.6);
+    0 40px 90px -28px oklch(0 0 0 / calc(0.85 * var(--sh))),
+    0 14px 34px -14px oklch(0 0 0 / calc(0.6 * var(--sh)));
 }
 .cta__bg {
   position: absolute;
@@ -1995,7 +1874,7 @@ html.is-loading .seq {
   border-radius: 16px;
   background: var(--surface);
   box-shadow:
-    0 40px 80px -30px oklch(0 0 0 / 0.75),
+    0 40px 80px -30px oklch(0 0 0 / calc(0.75 * var(--sh))),
     inset 0 1px 0 oklch(1 0 0 / 0.05);
 }
 .win__bar {
@@ -2080,7 +1959,7 @@ html.is-loading .seq {
   stroke-width: 1.3;
   opacity: 0;
   transform: translate(70px, 44px);
-  filter: drop-shadow(0 3px 4px oklch(0 0 0 / 0.4));
+  filter: drop-shadow(0 3px 4px oklch(0 0 0 / calc(0.4 * var(--sh))));
   pointer-events: none;
   transition:
     transform 900ms cubic-bezier(0.45, 0, 0.2, 1),
@@ -2104,7 +1983,7 @@ html.is-loading .seq {
   border-radius: 14px;
   background: var(--surface-2);
   box-shadow:
-    0 26px 44px -18px oklch(0 0 0 / 0.75),
+    0 26px 44px -18px oklch(0 0 0 / calc(0.75 * var(--sh))),
     0 0 34px -12px var(--ac-glow);
   font-size: 0.78rem;
   line-height: 1.35;
@@ -2256,7 +2135,7 @@ html.is-loading .seq {
 .crm__card--hot.is-lift,
 .crm__card--hot.is-drag {
   border-color: var(--ac);
-  box-shadow: 0 20px 30px -10px oklch(0 0 0 / 0.7);
+  box-shadow: 0 20px 30px -10px oklch(0 0 0 / calc(0.7 * var(--sh)));
 }
 .crm__card--hot.is-lift {
   transform: scale(1.06) rotate(-2.5deg);
@@ -2350,7 +2229,7 @@ html.is-loading .seq {
   border: 1px solid var(--line);
   border-radius: 12px;
   background: var(--surface);
-  box-shadow: 0 20px 40px -20px oklch(0 0 0 / 0.7);
+  box-shadow: 0 20px 40px -20px oklch(0 0 0 / calc(0.7 * var(--sh)));
   font-size: 0.68rem;
   line-height: 1.3;
   opacity: 0;
@@ -2368,7 +2247,7 @@ html.is-loading .seq {
 .ob__node.is-on > div {
   border-color: color-mix(in oklab, var(--ac) 55%, var(--line));
   box-shadow:
-    0 20px 40px -20px oklch(0 0 0 / 0.7),
+    0 20px 40px -20px oklch(0 0 0 / calc(0.7 * var(--sh))),
     0 0 26px -10px var(--ac-glow);
   opacity: 1;
 }
@@ -2542,7 +2421,7 @@ html.is-loading .seq {
   border: 1px solid var(--line-strong);
   border-radius: 12px;
   background: var(--surface-2);
-  box-shadow: 0 24px 40px -18px oklch(0 0 0 / 0.75);
+  box-shadow: 0 24px 40px -18px oklch(0 0 0 / calc(0.75 * var(--sh)));
   font-size: 0.72rem;
   opacity: 0;
   transform: translateY(12px) scale(0.95);
@@ -2737,7 +2616,7 @@ html.is-loading .seq {
   border: 3px solid var(--line-strong);
   border-radius: 24px;
   background: var(--surface);
-  box-shadow: 0 30px 50px -20px oklch(0 0 0 / 0.8);
+  box-shadow: 0 30px 50px -20px oklch(0 0 0 / calc(0.8 * var(--sh)));
   font-size: 0.66rem;
   opacity: 0;
   transform: translateY(24px);
@@ -2904,7 +2783,7 @@ html.is-loading .seq {
   padding: 9px 9px 10px;
   border-radius: 5px;
   background: oklch(0.975 0.004 90);
-  box-shadow: 0 14px 30px -12px oklch(0 0 0 / 0.6);
+  box-shadow: 0 14px 30px -12px oklch(0 0 0 / calc(0.6 * var(--sh)));
   color: oklch(0.3 0.01 260);
   font-size: 0.56rem;
   line-height: 1.25;
@@ -2998,7 +2877,7 @@ html.is-loading .seq {
   border: 1px solid color-mix(in oklab, var(--ac) 35%, var(--line-strong));
   border-radius: 14px;
   background: var(--surface-2);
-  box-shadow: 0 30px 50px -20px oklch(0 0 0 / 0.75);
+  box-shadow: 0 30px 50px -20px oklch(0 0 0 / calc(0.75 * var(--sh)));
   font-size: 0.68rem;
   opacity: 0;
   transform: translateY(18px);
@@ -3063,7 +2942,7 @@ html.is-loading .seq {
   border: 1px solid var(--line-strong);
   border-radius: 12px;
   background: var(--surface-2);
-  box-shadow: 0 24px 40px -18px oklch(0 0 0 / 0.75);
+  box-shadow: 0 24px 40px -18px oklch(0 0 0 / calc(0.75 * var(--sh)));
   font-size: 0.7rem;
   opacity: 0;
   transform: translateY(18px) scale(0.94);
@@ -3408,7 +3287,7 @@ html.is-loading .seq {
   padding: 14px 16px;
   border-radius: 10px;
   background: oklch(0.975 0.004 90);
-  box-shadow: 0 30px 50px -20px oklch(0 0 0 / 0.8);
+  box-shadow: 0 30px 50px -20px oklch(0 0 0 / calc(0.8 * var(--sh)));
   color: oklch(0.3 0.01 260);
   font-size: 0.68rem;
   opacity: 0;
@@ -3709,7 +3588,7 @@ html.is-loading .seq {
   border: 1px solid var(--line-strong);
   border-radius: 14px;
   background: var(--surface-2);
-  box-shadow: 0 30px 50px -20px oklch(0 0 0 / 0.75);
+  box-shadow: 0 30px 50px -20px oklch(0 0 0 / calc(0.75 * var(--sh)));
   font-size: 0.68rem;
   opacity: 0;
   transform: translateX(24px);
@@ -4633,7 +4512,7 @@ html.is-loading .seq {
   box-shadow:
     inset 0 1px 0 oklch(1 0 0 / 0.14),
     0 0 0 1px oklch(1 0 0 / 0.1),
-    0 24px 60px -24px oklch(0 0 0 / 0.7);
+    0 24px 60px -24px oklch(0 0 0 / calc(0.7 * var(--sh)));
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
   color: oklch(0.97 0.01 var(--secondary-h));
@@ -4734,4 +4613,289 @@ html.is-loading .seq {
   margin: 0;
   line-height: 1.5;
   color: oklch(0.86 0.015 var(--secondary-h));
+}
+
+/* ── hero: třídič (chaotická práce → brána → pořádek) ───────────── */
+.hero__sort {
+  width: clamp(220px, 26vw, 320px);
+  height: auto;
+  margin-bottom: clamp(12px, 2vh, 20px);
+  overflow: visible;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent);
+}
+.hs__rail {
+  stroke: var(--line-strong);
+  stroke-width: 1;
+  stroke-dasharray: 2 5;
+  stroke-linecap: round;
+}
+.hs__ring {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 1.6;
+}
+.hs__halo {
+  fill: var(--primary-glow);
+  filter: blur(7px);
+  opacity: 0.55;
+}
+.hs__bar {
+  stroke: var(--primary);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  opacity: 0.6;
+}
+.hs__item {
+  --hc: oklch(calc(0.78 + var(--primary-l-adj)) var(--ac-c) calc(var(--primary-h) + var(--h)));
+}
+.hs__dot {
+  fill: var(--hc);
+  filter: drop-shadow(0 0 5px var(--hc));
+}
+.hs__tick rect {
+  fill: color-mix(in oklab, var(--hc) 22%, transparent);
+  stroke: var(--hc);
+  stroke-width: 1.4;
+}
+.hs__tick path {
+  fill: none;
+  stroke: var(--hc);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.hs__tick {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hs__item {
+    animation: hs-x 8s linear infinite;
+  }
+  .hs__shift {
+    animation: hs-y 8s infinite;
+  }
+  .hs__dot {
+    animation: hs-dot 8s linear infinite;
+    animation-delay: inherit;
+  }
+  .hs__tick {
+    animation: hs-tick 8s linear infinite;
+    animation-delay: inherit;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .hs__ring {
+    animation: hs-gate 2.2s ease-in-out infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  html.is-loading .hs__item,
+  html.is-loading .hs__shift,
+  html.is-loading .hs__dot,
+  html.is-loading .hs__tick,
+  html.is-loading .hs__ring {
+    animation-play-state: paused;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hs__item,
+  .hs__shift,
+  .hs__dot,
+  .hs__tick {
+    animation-play-state: paused;
+  }
+}
+@keyframes hs-x {
+  from {
+    transform: translateX(-6px);
+  }
+  to {
+    transform: translateX(266px);
+  }
+}
+/* před bránou (~39 % dráhy) se pohupuje, v bráně se srovná na linku */
+@keyframes hs-y {
+  0% {
+    transform: translateY(var(--dy));
+    animation-timing-function: ease-in-out;
+  }
+  18% {
+    transform: translateY(calc(var(--dy) * -0.55));
+    animation-timing-function: ease-in-out;
+  }
+  30% {
+    transform: translateY(calc(var(--dy) * 0.35));
+    animation-timing-function: cubic-bezier(0.5, 0, 0.2, 1);
+  }
+  39% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes hs-dot {
+  0%,
+  37% {
+    opacity: 1;
+  }
+  41%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes hs-tick {
+  0%,
+  37% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  46%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes hs-gate {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+/* ── kolo barev ─────────────────────────────────────────────────── */
+.cw {
+  position: relative;
+  flex: none;
+}
+.cw--nav {
+  display: none;
+}
+@media (min-width: 1100px) {
+  .cw--nav {
+    display: block;
+  }
+  .cw--menu {
+    display: none;
+  }
+}
+.cw__btn {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--chip);
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 var(--glass-top), inset 0 0 0 1px var(--glass-edge-lo);
+  transition: background-color 140ms, transform 160ms var(--ease-out);
+}
+.cw__btn:hover {
+  background: var(--chip-hover);
+  transform: rotate(40deg);
+}
+.cw__dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: conic-gradient(in oklch longer hue from 0deg, oklch(0.8 0.15 0), oklch(0.8 0.15 360));
+  -webkit-mask: radial-gradient(circle, transparent 5px, #000 5.5px);
+  mask: radial-gradient(circle, transparent 5px, #000 5.5px);
+}
+.cw__panel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 14px);
+  z-index: 60;
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+  width: 208px;
+  padding: 18px 16px 16px;
+  border-radius: 22px;
+  background: color-mix(in oklab, var(--bg) 82%, transparent);
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.3);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.3);
+  box-shadow: inset 0 1px 0 var(--glass-top), inset 0 0 0 1px var(--glass-edge-lo), var(--glass-shadow);
+  animation: cw-in 200ms var(--ease-out) both;
+}
+.cw__panel--inline {
+  position: static;
+  width: 100%;
+  padding: 14px 0 6px;
+  background: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  animation: none;
+}
+@keyframes cw-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.97);
+  }
+}
+.cw__wheel {
+  position: relative;
+  border-radius: 50%;
+  cursor: crosshair;
+  touch-action: none;
+  background: conic-gradient(
+    in oklch longer hue from 0deg,
+    oklch(0.83 0.14 0),
+    oklch(0.83 0.14 360)
+  );
+  -webkit-mask: radial-gradient(circle, transparent 38%, #000 38.6%);
+  mask: radial-gradient(circle, transparent 38%, #000 38.6%);
+}
+.cw__knob {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border-radius: 50%;
+  background: var(--k);
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px oklch(0 0 0 / 0.35);
+  pointer-events: none;
+}
+.cw__core {
+  position: absolute;
+  inset: 31%;
+  border-radius: 50%;
+  background: var(--k);
+  pointer-events: none;
+}
+.cw__row {
+  display: grid;
+  gap: 6px;
+  width: 100%;
+  font-size: 0.75rem;
+  color: var(--ink-3);
+}
+.cw__row input {
+  width: 100%;
+  accent-color: var(--primary-deep);
+}
+.cw__reset {
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.8rem;
+  color: var(--ink-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.cw__reset:disabled {
+  opacity: 0.4;
+  cursor: default;
+  text-decoration: none;
 }

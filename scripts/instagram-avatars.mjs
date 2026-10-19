@@ -164,34 +164,6 @@ async function lettering(text, size) {
   return sharp(bg).composite([{ input: halo }, { input: letters }]).png().toBuffer();
 }
 
-const BODY = 'M26 26 44 38Q60 33 76 38L94 26Q100 44 100 64C100 92 84 106 60 106 36 106 20 92 20 64Q20 44 26 26Z';
-/** sova jako silueta vynořená z kouře, jen oči svítí (měsíc a slunce) */
-async function owlInTheDark() {
-  const t = 'translate(540 548) scale(6.6) translate(-60 -66)';
-  const defs =
-    blur('g1', 4, [-60, -60, 240, 240]) + blur('g2', 1.4, [-60, -60, 240, 240]) +
-    `<linearGradient id="bd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a2b44"/><stop offset="1" stop-color="#1a1320"/></linearGradient>
-     <linearGradient id="rim" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd2fb"/><stop offset=".5" stop-color="#ff9bf2" stop-opacity=".25"/><stop offset="1" stop-color="#ff9bf2" stop-opacity="0"/></linearGradient>
-     <radialGradient id="eg"><stop offset="0" stop-color="#ff7ff0" stop-opacity=".9"/><stop offset="1" stop-color="#ff7ff0" stop-opacity="0"/></radialGradient>
-     <mask id="cres" maskUnits="userSpaceOnUse" x="20" y="40" width="44" height="40"><rect x="20" y="40" width="44" height="40" fill="#fff"/><circle cx="46.6" cy="56.4" r="10.2" fill="#000"/></mask>`;
-  const inner = `
-    <g transform="${t}">
-      <path d="${BODY}" fill="#ff5fe9" opacity=".5" filter="url(#g1)" stroke="#ff5fe9" stroke-width="6"/>
-      <path d="${BODY}" fill="url(#bd)" stroke="url(#rim)" stroke-width="2.4" stroke-linejoin="round"/>
-      <path d="M60 42C48 32 28 39 28 60 28 77 43 85 60 82 77 85 92 77 92 60 92 39 72 32 60 42Z" fill="#7d4d8c" fill-opacity=".34"/>
-      <path d="M55 74Q60 72 65 74L60 83Z" fill="#b07ac0" fill-opacity=".75" stroke="#b07ac0" stroke-opacity=".75" stroke-width="2.4" stroke-linejoin="round"/>
-      <circle cx="78" cy="60" r="28" fill="url(#eg)"/>
-      <circle cx="42" cy="60" r="28" fill="url(#eg)" opacity=".75"/>
-      <g filter="url(#g2)" opacity=".85">
-        <circle cx="42" cy="60" r="11" fill="#ffe9fb" mask="url(#cres)"/>
-        <circle cx="78" cy="60" r="11" fill="#ffe9fb"/>
-      </g>
-      <circle cx="42" cy="60" r="11" fill="#fff6fe" mask="url(#cres)"/>
-      <circle cx="78" cy="60" r="11" fill="#fff6fe"/>
-    </g>`;
-  return sharp(bg).composite([{ input: svg(inner, defs) }]).png().toBuffer();
-}
-
 /** jen slovo FaiN na bílé, vyplněné růžovo-černým kouřem (bez záře, jen měkký stín) */
 async function fainOnWhite() {
   const size = 290; // slovo je široké ~70 % plochy, takže bezpečně uvnitř kruhového ořezu
@@ -224,7 +196,6 @@ const out = join(root, 'brand/instagram');
 mkdirSync(out, { recursive: true });
 const sets = [
   ['a-fs-kour', await lettering('FS', 560)],
-  ['b-oci-ve-tme', await owlInTheDark()],
   ['c-fain-kour', await lettering('FaiN', 340)],
   ['d-fain-bily', await fainOnWhite()],
 ];

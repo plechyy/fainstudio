@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { CAL_URL } from '@/lib/config';
+import ColorWheel from './ColorWheel';
 import ThemeToggle from './ThemeToggle';
 
 const LINKS = [
@@ -139,6 +140,7 @@ export default function Nav() {
         </nav>
 
         <div className="nav__end">
+          <ColorWheel className="cw--nav" />
           <ThemeToggle className="theme-toggle--nav" />
           <a className="nav__cta" href={CAL_URL}>
             <span className="nav__cta-long">Chci to u nás</span>
@@ -168,6 +170,7 @@ export default function Nav() {
               </li>
             ))}
           </ul>
+          <ColorWheel inline className="cw--menu" />
           <ThemeToggle className="theme-toggle--menu" />
         </div>
       )}
