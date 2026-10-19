@@ -8,6 +8,7 @@
  *   • Lokálně (npm run dev): složka .admin-files/ (je v .gitignore).
  */
 import { del, get, list, put } from '@vercel/blob';
+import { unstable_cache } from 'next/cache';
 import { mkdir, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
@@ -92,6 +93,9 @@ export async function listFiles(): Promise<FileRow[]> {
   }
   return rows;
 }
+
+/** Seznam se drží v cache (Blob je vzdálené volání na každé kliknutí). Nahrání a smazání ho hned obnoví, ruční nahrání skriptem do 2 minut. */
+export const listFilesCached = unstable_cache(listFiles, ['admin-files-list'], { tags: ['admin-files'], revalidate: 120 });
 
 export async function saveFile(dir: string, name: string, data: Buffer) {
   if (useBlob()) {

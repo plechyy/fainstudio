@@ -1,6 +1,6 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
+import { updateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { requireAdmin } from '@/lib/admin-session';
 import { ALLOWED, MAX_BYTES, cleanDir, cleanName, ext, removeFile, saveFile } from '@/lib/admin-files';
@@ -21,7 +21,7 @@ export async function uploadFile(_p: UploadState, form: FormData): Promise<Uploa
   } catch (e) {
     return { error: e instanceof Error && e.message === 'storage_not_configured' ? 'Úložiště není připojené (Vercel Blob).' : 'Nahrání se nepovedlo.' };
   }
-  revalidatePath('/admin/soubory', 'layout');
+  updateTag('admin-files');
   return { ok: `Nahráno: ${name}` };
 }
 
@@ -31,7 +31,7 @@ export async function deleteFile(form: FormData) {
   const name = cleanName(String(form.get('name') || ''));
   if (dir === null || !name) return;
   await removeFile(dir, name);
-  revalidatePath('/admin/soubory', 'layout');
+  updateTag('admin-files');
 }
 
 /** Složka vznikne tím, že se do ní něco nahraje; tady se jen otevře prázdná. */

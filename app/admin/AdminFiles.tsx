@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { listFiles, storageStatus } from '@/lib/admin-files';
+import { listFilesCached, storageStatus } from '@/lib/admin-files';
 import { deleteFile } from './files-actions';
 import FileUpload from './FileUpload';
 
@@ -20,7 +20,7 @@ const plural = (n: number) => (n === 1 ? 'soubor' : n >= 2 && n <= 4 ? 'soubory'
 
 export default async function AdminFiles({ dir }: { dir: string }) {
   const st = storageStatus();
-  const all = st.ok ? await listFiles() : [];
+  const all = st.ok ? await listFilesCached() : [];
   const inside = (d: string) => (dir ? d === dir || d.startsWith(`${dir}/`) : true);
 
   // podsložky přímo pod aktuální složkou a počet souborů v nich
