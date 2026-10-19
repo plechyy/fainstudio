@@ -50,7 +50,7 @@ export default function Systems() {
       <div className="wrap">
         <Panel />
 
-        <CtaRow label="Mám zájem" />
+        <CtaRow label="Mám zájem" align="right" />
       </div>
     </section>
   );

@@ -1,3 +1,4 @@
+import CtaRow from './CtaRow';
 import { why } from '@/lib/content';
 import { Efficiency, Flow, Mosaic } from './WhyVisuals';
 
@@ -42,6 +43,8 @@ export default function WhyAi() {
             );
           })}
         </ol>
+
+        <CtaRow label="Chci FaiN" align="left" />
       </div>
     </section>
   );
