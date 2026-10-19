@@ -20,10 +20,10 @@ export default function AdminNav() {
   return (
     <nav className="adm__nav" aria-label="Administrace">
       {ITEMS.map((i) => (
-        <Link key={i.href} href={i.href} aria-current={path === i.href || path.startsWith(`${i.href}/`) ? 'page' : undefined}>
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            {ICONS[i.icon]}
-          </svg>
+        <Link key={i.href} href={i.href} data-i={i.icon} aria-current={path === i.href || path.startsWith(`${i.href}/`) ? 'page' : undefined}>
+          <span className="adm__ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24">{ICONS[i.icon]}</svg>
+          </span>
           {i.label}
         </Link>
       ))}

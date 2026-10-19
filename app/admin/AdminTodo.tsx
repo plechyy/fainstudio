@@ -53,6 +53,8 @@ const GROUPS: { id: string; name: string; from: string; items: Item[] }[] = [
   },
 ];
 
+const COLORS: Record<string, string> = { visitor: '#7a4df0', copy: '#d9398f', design: '#0d9488', rival: '#d97706' };
+
 const KEY = 'fs-admin-todo-v1';
 type Saved = { done: Record<string, boolean>; custom: { id: string; t: string; done: boolean }[] };
 
@@ -95,6 +97,8 @@ export default function AdminTodo() {
     return { total, done };
   }, [saved]);
 
+  const pct = stats.total ? Math.round((stats.done / stats.total) * 100) : 0;
+
   return (
     <section className="td" aria-labelledby="td-title">
       <header className="adm__head">
@@ -104,19 +108,34 @@ export default function AdminTodo() {
           </h1>
           <p className="adm__sub">Co zbývá, aby web byl na 9/10.</p>
         </div>
-        <p className="td__sum">
-          {stats.done} z {stats.total} hotovo
-          <span className="td__bar" aria-hidden="true">
-            <i style={{ width: `${stats.total ? (stats.done / stats.total) * 100 : 0}%` }} />
-          </span>
-        </p>
       </header>
+
+      <div className="adm__stats">
+        <div className="st__card">
+          <span>Hotovo</span>
+          <b>{stats.done}</b>
+        </div>
+        <div className="st__card">
+          <span>Zbývá</span>
+          <b>{stats.total - stats.done}</b>
+        </div>
+        <div className="st__card">
+          <span>Postup</span>
+          <b>
+            {pct}
+            <small>%</small>
+          </b>
+          <span className="td__bar" aria-hidden="true">
+            <i style={{ width: `${pct}%` }} />
+          </span>
+        </div>
+      </div>
 
       <div className="td__grid">
         {GROUPS.map((g) => {
           const done = g.items.filter((i) => saved.done[i.id]).length;
           return (
-            <div className="td__card" key={g.id}>
+            <div className="td__card" key={g.id} style={{ ['--g' as string]: COLORS[g.id] }}>
               <h3 className="td__gh">
                 {g.name}
                 <small>

@@ -13,12 +13,22 @@ export default async function AdminLogin() {
   if (await isAdmin()) redirect('/admin');
   return (
     <main className="adm adm--login">
-      <div className="adm__card">
-        <p className="adm__brand" aria-hidden="true">
-          FaiN Studio
-        </p>
-        <h1 className="adm__h1">Přihlášení do administrace</h1>
-        <LoginForm />
+      <section className="adm__hero" aria-hidden="true">
+        <p className="adm__brand">FaiN Studio</p>
+        <div>
+          <h2>Všechno na jednom místě.</h2>
+          <p>Úkoly, soubory a analytika webu. Jen pro vás.</p>
+        </div>
+      </section>
+      <div className="adm__panel">
+        <div className="adm__card">
+          <p className="adm__brand" aria-hidden="true">
+            FaiN Studio
+          </p>
+          <h1 className="adm__h1">Vítejte zpět</h1>
+          <p className="adm__lead">Přihlaste se do administrace.</p>
+          <LoginForm />
+        </div>
       </div>
     </main>
   );
