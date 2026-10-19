@@ -8,7 +8,7 @@ const LINKS = [
   { href: '#systemy', label: 'Co zvládneme' },
   { href: '#proc-ai', label: 'Proč AI' },
   { href: '#postup', label: 'Postup' },
-  { href: '#pred-po', label: 'Dneska a potom' },
+  { href: '#pripady', label: 'Případy' },
   { href: '#srovnani', label: 'Srovnání' },
   { href: '#proof', label: 'Přínosy' },
   { href: '#kdo', label: 'O nás' },

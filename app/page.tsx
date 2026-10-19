@@ -4,7 +4,7 @@ import Hero from '@/components/Hero';
 import Systems from '@/components/Systems';
 import WhyAi from '@/components/WhyAi';
 import Process from '@/components/Process';
-import BeforeAfter from '@/components/BeforeAfter';
+import Cases from '@/components/Cases';
 import Compare from '@/components/Compare';
 import Proof from '@/components/Proof';
 import Faq from '@/components/Faq';
@@ -28,7 +28,7 @@ export default function Home() {
         <Systems />
         <WhyAi />
         <Process />
-        <BeforeAfter />
+        <Cases />
         <Compare />
         <Proof />
         <About />

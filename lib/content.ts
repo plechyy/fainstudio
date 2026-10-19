@@ -99,29 +99,91 @@ export const process = {
   ],
 };
 
-export const beforeAfter = {
-  title: 'Jak to vypadá dneska. A jak potom.',
-  lead: 'Neměníme, co vaše firma dělá. Měníme to, kolik z toho musí dělat lidé ručně.',
-  before: {
-    label: 'Dneska',
-    items: [
-      { k: 'Informace', t: 'Rozházené po e-mailech, tabulkách a hlavách lidí.' },
-      { k: 'Práce', t: 'Dělají ji lidé ručně, krok za krokem.' },
-      { k: 'Rozhodování', t: 'Podle toho, co se zrovna stihlo dohledat.' },
-      { k: 'Růst', t: 'Víc práce znamená víc lidí.' },
-    ],
-  },
-  after: {
-    label: 'Potom',
-    items: [
-      { k: 'Informace', t: 'Na jednom místě a pořád aktuální.' },
-      { k: 'Práce', t: 'Udělá ji systém. Lidé ji řídí a kontrolují.' },
-      { k: 'Rozhodování', t: 'Podle čísel, která máte po ruce.' },
-      { k: 'Růst', t: 'Firma roste, papírování ne.' },
-    ],
-  },
-  cta: 'Chci to u nás',
-};
+/*
+ * Sekce „Případy“. Zatím jsou všechny tři MODELOVÉ: typická firma, typické objemy, výpočet ukázaný celý.
+ * Nejsou to reference klientů a sekce to říká (štítek na kartě a poznámka pod ní).
+ * Až bude skutečný případ s písemným souhlasem klienta, přepiš u něj kind na 'real': štítek zmizí,
+ * a když už nezbude žádný modelový, zmizí i poznámka. Žádné pevné ceny ani termíny dodání;
+ * hodiny jsou ušetřený čas z výpočtu, který je vidět pod každým případem.
+ */
+export const cases = {
+  title: 'Čeho se bojíte?',
+  accent: 'Ukážeme, jak to řešíme.',
+  lead: 'Tři obavy, které má skoro každý, kdo o automatizaci uvažuje. U každé vidíte, co jsme postavili, co zůstalo na lidech a jak se pozná, že to funguje.',
+  modelLabel: 'Modelový případ',
+  note: 'Modelové případy: typická firma, typické objemy a výpočet, který vidíte celý. Skutečná čísla u vás spočítáme na prvním hovoru. Jména klientů zveřejníme jen s jejich souhlasem.',
+  labels: { built: 'Co jsme postavili', human: 'Co zůstalo na lidech', before: 'Ručně', hours: 'týdně' },
+  items: [
+    {
+      id: 'chyby',
+      nav: 'Chyby',
+      kind: 'model',
+      firm: 'Účetní kancelář',
+      fear: 'Co když si systém splete číslo?',
+      built: 'Systém doklady přečte, roztřídí a přepíše do tabulky. Co si není jistý, zvýrazní a pošle člověku.',
+      human: 'Sporné doklady schvaluje člověk a pravidelně se kontroluje vzorek těch hotových.',
+      visual: { type: 'dots', total: 150, human: 15, auto: 'Zvládl sám', toHuman: 'Šlo k člověku' },
+      result: {
+        before: { value: '10 h', hours: 10 },
+        after: { label: 'S kontrolou', value: '1,5 h', hours: 1.5 },
+        math: ['150 dokladů týdně × 4 min ručně = 10 h', '15 sporných × 2 min + kontrola vzorku 1 h = 1,5 h'],
+      },
+    },
+    {
+      id: 'navratnost',
+      nav: 'Návratnost',
+      kind: 'model',
+      firm: 'Stavební firma',
+      fear: 'Zaplatíme to a nikdo to nebude používat.',
+      built: 'Systém každé ráno projde portály s veřejnými zakázkami a pošle jen ty, které firma zvládne. K nejlepší rovnou připraví koncept nabídky.',
+      human: 'Firma rozhoduje, kterou zakázku vezme. Co má systém umět, je v návrhu napsané předem, takže se dá změřit.',
+      visual: {
+        type: 'funnel',
+        steps: [
+          { label: 'Nových zakázek', n: '2 341', w: 100 },
+          { label: 'Váš obor', n: '186', w: 67 },
+          { label: 'Váš kraj', n: '41', w: 48 },
+          { label: 'Hodnota, kterou zvládnete', n: '9', w: 28 },
+          { label: 'Termín, který stihnete', n: '3', w: 14 },
+        ],
+      },
+      result: {
+        before: { value: '7,5 h', hours: 7.5 },
+        after: { label: 'Čtení návrhů', value: '1 h', hours: 1 },
+        math: ['1,5 h denně procházení portálů × 5 dní = 7,5 h', '10 min denně na přečtení tří návrhů = asi 1 h'],
+      },
+    },
+    {
+      id: 'data',
+      nav: 'Data',
+      kind: 'model',
+      firm: 'Zubní klinika',
+      fear: 'Naše data nikam nepatří.',
+      built: 'Interní asistent odpovídá jen z dokumentů kliniky: dovolená, rozpis směn, postupy. Běží lokálně u vás.',
+      human: 'Žádost o volno schválí vedoucí. Když asistent odpověď nezná, řekne to a předá dotaz člověku.',
+      visual: {
+        type: 'perimeter',
+        inside: 'U vás',
+        chips: ['Dokumenty kliniky', 'Asistent', 'Jen určení lidé'],
+        outside: 'Cizí cloud',
+        outsideNote: 'Do AI modelů jde jen to, co se předem domluví.',
+      },
+      result: {
+        before: { value: '3 h', hours: 3 },
+        after: { label: 'Schvalování', value: '20 min', hours: 0.33 },
+        math: ['30 dotazů týdně × 6 min vyřizování = 3 h', '30 schválení jedním klikem × 40 s = 20 min'],
+      },
+    },
+  ],
+  assurances: [
+    { k: 'Rozhodujete vy', t: 'O důležitých věcech pořád rozhoduje člověk, ne systém.' },
+    { k: 'Data zůstávají vaše', t: 'Před začátkem podepíšeme NDA a smlouvu o zpracování osobních údajů.' },
+    { k: 'Živá ukázka každý týden', t: 'Vidíte, jak to postupuje, ne až na konci.' },
+    { k: 'Cena před podpisem', t: 'Konkrétní číslo dostanete ještě předtím, než cokoli podepíšete.' },
+  ],
+  verify: { lead: 'Za webem stojí konkrétní člověk a firma, kterou si ověříte v rejstříku.', link: 'Ověřit v ARES' },
+  cta: 'Chci zjistit, co by šlo líp',
+} as const;
 
 export const compare = {
   title: 'Jiné cesty to taky umí. Jen jinak.',
