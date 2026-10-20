@@ -6859,13 +6859,15 @@ html.is-loading .seq {
   inset: 0;
   z-index: 400;
   display: grid;
-  place-items: end center;
+  place-items: center;
 }
 /* počítač: stránka pod listem je rozmazaná a list je průhlednější; mobil má jen plnou clonu (blur tam blikal) */
 .rd__bg {
   position: absolute;
   inset: 0;
   background: color-mix(in oklab, var(--bg) 25%, transparent);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
   opacity: 0;
   transition: opacity 360ms var(--ease-out);
 }
@@ -6883,12 +6885,11 @@ html.is-loading .seq {
   display: flex;
   flex-direction: column;
   width: min(1120px, 100%);
-  height: calc(100% - clamp(0px, 3vw, 28px));
+  height: calc(100% - 2 * clamp(12px, 3vw, 32px));
   overflow: hidden;
-  border-inline: 1px solid var(--line-strong);
-  border-top: 1px solid var(--line-strong);
-  border-radius: 0;
-  background: color-mix(in oklab, var(--bg) 52%, transparent);
+  border: 1px solid var(--line-strong);
+  border-radius: clamp(14px, 1.8vw, 24px);
+  background: color-mix(in oklab, var(--bg) 36%, transparent);
   -webkit-backdrop-filter: blur(28px) saturate(1.25);
   backdrop-filter: blur(28px) saturate(1.25);
   transform: translateY(60px);
@@ -7045,6 +7046,8 @@ html.is-loading .seq {
   }
   .rd__bg {
     background: oklch(0 0 0 / 0.45);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
   .rd__sheet {
     background: var(--bg);
@@ -7088,6 +7091,7 @@ html.is-loading .seq {
   justify-content: center;
   margin-top: clamp(32px, 4vw, 56px);
 }
+
 
 
 
