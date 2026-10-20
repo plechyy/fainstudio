@@ -9,6 +9,9 @@ import MasterLive from './cases/MasterLive';
 import MeetingLive from './cases/MeetingLive';
 import PhotoLive from './cases/PhotoLive';
 import RealtyLive from './cases/RealtyLive';
+import FirmLogo from './cases/FirmLogo';
+import CaseModal from './cases/CaseModal';
+import Story from './cases/stories';
 
 type Item = (typeof cases.items)[number];
 const L = cases.labels;
@@ -43,6 +46,8 @@ export default function CasesCarousel() {
   const track = useRef<HTMLDivElement>(null);
   // kam carousel právě jede: rychlé klikání na šipku počítá od cíle, ne od karty, která je ještě vidět
   const target = useRef<number | null>(null);
+  // který případ má právě otevřené okno s průběhem spolupráce
+  const [story, setStory] = useState<number | null>(null);
   const [active, setActive] = useState(0);
   const [seen, setSeen] = useState<Set<number>>(() => new Set());
 
@@ -136,7 +141,7 @@ export default function CasesCarousel() {
           >
             <div className="cx-case__head">
               <p className="cx-case__tag">
-                {c.firm}
+                <FirmLogo id={c.id} />
               </p>
               <h3 className="cx-case__title">{c.title}</h3>
               <p className="cx-res">
@@ -151,6 +156,12 @@ export default function CasesCarousel() {
                 </span>
                 <span className="cx-res__unit">{c.result.unit}</span>
               </p>
+              <button type="button" className="cx-more" onClick={() => setStory(i)}>
+                {L.more}
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </button>
             </div>
 
             <div className="cx-case__stage art" style={{ ['--ac-h' as string]: `calc(var(--pal-h) + ${c.hue})` }} aria-hidden="true">
@@ -175,6 +186,10 @@ export default function CasesCarousel() {
         ))}
       </div>
       </div>
+
+      <CaseModal open={story !== null} onClose={() => setStory(null)} label={story !== null ? `${items[story].firm}: jak to probíhalo` : ''} hue={story !== null ? items[story].hue : 0}>
+        {story !== null && <Story id={items[story].id} title={items[story].title} />}
+      </CaseModal>
     </div>
   );
 }

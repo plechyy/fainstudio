@@ -5245,9 +5245,9 @@ html.is-loading .seq {
   color: oklch(from var(--ac) clamp(0.16, calc((0.66 - l) * 60), 0.98) 0.02 h);
 }
 .cz-feed__phone {
-  right: -6%;
-  bottom: -18%;
-  width: 74%;
+  right: 0;
+  bottom: -8%;
+  width: 70%;
 }
 .cz-push {
   display: grid;
@@ -5305,7 +5305,7 @@ html.is-loading .seq {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 22px 18px 74px;
+  padding: 20px 18px 110px;
 }
 .cz-call__av {
   display: grid;
@@ -5354,9 +5354,9 @@ html.is-loading .seq {
   font-size: 0.8rem;
 }
 .cz-score-l {
-  right: -10%;
-  top: 30%;
-  width: 66%;
+  right: 0;
+  top: 16%;
+  width: 80%;
 }
 .cz-score {
   display: grid;
@@ -6011,8 +6011,8 @@ html.is-loading .seq {
   box-shadow: -4px 0 0 0 color-mix(in oklab, var(--ac) 14%, transparent), 4px 0 0 0 color-mix(in oklab, var(--ac) 14%, transparent);
 }
 .cz-board-l {
-  right: -18%;
-  bottom: -30%;
+  right: 0;
+  bottom: -14%;
   width: 52%;
 }
 .cz-board {
@@ -6089,8 +6089,8 @@ html.is-loading .seq {
   font-weight: 700;
 }
 .cz-meet__toast {
-  left: -6%;
-  top: -12%;
+  left: 0;
+  top: 0;
 }
 
 /* 7 · upomínky: faktura, osa dnů, odcházející připomínky a razítko */
@@ -6220,10 +6220,10 @@ html.is-loading .seq {
 }
 .cz-mail {
   right: 2%;
-  top: -14%;
+  top: 4%;
 }
 .cz-mail--2 {
-  top: -2%;
+  top: 16%;
 }
 .cz-mail p {
   display: flex;
@@ -6240,7 +6240,7 @@ html.is-loading .seq {
   white-space: nowrap;
   box-shadow: 0 18px 30px -16px oklch(0 0 0 / calc(0.7 * var(--sh)));
   opacity: 0;
-  transform: translate(-30px, 30px) scale(0.9);
+  transform: translate(-14px, 16px) scale(0.92);
 }
 .cz-mail p svg {
   width: 14px;
@@ -6251,13 +6251,13 @@ html.is-loading .seq {
   animation: cz-mail 1300ms var(--ease-out) both;
 }
 @keyframes cz-mail {
-  0% { opacity: 0; transform: translate(-30px, 30px) scale(0.9); }
+  0% { opacity: 0; transform: translate(-14px, 16px) scale(0.92); }
   25%, 70% { opacity: 1; transform: none; }
-  100% { opacity: 0; transform: translate(40px, -30px) scale(0.92); }
+  100% { opacity: 0; transform: translate(14px, -14px) scale(0.94); }
 }
 .cz-inv__toast {
-  left: -6%;
-  bottom: -14%;
+  left: 7%;
+  bottom: -6%;
 }
 
 /* mobil: hlavička (obor, nadpis, výsledek), pod ní scéna a popis; scény se zmenší, aby se vešly */
@@ -6336,4 +6336,849 @@ html.is-loading .seq {
 :root[data-theme='light'] .cx__seg {
   --cc: oklch(calc(0.56 + var(--pal-adj)) calc(var(--ac-c) * 1.1) calc(var(--pal-h) + var(--co, 0)));
   --cn: var(--cc);
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   LOGA FIREM V PŘÍPADECH — ilustrační, každé jiné písmo i značka (components/cases/FirmLogo.tsx)
+   ════════════════════════════════════════════════════════════════════ */
+.fl {
+  --lg: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: calc(8px * var(--lg));
+  color: var(--ink);
+  font-size: calc(1.05rem * var(--lg));
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+.fl--lg {
+  --lg: 1.55;
+}
+.fl svg {
+  width: 1.5em;
+  height: 1.5em;
+  flex: none;
+  fill: none;
+  stroke: var(--cc);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.fl em {
+  font-style: normal;
+}
+/* Lindner Reality: klasická patkovka, střecha domku */
+.fl--reality {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.fl--reality span {
+  display: grid;
+  gap: 2px;
+}
+.fl--reality em {
+  color: var(--ink-3);
+  font-family: var(--font-text);
+  font-size: 0.52em;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+/* Brightline: hustý tučný bezpatkový, jasná tečka uprostřed */
+.fl--kouc {
+  font-family: var(--font-text);
+  font-size: calc(1.3rem * var(--lg));
+  font-weight: 800;
+  letter-spacing: -0.05em;
+}
+.fl--kouc i {
+  display: inline-block;
+  width: 0.28em;
+  height: 0.28em;
+  margin: 0 0.04em;
+  border-radius: 50%;
+  background: var(--cc);
+  box-shadow: 0 0 0.5em var(--cc);
+  vertical-align: 0.05em;
+}
+/* Aquaform: měkké zaoblené malé písmo a kapka */
+.fl--fotka {
+  font-family: var(--font-display);
+  font-size: calc(1.25rem * var(--lg));
+  font-weight: 500;
+  letter-spacing: 0;
+}
+/* Woodline Interiér: velké kapitálky, letokruhy */
+.fl--smlouvy {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+.fl--smlouvy span {
+  display: grid;
+  gap: 3px;
+  font-size: 0.88em;
+}
+.fl--smlouvy em {
+  color: var(--cc);
+  font-size: 0.62em;
+  letter-spacing: 0.42em;
+}
+/* Strojírna Veselý: těžké úzké kapitálky, ozubená silueta */
+.fl--knowhow {
+  font-family: var(--font-text);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+.fl--knowhow svg {
+  fill: var(--cc);
+  stroke: none;
+}
+.fl--knowhow span {
+  display: grid;
+  gap: 2px;
+  font-size: 0.92em;
+  line-height: 0.95;
+}
+.fl--knowhow em {
+  font-size: 0.7em;
+  font-weight: 800;
+  letter-spacing: 0.34em;
+  color: var(--ink-2);
+}
+/* ATELIER 22: lehké kapitálky a dvaadvacítka v kroužku */
+.fl--porady {
+  font-family: var(--font-text);
+  font-weight: 300;
+  letter-spacing: 0.34em;
+}
+.fl__ring {
+  display: grid;
+  place-items: center;
+  width: 1.9em;
+  height: 1.9em;
+  border: 1.5px solid var(--cc);
+  border-radius: 50%;
+  color: var(--cc);
+  font-size: 0.6em;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+/* SeidlServis: šikmé zaoblené písmo na štítku */
+.fl--upominky {
+  font-family: var(--font-display);
+  font-size: calc(1.2rem * var(--lg));
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+.fl__badge {
+  display: grid;
+  place-items: center;
+  width: 1.55em;
+  height: 1.55em;
+  border-radius: 0.45em;
+  background: var(--cc);
+  color: oklch(0.2 0.03 var(--pal-h));
+  font-size: 0.9em;
+  font-style: italic;
+  font-weight: 800;
+  transform: rotate(-6deg);
+}
+.fl--upominky em {
+  color: var(--cc);
+}
+.cx-case__tag .fl {
+  --lg: 1.05;
+}
+
+/* tlačítko pod blokem Dřív → Teď */
+.cx-more {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 18px 11px 20px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color 250ms,
+    background-color 250ms,
+    gap 250ms var(--ease-out);
+}
+.cx-more svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: var(--cc);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.cx-more:hover {
+  gap: 14px;
+  border-color: color-mix(in oklab, var(--cc) 60%, transparent);
+  background: color-mix(in oklab, var(--cc) 10%, transparent);
+}
+.cx-more:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   OKNO S PRŮBĚHEM SPOLUPRÁCE — vyjede přes rozmazané pozadí a samo ostří při dosednutí
+   ════════════════════════════════════════════════════════════════════ */
+.cm {
+  --cc: oklch(calc(0.8 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) + var(--co, 0)));
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  display: grid;
+  place-items: center;
+  padding: clamp(12px, 3vw, 40px);
+}
+.cm__bg {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in oklab, var(--bg) 62%, transparent);
+  -webkit-backdrop-filter: blur(0px);
+  backdrop-filter: blur(0px);
+  opacity: 0;
+  transition:
+    opacity 420ms var(--ease-out),
+    -webkit-backdrop-filter 520ms var(--ease-out),
+    backdrop-filter 520ms var(--ease-out);
+}
+.cm.is-open .cm__bg {
+  opacity: 1;
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  backdrop-filter: blur(18px) saturate(1.2);
+}
+.cm__panel {
+  position: relative;
+  display: grid;
+  width: min(1040px, 100%);
+  max-height: min(90vh, 940px);
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: 24px;
+  background: var(--surface);
+  box-shadow: 0 60px 120px -40px oklch(0 0 0 / 0.8);
+  opacity: 0;
+  transform: translateY(30px) scale(0.965);
+  filter: blur(18px);
+  transition:
+    opacity 380ms var(--ease-out),
+    transform 560ms var(--ease-out),
+    filter 520ms var(--ease-out);
+  will-change: transform, filter;
+}
+.cm.is-open .cm__panel {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+  transition-delay: 60ms;
+}
+.cm__scroll {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: clamp(24px, 4vw, 48px) clamp(20px, 4.4vw, 56px) clamp(28px, 4vw, 52px);
+  scrollbar-width: thin;
+}
+.cm__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--surface) 80%, transparent);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    transform 250ms var(--ease-out),
+    border-color 200ms;
+}
+.cm__close:hover {
+  transform: rotate(90deg);
+  border-color: var(--ink-3);
+}
+.cm__close:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+.cm__close svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+/* obsah studie naskakuje po částech, až když okno dosedne */
+.cm .st > * {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 520ms var(--ease-out),
+    transform 620ms var(--ease-out);
+}
+.cm.is-open .st > * {
+  opacity: 1;
+  transform: none;
+}
+.cm.is-open .st > *:nth-child(1) { transition-delay: 220ms; }
+.cm.is-open .st > *:nth-child(2) { transition-delay: 300ms; }
+.cm.is-open .st > *:nth-child(3) { transition-delay: 380ms; }
+.cm.is-open .st > *:nth-child(4) { transition-delay: 460ms; }
+.cm.is-open .st > *:nth-child(n + 5) { transition-delay: 540ms; }
+.st__note {
+  margin: 28px 0 0;
+  color: var(--ink-3);
+  font-size: 0.8rem;
+}
+
+/* mobil: spodní list přes (skoro) celou obrazovku */
+@media (max-width: 639px) {
+  .cm {
+    place-items: end center;
+    padding: 0;
+  }
+  .cm__panel {
+    width: 100%;
+    max-height: 94vh;
+    border-radius: 22px 22px 0 0;
+    border-bottom: 0;
+    transform: translateY(70px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cm__bg,
+  .cm__panel,
+  .cm .st > * {
+    transition: opacity 200ms !important;
+    transform: none !important;
+    filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    transition-delay: 0ms !important;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   STUDIE V OKNĚ — společné prvky; každá studie má vlastní tvar (st--log, st--chapters …)
+   ════════════════════════════════════════════════════════════════════ */
+.st {
+  display: grid;
+  gap: clamp(28px, 3.4vw, 44px);
+  color: var(--ink-2);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+.st p {
+  margin: 0;
+  text-wrap: pretty;
+}
+.st-head {
+  display: grid;
+  gap: 18px;
+  padding-right: 48px;
+}
+.st-head__t {
+  margin: 0;
+  max-width: 24ch;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.1rem + 1.7vw, 2.3rem);
+  font-weight: 620;
+  letter-spacing: -0.028em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+.st-lead {
+  max-width: 62ch;
+  color: var(--ink);
+  font-size: 1.08rem;
+  line-height: 1.6;
+}
+.st-h {
+  margin: 0 0 8px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  font-weight: 620;
+  letter-spacing: -0.01em;
+}
+.st-sub {
+  max-width: 60ch;
+  margin-bottom: 18px !important;
+}
+.st-cols {
+  display: grid;
+  gap: 26px;
+}
+.st-tools {
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  color: var(--ink-3);
+  font-size: 0.86rem;
+}
+.st-end {
+  margin-top: 4px !important;
+}
+.st-checks {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.st-checks li {
+  position: relative;
+  padding-left: 22px;
+}
+.st-checks li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 0.55em;
+  width: 9px;
+  height: 5px;
+  border-left: 2px solid var(--cc);
+  border-bottom: 2px solid var(--cc);
+  transform: rotate(-45deg);
+}
+@media (min-width: 760px) {
+  .st-cols {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 44px;
+  }
+  .st--interviews .st-cols {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 32px;
+  }
+}
+
+/* 1 · stopky (Lindner Reality): jedno ráno po minutách na svislé ose */
+.st-clock {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.st-clock::before {
+  content: '';
+  position: absolute;
+  left: 4.6rem;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  background: var(--line-strong);
+}
+.st-clock li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 4.6rem minmax(0, 1fr);
+  gap: 0 26px;
+  padding: 12px 0;
+}
+.st-clock li::before {
+  content: '';
+  position: absolute;
+  left: calc(4.6rem - 5px);
+  top: 20px;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--line-strong);
+  border-radius: 50%;
+  background: var(--surface);
+}
+.st-clock li[data-who='Hlídač']::before {
+  border-color: var(--cc);
+  background: var(--cc);
+}
+.st-clock li[data-who='Makléř']::before {
+  border-color: var(--cc);
+}
+.st-clock time {
+  align-self: start;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 620;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+.st-clock li > span {
+  padding-left: 18px;
+}
+.st-clock li b {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--cc);
+  font-size: 0.7rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.st-clock li[data-who='Majitel'] b {
+  color: var(--ink-3);
+}
+
+/* 2 · kapitoly (Brightline): přilepená fakta vlevo, dlouhé čtení vpravo */
+.st-ch {
+  display: grid;
+  gap: 28px;
+}
+.st-ch__main {
+  display: grid;
+  gap: 34px;
+  max-width: 62ch;
+}
+.st-ch__main section {
+  scroll-margin-top: 20px;
+}
+.st-ch__main p {
+  color: var(--ink-2);
+  font-size: 1.02rem;
+}
+.st-ch__main b {
+  color: var(--ink);
+  font-weight: 620;
+}
+.st-ch blockquote {
+  margin: 18px 0 0;
+  padding-left: 18px;
+  border-left: 3px solid var(--cc);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 560;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+.st-facts {
+  display: grid;
+  gap: 14px;
+  margin: 0 0 22px;
+}
+.st-facts dt {
+  color: var(--ink-3);
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.st-facts dd {
+  margin: 2px 0 0;
+  color: var(--ink);
+  font-weight: 560;
+}
+.st-ch__side nav ol {
+  display: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.st-ch__side nav a {
+  display: block;
+  padding: 7px 0;
+  color: var(--ink-3);
+  font-size: 0.86rem;
+  text-decoration: none;
+  transition: color 200ms;
+}
+.st-ch__side nav a:hover {
+  color: var(--cc);
+}
+@media (min-width: 860px) {
+  .st-ch {
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 48px;
+    align-items: start;
+  }
+  .st-ch__side {
+    position: sticky;
+    top: 0;
+  }
+  .st-ch__side nav ol {
+    display: block;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+  }
+}
+
+/* 3 · přepis (Aquaform): rozhovor zákazníka s webem + poznámka vedle */
+.st-chat__grid {
+  display: grid;
+  gap: 30px;
+}
+.st-bubbles {
+  display: grid;
+  gap: 10px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.st-bubbles li {
+  max-width: 88%;
+  padding: 11px 14px 12px;
+  border-radius: 16px 16px 16px 4px;
+  background: color-mix(in oklab, var(--cc) 10%, var(--surface-2));
+  border: 1px solid color-mix(in oklab, var(--cc) 25%, var(--line));
+  color: var(--ink);
+  font-size: 0.94rem;
+  line-height: 1.5;
+}
+.st-bubbles li.is-zakaznik {
+  justify-self: end;
+  border-radius: 16px 16px 4px 16px;
+  background: var(--line);
+  border-color: transparent;
+}
+.st-bubbles small {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--ink-3);
+  font-size: 0.66rem;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.st-bubbles li.is-asistent small {
+  color: var(--cc);
+}
+.st-note {
+  padding: 22px;
+  border-radius: 18px;
+  background: color-mix(in oklab, var(--cc) 7%, var(--surface-2));
+  align-self: start;
+}
+.st-note .st-h:not(:first-child) {
+  margin-top: 20px;
+}
+@media (min-width: 860px) {
+  .st-chat__grid {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.9fr);
+    gap: 44px;
+  }
+}
+
+/* 4 · smlouva (Woodline): bílý papír s články a poznámky na okraji */
+.st-paper {
+  display: grid;
+  gap: 14px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.st-paper li {
+  --f: oklch(0.7 0.2 25);
+  display: grid;
+  gap: 10px;
+}
+.st-paper li.is-mid {
+  --f: oklch(0.78 0.16 75);
+}
+.st-paper li.is-ok {
+  --f: oklch(0.78 0.15 150);
+}
+.st-paper__clause {
+  padding: 16px 18px;
+  border-radius: 6px;
+  background: oklch(0.975 0.004 90);
+  box-shadow: inset 4px 0 0 var(--f);
+  color: oklch(0.3 0.01 260);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+.st-paper__note {
+  padding: 4px 0 0 14px;
+  border-left: 2px solid var(--f);
+  color: var(--ink);
+  font-size: 0.92rem;
+}
+@media (min-width: 860px) {
+  .st-paper li {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr);
+    gap: 28px;
+    align-items: start;
+  }
+  .st-paper__note {
+    margin-top: 10px;
+  }
+}
+
+/* 5 · rozhovory u strojů (Strojírna Veselý): stroj po stroji, velká jména */
+.st-machines {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.st-machines li {
+  display: grid;
+  gap: 10px 32px;
+  padding: 22px 0;
+  border-top: 1px solid var(--line-strong);
+}
+.st-machines h4 {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 1.1rem + 1.2vw, 1.9rem);
+  font-weight: 620;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+}
+.st-machines p small {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--ink-3);
+  font-size: 0.66rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.st-machines__said {
+  color: var(--ink);
+  font-style: italic;
+}
+.st-machines__made {
+  color: var(--ink-2);
+}
+.st-machines__made small {
+  color: var(--cc) !important;
+}
+@media (min-width: 860px) {
+  .st-machines li {
+    grid-template-columns: 200px minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+/* 6 · krátká (ATELIER 22): nejdřív normálně, co to je, a tři kroky */
+.st--short {
+  max-width: 720px;
+}
+.st-plain {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1rem + 1vw, 1.7rem);
+  font-weight: 560;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+.st-three {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: s;
+}
+.st-three li {
+  padding-top: 14px;
+  border-top: 2px solid var(--cc);
+  color: var(--ink-2);
+}
+.st-three b {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 620;
+}
+@media (min-width: 640px) {
+  .st-three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+  }
+}
+
+/* 7 · pravidla (SeidlServis): tabulka, co kdy odejde a jakým tónem */
+.st-table {
+  width: 100%;
+  margin-top: 12px;
+  border-collapse: collapse;
+  text-align: left;
+}
+.st-table th,
+.st-table td {
+  padding: 14px 16px 14px 0;
+  border-bottom: 1px solid var(--line-strong);
+  vertical-align: top;
+}
+.st-table thead th {
+  color: var(--ink-3);
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.st-table tbody th {
+  width: 9rem;
+  color: var(--cc);
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 620;
+}
+.st-table td {
+  color: var(--ink-2);
+}
+.st-table td:last-child {
+  width: 7rem;
+  color: var(--ink-3);
+  font-size: 0.86rem;
+}
+@media (max-width: 639px) {
+  .st-table thead {
+    display: none;
+  }
+  .st-table,
+  .st-table tbody,
+  .st-table tr,
+  .st-table th,
+  .st-table td {
+    display: block;
+    width: auto !important;
+  }
+  .st-table tr {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line-strong);
+  }
+  .st-table th,
+  .st-table td {
+    padding: 2px 0;
+    border: 0;
+  }
+}
+
+/* světlý motiv */
+:root[data-theme='light'] .cm__bg {
+  background: color-mix(in oklab, var(--bg) 55%, transparent);
+}
+:root[data-theme='light'] .cm {
+  --cc: oklch(calc(0.56 + var(--pal-adj)) calc(var(--ac-c) * 1.1) calc(var(--pal-h) + var(--co, 0)));
 }
