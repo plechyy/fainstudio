@@ -10,7 +10,7 @@ import MeetingLive from './cases/MeetingLive';
 import PhotoLive from './cases/PhotoLive';
 import RealtyLive from './cases/RealtyLive';
 import FirmLogo from './cases/FirmLogo';
-import CaseModal from './cases/CaseModal';
+import StoryPanel from './cases/StoryPanel';
 import Story from './cases/stories';
 
 type Item = (typeof cases.items)[number];
@@ -46,9 +46,14 @@ export default function CasesCarousel() {
   const track = useRef<HTMLDivElement>(null);
   // kam carousel právě jede: rychlé klikání na šipku počítá od cíle, ne od karty, která je ještě vidět
   const target = useRef<number | null>(null);
-  // který případ má právě otevřené okno s průběhem spolupráce
-  const [story, setStory] = useState<number | null>(null);
   const [active, setActive] = useState(0);
+  // který případ má právě otevřený panel s průběhem spolupráce
+  const [story, setStory] = useState<number | null>(null);
+  const closeStory = useCallback(() => setStory(null), []);
+  // panel patří k jednomu případu: když carousel odjede jinam, zavře se
+  useEffect(() => {
+    setStory((s) => (s !== null && s !== active ? null : s));
+  }, [active]);
   const [seen, setSeen] = useState<Set<number>>(() => new Set());
 
   useEffect(() => {
@@ -164,8 +169,13 @@ export default function CasesCarousel() {
               </button>
             </div>
 
-            <div className="cx-case__stage art" style={{ ['--ac-h' as string]: `calc(var(--pal-h) + ${c.hue})` }} aria-hidden="true">
-              <Live v={c.visual} />
+            <div className={`cx-case__stage${story === i ? ' is-covered' : ''}`}>
+              <div className="art" style={{ ['--ac-h' as string]: `calc(var(--pal-h) + ${c.hue})` }} aria-hidden="true">
+                <Live v={c.visual} />
+              </div>
+              <StoryPanel open={story === i} onClose={closeStory} label={`${c.firm}: ${L.more}`} title={L.more}>
+                {story === i && <Story id={c.id} />}
+              </StoryPanel>
             </div>
 
             <dl className="cx-case__dl">
@@ -187,9 +197,6 @@ export default function CasesCarousel() {
       </div>
       </div>
 
-      <CaseModal open={story !== null} onClose={() => setStory(null)} label={story !== null ? `${items[story].firm}: jak to probíhalo` : ''} hue={story !== null ? items[story].hue : 0}>
-        {story !== null && <Story id={items[story].id} title={items[story].title} />}
-      </CaseModal>
     </div>
   );
 }

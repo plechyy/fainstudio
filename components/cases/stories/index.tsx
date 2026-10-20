@@ -13,22 +13,22 @@ import RealtyStory from './RealtyStory';
  * jiný tvar (stopky, kapitoly, přepis, smlouva, rozhovory, krátký text, tabulka)
  * i jiná délka, protože každý případ má jiný příběh.
  */
-export default function Story({ id, title }: { id: string; title: string }) {
+export default function Story({ id }: { id: string }) {
   switch (id) {
     case 'reality':
-      return <RealtyStory id={id} title={title} />;
+      return <RealtyStory />;
     case 'kouc':
-      return <CoachStory id={id} title={title} />;
+      return <CoachStory />;
     case 'fotka':
-      return <PhotoStory id={id} title={title} />;
+      return <PhotoStory />;
     case 'smlouvy':
-      return <ContractStory id={id} title={title} />;
+      return <ContractStory />;
     case 'knowhow':
-      return <MasterStory id={id} title={title} />;
+      return <MasterStory />;
     case 'porady':
-      return <MeetingStory id={id} title={title} />;
+      return <MeetingStory />;
     case 'upominky':
-      return <DunningStory id={id} title={title} />;
+      return <DunningStory />;
     default:
       return null;
   }
