@@ -5484,213 +5484,202 @@ html.is-loading .seq {
   transform: none;
 }
 
-/* 3 · fotka: telefon s hledáčkem, cvak, sken, štítky a cena */
-/* telefon naležato: scéna je široká a větší, než když stojí (stojící by se kvůli výšce smrskl) */
-.cz-cam {
-  position: relative;
+/* 3 · cena z fotky: okno webu firmy; jen ploché prvky, průhlednost a posun (žádné sklo ani náklon) */
+.ph__body {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 54px;
-  width: 80%;
-  padding: 10px 0 10px 10px;
-  border: 3px solid var(--line-strong);
-  border-radius: 28px;
-  background: var(--surface);
-  box-shadow: 0 40px 80px -30px oklch(0 0 0 / calc(0.75 * var(--sh)));
+  gap: 14px;
+  padding: 16px 18px 20px;
 }
-.cz-cam__view {
+.ph__tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.ph__tile {
   position: relative;
-  overflow: hidden;
-  aspect-ratio: 16 / 10;
-  border-radius: 18px;
-  background: linear-gradient(180deg, oklch(0.42 0.015 250) 0%, oklch(0.33 0.012 250) 64%, oklch(0.27 0.01 60) 64%, oklch(0.23 0.01 60) 100%);
-}
-.cz-cam__tile {
-  position: absolute;
-  inset: 0 0 36% 0;
-  background:
-    repeating-linear-gradient(90deg, oklch(1 0 0 / 0.07) 0 1px, transparent 1px 30px),
-    repeating-linear-gradient(0deg, oklch(1 0 0 / 0.07) 0 1px, transparent 1px 30px);
-}
-.cz-cam__tub {
-  position: absolute;
-  left: 6%;
-  bottom: 12%;
-  width: 54%;
-  height: 26%;
-  border-radius: 10px 10px 20px 20px;
-  background: linear-gradient(180deg, oklch(0.93 0.005 250), oklch(0.76 0.01 250));
-  box-shadow: 0 12px 24px -10px oklch(0 0 0 / 0.6);
-}
-.cz-cam__sink {
-  position: absolute;
-  right: 8%;
-  top: 50%;
-  width: 26%;
-  height: 10%;
-  border-radius: 6px 6px 40% 40%;
-  background: linear-gradient(180deg, oklch(0.95 0.005 250), oklch(0.8 0.01 250));
-}
-.cz-cam__mirror {
-  position: absolute;
-  right: 10%;
-  top: 18%;
-  width: 22%;
-  height: 24%;
-  border-radius: 8px;
-  background: linear-gradient(135deg, oklch(0.6 0.02 250), oklch(0.45 0.015 250));
-  border: 2px solid oklch(0.7 0.01 250);
-}
-.cz-cam__corners {
-  position: absolute;
-  inset: 12%;
-  background:
-    linear-gradient(var(--ink), var(--ink)) 0 0 / 18px 2px no-repeat,
-    linear-gradient(var(--ink), var(--ink)) 0 0 / 2px 18px no-repeat,
-    linear-gradient(var(--ink), var(--ink)) 100% 0 / 18px 2px no-repeat,
-    linear-gradient(var(--ink), var(--ink)) 100% 0 / 2px 18px no-repeat,
-    linear-gradient(var(--ink), var(--ink)) 0 100% / 18px 2px no-repeat,
-    linear-gradient(var(--ink), var(--ink)) 0 100% / 2px 18px no-repeat,
-    linear-gradient(var(--ink), var(--ink)) 100% 100% / 18px 2px no-repeat,
-    linear-gradient(var(--ink), var(--ink)) 100% 100% / 2px 18px no-repeat;
-  opacity: 0.8;
-  transition: opacity 300ms;
-}
-.cz-cam.is-shot .cz-cam__corners {
-  opacity: 0;
-}
-.cz-cam__flash {
-  position: absolute;
-  inset: 0;
-  background: #fff;
-  opacity: 0;
-  pointer-events: none;
-}
-.cz-cam.is-flash .cz-cam__flash {
-  animation: cz-flash 350ms ease-out;
-}
-@keyframes cz-flash {
-  0% { opacity: 0.9; }
-  100% { opacity: 0; }
-}
-.cz-cam__scan {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 26%;
-  background: linear-gradient(180deg, transparent, color-mix(in oklab, var(--ac) 40%, transparent), transparent);
-  opacity: 0;
-}
-.cz-cam.is-scan .cz-cam__scan {
-  animation: cz-scan 1100ms ease-in-out;
-}
-@keyframes cz-scan {
-  0% { opacity: 0; transform: translateY(-100%); }
-  15%, 85% { opacity: 1; }
-  100% { opacity: 0; transform: translateY(400%); }
-}
-.cz-cam__view em {
-  position: absolute;
-  padding: 4px 8px 4px 18px;
-  border: 1px solid color-mix(in oklab, var(--ac) 70%, transparent);
-  border-radius: 999px;
-  background: oklch(0.18 0.01 300 / 0.85);
-  color: #fff;
-  font-size: 0.64rem;
-  font-style: normal;
-  font-weight: 600;
-  white-space: nowrap;
-  opacity: 0;
-  transform: scale(0.85);
+  aspect-ratio: 4 / 3;
+  border-radius: 10px;
+  background: var(--surface-2);
+  border: 1px dashed var(--line-strong);
+  opacity: 0.5;
+  transform: scale(0.96);
   transition:
-    opacity 260ms,
+    opacity 380ms var(--ease-out),
+    transform 480ms var(--ease-out),
+    border-color 300ms;
+}
+.ph__tile.is-in {
+  opacity: 1;
+  transform: none;
+  border: 1px solid var(--line-strong);
+  background: oklch(0.36 0.014 250);
+}
+/* nakreslené fotky: stěna, vana, umyvadlo (jednobarevné tvary, nic se neořezává) */
+.ph__tile i {
+  position: absolute;
+  display: block;
+  opacity: 0;
+  transition: opacity 380ms 120ms;
+}
+.ph__tile.is-in i {
+  opacity: 1;
+}
+.ph__tile--0 i:nth-child(1) {
+  left: 12%;
+  right: 12%;
+  bottom: 14%;
+  height: 34%;
+  border-radius: 6px 6px 12px 12px;
+  background: oklch(0.92 0.005 250);
+}
+.ph__tile--0 i:nth-child(2) {
+  left: 12%;
+  top: 14%;
+  width: 34%;
+  height: 12%;
+  border-radius: 3px;
+  background: color-mix(in oklab, var(--ac) 70%, transparent);
+}
+.ph__tile--1 i:nth-child(1) {
+  left: 18%;
+  top: 22%;
+  width: 40%;
+  height: 40%;
+  border-radius: 4px;
+  background: color-mix(in oklab, var(--ac) 40%, oklch(0.5 0.01 250));
+}
+.ph__tile--1 i:nth-child(2) {
+  right: 14%;
+  bottom: 18%;
+  width: 34%;
+  height: 24%;
+  border-radius: 3px;
+  background: oklch(0.55 0.012 250);
+}
+.ph__tile--2 i:nth-child(1) {
+  left: 24%;
+  right: 24%;
+  top: 30%;
+  height: 22%;
+  border-radius: 5px 5px 40% 40%;
+  background: oklch(0.94 0.005 250);
+}
+.ph__tile--2 i:nth-child(2) {
+  left: 46%;
+  top: 18%;
+  width: 8%;
+  height: 12%;
+  border-radius: 2px;
+  background: oklch(0.7 0.01 250);
+}
+.ph__status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 1.3em;
+  margin: 0;
+  color: var(--ink-2);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.ph__status .sc-spin {
+  width: 12px;
+  height: 12px;
+}
+.ph__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+  min-height: 112px;
+}
+.ph__found {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ph__found li {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--surface-2);
+  font-size: 0.72rem;
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 320ms var(--ease-out),
     transform 420ms var(--ease-out);
 }
-.cz-cam__view em::before {
-  content: '';
-  position: absolute;
-  left: 7px;
-  top: 50%;
-  width: 6px;
-  height: 6px;
-  margin-top: -3px;
-  border-radius: 50%;
-  background: var(--ac);
-  box-shadow: 0 0 8px var(--ac);
-}
-.cz-cam__view em.is-in {
+.ph__found li.is-in {
   opacity: 1;
   transform: none;
 }
-.cz-cam__bar {
+.ph__found .sc-ok {
+  width: 13px;
+  height: 13px;
+}
+.ph__found b {
+  color: var(--ink);
+}
+.ph__found span {
+  overflow: hidden;
+  color: var(--ink-3);
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ph__price {
   display: grid;
-  place-items: center;
-  margin: 0;
-  padding: 0 6px;
-}
-/* text „Poznávám…“ se při skenu ukazuje přímo na fotce, v pruhu zůstává jen spoušť */
-.cz-cam__bar span {
-  display: none;
-}
-.cz-cam__shutter {
-  width: 30px;
-  height: 30px;
-  border: 3px solid var(--ink-2);
-  border-radius: 50%;
-  box-shadow: inset 0 0 0 3px var(--surface), inset 0 0 0 20px var(--ink-2);
-  transition: transform 160ms var(--ease-out);
-}
-.cz-cam.is-flash .cz-cam__shutter {
-  transform: scale(0.86);
-}
-.cz-price-l {
-  right: -3%;
-  bottom: -18%;
-  width: 44%;
-}
-.cz-price {
-  display: grid;
-  gap: 4px;
-  padding: 14px;
+  gap: 3px;
+  padding: 12px 14px;
   border: 1px solid color-mix(in oklab, var(--ac) 45%, var(--line));
-  border-radius: 16px;
+  border-radius: 12px;
   background: var(--surface-2);
-  box-shadow:
-    0 26px 44px -18px oklch(0 0 0 / calc(0.75 * var(--sh))),
-    0 0 34px -12px var(--ac-glow);
   opacity: 0;
-  transform: translateX(20px);
+  transform: translateY(8px);
   transition:
-    opacity 300ms,
-    transform 560ms var(--ease-out);
+    opacity 360ms var(--ease-out),
+    transform 480ms var(--ease-out);
 }
-.cz-price-l.is-in .cz-price {
+.ph__price.is-in {
   opacity: 1;
   transform: none;
 }
-.cz-price small {
+.ph__price small {
   color: var(--ink-3);
   font-size: 0.62rem;
   font-weight: 650;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
-.cz-price b {
+.ph__price b {
   color: var(--ink);
   font-family: var(--font-display);
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   font-weight: 650;
   word-spacing: -0.1em;
+  white-space: nowrap;
 }
-.cz-price > span:not(.sc-btn) {
+.ph__price > span:not(.sc-btn) {
   color: var(--ink-2);
-  font-size: 0.68rem;
+  font-size: 0.66rem;
 }
-.cz-price .sc-btn {
+.ph__btn {
+  position: relative;
   justify-self: start;
   margin-top: 6px;
   padding: 5px 12px;
   font-size: 0.68rem;
+}
+.ph__toast {
+  right: 0;
+  top: -6%;
 }
 
 /* 4 · smlouva: papír, čtecí linka, rizika a návrhy změn */
@@ -5805,172 +5794,167 @@ html.is-loading .seq {
   bottom: -16%;
 }
 
-/* 5 · know-how: zdroje kolem telefonu a chat s mistrovou odpovědí */
-.cz-src {
-  width: 38%;
-}
-.cz-src--0 { left: -16%; top: 6%; }
-.cz-src--1 { right: -18%; top: 26%; }
-.cz-src--2 { left: -14%; bottom: 12%; }
-.cz-src > div {
+/* 5 · know-how: okno asistenta v dílně; jen ploché prvky, průhlednost a posun (žádný telefon se skleněným rámem) */
+.mk__body {
   display: grid;
-  gap: 8px;
-  padding: 10px 12px;
-  border: 1px solid var(--line-strong);
-  border-radius: 12px;
-  background: var(--surface-2);
-  opacity: 0.55;
-  transition:
-    opacity 400ms,
-    border-color 400ms,
-    box-shadow 400ms;
+  gap: 12px;
+  padding: 14px 16px 16px;
 }
-.cz-src.is-used > div {
-  opacity: 0.9;
-}
-.cz-src.is-look > div {
-  opacity: 1;
-  border-color: var(--ac);
-  box-shadow: 0 0 24px -6px var(--ac-glow);
-}
-.cz-src p {
+.mk__machines {
   display: flex;
-  align-items: center;
   gap: 6px;
   margin: 0;
-  color: var(--ink-2);
+  padding: 0;
+  list-style: none;
+}
+.mk__machines li {
+  flex: 1;
+  padding: 7px 6px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink-3);
   font-size: 0.64rem;
   font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
 }
-.cz-src p svg {
-  width: 13px;
-  height: 13px;
-  color: var(--ac);
-}
-.cz-src__wave {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  height: 16px;
-}
-.cz-src__wave i {
-  flex: 1;
-  height: 100%;
-  border-radius: 2px;
-  background: var(--ink-3);
-  transform: scaleY(calc(0.25 + var(--k) * 0.08));
-}
-.cz-src__lines {
-  height: 20px;
-  background: repeating-linear-gradient(180deg, var(--line-strong) 0 3px, transparent 3px 7px);
-}
-.cz-src__img {
-  height: 26px;
-  border-radius: 6px;
-  background: linear-gradient(135deg, oklch(0.45 0.02 250), oklch(0.3 0.015 60));
-}
-.cz-chat {
-  position: relative;
-  width: 62%;
-  margin: 0 auto;
-  border: 3px solid var(--line-strong);
-  border-radius: 28px;
-  background: var(--surface);
-  box-shadow: 0 40px 80px -30px oklch(0 0 0 / calc(0.75 * var(--sh)));
-  overflow: hidden;
-}
-.cz-chat__app {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 0;
-  padding: 14px 14px 10px;
-  border-bottom: 1px solid var(--line);
+.mk__machines li.is-on {
+  border-color: color-mix(in oklab, var(--ac) 60%, var(--line));
+  background: color-mix(in oklab, var(--ac) 12%, transparent);
   color: var(--ink);
-  font-size: 0.72rem;
-  font-weight: 650;
 }
-.cz-chat__app span {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: var(--ac);
-}
-.cz-chat__log {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+.mk__log {
+  display: grid;
   gap: 8px;
-  min-height: 236px;
-  padding: 12px;
-  font-size: 0.7rem;
-  line-height: 1.45;
+  min-height: 150px;
+  align-content: start;
 }
-.cz-chat__q {
-  align-self: flex-end;
-  max-width: 85%;
+.mk__q {
+  justify-self: end;
+  max-width: 84%;
   margin: 0;
-  padding: 7px 10px;
+  padding: 8px 12px;
   border-radius: 12px 12px 4px 12px;
   background: var(--line);
   color: var(--ink);
+  font-size: 0.76rem;
+  line-height: 1.45;
   opacity: 0;
-  transform: translateY(8px);
+  transform: translateY(6px);
   transition:
     opacity 300ms,
-    transform 400ms var(--ease-out);
+    transform 420ms var(--ease-out);
 }
-.cz-chat__q.is-in {
+.mk__q.is-in {
   opacity: 1;
   transform: none;
 }
-.cz-chat__think {
+.mk__think {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
   margin: 0;
   color: var(--ink-3);
+  font-size: 0.7rem;
+  opacity: 0;
+  transition: opacity 250ms;
 }
-.cz-chat__think .sc-spin {
+.mk__think.is-in {
+  opacity: 1;
+}
+.mk__think .sc-spin {
   width: 11px;
   height: 11px;
 }
-.cz-chat__a {
-  align-self: flex-start;
+.mk__a {
   max-width: 92%;
-  padding: 8px 10px;
+  padding: 9px 12px;
   border: 1px solid color-mix(in oklab, var(--ac) 35%, var(--line));
   border-radius: 12px 12px 12px 4px;
-  background: var(--surface-2);
+  background: color-mix(in oklab, var(--ac) 8%, var(--surface-2));
   color: var(--ink);
+  font-size: 0.76rem;
+  line-height: 1.5;
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 300ms,
+    transform 420ms var(--ease-out);
 }
-.cz-chat__a p {
+.mk__a.is-in {
+  opacity: 1;
+  transform: none;
+}
+.mk__a p {
+  min-height: 3em;
   margin: 0;
 }
-.cz-chat__a small {
+.mk__a small {
   display: block;
-  margin-top: 5px;
+  margin-top: 4px;
   color: var(--ac);
   font-weight: 600;
   opacity: 0;
   transition: opacity 400ms;
 }
-.cz-chat__a small.is-in {
+.mk__a small.is-in {
   opacity: 1;
 }
-.cz-chat__input {
+.mk__src {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  min-height: 26px;
+}
+.mk__src > span {
+  color: var(--ink-3);
+  font-size: 0.64rem;
+  opacity: 0;
+  transition: opacity 300ms;
+}
+.mk__src em {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  color: var(--ink-2);
+  font-size: 0.64rem;
+  font-style: normal;
+  opacity: 0;
+  transform: translateY(5px);
+  transition:
+    opacity 320ms var(--ease-out),
+    transform 420ms var(--ease-out);
+}
+.mk__src svg {
+  width: 11px;
+  height: 11px;
+  fill: none;
+  stroke: var(--ac);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.mk__src .is-in {
+  opacity: 1;
+  transform: none;
+}
+.mk__input {
   display: flex;
   align-items: center;
   gap: 6px;
   min-height: 34px;
-  margin: 0 10px 12px;
+  margin: 0;
   padding: 6px 6px 6px 12px;
   border: 1px solid var(--line-strong);
   border-radius: 999px;
   color: var(--ink);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
 }
-.cz-chat__send {
+.mk__send {
   display: grid;
   place-items: center;
   width: 22px;
@@ -5980,7 +5964,7 @@ html.is-loading .seq {
   background: var(--ac);
   color: oklch(from var(--ac) clamp(0.16, calc((0.66 - l) * 60), 0.98) 0.02 h);
 }
-.cz-chat__send svg {
+.mk__send svg {
   width: 12px;
   height: 12px;
 }

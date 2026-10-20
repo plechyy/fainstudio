@@ -1,57 +1,77 @@
 'use client';
 
-import { Layer, Scene, useLoop } from '../systems/live/scene';
+import { Cursor, ico, Layer, Scene, Svg, Toast, useLoop } from '../systems/live/scene';
 import type { CaseVisual } from './types';
 
 /*
- * Cena z fotky: zákazník míří telefonem na koupelnu, cvakne, fotkou projede sken,
- * AI do ní připíchne, co poznala, a vedle vyjede předběžná cena s tlačítkem na obhlídku.
+ * Cena z fotky. Okno webu firmy: zákazník nahraje tři fotky koupelny, systém z nich vyčte, co v ní je,
+ * a vedle vyjede předběžná cena. Zákazník klikne na „Domluvit obhlídku“ a majiteli přijde upozornění.
+ * Záměrně jen ploché prvky a průhlednost/posun (žádné sklo, žádný náklon telefonu): dřív tahle scéna
+ * blikala, protože mívala sklo a ořezávání zaoblených rohů kolem pohyblivého obsahu.
  *
- * Fáze: 0 hledáček · 1 cvak · 2 sken · 3–5 štítky · 6 cena · 7 drží · 8 doznění
+ * Fáze: 0 prázdno · 1–3 fotky přistanou · 4 vyčítá · 5–7 poznané věci · 8 cena · 9 kurzor · 10 klik
+ *       11 upozornění · 12 drží · 13 doznění
  */
-const DUR = [1100, 350, 1100, 420, 420, 420, 1000, 2600, 450];
-const DONE = 7;
+const DUR = [900, 500, 500, 500, 1100, 500, 500, 500, 1000, 800, 350, 1200, 2400, 450];
+const DONE = 12;
 
 export default function PhotoLive({ v }: { v: CaseVisual<'photo'> }) {
   const { s, ref } = useLoop(DUR, DONE);
-  const shot = s >= 1 && s <= 7;
+  const photos = s >= 1 ? Math.min(3, s) : 0;
+  const hold = s <= 12;
 
   return (
-    <Scene sceneRef={ref} base={440} className={`sc--photo${s === 8 ? ' is-out' : ''}`}>
+    <Scene sceneRef={ref} base={460} className={`sc--photo${s === 13 ? ' is-out' : ''}`}>
       <Layer z={-90} className="sc__ghost" />
 
-      <div className={`cz-cam${shot ? ' is-shot' : ''}${s === 1 ? ' is-flash' : ''}${s === 2 ? ' is-scan' : ''}`}>
-        <div className="cz-cam__view" aria-hidden="true">
-          <span className="cz-cam__tile" />
-          <span className="cz-cam__tub" />
-          <span className="cz-cam__sink" />
-          <span className="cz-cam__mirror" />
-          <span className="cz-cam__corners" />
-          <span className="cz-cam__scan" />
-          <span className="cz-cam__flash" />
-          {v.tags.map((t, i) => (
-            <em
-              className={s >= 3 + i && s <= 7 ? 'is-in' : undefined}
-              key={t.t}
-              style={{ ...(t.x < 50 ? { left: `${t.x}%` } : { right: `${100 - t.x}%` }), top: `${t.y}%` }}
-            >
-              {t.t}
-            </em>
-          ))}
+      <div className="win ph">
+        <div className="win__bar">
+          <span className="win__dots" />
+          <b className="win__name">{v.window}</b>
+          <span className="win__live">{s >= 8 && hold ? 'Cena hotová' : s >= 4 ? 'Vyčítám' : 'Čeká na fotky'}</span>
         </div>
-        <p className="cz-cam__bar">
-          <span className={s === 2 ? 'is-on' : undefined}>{s === 2 ? v.analyzing : ''}</span>
-          <i className="cz-cam__shutter" />
-        </p>
+
+        <div className="ph__body">
+          <div className="ph__tiles">
+            {[0, 1, 2].map((k) => (
+              <span className={`ph__tile ph__tile--${k}${photos > k && hold ? ' is-in' : ''}`} key={k}>
+                <i />
+                <i />
+              </span>
+            ))}
+          </div>
+
+          <p className="ph__status">
+            {s === 4 && <i className="sc-spin" />}
+            {s < 1 ? v.dropHint : s < 4 ? `${photos} z 3 fotek` : s === 4 ? v.analyzing : v.found}
+          </p>
+
+          <div className="ph__row">
+            <ul className="ph__found">
+              {v.items.map((it, i) => (
+                <li className={s >= 5 + i && hold ? 'is-in' : undefined} key={it.t}>
+                  <Svg className="sc-ok">{ico.check}</Svg>
+                  <b>{it.t}</b>
+                  <span>{it.v}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className={`ph__price${s >= 8 && hold ? ' is-in' : ''}`}>
+              <small>{v.price.k}</small>
+              <b className="num">{v.price.v}</b>
+              <span>{v.price.s}</span>
+              <span className={`sc-btn ph__btn${s === 10 ? ' is-press' : ''}`}>
+                {v.price.btn}
+                <Cursor state={s === 9 ? 'in' : s === 10 ? 'click' : 'off'} />
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <Layer z={120} className={`cz-price-l${s >= 6 && s <= 7 ? ' is-in' : ''}`}>
-        <div className="cz-price">
-          <small>{v.price.k}</small>
-          <b className="num">{v.price.v}</b>
-          <span>{v.price.s}</span>
-          <span className="sc-btn">{v.price.btn}</span>
-        </div>
+      <Layer z={110} className="ph__toast">
+        <Toast show={s >= 11 && hold} icon={ico.bell} title={v.toast.title} sub={v.toast.sub} />
       </Layer>
     </Scene>
   );

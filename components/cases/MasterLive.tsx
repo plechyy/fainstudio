@@ -4,87 +4,77 @@ import { ico, Layer, Scene, Svg, useLoop, useTyped } from '../systems/live/scene
 import type { CaseVisual } from './types';
 
 /*
- * Know-how mistra: nováček u stroje napíše otázku. Kolem telefonu se rozsvítí, kde
- * asistent hledá (rozhovor u stroje, poznámky, fotka), a odpověď přijde mistrovými slovy.
+ * Know-how mistra. Okno asistenta v dílně: nahoře stroje (ten, u kterého nováček stojí, svítí), pod nimi
+ * se píše otázka, asistent hledá v mistrových zápiscích a odpoví jeho slovy; pod odpovědí naskočí zdroje.
+ * Záměrně jen ploché prvky a průhlednost/posun (žádný telefon se zaoblením a ořezem, žádné sklo):
+ * dřív tahle scéna blikala.
  *
- * Fáze: 0 píše otázku · 1 odesláno · 2 hledá ve zdrojích · 3 píše odpověď · 4 podpis a zdroje
- *       5 drží · 6 doznění
+ * Fáze: 0 píše otázku · 1 odesláno · 2 hledá · 3 píše odpověď · 4 podpis a zdroje · 5 drží · 6 doznění
  */
-const DUR = [1300, 400, 1300, 1800, 600, 2600, 450];
+const DUR = [1300, 450, 1300, 1800, 900, 2600, 450];
 const DONE = 5;
 
 export default function MasterLive({ v }: { v: CaseVisual<'brain'> }) {
   const { s, ref } = useLoop(DUR, DONE);
   const q = useTyped(v.q, s, 0, DUR[0]);
   const a = useTyped(v.a, s, 3, DUR[3]);
-  const looking = s === 2;
-  const used = s >= 2 && s <= 5;
+  const sent = s >= 1 && s <= 5;
 
   return (
-    <Scene sceneRef={ref} base={420} className={`sc--master${s === 6 ? ' is-out' : ''}`}>
-      {/* zdroje mistrova know-how kolem telefonu */}
-      <Layer z={-40} className={`cz-src cz-src--0${used ? ' is-used' : ''}${looking ? ' is-look' : ''}`}>
-        <div>
-          <p>
-            <Svg>{ico.chat}</Svg>
-            {v.sources[0]}
-          </p>
-          <span className="cz-src__wave" aria-hidden="true">
-            {Array.from({ length: 16 }, (_, i) => (
-              <i key={i} style={{ ['--k' as string]: (i * 29) % 9 }} />
-            ))}
-          </span>
-        </div>
-      </Layer>
-      <Layer z={-10} className={`cz-src cz-src--1${used ? ' is-used' : ''}${looking ? ' is-look' : ''}`}>
-        <div>
-          <p>
-            <Svg>{ico.pen}</Svg>
-            {v.sources[1]}
-          </p>
-          <span className="cz-src__lines" aria-hidden="true" />
-        </div>
-      </Layer>
-      <Layer z={20} className={`cz-src cz-src--2${used ? ' is-used' : ''}${looking ? ' is-look' : ''}`}>
-        <div>
-          <p>
-            <Svg>{ico.search}</Svg>
-            {v.sources[2]}
-          </p>
-          <span className="cz-src__img" aria-hidden="true" />
-        </div>
-      </Layer>
+    <Scene sceneRef={ref} base={460} className={`sc--master${s === 6 ? ' is-out' : ''}`}>
+      <Layer z={-90} className="sc__ghost" />
 
-      <div className="cz-chat">
-        <p className="cz-chat__app">
-          <span />
-          {v.app}
-        </p>
-        <div className="cz-chat__log">
-          <p className={`cz-chat__q${s >= 1 && s <= 5 ? ' is-in' : ''}`}>{v.q}</p>
-          {looking && (
-            <p className="cz-chat__think">
+      <div className="win mk">
+        <div className="win__bar">
+          <span className="win__dots" />
+          <b className="win__name">{v.app}</b>
+          <span className="win__live">{v.machine}</span>
+        </div>
+
+        <div className="mk__body">
+          <ul className="mk__machines">
+            {v.machines.map((m, i) => (
+              <li className={i === 0 ? 'is-on' : undefined} key={m}>
+                {m}
+              </li>
+            ))}
+          </ul>
+
+          <div className="mk__log">
+            <p className={`mk__q${sent ? ' is-in' : ''}`}>{v.q}</p>
+
+            <p className={`mk__think${s === 2 ? ' is-in' : ''}`}>
               <i className="sc-spin" />
               {v.thinking}
             </p>
-          )}
-          {s >= 3 && s <= 5 && (
-            <div className="cz-chat__a">
+
+            <div className={`mk__a${s >= 3 && s <= 5 ? ' is-in' : ''}`}>
               <p>
-                {s === 3 ? a : v.a}
+                {s === 3 ? a : s >= 4 && s <= 5 ? v.a : ''}
                 {s === 3 && <i className="sc-caret" />}
               </p>
-              <small className={s >= 4 ? 'is-in' : undefined}>— {v.who}</small>
+              <small className={s >= 4 && s <= 5 ? 'is-in' : undefined}>— {v.who}</small>
             </div>
-          )}
+          </div>
+
+          <div className="mk__src">
+            <span className={s >= 4 && s <= 5 ? 'is-in' : undefined}>{v.from}</span>
+            {v.sources.map((x, i) => (
+              <em className={s >= 4 && s <= 5 ? 'is-in' : undefined} style={{ transitionDelay: s >= 4 ? `${i * 120}ms` : undefined }} key={x}>
+                <Svg>{[ico.chat, ico.pen, ico.search][i]}</Svg>
+                {x}
+              </em>
+            ))}
+          </div>
+
+          <p className={`mk__input${s === 0 ? ' is-typing' : ''}`}>
+            {s === 0 ? q : ''}
+            {s === 0 && <i className="sc-caret" />}
+            <span className="mk__send">
+              <Svg>{ico.send}</Svg>
+            </span>
+          </p>
         </div>
-        <p className="cz-chat__input">
-          {s === 0 ? q : ''}
-          {s === 0 && <i className="sc-caret" />}
-          <span className="cz-chat__send">
-            <Svg>{ico.send}</Svg>
-          </span>
-        </p>
       </div>
     </Scene>
   );
