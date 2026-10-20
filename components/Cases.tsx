@@ -3,8 +3,6 @@ import { CAL_URL } from '@/lib/config';
 import CasesCarousel from './CasesCarousel';
 
 export default function Cases() {
-  const anyModel = cases.items.some((it) => it.kind === 'model');
-
   return (
     <section className="section" id="pripady" aria-labelledby="pripady-title">
       <div className="wrap">
@@ -23,8 +21,6 @@ export default function Cases() {
         <div className="reveal">
           <CasesCarousel />
         </div>
-
-        {anyModel && <p className="cs__note">{cases.note}</p>}
 
         <div className="cs__cta">
           <a className="btn btn--primary" href={CAL_URL}>
