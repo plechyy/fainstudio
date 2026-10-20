@@ -6538,437 +6538,295 @@ html.is-loading .seq {
   outline-offset: 3px;
 }
 
-/* ════════════════════════════════════════════════════════════════════
-   ROZBALENÝ PRŮBĚH SPOLUPRÁCE — pod případem na celou šířku, bez vnitřního scrollu.
-   Výška se plynule roztáhne, obsah ostří z rozmazání. Každá studie má vlastní rozvržení.
-   ════════════════════════════════════════════════════════════════════ */
 /* jen otevřený případ povyroste, ostatní zůstanou v původní výšce */
 .cx__track {
   align-items: flex-start;
 }
-.cx-more svg {
-  transition: transform 350ms var(--ease-out);
+.cx-more {
+  text-decoration: none;
 }
-.cx-more[aria-expanded='true'] svg {
-  transform: rotate(180deg);
-}
-/* šipky carouselu držíme u scény, i když je otevřený případ vyšší */
+/* šipky carouselu držíme u scény */
 .cx__arrow {
   top: 200px;
 }
-.sd {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-rows: 0fr;
-  margin-top: 6px;
-  transition: grid-template-rows 520ms var(--ease-out);
-}
-.sd.is-open {
-  grid-template-rows: 1fr;
-}
-.sd__in {
-  min-height: 0;
-  overflow: hidden;
-}
-.sd__body {
-  padding: 28px 0 8px;
-  border-top: 1px solid var(--line-strong);
-  opacity: 0;
-  transform: translateY(10px);
-  filter: blur(12px);
-  transition:
-    opacity 420ms var(--ease-out) 120ms,
-    transform 520ms var(--ease-out) 120ms,
-    filter 480ms var(--ease-out) 120ms;
-}
-.sd.is-open .sd__body {
-  opacity: 1;
-  transform: none;
-  filter: blur(0);
-}
-.st__note {
-  margin: 18px 0 0;
-  color: var(--ink-3);
-  font-size: 0.8rem;
-}
-@media (prefers-reduced-motion: reduce) {
-  .sd,
-  .sd__body {
-    transition: none !important;
-    filter: none !important;
-    transform: none !important;
-  }
-}
 
-/* ── studie: společné prvky ── */
-.st {
+/* ════════════════════════════════════════════════════════════════════
+   STRÁNKA PŘÍPADU (/pripady/<id>) — pevná kostra, tělo je u každého případu jiné
+   ════════════════════════════════════════════════════════════════════ */
+.ca {
+  --cc: oklch(calc(0.8 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) + var(--co, 0)));
+  overflow-x: clip;
+  padding-block: clamp(28px, 5vw, 64px) clamp(60px, 8vw, 120px);
+}
+.ca-hero {
   display: grid;
-  gap: clamp(26px, 3vw, 40px);
-  color: var(--ink-2);
-  font-size: 0.98rem;
-  line-height: 1.62;
+  gap: 22px;
+  max-width: 880px;
 }
-.st p {
-  margin: 0;
-  text-wrap: pretty;
-}
-.st b {
-  color: var(--ink);
-  font-weight: 620;
-}
-.st-lead {
-  max-width: 70ch;
-  color: var(--ink);
-  font-size: 1.08rem;
-}
-.st-h {
-  margin: 0 0 6px;
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-size: 1.12rem;
-  font-weight: 620;
-  letter-spacing: -0.015em;
-}
-.st p + .st-h,
-.st ul + .st-h,
-.st dl + .st-h {
-  margin-top: 22px;
-}
-.st-sub {
-  max-width: 60ch;
-  margin-bottom: 14px !important;
-}
-.st-end {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px 24px;
-  padding-top: 18px;
-  border-top: 1px solid var(--line);
-}
-.st-end button {
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--ink-3);
-  font: inherit;
-  font-size: 0.9rem;
-  cursor: pointer;
-}
-.st-end button:hover {
-  color: var(--ink);
-}
-.st-end a {
-  color: var(--primary-text);
-  font-weight: 600;
-  text-decoration: none;
-}
-.st-end a:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.st-end button:focus-visible,
-.st-end a:focus-visible {
-  outline: 2px solid var(--ink);
-  outline-offset: 4px;
-}
-.st-checks {
-  display: grid;
-  gap: 8px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.st-checks li {
-  position: relative;
-  padding-left: 22px;
-}
-.st-checks li::before {
-  content: '';
-  position: absolute;
-  left: 2px;
-  top: 0.55em;
-  width: 9px;
-  height: 5px;
-  border-left: 2px solid var(--cc);
-  border-bottom: 2px solid var(--cc);
-  transform: rotate(-45deg);
-}
-
-/* dva sloupce: vedlejší vlevo/vpravo, hlavní obsah vedle (jen na šířce) */
-.st--split {
-  align-items: start;
-}
-@media (min-width: 900px) {
-  .st--split {
-    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
-    column-gap: clamp(40px, 5vw, 80px);
-  }
-  .st--split > .st-end {
-    grid-column: 1 / -1;
-  }
-  /* přepis a pravidla mají hlavní obsah vlevo */
-  .st--chat,
-  .st--rules {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-  }
-  .st-two,
-  .st-three-cols {
-    display: grid;
-    gap: 44px;
-  }
-  .st-two {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .st-three-cols {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-.st-two,
-.st-three-cols {
-  display: grid;
-  gap: 26px;
-}
-
-/* otázky a odpovědi (Lindner Reality) */
-.st-qa {
-  display: grid;
-  gap: 24px;
-  margin: 0;
-}
-.st-qa dt {
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-size: clamp(1.2rem, 1rem + 0.9vw, 1.55rem);
-  font-weight: 620;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-}
-.st-qa dd {
-  max-width: 62ch;
+.ca-hero__t {
+  max-width: 22ch;
   margin: 8px 0 0;
-  padding-left: 16px;
-  border-left: 3px solid var(--cc);
-}
-
-/* kapitoly (Brightline) */
-.st--chapters blockquote {
-  margin: 0 0 22px;
   color: var(--ink);
   font-family: var(--font-display);
-  font-size: clamp(1.4rem, 1.1rem + 1.1vw, 1.9rem);
-  font-weight: 600;
-  letter-spacing: -0.025em;
-  line-height: 1.18;
+  font-size: clamp(2rem, 1.2rem + 3.2vw, 3.6rem);
+  font-weight: 620;
+  letter-spacing: -0.03em;
+  line-height: 1.04;
   text-wrap: balance;
 }
-.st--chapters .st-main {
-  display: grid;
-  gap: 0;
-}
-.st--chapters .st-main section {
-  padding: 18px 0;
-  border-top: 1px solid var(--line);
-}
-.st--chapters .st-main section:first-child {
-  padding-top: 0;
-  border-top: 0;
-}
-.st--chapters .st-h {
-  margin-bottom: 4px;
-  color: var(--cc);
-}
-.st-facts {
-  display: grid;
-  gap: 12px;
+.ca-hero__lead {
+  max-width: 54ch;
   margin: 0;
+  color: var(--ink-2);
+  font-size: clamp(1.05rem, 0.98rem + 0.4vw, 1.25rem);
+  line-height: 1.55;
+  text-wrap: pretty;
 }
-.st-facts dt {
+.ca-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 36px;
+  margin: 6px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--line-strong);
+}
+.ca-facts dt {
   color: var(--ink-3);
   font-size: 0.78rem;
   font-weight: 600;
 }
-.st-facts dd {
-  margin: 1px 0 0;
+.ca-facts dd {
+  margin: 2px 0 0;
   color: var(--ink);
   font-weight: 560;
 }
+.ca-res {
+  margin-top: 8px !important;
+}
+.ca-fig {
+  display: grid;
+  place-items: center;
+  overflow-x: clip;
+  max-width: 880px;
+  margin-block: clamp(28px, 4vw, 56px);
+  min-height: 300px;
+}
+.ca-fig .sc-fit {
+  --sc-maxh: 420;
+  display: flex;
+  justify-content: center;
+}
+.ca-fig > .art {
+  width: 100%;
+}
+.ca-prose {
+  max-width: 680px;
+  color: var(--ink-2);
+  font-size: clamp(1.02rem, 0.98rem + 0.2vw, 1.12rem);
+  line-height: 1.75;
+}
+.ca-prose p {
+  margin: 0 0 1.25em;
+  text-wrap: pretty;
+}
+.ca-prose h2 {
+  margin: 2.2em 0 0.6em;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 1.15rem + 1vw, 1.85rem);
+  font-weight: 620;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+.ca-prose b,
+.ca-prose strong {
+  color: var(--ink);
+  font-weight: 620;
+}
+.ca-open {
+  color: var(--ink) !important;
+  font-size: clamp(1.2rem, 1.05rem + 0.7vw, 1.5rem);
+  line-height: 1.5 !important;
+}
+.ca-quote {
+  margin: 1.6em 0 1.8em;
+  padding-left: 22px;
+  border-left: 3px solid var(--cc);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1.05rem + 0.9vw, 1.7rem);
+  font-weight: 560;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+.ca-quote cite {
+  display: block;
+  margin-top: 10px;
+  color: var(--ink-3);
+  font-family: var(--font-text);
+  font-size: 0.86rem;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.ca-end {
+  display: grid;
+  gap: 40px;
+  max-width: 680px;
+  margin-top: clamp(40px, 6vw, 80px);
+  padding-top: 32px;
+  border-top: 1px solid var(--line-strong);
+}
+.ca-end p {
+  margin: 0;
+}
+.ca-next {
+  display: grid;
+  gap: 6px;
+  color: var(--ink);
+  text-decoration: none;
+}
+.ca-next small {
+  color: var(--ink-3);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.ca-next span {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.6rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  transition: color 250ms;
+}
+.ca-next:hover span {
+  color: var(--cc);
+}
 
-/* přepis (Aquaform) */
-.st-bubbles {
+/* zvláštní prvky v textu případů: každý případ používá jen ty, které potřebuje */
+.ca-prose .ca-q {
+  margin: 2em 0 0.5em;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 1.05rem + 0.7vw, 1.5rem);
+  font-weight: 620;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+.ca-chat {
   display: grid;
   gap: 10px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  margin: 0 0 1.6em;
 }
-.st-bubbles li {
+.ca-prose .ca-chat p {
+  margin: 0;
   max-width: 88%;
   padding: 11px 15px 12px;
   border: 1px solid color-mix(in oklab, var(--cc) 28%, var(--line));
   border-radius: 16px 16px 16px 4px;
   background: color-mix(in oklab, var(--cc) 9%, transparent);
   color: var(--ink);
+  font-size: 0.96rem;
+  line-height: 1.5;
 }
-.st-bubbles li.is-z {
+.ca-prose .ca-chat p.is-z {
   justify-self: end;
   border-color: transparent;
   border-radius: 16px 16px 4px 16px;
   background: var(--line);
 }
-.st-bubbles small {
+.ca-chat small {
   display: block;
   margin-bottom: 2px;
   color: var(--ink-3);
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 600;
 }
-.st-bubbles li.is-a small {
+.ca-chat p.is-a small {
   color: var(--cc);
 }
-
-/* smlouva (Woodline Interiér): řádky článek | poznámka */
-.st-paper {
-  display: grid;
-  gap: 14px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.st-paper li {
+.ca-clause {
   --f: oklch(0.7 0.2 25);
   display: grid;
-  gap: 8px;
+  gap: 10px;
+  margin: 0 0 1.4em;
 }
-.st-paper li.is-mid {
+.ca-clause.is-mid {
   --f: oklch(0.78 0.16 75);
 }
-.st-paper li.is-ok {
-  --f: oklch(0.78 0.15 150);
-}
-.st-paper__clause {
-  padding: 14px 16px;
+.ca-prose .ca-clause__text {
+  margin: 0;
+  padding: 14px 18px;
   border-radius: 6px;
   background: oklch(0.975 0.004 90);
   box-shadow: inset 4px 0 0 var(--f);
   color: oklch(0.3 0.01 260);
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: 0.92rem;
+  font-size: 0.96rem;
   line-height: 1.55;
 }
-.st-paper__note {
-  padding-left: 14px;
+.ca-prose .ca-clause__note {
+  margin: 0;
+  padding-left: 16px;
   border-left: 2px solid var(--f);
   color: var(--ink);
+  font-size: 0.96rem;
+  line-height: 1.6;
 }
-@media (min-width: 900px) {
-  .st-paper li {
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-    gap: 34px;
-    align-items: start;
-  }
-  .st-paper__note {
-    margin-top: 10px;
-  }
-}
-
-/* stroje (Strojírna Veselý): řádky stroj | co řekl mistr | co z toho vzniklo */
-.st-machines {
-  display: grid;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.st-machines li {
-  display: grid;
-  gap: 8px 32px;
-  padding: 20px 0;
-  border-top: 1px solid var(--line-strong);
-}
-.st-machines h4 {
-  margin: 0;
+.ca-prose .ca-machine {
+  margin: 1.8em 0 0.3em;
   color: var(--ink);
   font-family: var(--font-display);
-  font-size: clamp(1.3rem, 1.05rem + 1vw, 1.7rem);
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.1rem);
   font-weight: 620;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.03em;
   line-height: 1.1;
 }
-.st-machines p small {
-  display: block;
-  margin-bottom: 2px;
-  color: var(--ink-3);
-  font-size: 0.72rem;
-  font-weight: 600;
-}
-.st-machines__said {
-  color: var(--ink);
-  font-style: italic;
-}
-.st-machines__made small {
-  color: var(--cc) !important;
-}
-@media (min-width: 900px) {
-  .st-machines li {
-    grid-template-columns: 200px minmax(0, 1fr) minmax(0, 1fr);
-    align-items: start;
-  }
-}
-
-/* krátká (ATELIER 22) */
-.st-plain {
-  margin-bottom: 26px !important;
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-size: clamp(1.3rem, 1.05rem + 1vw, 1.75rem);
-  font-weight: 560;
-  letter-spacing: -0.025em;
-  line-height: 1.22;
-  text-wrap: balance;
-}
-.st-three {
+.ca-list {
   display: grid;
-  gap: 14px;
-  margin: 0 0 8px;
+  gap: 8px;
+  margin: 0 0 1.3em;
   padding: 0;
   list-style: none;
 }
-.st-three li {
-  padding-left: 16px;
-  border-left: 3px solid var(--cc);
+.ca-list li {
+  position: relative;
+  padding-left: 24px;
 }
-.st-three b {
-  display: block;
-  margin-bottom: 1px;
-  font-family: var(--font-display);
-  font-size: 1.1rem;
+.ca-list li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 0.7em;
+  width: 10px;
+  height: 5px;
+  border-left: 2px solid var(--cc);
+  border-bottom: 2px solid var(--cc);
+  transform: rotate(-45deg);
 }
-
-/* pravidla (SeidlServis) */
-.st-table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
+.ca-rules {
+  display: grid;
+  margin: 0 0 1.4em;
+  padding: 0;
+  list-style: none;
 }
-.st-table th,
-.st-table td {
-  padding: 13px 14px 13px 0;
+.ca-rules li {
+  display: grid;
+  gap: 2px 28px;
+  padding: 13px 0;
   border-top: 1px solid var(--line-strong);
-  vertical-align: top;
 }
-.st-table tr:last-child th,
-.st-table tr:last-child td {
+.ca-rules li:last-child {
   border-bottom: 1px solid var(--line-strong);
 }
-.st-table th {
-  width: 9rem;
+.ca-rules b {
   color: var(--cc);
   font-family: var(--font-display);
   font-size: 1.05rem;
-  font-weight: 620;
 }
-
-:root[data-theme='light'] .st-paper__clause {
-  box-shadow: inset 4px 0 0 var(--f), 0 0 0 1px var(--line);
+@media (min-width: 640px) {
+  .ca-rules li {
+    grid-template-columns: 9.5rem minmax(0, 1fr);
+  }
 }

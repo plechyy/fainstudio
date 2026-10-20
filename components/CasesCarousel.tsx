@@ -2,39 +2,11 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { cases } from '@/lib/content';
-import CoachLive from './cases/CoachLive';
-import ContractLive from './cases/ContractLive';
-import DunningLive from './cases/DunningLive';
-import MasterLive from './cases/MasterLive';
-import MeetingLive from './cases/MeetingLive';
-import PhotoLive from './cases/PhotoLive';
-import RealtyLive from './cases/RealtyLive';
 import FirmLogo from './cases/FirmLogo';
-import StoryDrawer from './cases/StoryDrawer';
-import Story from './cases/stories';
+import Live from './cases/Live';
+import Link from 'next/link';
 
-type Item = (typeof cases.items)[number];
 const L = cases.labels;
-
-/* živá scéna případu: stejný 3D styl jako v sekci 2, každá ukazuje, co systém u té firmy dělá */
-function Live({ v }: { v: Item['visual'] }) {
-  switch (v.type) {
-    case 'feed':
-      return <RealtyLive v={v} />;
-    case 'score':
-      return <CoachLive v={v} />;
-    case 'photo':
-      return <PhotoLive v={v} />;
-    case 'contract':
-      return <ContractLive v={v} />;
-    case 'brain':
-      return <MasterLive v={v} />;
-    case 'meeting':
-      return <MeetingLive v={v} />;
-    case 'dunning':
-      return <DunningLive v={v} />;
-  }
-}
 
 /*
  * Carousel případů: obyčejný vodorovný scroll s přichytáváním (palcem na mobilu, šipkami
@@ -47,13 +19,6 @@ export default function CasesCarousel() {
   // kam carousel právě jede: rychlé klikání na šipku počítá od cíle, ne od karty, která je ještě vidět
   const target = useRef<number | null>(null);
   const [active, setActive] = useState(0);
-  // který případ má právě otevřený panel s průběhem spolupráce
-  const [story, setStory] = useState<number | null>(null);
-  const closeStory = useCallback(() => setStory(null), []);
-  // panel patří k jednomu případu: když carousel odjede jinam, zavře se
-  useEffect(() => {
-    setStory((s) => (s !== null && s !== active ? null : s));
-  }, [active]);
   const [seen, setSeen] = useState<Set<number>>(() => new Set());
 
   useEffect(() => {
@@ -161,18 +126,12 @@ export default function CasesCarousel() {
                 </span>
                 <span className="cx-res__unit">{c.result.unit}</span>
               </p>
-              <button
-                type="button"
-                className="cx-more"
-                aria-expanded={story === i}
-                aria-controls={`sd-${c.id}`}
-                onClick={() => setStory((s) => (s === i ? null : i))}
-              >
-                {story === i ? L.less : L.more}
+              <Link href={`/pripady/${c.id}`} className="cx-more">
+                {L.more}
                 <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12 5v14M6 13l6 6 6-6" />
+                  <path d="M5 12h14M13 6l6 6-6 6" />
                 </svg>
-              </button>
+              </Link>
             </div>
 
             <div className="cx-case__stage">
@@ -196,9 +155,6 @@ export default function CasesCarousel() {
                 </div>
             </dl>
 
-            <StoryDrawer id={`sd-${c.id}`} open={story === i} onClose={closeStory} label={`${c.firm}: ${L.more}`}>
-              {story === i && <Story id={c.id} />}
-            </StoryDrawer>
           </article>
         ))}
       </div>
