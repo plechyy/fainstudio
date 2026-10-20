@@ -10,7 +10,7 @@ import MeetingLive from './cases/MeetingLive';
 import PhotoLive from './cases/PhotoLive';
 import RealtyLive from './cases/RealtyLive';
 import FirmLogo from './cases/FirmLogo';
-import StoryPanel from './cases/StoryPanel';
+import StoryDrawer from './cases/StoryDrawer';
 import Story from './cases/stories';
 
 type Item = (typeof cases.items)[number];
@@ -161,21 +161,24 @@ export default function CasesCarousel() {
                 </span>
                 <span className="cx-res__unit">{c.result.unit}</span>
               </p>
-              <button type="button" className="cx-more" onClick={() => setStory(i)}>
-                {L.more}
+              <button
+                type="button"
+                className="cx-more"
+                aria-expanded={story === i}
+                aria-controls={`sd-${c.id}`}
+                onClick={() => setStory((s) => (s === i ? null : i))}
+              >
+                {story === i ? L.less : L.more}
                 <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M5 12h14M13 6l6 6-6 6" />
+                  <path d="M12 5v14M6 13l6 6 6-6" />
                 </svg>
               </button>
             </div>
 
-            <div className={`cx-case__stage${story === i ? ' is-covered' : ''}`}>
+            <div className="cx-case__stage">
               <div className="art" style={{ ['--ac-h' as string]: `calc(var(--pal-h) + ${c.hue})` }} aria-hidden="true">
                 <Live v={c.visual} />
               </div>
-              <StoryPanel open={story === i} onClose={closeStory} label={`${c.firm}: ${L.more}`} title={L.more}>
-                {story === i && <Story id={c.id} />}
-              </StoryPanel>
             </div>
 
             <dl className="cx-case__dl">
@@ -192,6 +195,10 @@ export default function CasesCarousel() {
                   <dd>{c.why}</dd>
                 </div>
             </dl>
+
+            <StoryDrawer id={`sd-${c.id}`} open={story === i} onClose={closeStory} label={`${c.firm}: ${L.more}`}>
+              {story === i && <Story id={c.id} />}
+            </StoryDrawer>
           </article>
         ))}
       </div>

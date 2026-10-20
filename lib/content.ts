@@ -112,7 +112,7 @@ export const cases = {
   accent: 'Sedm úplně jiných řešení.',
   lead: 'Modelové případy z oborů, kde to dává největší smysl. U každého vidíte, co bylo potřeba vyřešit, jak jsme to postavili, proč zrovna takhle a co to přineslo.',
   modelLabel: 'Modelový případ',
-  labels: { more: 'Jak to probíhalo', problem: 'Co bylo potřeba vyřešit', how: 'Jak jsme to vyřešili', why: 'Proč zrovna takhle', result: 'Co to přineslo', before: 'Dřív', after: 'Teď', prev: 'Předchozí případ', next: 'Další případ' },
+  labels: { more: 'Jak to probíhalo', less: 'Skrýt průběh', problem: 'Co bylo potřeba vyřešit', how: 'Jak jsme to vyřešili', why: 'Proč zrovna takhle', result: 'Co to přineslo', before: 'Dřív', after: 'Teď', prev: 'Předchozí případ', next: 'Další případ' },
   items: [
     {
       id: 'reality',

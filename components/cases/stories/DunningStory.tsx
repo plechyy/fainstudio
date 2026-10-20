@@ -1,6 +1,6 @@
 import { StoryEnd } from './parts';
 
-/* SeidlServis: jádro případu je rozpis, co kdy odejde, tak je to tabulka. */
+/* SeidlServis: jádro případu je rozpis, co kdy odejde, tak je to tabulka; vedle vysvětlení. */
 const rules = [
   { d: 'Po splatnosti', what: 'Nic. Dáme čas, platba může být na cestě.' },
   { d: 'Den 1', what: 'Přátelská připomínka e-mailem s platebními údaji.' },
@@ -11,25 +11,28 @@ const rules = [
 
 export default function DunningStory() {
   return (
-    <article className="st st--rules">
-      <p className="st-lead">
-        <b>Kdo za kým přišel.</b> Majitel SeidlServisu nechtěl volat zákazníkům kvůli penězům. Většina z nich jen zapomněla. Faktury hlídala účetní
-        v Excelu, když si vzpomněla.
-      </p>
-      <table className="st-table">
-        <caption className="st-h">Pravidla upomínek</caption>
-        <tbody>
-          {rules.map((r) => (
-            <tr key={r.d}>
-              <th scope="row">{r.d}</th>
-              <td>{r.what}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <p>
-        <b>Co zůstalo na účetní.</b> Telefonáty a výjimky. Stálí zákazníci se splátkami mají vlastní pravidla a systém jim nic nepřipomíná.
-      </p>
+    <article className="st st--split st--rules">
+      <div className="st-main">
+        <h3 className="st-h">Pravidla upomínek</h3>
+        <table className="st-table">
+          <tbody>
+            {rules.map((r) => (
+              <tr key={r.d}>
+                <th scope="row">{r.d}</th>
+                <td>{r.what}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="st-side">
+        <h3 className="st-h">Kdo za kým přišel</h3>
+        <p>Majitel SeidlServisu nechtěl volat zákazníkům kvůli penězům. Většina z nich nebyla zlá, jen zapomněla. Faktury hlídala účetní v Excelu, když si vzpomněla, a peníze mezitím ležely u zákazníků.</p>
+        <h3 className="st-h">Proč tak zdvořile</h3>
+        <p>Připomínka ve správnou chvíli to vyřeší a nikdo se nemusí cítit jako dlužník. Přísnější tón přijde, jen když ten první nepomůže.</p>
+        <h3 className="st-h">Co zůstalo na účetní</h3>
+        <p>Telefonáty a výjimky. Stálí zákazníci se splátkami mají vlastní pravidla a systém jim nic nepřipomíná.</p>
+      </div>
       <StoryEnd />
     </article>
   );

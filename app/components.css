@@ -6535,109 +6535,52 @@ html.is-loading .seq {
 }
 
 /* ════════════════════════════════════════════════════════════════════
-   PANEL S PRŮBĚHEM SPOLUPRÁCE — zakryje jen pole se scénou, vyjede rozmazaný a zaostří.
-   Uvnitř se scrolluje; text vlevo (nadpis, výsledek, popis) zůstává vidět.
+   ROZBALENÝ PRŮBĚH SPOLUPRÁCE — pod případem na celou šířku, bez vnitřního scrollu.
+   Výška se plynule roztáhne, obsah ostří z rozmazání. Každá studie má vlastní rozvržení.
    ════════════════════════════════════════════════════════════════════ */
-.cx-case__stage {
-  position: relative;
-  min-height: 330px;
+/* jen otevřený případ povyroste, ostatní zůstanou v původní výšce */
+.cx__track {
+  align-items: flex-start;
 }
-@media (min-width: 900px) {
-  .cx-case__stage {
-    min-height: 360px;
-  }
+.cx-more svg {
+  transition: transform 350ms var(--ease-out);
 }
-.cp {
-  position: absolute;
-  inset: 0 0 -4px;
-  z-index: 4;
-  display: flex;
-  flex-direction: column;
+.cx-more[aria-expanded='true'] svg {
+  transform: rotate(180deg);
+}
+/* šipky carouselu držíme u scény, i když je otevřený případ vyšší */
+.cx__arrow {
+  top: 200px;
+}
+.sd {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-rows: 0fr;
+  margin-top: 6px;
+  transition: grid-template-rows 520ms var(--ease-out);
+}
+.sd.is-open {
+  grid-template-rows: 1fr;
+}
+.sd__in {
   min-height: 0;
   overflow: hidden;
-  border: 1px solid var(--line-strong);
-  border-radius: 18px;
-  background: color-mix(in oklab, var(--surface) 94%, var(--cc));
-  box-shadow: 0 30px 60px -30px oklch(0 0 0 / 0.7);
-  opacity: 0;
-  transform: scale(0.97);
-  filter: blur(14px);
-  transition:
-    opacity 320ms var(--ease-out),
-    transform 480ms var(--ease-out),
-    filter 460ms var(--ease-out);
 }
-.cp.is-open {
+.sd__body {
+  padding: 28px 0 8px;
+  border-top: 1px solid var(--line-strong);
+  opacity: 0;
+  transform: translateY(10px);
+  filter: blur(12px);
+  transition:
+    opacity 420ms var(--ease-out) 120ms,
+    transform 520ms var(--ease-out) 120ms,
+    filter 480ms var(--ease-out) 120ms;
+}
+.sd.is-open .sd__body {
   opacity: 1;
   transform: none;
   filter: blur(0);
-}
-.cp__bar {
-  display: flex;
-  flex: none;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 14px 10px 20px;
-  border-bottom: 1px solid var(--line);
-}
-.cp__bar b {
-  color: var(--cc);
-  font-size: 0.7rem;
-  font-weight: 650;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-.cp__close {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 7px 12px 7px 14px;
-  border: 1px solid var(--line-strong);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--ink);
-  font: inherit;
-  font-size: 0.78rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition:
-    border-color 200ms,
-    background-color 200ms;
-}
-.cp__close:hover {
-  border-color: var(--ink-3);
-  background: var(--line);
-}
-.cp__close:focus-visible,
-.cp__body:focus-visible {
-  outline: 2px solid var(--ink);
-  outline-offset: -2px;
-}
-.cp__close svg {
-  width: 14px;
-  height: 14px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-}
-/* tělo se scrolluje samo (kolečko, trackpad i prst), nepřenáší posun na stránku */
-.cp__body {
-  flex: 1 1 0;
-  min-height: 0;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-  padding: 16px 20px 22px;
-  scrollbar-width: thin;
-  scrollbar-color: var(--line-strong) transparent;
-  touch-action: pan-y;
-}
-/* pod otevřeným panelem se scéna nekreslí, ať neběží zbytečně */
-.cx-case__stage.is-covered .art {
-  visibility: hidden;
-  transition: visibility 0s 480ms;
 }
 .st__note {
   margin: 18px 0 0;
@@ -6645,26 +6588,21 @@ html.is-loading .seq {
   font-size: 0.8rem;
 }
 @media (prefers-reduced-motion: reduce) {
-  .cp {
-    transform: none;
-    filter: none;
-    transition: opacity 200ms;
-  }
-}
-@media (max-width: 899px) {
-  /* na mobilu je scéna pod výsledkem a má záporné okraje; panel kryje jen její pole */
-  .cp {
-    inset: 22px 0 18px;
+  .sd,
+  .sd__body {
+    transition: none !important;
+    filter: none !important;
+    transform: none !important;
   }
 }
 
-/* ── studie uvnitř panelu: kompaktní, každá jiného tvaru ── */
+/* ── studie: společné prvky ── */
 .st {
   display: grid;
-  gap: 14px;
+  gap: clamp(26px, 3vw, 40px);
   color: var(--ink-2);
-  font-size: 0.88rem;
-  line-height: 1.55;
+  font-size: 0.98rem;
+  line-height: 1.62;
 }
 .st p {
   margin: 0;
@@ -6675,21 +6613,47 @@ html.is-loading .seq {
   font-weight: 620;
 }
 .st-lead {
+  max-width: 70ch;
   color: var(--ink);
-  font-size: 0.92rem;
+  font-size: 1.08rem;
 }
 .st-h {
-  margin: 4px 0 -2px;
+  margin: 0 0 6px;
   color: var(--ink);
   font-family: var(--font-display);
-  font-size: 0.98rem;
+  font-size: 1.12rem;
   font-weight: 620;
-  letter-spacing: -0.01em;
-  text-align: left;
+  letter-spacing: -0.015em;
 }
-.st-tools {
-  color: var(--ink-3) !important;
-  font-size: 0.8rem !important;
+.st p + .st-h,
+.st ul + .st-h,
+.st dl + .st-h {
+  margin-top: 22px;
+}
+.st-sub {
+  max-width: 60ch;
+  margin-bottom: 14px !important;
+}
+.st-end {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+.st-end button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink-3);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.st-end button:hover {
+  color: var(--ink);
 }
 .st-end a {
   color: var(--primary-text);
@@ -6700,22 +6664,27 @@ html.is-loading .seq {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+.st-end button:focus-visible,
+.st-end a:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}
 .st-checks {
   display: grid;
-  gap: 7px;
+  gap: 8px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 .st-checks li {
   position: relative;
-  padding-left: 20px;
+  padding-left: 22px;
 }
 .st-checks li::before {
   content: '';
   position: absolute;
-  left: 1px;
-  top: 0.5em;
+  left: 2px;
+  top: 0.55em;
   width: 9px;
   height: 5px;
   border-left: 2px solid var(--cc);
@@ -6723,83 +6692,142 @@ html.is-loading .seq {
   transform: rotate(-45deg);
 }
 
+/* dva sloupce: vedlejší vlevo/vpravo, hlavní obsah vedle (jen na šířce) */
+.st--split {
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .st--split {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    column-gap: clamp(40px, 5vw, 80px);
+  }
+  .st--split > .st-end {
+    grid-column: 1 / -1;
+  }
+  /* přepis a pravidla mají hlavní obsah vlevo */
+  .st--chat,
+  .st--rules {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  }
+  .st-two,
+  .st-three-cols {
+    display: grid;
+    gap: 44px;
+  }
+  .st-two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .st-three-cols {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.st-two,
+.st-three-cols {
+  display: grid;
+  gap: 26px;
+}
+
 /* otázky a odpovědi (Lindner Reality) */
 .st-qa {
   display: grid;
-  gap: 12px;
+  gap: 24px;
   margin: 0;
 }
 .st-qa dt {
   color: var(--ink);
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: clamp(1.2rem, 1rem + 0.9vw, 1.55rem);
   font-weight: 620;
-  letter-spacing: -0.015em;
-  line-height: 1.25;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 .st-qa dd {
-  margin: 4px 0 0;
-  padding-left: 12px;
-  border-left: 2px solid var(--cc);
+  max-width: 62ch;
+  margin: 8px 0 0;
+  padding-left: 16px;
+  border-left: 3px solid var(--cc);
 }
 
 /* kapitoly (Brightline) */
-.st--chapters section {
-  padding-top: 12px;
+.st--chapters blockquote {
+  margin: 0 0 22px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 1.1rem + 1.1vw, 1.9rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.18;
+  text-wrap: balance;
+}
+.st--chapters .st-main {
+  display: grid;
+  gap: 0;
+}
+.st--chapters .st-main section {
+  padding: 18px 0;
   border-top: 1px solid var(--line);
 }
-.st--chapters section:first-child {
+.st--chapters .st-main section:first-child {
   padding-top: 0;
   border-top: 0;
 }
 .st--chapters .st-h {
-  margin: 0 0 4px;
+  margin-bottom: 4px;
   color: var(--cc);
-  font-family: var(--font-text);
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+}
+.st-facts {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+.st-facts dt {
+  color: var(--ink-3);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.st-facts dd {
+  margin: 1px 0 0;
+  color: var(--ink);
+  font-weight: 560;
 }
 
 /* přepis (Aquaform) */
 .st-bubbles {
   display: grid;
-  gap: 8px;
+  gap: 10px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 .st-bubbles li {
-  max-width: 90%;
-  padding: 9px 12px 10px;
+  max-width: 88%;
+  padding: 11px 15px 12px;
   border: 1px solid color-mix(in oklab, var(--cc) 28%, var(--line));
-  border-radius: 14px 14px 14px 4px;
+  border-radius: 16px 16px 16px 4px;
   background: color-mix(in oklab, var(--cc) 9%, transparent);
   color: var(--ink);
 }
 .st-bubbles li.is-z {
   justify-self: end;
   border-color: transparent;
-  border-radius: 14px 14px 4px 14px;
+  border-radius: 16px 16px 4px 16px;
   background: var(--line);
 }
 .st-bubbles small {
   display: block;
   margin-bottom: 2px;
   color: var(--ink-3);
-  font-size: 0.62rem;
-  font-weight: 650;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 0.72rem;
+  font-weight: 600;
 }
 .st-bubbles li.is-a small {
   color: var(--cc);
 }
 
-/* smlouva (Woodline Interiér) */
+/* smlouva (Woodline Interiér): řádky článek | poznámka */
 .st-paper {
   display: grid;
-  gap: 10px;
+  gap: 14px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -6807,7 +6835,7 @@ html.is-loading .seq {
 .st-paper li {
   --f: oklch(0.7 0.2 25);
   display: grid;
-  gap: 4px;
+  gap: 8px;
 }
 .st-paper li.is-mid {
   --f: oklch(0.78 0.16 75);
@@ -6816,23 +6844,32 @@ html.is-loading .seq {
   --f: oklch(0.78 0.15 150);
 }
 .st-paper__clause {
-  padding: 9px 12px;
-  border-radius: 5px;
+  padding: 14px 16px;
+  border-radius: 6px;
   background: oklch(0.975 0.004 90);
   box-shadow: inset 4px 0 0 var(--f);
   color: oklch(0.3 0.01 260);
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: 0.84rem;
-  line-height: 1.45;
+  font-size: 0.92rem;
+  line-height: 1.55;
 }
 .st-paper__note {
-  padding-left: 12px;
+  padding-left: 14px;
   border-left: 2px solid var(--f);
   color: var(--ink);
-  font-size: 0.84rem;
+}
+@media (min-width: 900px) {
+  .st-paper li {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 34px;
+    align-items: start;
+  }
+  .st-paper__note {
+    margin-top: 10px;
+  }
 }
 
-/* stroje (Strojírna Veselý) */
+/* stroje (Strojírna Veselý): řádky stroj | co řekl mistr | co z toho vzniklo */
 .st-machines {
   display: grid;
   margin: 0;
@@ -6841,63 +6878,67 @@ html.is-loading .seq {
 }
 .st-machines li {
   display: grid;
-  gap: 5px;
-  padding: 12px 0;
+  gap: 8px 32px;
+  padding: 20px 0;
   border-top: 1px solid var(--line-strong);
 }
 .st-machines h4 {
   margin: 0;
   color: var(--ink);
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: clamp(1.3rem, 1.05rem + 1vw, 1.7rem);
   font-weight: 620;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+.st-machines p small {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--ink-3);
+  font-size: 0.72rem;
+  font-weight: 600;
 }
 .st-machines__said {
   color: var(--ink);
   font-style: italic;
 }
 .st-machines__made small {
-  display: inline;
-  margin-right: 8px;
-  color: var(--cc);
-  font-size: 0.62rem;
-  font-weight: 650;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  color: var(--cc) !important;
+}
+@media (min-width: 900px) {
+  .st-machines li {
+    grid-template-columns: 200px minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
 }
 
 /* krátká (ATELIER 22) */
 .st-plain {
+  margin-bottom: 26px !important;
   color: var(--ink);
   font-family: var(--font-display);
-  font-size: 1.2rem;
+  font-size: clamp(1.3rem, 1.05rem + 1vw, 1.75rem);
   font-weight: 560;
-  letter-spacing: -0.02em;
-  line-height: 1.28;
+  letter-spacing: -0.025em;
+  line-height: 1.22;
+  text-wrap: balance;
 }
 .st-three {
   display: grid;
-  gap: 10px;
-  margin: 0;
+  gap: 14px;
+  margin: 0 0 8px;
   padding: 0;
   list-style: none;
 }
 .st-three li {
-  padding-top: 9px;
-  border-top: 2px solid var(--cc);
+  padding-left: 16px;
+  border-left: 3px solid var(--cc);
 }
 .st-three b {
   display: block;
-  margin-bottom: 2px;
+  margin-bottom: 1px;
   font-family: var(--font-display);
-  font-size: 0.98rem;
-}
-@media (min-width: 520px) {
-  .st-three {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 14px;
-  }
+  font-size: 1.1rem;
 }
 
 /* pravidla (SeidlServis) */
@@ -6906,24 +6947,24 @@ html.is-loading .seq {
   border-collapse: collapse;
   text-align: left;
 }
-.st-table caption {
-  padding-bottom: 6px;
-  text-align: left;
-}
 .st-table th,
 .st-table td {
-  padding: 9px 12px 9px 0;
+  padding: 13px 14px 13px 0;
   border-top: 1px solid var(--line-strong);
   vertical-align: top;
 }
+.st-table tr:last-child th,
+.st-table tr:last-child td {
+  border-bottom: 1px solid var(--line-strong);
+}
 .st-table th {
-  width: 7.6rem;
+  width: 9rem;
   color: var(--cc);
   font-family: var(--font-display);
+  font-size: 1.05rem;
   font-weight: 620;
 }
 
-/* světlý motiv: barva panelu a značek je tmavší */
-:root[data-theme='light'] .cp {
-  box-shadow: 0 30px 60px -34px oklch(0 0 0 / 0.25);
+:root[data-theme='light'] .st-paper__clause {
+  box-shadow: inset 4px 0 0 var(--f), 0 0 0 1px var(--line);
 }
