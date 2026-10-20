@@ -6615,12 +6615,12 @@ html.is-loading .seq {
   stroke-linecap: butt;
   stroke-linejoin: miter;
 }
-/* SeidlServis: jeden kosodélník, vlevo SEIDL černě na červeném, vpravo SERVIS červeně na černém; písmo rovné, polštář jen minimální */
+/* SeidlServis: jeden kosodélník, vlevo SEIDL černě na červeném, vpravo SERVIS červeně na černém; písmo kurzívou (italic) ve stejném sklonu jako kosodélník, polštář jen minimální */
 .fl--upominky {
   gap: 0;
   font-family: var(--font-text);
   font-size: calc(0.95rem * var(--lg));
-  font-style: normal;
+  font-style: italic;
   font-weight: 800;
   letter-spacing: 0.03em;
   line-height: 1;
@@ -7257,6 +7257,7 @@ html.is-loading .seq {
     min-height: 2.6rem;
   }
 }
+
 
 
 
