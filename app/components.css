@@ -6632,6 +6632,13 @@ html.is-loading .seq {
   display: inline-block;
   padding: 0.14em 0.5em;
 }
+/* uprostřed jen malá rezerva na šikmý střih, ať obě půlky splývají v jedno slovo */
+.fl-sd__a {
+  padding-right: 0.03em;
+}
+.fl-sd__b {
+  padding-left: 0.03em;
+}
 .fl-sd__a::before,
 .fl-sd__b::before {
   content: '';
@@ -7250,6 +7257,8 @@ html.is-loading .seq {
     min-height: 2.6rem;
   }
 }
+
+
 
 
 
