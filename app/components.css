@@ -5142,6 +5142,11 @@ html.is-loading .seq {
   place-items: center;
   min-width: 0;
 }
+/* scéna zabere celou šířku pole (jinak by se scény s procentuální šířkou, třeba telefon, smrskly na nic) */
+.cx-case__stage > .art {
+  width: 100%;
+  min-width: 0;
+}
 .cx-case__stage .sc-fit {
   display: flex;
   justify-content: center;
@@ -5448,20 +5453,23 @@ html.is-loading .seq {
 }
 
 /* 3 · fotka: telefon s hledáčkem, cvak, sken, štítky a cena */
+/* telefon naležato: scéna je široká a větší, než když stojí (stojící by se kvůli výšce smrskl) */
 .cz-cam {
   position: relative;
-  width: 54%;
-  padding: 10px 10px 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 54px;
+  width: 80%;
+  padding: 10px 0 10px 10px;
   border: 3px solid var(--line-strong);
-  border-radius: 30px;
+  border-radius: 28px;
   background: var(--surface);
   box-shadow: 0 40px 80px -30px oklch(0 0 0 / calc(0.75 * var(--sh)));
 }
 .cz-cam__view {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 4 / 5;
-  border-radius: 20px;
+  aspect-ratio: 16 / 10;
+  border-radius: 18px;
   background: linear-gradient(180deg, oklch(0.42 0.015 250) 0%, oklch(0.33 0.012 250) 64%, oklch(0.27 0.01 60) 64%, oklch(0.23 0.01 60) 100%);
 }
 .cz-cam__tile {
@@ -5584,17 +5592,13 @@ html.is-loading .seq {
 }
 .cz-cam__bar {
   display: grid;
-  justify-items: center;
-  gap: 6px;
+  place-items: center;
   margin: 0;
-  padding: 8px 0 12px;
-  min-height: 62px;
+  padding: 0 6px;
 }
+/* text „Poznávám…“ se při skenu ukazuje přímo na fotce, v pruhu zůstává jen spoušť */
 .cz-cam__bar span {
-  min-height: 1em;
-  color: var(--ac);
-  font-size: 0.66rem;
-  font-weight: 600;
+  display: none;
 }
 .cz-cam__shutter {
   width: 30px;
@@ -5608,9 +5612,9 @@ html.is-loading .seq {
   transform: scale(0.86);
 }
 .cz-price-l {
-  right: -6%;
-  bottom: 4%;
-  width: 50%;
+  right: -3%;
+  bottom: -18%;
+  width: 44%;
 }
 .cz-price {
   display: grid;

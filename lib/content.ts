@@ -180,7 +180,7 @@ export const cases = {
           // x pod 50 = měřeno od levého okraje, nad 50 = štítek končí na x (ať nevyjede z fotky)
           { t: 'Vana → sprchový kout', x: 5, y: 48 },
           { t: 'Obklad 14 m²', x: 95, y: 10 },
-          { t: 'Umyvadlo a baterie', x: 95, y: 62 },
+          { t: 'Umyvadlo a baterie', x: 95, y: 34 },
         ],
         price: { k: 'Předběžná cena', v: '148–172 tis. Kč', s: 'Obhlídka jen pro upřesnění', btn: 'Domluvit obhlídku' },
         analyzing: 'Poznávám, co na fotce je',
