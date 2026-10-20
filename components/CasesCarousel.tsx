@@ -12,7 +12,7 @@ const L = cases.labels;
  * a záložkami na počítači). Aktivní případ hlídá IntersectionObserver; vizuál se přehraje,
  * když na případ přijdete poprvé. Žádné nekonečné smyčky ani 3D, ať to na telefonu nic nestojí.
  */
-export default function CasesCarousel({ onRead, hideRead = false }: { onRead: (i: number) => void; hideRead?: boolean }) {
+export default function CasesCarousel({ onRead }: { onRead: (i: number) => void }) {
   const items = cases.items;
   const track = useRef<HTMLDivElement>(null);
   // kam carousel právě jede: rychlé klikání na šipku počítá od cíle, ne od karty, která je ještě vidět
@@ -135,14 +135,12 @@ export default function CasesCarousel({ onRead, hideRead = false }: { onRead: (i
 
             <div className="cx-case__cta">
               <p className="cx-case__lead">{c.standfirst}</p>
-              {!hideRead && (
-                <button type="button" className="cx-read" onClick={() => onRead(i)}>
+              <button type="button" className="cx-read" onClick={() => onRead(i)}>
                   {L.more}
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M5 12h14M13 6l6 6-6 6" />
                   </svg>
-                </button>
-              )}
+              </button>
             </div>
 
           </article>

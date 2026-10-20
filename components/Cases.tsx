@@ -1,6 +1,6 @@
 import { cases } from '@/lib/content';
 import { CAL_URL } from '@/lib/config';
-import CasesVariants from './CasesVariants';
+import CasesReader from './cases/CasesReader';
 
 export default function Cases() {
   return (
@@ -19,7 +19,7 @@ export default function Cases() {
         </header>
 
         <div className="reveal">
-          <CasesVariants />
+          <CasesReader />
         </div>
 
         <div className="cs__cta">
