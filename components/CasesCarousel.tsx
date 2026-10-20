@@ -111,20 +111,19 @@ export default function CasesCarousel() {
             </button>
           ))}
         </div>
-        <div className="cx__arrows">
-          <button type="button" className="cx__arrow" aria-label={L.prev} disabled={active === 0} onClick={() => go((target.current ?? active) - 1)}>
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M15 5l-7 7 7 7" />
-            </svg>
-          </button>
-          <button type="button" className="cx__arrow" aria-label={L.next} disabled={active === items.length - 1} onClick={() => go((target.current ?? active) + 1)}>
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
       </div>
 
+      <div className="cx__stage">
+        <button type="button" className="cx__arrow cx__arrow--prev" aria-label={L.prev} disabled={active === 0} onClick={() => go((target.current ?? active) - 1)}>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M15 5l-7 7 7 7" />
+          </svg>
+        </button>
+        <button type="button" className="cx__arrow cx__arrow--next" aria-label={L.next} disabled={active === items.length - 1} onClick={() => go((target.current ?? active) + 1)}>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
       <div className="cx__track" ref={track}>
         {items.map((c, i) => (
           <article
@@ -135,10 +134,9 @@ export default function CasesCarousel() {
             aria-label={`${i + 1} z ${items.length}: ${c.firm}`}
             key={c.id}
           >
-            <div className="cx-case__text">
+            <div className="cx-case__head">
               <p className="cx-case__tag">
                 {c.firm}
-                {c.kind === 'model' && <span>{cases.modelLabel}</span>}
               </p>
               <h3 className="cx-case__title">{c.title}</h3>
               <p className="cx-res">
@@ -153,7 +151,13 @@ export default function CasesCarousel() {
                 </span>
                 <span className="cx-res__unit">{c.result.unit}</span>
               </p>
-              <dl className="cx-case__dl">
+            </div>
+
+            <div className="cx-case__stage art" style={{ ['--ac-h' as string]: `calc(var(--pal-h) + ${c.hue})` }} aria-hidden="true">
+              <Live v={c.visual} />
+            </div>
+
+            <dl className="cx-case__dl">
                 <div>
                   <dt>{L.problem}</dt>
                   <dd>{c.problem}</dd>
@@ -166,14 +170,10 @@ export default function CasesCarousel() {
                   <dt>{L.why}</dt>
                   <dd>{c.why}</dd>
                 </div>
-              </dl>
-            </div>
-
-            <div className="cx-case__stage art" style={{ ['--ac-h' as string]: `calc(var(--pal-h) + ${c.hue})` }} aria-hidden="true">
-              <Live v={c.visual} />
-            </div>
+            </dl>
           </article>
         ))}
+      </div>
       </div>
     </div>
   );

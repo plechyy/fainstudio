@@ -4854,10 +4854,9 @@ html.is-loading .seq {
 }
 .cx__bar {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  grid-template-areas: 'count arrows' 'segs segs';
-  align-items: end;
-  gap: 6px 28px;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: 'count' 'segs';
+  gap: 4px;
 }
 .cx__count {
   --cn: oklch(calc(0.8 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) + var(--co, 0)));
@@ -4939,36 +4938,51 @@ html.is-loading .seq {
   outline: 2px solid var(--ink);
   outline-offset: 2px;
 }
-.cx__arrows {
-  grid-area: arrows;
-  display: none;
-  justify-self: end;
-  gap: 8px;
+/* scéna carouselu: šipky na bocích, na okrajích měkký přechod do pozadí */
+.cx__stage {
+  position: relative;
+}
+/* šipky sedí v postranním okraji stránky, ať nepřekrývají text případu */
+.cx__arrow--prev {
+  left: calc((var(--gutter) - 36px) / 2 - var(--gutter));
+}
+.cx__arrow--next {
+  right: calc((var(--gutter) - 36px) / 2 - var(--gutter));
 }
 .cx__arrow {
+  position: absolute;
+  top: 42%;
+  z-index: 3;
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  width: 36px;
+  height: 36px;
+  margin-top: -18px;
   border: 1px solid var(--line-strong);
   border-radius: 50%;
-  background: var(--surface);
+  background: color-mix(in oklab, var(--bg) 78%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   color: var(--ink);
   cursor: pointer;
   transition:
-    opacity 200ms,
-    border-color 200ms;
+    opacity 250ms,
+    border-color 200ms,
+    transform 250ms var(--ease-out);
+}
+.cx__arrow:active:not(:disabled) {
+  transform: scale(0.92);
 }
 .cx__arrow:hover:not(:disabled) {
   border-color: var(--ink-3);
 }
 .cx__arrow:disabled {
-  opacity: 0.3;
-  cursor: default;
+  opacity: 0;
+  pointer-events: none;
 }
 .cx__arrow svg {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   fill: none;
   stroke: currentColor;
   stroke-width: 2;
@@ -4989,6 +5003,11 @@ html.is-loading .seq {
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
 }
+/* okraje carouselu se měkce ztrácejí, takže sousední případ nikde nekončí ostrou hranou */
+.cx__track {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent 100%);
+}
 .cx__track::-webkit-scrollbar {
   display: none;
 }
@@ -5003,10 +5022,11 @@ html.is-loading .seq {
   scroll-snap-align: start;
   transition: opacity 500ms var(--ease-out);
 }
-.cx-case__text {
+.cx-case__head {
   display: grid;
-  align-content: start;
-  gap: 18px;
+  align-content: center;
+  gap: 16px;
+  min-width: 0;
 }
 .cx-case__tag {
   display: flex;
@@ -5033,7 +5053,7 @@ html.is-loading .seq {
 }
 .cx-case__title {
   margin: 0;
-  max-width: 18ch;
+  max-width: 20ch;
   color: var(--ink);
   font-family: var(--font-display);
   font-size: clamp(1.6rem, 1.1rem + 2vw, 2.5rem);
@@ -5098,9 +5118,9 @@ html.is-loading .seq {
 
 .cx-case__dl {
   display: grid;
-  gap: 14px;
-  margin: 6px 0 0;
-  padding-top: 18px;
+  gap: 12px;
+  margin: 0;
+  padding-top: 16px;
   border-top: 1px solid var(--line);
 }
 .cx-case__dl dt {
@@ -5113,8 +5133,8 @@ html.is-loading .seq {
   margin: 0;
   max-width: 52ch;
   color: var(--ink-2);
-  font-size: 0.92rem;
-  line-height: 1.55;
+  font-size: 0.86rem;
+  line-height: 1.5;
   text-wrap: pretty;
 }
 .cx-case__stage {
@@ -5335,7 +5355,7 @@ html.is-loading .seq {
 }
 .cz-score-l {
   right: -10%;
-  top: 40%;
+  top: 30%;
   width: 66%;
 }
 .cz-score {
@@ -6240,39 +6260,59 @@ html.is-loading .seq {
   bottom: -14%;
 }
 
-/* mobil: obě poloviny se rozpustí do jednoho sloupce; scéna jde hned pod výsledek */
+/* mobil: hlavička (obor, nadpis, výsledek), pod ní scéna a popis; scény se zmenší, aby se vešly */
 @media (max-width: 899px) {
-  .cx-case__text {
-    display: contents;
+  /* na mobilu se listuje prstem, šipky by jen překrývaly text */
+  .cx__arrow {
+    display: none;
   }
-  .cx-case__tag { order: 1; }
-  .cx-case__title { order: 2; }
-  .cx-res { order: 3; }
-  .cx-case__stage { order: 4; margin-block: -56px -48px; }
-  .cx-case__dl { order: 5; }
-  .cx-case__dl dd {
-    font-size: 0.88rem;
-    line-height: 1.5;
+  .cx-case {
+    gap: 6px;
+  }
+  .cx-case__stage {
+    margin-block: -36px -34px;
+  }
+  .cx-case__stage .sc-fit {
+    --sc-maxh: 330;
   }
   .cx-res__after b {
-    font-size: 2.1rem;
+    font-size: 2rem;
   }
-  /* scény v carouselu: stejná výška pole, scéna se zmenší, aby se vešla celá */
-  .cx-case__stage .sc-fit {
-    --sc-maxh: 420;
+  .cx-case__dl dd {
+    font-size: 0.84rem;
   }
 }
 @media (min-width: 900px) {
+  .cx__bar {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas: 'count segs';
+    align-items: center;
+    gap: 6px 28px;
+  }
   .cx-case {
     flex-basis: min(88%, 1080px);
-    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
     align-items: center;
-    gap: clamp(28px, 4vw, 64px);
+    column-gap: clamp(24px, 4vw, 56px);
+    row-gap: 14px;
+  }
+  .cx-case__stage .sc-fit {
+    --sc-maxh: 330;
+  }
+  /* vrstvy scén přesahují kousek pod pole; místo navíc, ať nesahají do popisu */
+  .cx-case__stage {
+    margin-bottom: 26px;
+  }
+  /* tři odstavce v jedné řadě přes celou šířku případu */
+  .cx-case__dl {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
   }
 }
-/* případy mimo střed jsou ztlumené, ať je jasné, na který se díváte */
+/* případy mimo střed jsou jemně ztlumené; okraje carouselu se navíc ztrácejí do pozadí */
 .cx__track:has(.cx-case) .cx-case:not(.is-active) {
-  opacity: 0.35;
+  opacity: 0.4;
 }
 
 /* poznámka pod carouselem a tlačítko */
