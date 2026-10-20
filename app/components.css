@@ -6865,9 +6865,7 @@ html.is-loading .seq {
 .rd__bg {
   position: absolute;
   inset: 0;
-  background: color-mix(in oklab, var(--bg) 45%, transparent);
-  -webkit-backdrop-filter: blur(22px) saturate(1.1);
-  backdrop-filter: blur(22px) saturate(1.1);
+  background: color-mix(in oklab, var(--bg) 25%, transparent);
   opacity: 0;
   transition: opacity 360ms var(--ease-out);
 }
@@ -6890,7 +6888,9 @@ html.is-loading .seq {
   border-inline: 1px solid var(--line-strong);
   border-top: 1px solid var(--line-strong);
   border-radius: 0;
-  background: color-mix(in oklab, var(--bg) 78%, transparent);
+  background: color-mix(in oklab, var(--bg) 52%, transparent);
+  -webkit-backdrop-filter: blur(28px) saturate(1.25);
+  backdrop-filter: blur(28px) saturate(1.25);
   transform: translateY(60px);
   opacity: 0;
   transition:
@@ -6920,7 +6920,7 @@ html.is-loading .seq {
   gap: 16px;
   padding: 12px 14px 12px 22px;
   border-bottom: 1px solid var(--line);
-  background: color-mix(in oklab, var(--bg) 40%, transparent);
+  background: transparent;
 }
 .rd__bar .fl {
   --lg: 0.95;
@@ -7010,6 +7010,9 @@ html.is-loading .seq {
     -webkit-backdrop-filter: none !important;
     backdrop-filter: none !important;
   }
+  .rd__sheet {
+    background: color-mix(in oklab, var(--bg) 94%, transparent);
+  }
 }
 .rd__nav .rd__x {
   display: grid;
@@ -7042,11 +7045,11 @@ html.is-loading .seq {
   }
   .rd__bg {
     background: oklch(0 0 0 / 0.45);
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
   }
   .rd__sheet {
     background: var(--bg);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
     width: 100%;
     height: 100%;
     border: 0;
@@ -7085,4 +7088,6 @@ html.is-loading .seq {
   justify-content: center;
   margin-top: clamp(32px, 4vw, 56px);
 }
+
+
 
