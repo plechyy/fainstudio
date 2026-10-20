@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { cases } from '@/lib/content';
 import FirmLogo from './cases/FirmLogo';
 import Live from './cases/Live';
+import Result from './cases/Result';
 
 const L = cases.labels;
 
@@ -113,18 +114,7 @@ export default function CasesCarousel({ onRead }: { onRead: (i: number) => void 
                 <FirmLogo id={c.id} />
               </p>
               <h3 className="cx-case__title">{c.title}</h3>
-              <p className="cx-res">
-                <span className="cx-res__before">
-                  <small>{L.before}</small>
-                  <s className="num">{c.result.before}</s>
-                </span>
-                <span className="cx-res__arrow" aria-hidden="true" />
-                <span className="cx-res__after">
-                  <small>{L.after}</small>
-                  <b className="num">{c.result.after}</b>
-                </span>
-                <span className="cx-res__unit">{c.result.unit}</span>
-              </p>
+              <Result c={c} />
             </div>
 
             <div className="cx-case__stage">

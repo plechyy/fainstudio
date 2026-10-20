@@ -1,6 +1,7 @@
 import { cases } from '@/lib/content';
 import FirmLogo from './FirmLogo';
 import Live from './Live';
+import Result from './Result';
 import { bodies } from './articles';
 
 export type CaseItem = (typeof cases.items)[number];
@@ -29,18 +30,9 @@ export function StoryHero({ c, as: Tag = 'h2' }: { c: CaseItem; as?: 'h1' | 'h2'
           <dd>{c.built}</dd>
         </div>
       </dl>
-      <p className="cx-res ca-res">
-        <span className="cx-res__before">
-          <small>{L.before}</small>
-          <s className="num">{c.result.before}</s>
-        </span>
-        <span className="cx-res__arrow" aria-hidden="true" />
-        <span className="cx-res__after">
-          <small>{L.after}</small>
-          <b className="num">{c.result.after}</b>
-        </span>
-        <span className="cx-res__unit">{c.result.unit}</span>
-      </p>
+      <div className="ca-res">
+        <Result c={c} />
+      </div>
     </header>
   );
 }

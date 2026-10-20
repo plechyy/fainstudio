@@ -5063,57 +5063,201 @@ html.is-loading .seq {
   text-wrap: balance;
 }
 
-/* výsledek: typografie, ne krabička. Dřív přeškrtnuté a malé, teď velké, mezi nimi čára. */
-.cx-res {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  gap: 6px 16px;
+/* výsledek Dřív → Teď (dočasně ve třech podobách: a osa, b přepsaná věta, c diff). Tichý doplněk, ne nejvýraznější prvek. */
+.rs {
+  --rs-w: 30rem;
+  max-width: var(--rs-w);
   margin: 0;
 }
-.cx-res > span:not(.cx-res__arrow):not(.cx-res__unit) {
-  display: grid;
-  gap: 4px;
-}
-.cx-res small {
+.rs small {
   color: var(--ink-3);
-  font-size: 0.64rem;
+  font-size: 0.66rem;
   font-weight: 650;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
-.cx-res__before s {
-  color: var(--ink-3);
+.rs s,
+.rs b,
+.rs mark {
   font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 600;
-  text-decoration-thickness: 2px;
-  text-decoration-color: color-mix(in oklab, var(--ink-3) 70%, transparent);
-}
-.cx-res__arrow {
-  align-self: center;
-  width: 34px;
-  height: 1px;
-  margin-top: 18px;
-  background: linear-gradient(90deg, var(--line-strong), var(--cc));
-}
-.cx-res__after b {
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-size: clamp(2.2rem, 1.7rem + 1.8vw, 3.2rem);
-  font-weight: 650;
-  letter-spacing: -0.035em;
-  line-height: 0.95;
-}
-/* display písmo má široké mezery; u „15 min“ nebo „po hovoru“ je stáhneme */
-.cx-res__before s,
-.cx-res__after b {
   word-spacing: -0.14em;
 }
-.cx-res__unit {
-  flex-basis: 100%;
+.rs s {
+  color: var(--ink-3);
+  font-weight: 560;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: color-mix(in oklab, var(--ink-3) 65%, transparent);
+}
+.rs__unit {
+  margin: 0;
   color: var(--ink-2);
-  font-size: 0.86rem;
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
+/* A: osa. Dva body na jedné lince, hodnoty pod nimi, popis pod tím. */
+.rs--a {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  row-gap: 10px;
+}
+.rs-a__track {
+  position: relative;
+  grid-column: 1 / -1;
+  height: 11px;
+}
+.rs-a__track::before,
+.rs-a__track::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  right: 5px;
+  height: 1px;
+  background: var(--line-strong);
+}
+.rs-a__track::after {
+  background: linear-gradient(90deg, transparent, var(--cc));
+  transform-origin: left;
+  transition: transform 900ms var(--ease-out) 200ms;
+}
+.cx-case:not(.is-seen) .rs-a__track::after {
+  transform: scaleX(0);
+}
+.rs-a__pt {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  margin: 0;
+}
+.rs-a__pt::before {
+  content: '';
+  position: absolute;
+  top: -21px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+.rs-a__pt--before::before {
+  left: 0;
+  border: 1.5px solid var(--ink-3);
+  background: var(--bg);
+}
+.rs-a__pt--after {
+  justify-items: end;
+  text-align: right;
+}
+.rs-a__pt--after::before {
+  right: 0;
+  background: var(--cc);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--cc) 22%, transparent);
+}
+.rs-a__pt s {
+  font-size: 1.15rem;
+}
+.rs-a__pt b {
+  color: var(--ink);
+  font-size: clamp(1.5rem, 1.3rem + 0.9vw, 1.9rem);
+  font-weight: 640;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+.rs--a .rs__unit {
+  grid-column: 1 / -1;
+  margin-top: 4px;
+}
+
+/* B: přepsaná věta. Stará hodnota škrtnutá, nová zvýrazněná fixou, vše v jednom řádku textu. */
+.rs--b {
+  display: grid;
+  gap: 8px;
+}
+.rs-b__line {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 1.15rem + 1vw, 1.85rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.32;
+  text-wrap: balance;
+}
+.rs-b__line s {
+  font-weight: 540;
+}
+.rs-b__to {
+  display: inline-block;
+  margin-inline: 0.45em;
+  color: var(--cc);
+  font-weight: 500;
+}
+.rs-b__line mark {
+  padding: 0 0.14em;
+  border-radius: 2px;
+  background: linear-gradient(transparent 58%, color-mix(in oklab, var(--cc) 42%, transparent) 58% 92%, transparent 92%);
+  color: var(--ink);
+  font-weight: 650;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* C: diff. Dva řádky se znaménkem v okraji; nový řádek má barevný proužek a tichý nádech. */
+.rs--c {
+  display: grid;
+}
+.rs-c__row {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0 6px;
+  margin: 0;
+  padding: 10px 12px 10px 0;
+}
+.rs-c__row i {
+  color: var(--ink-3);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-style: normal;
+  font-weight: 500;
+  text-align: center;
+}
+.rs-c__row s,
+.rs-c__row b {
+  font-size: clamp(1.2rem, 1.05rem + 0.7vw, 1.5rem);
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+.rs-c__row--before {
+  border-top: 1px solid var(--line);
+}
+.rs-c__row--after {
+  position: relative;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(90deg, color-mix(in oklab, var(--cc) 13%, transparent), transparent 85%);
+}
+.rs-c__row--after::before {
+  content: '';
+  position: absolute;
+  inset-block: -1px;
+  left: 0;
+  width: 2px;
+  background: var(--cc);
+}
+.rs-c__row--after i {
+  color: var(--cc);
+}
+.rs-c__row b {
+  color: var(--ink);
+  font-weight: 640;
+}
+.rs--c .rs__unit {
+  padding: 10px 0 0 28px;
+}
+@media (min-width: 900px) {
+  .rs {
+    --rs-w: 27rem;
+  }
 }
 
 .cx-case__cta {
@@ -6295,9 +6439,6 @@ html.is-loading .seq {
   .cx-case__stage .sc-fit {
     --sc-maxh: 330;
   }
-  .cx-res__after b {
-    font-size: 2rem;
-  }
 }
 @media (min-width: 900px) {
   .cx__bar {
@@ -6622,7 +6763,7 @@ html.is-loading .seq {
   font-weight: 560;
 }
 .ca-res {
-  margin-top: 8px !important;
+  margin-top: 8px;
 }
 .ca-fig {
   display: grid;
@@ -7091,6 +7232,7 @@ html.is-loading .seq {
   justify-content: center;
   margin-top: clamp(32px, 4vw, 56px);
 }
+
 
 
 
