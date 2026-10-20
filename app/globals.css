@@ -109,6 +109,8 @@
   --surface-2: oklch(calc(var(--bgd-l) + 0.065) calc(var(--bgd-c) + 0.003) var(--bgd-h));
   --sunk: oklch(calc(var(--bgd-l) - 0.02) var(--bgd-c) var(--bgd-h));
   --ink: oklch(0.97 0.006 var(--secondary-h));
+  /* barva značky v ilustračním logu Unica Real (případ realitky) */
+  --logo-unica: oklch(0.62 0.17 272);
   --ink-2: oklch(0.8 0.012 var(--secondary-h));
   --ink-3: oklch(0.67 0.012 var(--secondary-h));
   --line: oklch(calc(var(--bgd-l) + 0.125) calc(var(--bgd-c) + 0.004) var(--bgd-h));
@@ -236,6 +238,7 @@
   --surface-2: oklch(calc(var(--bgl-l) - 0.02) calc(var(--bgl-c) + 0.001) var(--bgl-h));
   --sunk: oklch(calc(var(--bgl-l) - 0.045) calc(var(--bgl-c) + 0.003) var(--bgl-h));
   --ink: oklch(0.2 0.012 var(--secondary-h));
+  --logo-unica: oklch(0.42 0.16 272);
   --ink-2: oklch(0.36 0.016 var(--secondary-h));
   --ink-3: oklch(0.47 0.015 var(--secondary-h));
   --line: oklch(calc(var(--bgl-l) - 0.085) calc(var(--bgl-c) + 0.003) var(--bgl-h));

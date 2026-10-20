@@ -9,8 +9,11 @@ export default function FirmLogo({ id, className = '' }: { id: string; className
     case 'reality':
       return (
         <span className={cls} role="img" aria-label="Unica Real">
-          <span>
-            UNICA<em>REAL</em>
+          <span aria-hidden="true">
+            UNIC<UnicaA />
+            <em>
+              RE<UnicaA />L
+            </em>
           </span>
         </span>
       );
@@ -77,4 +80,14 @@ export default function FirmLogo({ id, className = '' }: { id: string; className
     default:
       return null;
   }
+}
+
+/* Áčko z loga Unica Real: příčka nedosahuje k levé noze */
+function UnicaA() {
+  return (
+    <svg className="fl-a" viewBox="0 0 20 22" aria-hidden="true">
+      <path d="M2.2 21 10 2l7.8 19" />
+      <path d="M9.6 14.6h5.6" />
+    </svg>
+  );
 }

@@ -6475,15 +6475,27 @@ html.is-loading .seq {
 .fl em {
   font-style: normal;
 }
-/* Unica Real: tučné geometrické kapitálky, slova natěsno, REAL v barvě případu */
+/* Unica Real: tučné geometrické kapitálky, UNICA modře, REAL v barvě textu, áčka s nedotaženou příčkou */
 .fl--reality {
+  color: var(--logo-unica);
   font-family: var(--font-display);
   font-size: calc(1.15rem * var(--lg));
   font-weight: 700;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.07em;
 }
 .fl--reality em {
-  color: var(--cc);
+  color: var(--ink);
+}
+.fl--reality .fl-a {
+  display: inline-block;
+  width: 0.74em;
+  height: 0.8em;
+  margin-right: 0.07em;
+  vertical-align: -0.02em;
+  stroke: currentColor;
+  stroke-width: 3.3;
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
 }
 /* Brightline Digital: tenké kapitálky s velkým prostrkáním, bez značky */
 .fl--kouc {
@@ -7152,6 +7164,7 @@ html.is-loading .seq {
   justify-content: center;
   margin-top: clamp(32px, 4vw, 56px);
 }
+
 
 
 
