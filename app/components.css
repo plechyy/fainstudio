@@ -6878,22 +6878,20 @@ html.is-loading .seq {
   display: grid;
   place-items: end center;
 }
+/* podklad je jen tmavá clona: rozmazávání stránky pod listem (kde běží shadery a animace) blikalo */
 .rd__bg {
   position: absolute;
   inset: 0;
-  background: color-mix(in oklab, var(--bg) 55%, transparent);
-  -webkit-backdrop-filter: blur(0);
-  backdrop-filter: blur(0);
+  background: color-mix(in oklab, var(--bg) 82%, black);
   opacity: 0;
-  transition:
-    opacity 420ms var(--ease-out),
-    -webkit-backdrop-filter 520ms var(--ease-out),
-    backdrop-filter 520ms var(--ease-out);
+  transition: opacity 420ms var(--ease-out);
 }
 .rd.is-open .rd__bg {
-  opacity: 1;
-  -webkit-backdrop-filter: blur(20px) saturate(1.2);
-  backdrop-filter: blur(20px) saturate(1.2);
+  opacity: 0.92;
+}
+/* když je list otevřený, scény pod ním se nekreslí */
+.has-reader .cx__track {
+  visibility: hidden;
 }
 .rd__sheet {
   position: relative;
@@ -6909,16 +6907,23 @@ html.is-loading .seq {
   box-shadow: 0 -40px 120px -40px oklch(0 0 0 / 0.7);
   transform: translateY(60px);
   opacity: 0;
-  filter: blur(14px);
   transition:
     transform 560ms var(--ease-out),
-    opacity 380ms var(--ease-out),
-    filter 520ms var(--ease-out);
+    opacity 380ms var(--ease-out);
 }
 .rd.is-open .rd__sheet {
   transform: none;
   opacity: 1;
-  filter: blur(0);
+  /* zaostření jen během příletu: po doběhnutí na listu nezůstane žádný filtr, který by u 3D scén blikal */
+  animation: rd-focus 520ms var(--ease-out) backwards;
+}
+@keyframes rd-focus {
+  from {
+    filter: blur(14px);
+  }
+  to {
+    filter: blur(0);
+  }
 }
 .rd__bar {
   position: relative;
@@ -6929,9 +6934,7 @@ html.is-loading .seq {
   gap: 16px;
   padding: 12px 14px 12px 22px;
   border-bottom: 1px solid var(--line);
-  background: color-mix(in oklab, var(--bg) 88%, transparent);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  background: var(--bg);
 }
 .rd__bar .fl {
   --lg: 0.95;
@@ -7015,6 +7018,7 @@ html.is-loading .seq {
   .rd__bg,
   .rd__sheet {
     transition: opacity 200ms !important;
+    animation: none !important;
     transform: none !important;
     filter: none !important;
     -webkit-backdrop-filter: none !important;
@@ -7052,8 +7056,6 @@ html.is-loading .seq {
   }
   .rd__bg {
     background: oklch(0 0 0 / 0.45);
-    -webkit-backdrop-filter: none !important;
-    backdrop-filter: none !important;
   }
   .rd__sheet {
     width: 100%;
@@ -7064,10 +7066,12 @@ html.is-loading .seq {
     transform: translateX(100%);
     opacity: 1;
     filter: none;
+    animation: none;
     transition: transform 440ms cubic-bezier(0.2, 0.8, 0.2, 1);
   }
   .rd.is-open .rd__sheet {
     transform: none;
+    animation: none;
   }
   .rd__bar {
     padding: 10px 10px 10px 14px;

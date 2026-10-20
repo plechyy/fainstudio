@@ -50,8 +50,10 @@ export default function StoryReader({ index, onClose, onGo }: Props) {
     const gap = window.innerWidth - el.clientWidth;
     const prev = { o: el.style.overflow, p: el.style.paddingRight };
     el.style.overflow = 'hidden';
+    el.classList.add('has-reader');
     if (gap > 0) el.style.paddingRight = `${gap}px`;
     return () => {
+      el.classList.remove('has-reader');
       el.style.overflow = prev.o;
       el.style.paddingRight = prev.p;
       back.current?.focus?.({ preventScroll: true });
