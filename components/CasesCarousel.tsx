@@ -61,10 +61,25 @@ export default function CasesCarousel({ onRead }: { onRead: (i: number) => void 
     <div className="cx">
       <div className="cx__bar">
         {/* počítadlo: velké číslo případu v jeho barvě a obor; mění se s kartou */}
-        <p className="cx__count" style={{ ['--co' as string]: items[active].hue }} aria-live="polite">
+        <p className="cx__count" style={{ ['--co' as string]: items[active].hue }}>
           <b className="num">0{active + 1}</b>
           <span className="num">/0{items.length}</span>
+          <span className="cx__nav">
+            <button type="button" aria-label={L.prev} disabled={active === 0} onClick={() => go((target.current ?? active) - 1)}>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M15 5l-7 7 7 7" />
+              </svg>
+            </button>
+            <button type="button" aria-label={L.next} disabled={active === items.length - 1} onClick={() => go((target.current ?? active) + 1)}>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </span>
           <em key={active}>{items[active].firm}</em>
+          <span className="sr-only" aria-live="polite">
+            {active + 1} z {items.length}: {items[active].firm}
+          </span>
         </p>
         {/* úseky jako v Postupu: hotové zůstanou podbarvené, aktuální svítí barvou případu */}
         <div className="cx__segs" role="tablist" aria-label="Případy">

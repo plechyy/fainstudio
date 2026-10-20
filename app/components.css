@@ -4881,6 +4881,51 @@ html.is-loading .seq {
   font-size: 0.9rem;
   font-weight: 600;
 }
+/* šipky vedle počítadla: jen tahy, žádný kruh */
+.cx__nav {
+  display: inline-flex;
+  align-self: center;
+  gap: 2px;
+  margin-left: 14px;
+}
+.cx__nav button {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition:
+    color 200ms,
+    opacity 250ms,
+    transform 250ms var(--ease-out);
+}
+.cx__nav button:hover:not(:disabled) {
+  color: var(--ink);
+}
+.cx__nav button:active:not(:disabled) {
+  transform: scale(0.9);
+}
+.cx__nav button:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+.cx__nav button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 0;
+}
+.cx__nav svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 .cx__count em {
   flex-basis: 100%;
   margin-top: 6px;
@@ -4942,12 +4987,18 @@ html.is-loading .seq {
 .cx__stage {
   position: relative;
 }
-/* šipky sedí v postranním okraji stránky, ať nepřekrývají text případu */
+/* boční šipky sedí daleko za okrajem obsahu (28 px mezera); jen tam, kde je vedle obsahu dost místa,
+   jinde stačí šipky u počítadla */
 .cx__arrow--prev {
-  left: calc((var(--gutter) - 36px) / 2 - var(--gutter));
+  left: -64px;
 }
 .cx__arrow--next {
-  right: calc((var(--gutter) - 36px) / 2 - var(--gutter));
+  right: -64px;
+}
+@media (max-width: 1359px) {
+  .cx__arrow {
+    display: none !important;
+  }
 }
 .cx__arrow {
   position: absolute;
@@ -7232,6 +7283,7 @@ html.is-loading .seq {
   justify-content: center;
   margin-top: clamp(32px, 4vw, 56px);
 }
+
 
 
 
