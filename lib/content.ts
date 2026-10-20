@@ -177,7 +177,7 @@ export const cases = {
       id: 'fotka',
       hue: -38,
       kind: 'model',
-      firm: 'Aquaform',
+      firm: 'Gareko',
       title: 'Předběžná cena koupelny z fotky za minutu.',
       standfirst: 'Zákazník pošle fotku koupelny a za minutu ví, kolik zhruba bude rekonstrukce stát. Technici jezdí jen tam, kde z toho bude zakázka.',
       summary: 'Zákazník na webu nahraje fotky své koupelny a odpoví na pár otázek. AI pozná, co v ní je, odhadne rozsah prací a podle ceníku firmy mu do minuty pošle předběžnou cenu s rozpětím. Technici jezdí na obhlídku jen k zákazníkům, kteří to myslí vážně.',
@@ -188,7 +188,7 @@ export const cases = {
       why: 'Kdo pošle cenu první, většinou vyhraje. A na obhlídku se jezdí jen za těmi, kdo to myslí vážně.',
       visual: {
         type: 'photo',
-        window: 'aquaform.cz · Cena koupelny',
+        window: 'gareko.cz · Cena koupelny',
         dropHint: 'Nahrajte pár fotek koupelny',
         analyzing: 'Poznávám, co na fotkách je',
         found: 'Na fotkách jsme poznali',

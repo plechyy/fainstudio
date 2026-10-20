@@ -4867,7 +4867,7 @@ html.is-loading .seq {
   column-gap: 4px;
   margin: 0;
 }
-.cx__count b {
+.cx__count > b {
   color: var(--cn);
   font-family: var(--font-display);
   font-size: clamp(2.2rem, 1.8rem + 1.6vw, 3rem);
@@ -6505,12 +6505,23 @@ html.is-loading .seq {
   letter-spacing: 0.3em;
   margin-right: -0.3em;
 }
-/* Aquaform: měkké zaoblené malé písmo a kapka */
+/* Gareko: GA tence, REKO tučně, červená tečka na konci */
 .fl--fotka {
-  font-family: var(--font-display);
-  font-size: calc(1.25rem * var(--lg));
-  font-weight: 500;
-  letter-spacing: 0;
+  font-family: var(--font-text);
+  font-size: calc(1.2rem * var(--lg));
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+.fl--fotka b {
+  font-weight: 800;
+}
+.fl--fotka i {
+  display: inline-block;
+  width: 0.2em;
+  height: 0.2em;
+  margin-left: 0.06em;
+  border-radius: 50%;
+  background: var(--logo-gareko);
 }
 /* Woodline Interiér: velké kapitálky, letokruhy */
 .fl--smlouvy {
@@ -7164,6 +7175,8 @@ html.is-loading .seq {
   justify-content: center;
   margin-top: clamp(32px, 4vw, 56px);
 }
+
+
 
 
 

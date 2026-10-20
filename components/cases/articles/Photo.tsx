@@ -1,4 +1,4 @@
-/* Aquaform: majitel se ptal, my jsme odpovídali. Komunikace je hlavní příběh, tak je to otázka za otázkou. */
+/* Gareko: majitel se ptal, my jsme odpovídali. Komunikace je hlavní příběh, tak je to otázka za otázkou. */
 const chat = [
   { w: 'z', x: 'Nahraje tři fotky a napíše: „Chci sprchový kout místo vany, obklad nechám.“' },
   { w: 'a', x: 'Vidím vanu, obklad kolem 14 m², umyvadlo a baterii. Je vedení vody ve zdi u vany? A chcete odtok v podlaze?' },
@@ -10,7 +10,7 @@ export default function Photo() {
   return (
     <>
       <p className="ca-open">
-        Majitel Aquaformu se nám ozval po týdnu, ve kterém jeho technik odjel na pět obhlídek a žádná z nich neskončila zakázkou. Čtyři lidé mezitím poptali jinou
+        Majitel firmy Gareko se nám ozval po týdnu, ve kterém jeho technik odjel na pět obhlídek a žádná z nich neskončila zakázkou. Čtyři lidé mezitím poptali jinou
         firmu a pátý chtěl jen vědět, kolik koupelna zhruba stojí. Napsal nám, že to nechce dělat takhle dál.
       </p>
       <p>

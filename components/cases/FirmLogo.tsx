@@ -25,12 +25,11 @@ export default function FirmLogo({ id, className = '' }: { id: string; className
       );
     case 'fotka':
       return (
-        <span className={cls} role="img" aria-label="Aquaform">
-          <svg viewBox="0 0 28 28" aria-hidden="true">
-            <path d="M14 3c4.5 6 8 9.4 8 13.5a8 8 0 0 1-16 0C6 12.4 9.5 9 14 3z" />
-            <path d="M9.5 17c1.6 1.5 3.2 1.5 4.5 0s2.9-1.5 4.5 0" />
-          </svg>
-          <span>aquaform</span>
+        <span className={cls} role="img" aria-label="Gareko">
+          <span aria-hidden="true">
+            GA<b>REKO</b>
+            <i />
+          </span>
         </span>
       );
     case 'smlouvy':

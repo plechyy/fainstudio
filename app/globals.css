@@ -111,6 +111,7 @@
   --ink: oklch(0.97 0.006 var(--secondary-h));
   /* barva značky v ilustračním logu Unica Real (případ realitky) */
   --logo-unica: oklch(0.62 0.17 272);
+  --logo-gareko: oklch(0.6 0.22 27);
   --ink-2: oklch(0.8 0.012 var(--secondary-h));
   --ink-3: oklch(0.67 0.012 var(--secondary-h));
   --line: oklch(calc(var(--bgd-l) + 0.125) calc(var(--bgd-c) + 0.004) var(--bgd-h));
