@@ -63,7 +63,7 @@ export default function CasesCarousel({ onRead }: { onRead: (i: number) => void 
         {/* počítadlo: velké číslo případu v jeho barvě a obor; mění se s kartou */}
         <p className="cx__count" style={{ ['--co' as string]: items[active].hue }}>
           <b className="num">0{active + 1}</b>
-          <span className="num">/0{items.length}</span>
+          <span className="cx__of num">/0{items.length}</span>
           <span className="cx__nav">
             <button type="button" aria-label={L.prev} disabled={active === 0} onClick={() => go((target.current ?? active) - 1)}>
               <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -76,7 +76,9 @@ export default function CasesCarousel({ onRead }: { onRead: (i: number) => void 
               </svg>
             </button>
           </span>
-          <em key={active}>{items[active].firm}</em>
+          <span className="cx__logo" key={active}>
+            <FirmLogo id={items[active].id} />
+          </span>
           <span className="sr-only" aria-live="polite">
             {active + 1} z {items.length}: {items[active].firm}
           </span>
@@ -125,9 +127,6 @@ export default function CasesCarousel({ onRead }: { onRead: (i: number) => void 
             key={c.id}
           >
             <div className="cx-case__head">
-              <p className="cx-case__tag">
-                <FirmLogo id={c.id} />
-              </p>
               <h3 className="cx-case__title">{c.title}</h3>
               <Result c={c} />
             </div>

@@ -4876,7 +4876,7 @@ html.is-loading .seq {
   line-height: 0.9;
   transition: color 400ms var(--ease-out);
 }
-.cx__count > span {
+.cx__of {
   color: var(--ink-3);
   font-size: 0.9rem;
   font-weight: 600;
@@ -4926,16 +4926,15 @@ html.is-loading .seq {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.cx__count em {
+/* logo firmy pod číslem místo textového názvu */
+.cx__logo {
+  --cc: var(--cn);
   flex-basis: 100%;
-  margin-top: 6px;
-  color: var(--ink-2);
-  font-size: 0.72rem;
-  font-style: normal;
-  font-weight: 650;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  margin-top: 12px;
   animation: cx-name 420ms var(--ease-out) both;
+}
+.cx__logo .fl {
+  --lg: 1.3;
 }
 @keyframes cx-name {
   from {
@@ -5079,29 +5078,6 @@ html.is-loading .seq {
   gap: 16px;
   min-width: 0;
 }
-.cx-case__tag {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 4px 12px;
-  margin: 0;
-  color: var(--cc);
-  font-size: var(--step--1);
-  font-weight: 650;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-/* modelový případ: jen tichá poznámka za oborem, žádný odznak */
-.cx-case__tag span {
-  color: var(--ink-3);
-  font-size: 0.62rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-}
-.cx-case__tag span::before {
-  content: '·';
-  margin-right: 12px;
-}
 .cx-case__title {
   margin: 0;
   max-width: 24ch;
@@ -5114,7 +5090,7 @@ html.is-loading .seq {
   text-wrap: balance;
 }
 
-/* výsledek Dřív → Teď (dočasně ve třech podobách: a osa, b přepsaná věta, c diff). Tichý doplněk, ne nejvýraznější prvek. */
+/* výsledek Dřív → Teď: osa se dvěma body. Tichý doplněk, ne nejvýraznější prvek. */
 .rs {
   --rs-w: 30rem;
   max-width: var(--rs-w);
@@ -5146,8 +5122,7 @@ html.is-loading .seq {
   line-height: 1.4;
 }
 
-/* A: osa. Dva body na jedné lince, hodnoty pod nimi, popis pod tím. */
-.rs--a {
+.rs {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   row-gap: 10px;
@@ -5214,97 +5189,11 @@ html.is-loading .seq {
   letter-spacing: -0.03em;
   line-height: 1.05;
 }
-.rs--a .rs__unit {
+.rs .rs__unit {
   grid-column: 1 / -1;
   margin-top: 4px;
 }
 
-/* B: přepsaná věta. Stará hodnota škrtnutá, nová zvýrazněná fixou, vše v jednom řádku textu. */
-.rs--b {
-  display: grid;
-  gap: 8px;
-}
-.rs-b__line {
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-size: clamp(1.4rem, 1.15rem + 1vw, 1.85rem);
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  line-height: 1.32;
-  text-wrap: balance;
-}
-.rs-b__line s {
-  font-weight: 540;
-}
-.rs-b__to {
-  display: inline-block;
-  margin-inline: 0.45em;
-  color: var(--cc);
-  font-weight: 500;
-}
-.rs-b__line mark {
-  padding: 0 0.14em;
-  border-radius: 2px;
-  background: linear-gradient(transparent 58%, color-mix(in oklab, var(--cc) 42%, transparent) 58% 92%, transparent 92%);
-  color: var(--ink);
-  font-weight: 650;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-}
-
-/* C: diff. Dva řádky se znaménkem v okraji; nový řádek má barevný proužek a tichý nádech. */
-.rs--c {
-  display: grid;
-}
-.rs-c__row {
-  display: grid;
-  grid-template-columns: 22px minmax(0, 1fr) auto;
-  align-items: baseline;
-  gap: 0 6px;
-  margin: 0;
-  padding: 10px 12px 10px 0;
-}
-.rs-c__row i {
-  color: var(--ink-3);
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  font-style: normal;
-  font-weight: 500;
-  text-align: center;
-}
-.rs-c__row s,
-.rs-c__row b {
-  font-size: clamp(1.2rem, 1.05rem + 0.7vw, 1.5rem);
-  letter-spacing: -0.025em;
-  line-height: 1.15;
-}
-.rs-c__row--before {
-  border-top: 1px solid var(--line);
-}
-.rs-c__row--after {
-  position: relative;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  background: linear-gradient(90deg, color-mix(in oklab, var(--cc) 13%, transparent), transparent 85%);
-}
-.rs-c__row--after::before {
-  content: '';
-  position: absolute;
-  inset-block: -1px;
-  left: 0;
-  width: 2px;
-  background: var(--cc);
-}
-.rs-c__row--after i {
-  color: var(--cc);
-}
-.rs-c__row b {
-  color: var(--ink);
-  font-weight: 640;
-}
-.rs--c .rs__unit {
-  padding: 10px 0 0 28px;
-}
 @media (min-width: 900px) {
   .rs {
     --rs-w: 27rem;
@@ -6708,9 +6597,6 @@ html.is-loading .seq {
 .fl--upominky em {
   color: var(--cc);
 }
-.cx-case__tag .fl {
-  --lg: 1.05;
-}
 
 /* tlačítko pod blokem Dřív → Teď */
 .cx-more {
@@ -7283,6 +7169,9 @@ html.is-loading .seq {
   justify-content: center;
   margin-top: clamp(32px, 4vw, 56px);
 }
+
+
+
 
 
 
