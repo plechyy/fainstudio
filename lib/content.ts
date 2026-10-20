@@ -327,6 +327,7 @@ export const compare = {
     { label: 'Zaučení lidí v ceně', values: ['Ano', 'Někdy', 'Ne', 'Ne'] },
     { label: 'Cenu znáte po prvním hovoru', values: ['Ano', 'Ne', 'Ano', 'Někdy'] },
     { label: 'Platíte jednorázově', values: ['Ano', 'Ano', 'Ne, paušál navždy', 'Ano'] },
+    { label: 'Když skončíme, všechno zůstane vám', values: ['Ano', 'Záleží na smlouvě', 'Ne, s paušálem končí i nástroj', 'Ne, know-how odejde s ním'] },
   ],
 };
 
@@ -358,6 +359,10 @@ export const faq = [
   {
     q: 'Kde jsou naše data a jsou v bezpečí?',
     a: 'Data zůstávají vaše. Systém může běžet v cloudu, nebo lokálně u vás, podle toho, co vám víc vyhovuje. Přístup k datům mají jen lidé, které určíte. Před začátkem podepíšeme NDA a smlouvu o zpracování osobních údajů a předem se domluvíme, jaká data smí do AI modelů a jaká ne.',
+  },
+  {
+    q: 'Co když spolupráce skončí? Nezůstaneme na vás závislí?',
+    a: 'Ne. Kód, data i přístupy patří vám. Když spolupráci ukončíte, předáme vám všechno: zdrojový kód, účty u služeb, na kterých systém běží, a dokumentaci, podle které ho zvládne spravovat kdokoli jiný. Žádný paušál, bez kterého by systém přestal fungovat, a žádná data zamčená u nás.',
   },
 ];
 
