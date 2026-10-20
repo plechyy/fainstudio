@@ -6493,22 +6493,13 @@ html.is-loading .seq {
   letter-spacing: 0.32em;
   text-transform: uppercase;
 }
-/* Brightline: hustý tučný bezpatkový, jasná tečka uprostřed */
+/* Brightline Digital: tenké kapitálky s velkým prostrkáním, bez značky */
 .fl--kouc {
   font-family: var(--font-text);
-  font-size: calc(1.3rem * var(--lg));
-  font-weight: 800;
-  letter-spacing: -0.05em;
-}
-.fl--kouc i {
-  display: inline-block;
-  width: 0.28em;
-  height: 0.28em;
-  margin: 0 0.04em;
-  border-radius: 50%;
-  background: var(--cc);
-  box-shadow: 0 0 0.5em var(--cc);
-  vertical-align: 0.05em;
+  font-size: calc(0.92rem * var(--lg));
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  margin-right: -0.3em;
 }
 /* Aquaform: měkké zaoblené malé písmo a kapka */
 .fl--fotka {
@@ -7169,6 +7160,7 @@ html.is-loading .seq {
   justify-content: center;
   margin-top: clamp(32px, 4vw, 56px);
 }
+
 
 
 

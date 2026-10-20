@@ -21,10 +21,8 @@ export default function FirmLogo({ id, className = '' }: { id: string; className
       );
     case 'kouc':
       return (
-        <span className={cls} role="img" aria-label="Brightline">
-          <span>
-            bright<i aria-hidden="true" />line
-          </span>
+        <span className={cls} role="img" aria-label="Brightline Digital">
+          <span>BRIGHTLINE DIGITAL</span>
         </span>
       );
     case 'fotka':

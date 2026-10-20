@@ -146,7 +146,7 @@ export const cases = {
       id: 'kouc',
       hue: 108,
       kind: 'model',
-      firm: 'Brightline',
+      firm: 'Brightline Digital',
       title: 'AI kouč obchodníků: vyhodnotí každý hovor hned po zavěšení.',
       standfirst: 'Obchodní ředitel chtěl, aby obchodníci dostávali zpětnou vazbu hned po hovoru, a ne jednou za měsíc. Ať je to trenér, ne dohled.',
       summary: 'AI poslechne každý hovor obchodníka a hned po zavěšení mu pošle do mobilu hodnocení: co se povedlo, co příště jinak, co bylo zbytečné a co nezaznělo. Vždy začíná tím dobrým a ukazuje, jak se obchodník zlepšil. Vedoucí vidí jen trendy celého týmu, ne jednotlivé hovory.',
