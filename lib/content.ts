@@ -260,7 +260,7 @@ export const cases = {
       id: 'porady',
       hue: 0,
       kind: 'model',
-      firm: 'ATELIER 22',
+      firm: 'Proengineers',
       title: 'AI zápisy z porad: poslechne poradu, napíše zápis a rozdá úkoly.',
       standfirst: 'Z porad se přestalo ztrácet, co kdo slíbil. Zápis i úkoly vzniknou samy hned po poradě.',
       summary: 'AI poslouchá poradu, na stole i online, pozná, kdo mluví, a po jejím skončení pošle všem krátký zápis. Každý úkol, který zazněl, zapíše týmu do úkolníčku se jménem a termínem. Nikdo nic nepřepisuje.',

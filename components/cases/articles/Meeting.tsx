@@ -1,4 +1,4 @@
-/* ATELIER 22: jednoduchá věc, krátký text. Nejdřív normálně řečeno, co to je. */
+/* Proengineers: jednoduchá věc, krátký text. Nejdřív normálně řečeno, co to je. */
 export default function Meeting() {
   return (
     <>
@@ -9,7 +9,7 @@ export default function Meeting() {
 
       <h2>Jak se k nám dostali</h2>
       <p>
-        Projekční kancelář ATELIER 22 se ozvala s tím, že se na poradách rozhoduje a po poradách ztrácí. Každý si pamatoval něco jiného a zápis psal ten, kdo se
+        Projekční kancelář Proengineers se ozvala s tím, že se na poradách rozhoduje a po poradách ztrácí. Každý si pamatoval něco jiného a zápis psal ten, kdo se
         nestihl vymluvit. Úkoly zůstávaly v hlavách, nebo v e-mailech, které nikdo nečetl.
       </p>
 

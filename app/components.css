@@ -6592,23 +6592,19 @@ html.is-loading .seq {
   letter-spacing: 0.34em;
   color: var(--ink-2);
 }
-/* ATELIER 22: lehké kapitálky a dvaadvacítka v kroužku */
+/* Proengineers: čtverec s kruhem a vodorovnou čarou, tučné malé písmo */
 .fl--porady {
-  font-family: var(--font-text);
-  font-weight: 300;
-  letter-spacing: 0.34em;
+  font-family: var(--font-display);
+  font-weight: 650;
+  letter-spacing: -0.01em;
 }
-.fl__ring {
-  display: grid;
-  place-items: center;
-  width: 1.9em;
-  height: 1.9em;
-  border: 1.5px solid var(--cc);
-  border-radius: 50%;
-  color: var(--cc);
-  font-size: 0.6em;
-  font-weight: 700;
-  letter-spacing: 0;
+.fl--porady svg {
+  width: 1.35em;
+  height: 1.35em;
+  stroke: var(--ink);
+  stroke-width: 2.2;
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
 }
 /* SeidlServis: šikmé zaoblené písmo na štítku */
 .fl--upominky {
@@ -7206,6 +7202,8 @@ html.is-loading .seq {
   justify-content: center;
   margin-top: clamp(32px, 4vw, 56px);
 }
+
+
 
 
 

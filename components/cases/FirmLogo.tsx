@@ -60,11 +60,13 @@ export default function FirmLogo({ id, className = '' }: { id: string; className
       );
     case 'porady':
       return (
-        <span className={cls} role="img" aria-label="ATELIER 22">
-          <span className="fl__ring" aria-hidden="true">
-            22
-          </span>
-          <span>ATELIER</span>
+        <span className={cls} role="img" aria-label="Proengineers">
+          <svg viewBox="0 0 28 28" aria-hidden="true">
+            <rect x="2" y="2" width="24" height="24" />
+            <circle cx="14" cy="14" r="10.6" />
+            <path d="M2 14h24" />
+          </svg>
+          <span>proengineers</span>
         </span>
       );
     case 'upominky':
