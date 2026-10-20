@@ -118,7 +118,7 @@ export const cases = {
       id: 'reality',
       hue: 52,
       kind: 'model',
-      firm: 'Lindner Reality',
+      firm: 'Unica Real',
       title: 'Hlídač realitních portálů: nové nabídky od majitelů hned v mobilu makléře.',
       standfirst: 'Majitelka realitní kanceláře chtěla vědět o novém bytě od majitele dřív než konkurence. Dnes to makléř ví do několika minut.',
       summary: 'AI hlídá realitní portály nonstop. Jakmile se objeví nový inzerát od majitele, během několika minut pošle makléři do mobilu zprávu se vším, co potřebuje: kontakt, cenu, popis i srovnání s trhem. Realitky a duplicity vyřadí sama, makléř jen zvedne telefon.',

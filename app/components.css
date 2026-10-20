@@ -6475,23 +6475,15 @@ html.is-loading .seq {
 .fl em {
   font-style: normal;
 }
-/* Lindner Reality: klasická patkovka, střecha domku */
+/* Unica Real: tučné geometrické kapitálky, slova natěsno, REAL v barvě případu */
 .fl--reality {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-}
-.fl--reality span {
-  display: grid;
-  gap: 2px;
+  font-family: var(--font-display);
+  font-size: calc(1.15rem * var(--lg));
+  font-weight: 700;
+  letter-spacing: 0.01em;
 }
 .fl--reality em {
-  color: var(--ink-3);
-  font-family: var(--font-text);
-  font-size: 0.52em;
-  font-weight: 600;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
+  color: var(--cc);
 }
 /* Brightline Digital: tenké kapitálky s velkým prostrkáním, bez značky */
 .fl--kouc {
@@ -7160,6 +7152,7 @@ html.is-loading .seq {
   justify-content: center;
   margin-top: clamp(32px, 4vw, 56px);
 }
+
 
 
 

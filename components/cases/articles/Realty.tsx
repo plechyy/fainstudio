@@ -1,10 +1,10 @@
-/* Lindner Reality: vyprávění od prvního e-mailu po první pípnutí. Souvislý text, nadpisy jen pro orientaci. */
+/* Unica Real: vyprávění od prvního e-mailu po první pípnutí. Souvislý text, nadpisy jen pro orientaci. */
 export default function Realty() {
   return (
     <>
       <p className="ca-open">
         Byt 3+kk v Králově Poli visel na portálu čtyři hodiny, než se o něm někdo z kanceláře dozvěděl. Majitel ho mezitím slíbil makléři z konkurence. Byla to
-        třetí zakázka od majitele, o kterou Lindner Reality během dvou měsíců přišla. Pokaždé o pár hodin.
+        třetí zakázka od majitele, o kterou Unica Real během dvou měsíců přišla. Pokaždé o pár hodin.
       </p>
 
       <h2>Jak se k nám dostali</h2>
@@ -57,7 +57,7 @@ export default function Realty() {
       </p>
       <blockquote className="ca-quote">
         Když mi to poprvé cinklo, myslela jsem, že je to test. Majitel měl v inzerátu ještě napsáno „fotky doplním“.
-        <cite>makléřka Lindner Reality</cite>
+        <cite>makléřka Unica Real</cite>
       </blockquote>
 
       <h2>Spuštění</h2>

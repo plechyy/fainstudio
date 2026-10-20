@@ -8,14 +8,9 @@ export default function FirmLogo({ id, className = '' }: { id: string; className
   switch (id) {
     case 'reality':
       return (
-        <span className={cls} role="img" aria-label="Lindner Reality">
-          <svg viewBox="0 0 28 28" aria-hidden="true">
-            <path d="M3 14 14 4l11 10" />
-            <path d="M7 12.5V24h14V12.5" />
-            <path d="M12 24v-6h4v6" />
-          </svg>
+        <span className={cls} role="img" aria-label="Unica Real">
           <span>
-            Lindner<em>Reality</em>
+            UNICA<em>REAL</em>
           </span>
         </span>
       );
