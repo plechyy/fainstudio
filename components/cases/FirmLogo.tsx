@@ -72,11 +72,11 @@ export default function FirmLogo({ id, className = '' }: { id: string; className
     case 'upominky':
       return (
         <span className={cls} role="img" aria-label="SeidlServis">
-          <span className="fl__badge" aria-hidden="true">
-            S
+          <span className="fl-sd__a" aria-hidden="true">
+            <b>SEIDL</b>
           </span>
-          <span>
-            Seidl<em>Servis</em>
+          <span className="fl-sd__b" aria-hidden="true">
+            <b>SERVIS</b>
           </span>
         </span>
       );
