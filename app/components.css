@@ -6643,7 +6643,6 @@ html.is-loading .seq {
 .ca-fig {
   display: grid;
   place-items: center;
-  overflow-x: clip;
   max-width: 880px;
   margin-block: clamp(28px, 4vw, 56px);
   min-height: 300px;
@@ -6882,15 +6881,15 @@ html.is-loading .seq {
 .rd__bg {
   position: absolute;
   inset: 0;
-  background: color-mix(in oklab, var(--bg) 82%, black);
+  background: var(--bg);
   opacity: 0;
-  transition: opacity 420ms var(--ease-out);
+  transition: opacity 360ms var(--ease-out);
 }
 .rd.is-open .rd__bg {
-  opacity: 0.92;
+  opacity: 1;
 }
-/* když je list otevřený, scény pod ním se nekreslí */
-.has-reader .cx__track {
+/* za otevřeným listem se zbytek stránky vůbec nekreslí: animace pod ním (shadery, scény) by prosvítaly, zdvojovaly se a blikaly */
+html.has-reader body > *:not(.rd) {
   visibility: hidden;
 }
 .rd__sheet {
@@ -6900,11 +6899,10 @@ html.is-loading .seq {
   width: min(1120px, 100%);
   height: calc(100% - clamp(0px, 3vw, 28px));
   overflow: hidden;
-  border: 1px solid var(--line-strong);
-  border-bottom: 0;
-  border-radius: 26px 26px 0 0;
+  border-inline: 1px solid var(--line-strong);
+  border-top: 1px solid var(--line-strong);
+  border-radius: 0;
   background: var(--bg);
-  box-shadow: 0 -40px 120px -40px oklch(0 0 0 / 0.7);
   transform: translateY(60px);
   opacity: 0;
   transition:

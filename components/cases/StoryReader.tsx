@@ -50,15 +50,23 @@ export default function StoryReader({ index, onClose, onGo }: Props) {
     const gap = window.innerWidth - el.clientWidth;
     const prev = { o: el.style.overflow, p: el.style.paddingRight };
     el.style.overflow = 'hidden';
-    el.classList.add('has-reader');
     if (gap > 0) el.style.paddingRight = `${gap}px`;
     return () => {
-      el.classList.remove('has-reader');
       el.style.overflow = prev.o;
       el.style.paddingRight = prev.p;
       back.current?.focus?.({ preventScroll: true });
     };
   }, [mounted]);
+
+  // stránka pod listem se schová, až když list dosedne (a hned se vrátí, jakmile se začne zavírat)
+  useEffect(() => {
+    if (!shown) return;
+    const t = window.setTimeout(() => document.documentElement.classList.add('has-reader'), 460);
+    return () => {
+      clearTimeout(t);
+      document.documentElement.classList.remove('has-reader');
+    };
+  }, [shown]);
 
   useEffect(() => {
     if (!shown) return;
