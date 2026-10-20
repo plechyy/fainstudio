@@ -14,3 +14,7 @@ reports/*.pdf
 .admin-files/
 reports/
 research_notes/
+
+# nahrávky obrazovky (nepatří do repa)
+*.mov
+*.mp4
