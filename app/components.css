@@ -6861,11 +6861,13 @@ html.is-loading .seq {
   display: grid;
   place-items: end center;
 }
-/* podklad je jen tmavá clona: rozmazávání stránky pod listem (kde běží shadery a animace) blikalo */
+/* počítač: stránka pod listem je rozmazaná a list je průhlednější; mobil má jen plnou clonu (blur tam blikal) */
 .rd__bg {
   position: absolute;
   inset: 0;
-  background: var(--bg);
+  background: color-mix(in oklab, var(--bg) 45%, transparent);
+  -webkit-backdrop-filter: blur(22px) saturate(1.1);
+  backdrop-filter: blur(22px) saturate(1.1);
   opacity: 0;
   transition: opacity 360ms var(--ease-out);
 }
@@ -6873,8 +6875,10 @@ html.is-loading .seq {
   opacity: 1;
 }
 /* za otevřeným listem se zbytek stránky vůbec nekreslí: animace pod ním (shadery, scény) by prosvítaly, zdvojovaly se a blikaly */
-html.has-reader body > *:not(.rd) {
-  visibility: hidden;
+@media (max-width: 639px) {
+  html.has-reader body > *:not(.rd) {
+    visibility: hidden;
+  }
 }
 .rd__sheet {
   position: relative;
@@ -6886,7 +6890,7 @@ html.has-reader body > *:not(.rd) {
   border-inline: 1px solid var(--line-strong);
   border-top: 1px solid var(--line-strong);
   border-radius: 0;
-  background: var(--bg);
+  background: color-mix(in oklab, var(--bg) 78%, transparent);
   transform: translateY(60px);
   opacity: 0;
   transition:
@@ -6916,7 +6920,7 @@ html.has-reader body > *:not(.rd) {
   gap: 16px;
   padding: 12px 14px 12px 22px;
   border-bottom: 1px solid var(--line);
-  background: var(--bg);
+  background: color-mix(in oklab, var(--bg) 40%, transparent);
 }
 .rd__bar .fl {
   --lg: 0.95;
@@ -7038,8 +7042,11 @@ html.has-reader body > *:not(.rd) {
   }
   .rd__bg {
     background: oklch(0 0 0 / 0.45);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
   .rd__sheet {
+    background: var(--bg);
     width: 100%;
     height: 100%;
     border: 0;
@@ -7057,6 +7064,7 @@ html.has-reader body > *:not(.rd) {
   }
   .rd__bar {
     padding: 10px 10px 10px 14px;
+    background: var(--bg);
   }
   .rd__bar .rd__back {
     display: grid;
@@ -7077,3 +7085,4 @@ html.has-reader body > *:not(.rd) {
   justify-content: center;
   margin-top: clamp(32px, 4vw, 56px);
 }
+
