@@ -8,8 +8,8 @@ import FirmLogo from './FirmLogo';
 import { StoryFig, StoryHero, StoryText } from './Story';
 
 /*
- * Varianta 1 — čtečka. Příběh se otevře jako velký list přes celou obrazovku (ne malé okno):
- * vyjede zespodu přes rozmazané pozadí, nahoře je lišta s postupem čtení, šipkami na další
+ * Čtečka. Příběh se otevře jako velký list přes celou obrazovku (ne malé okno). Na počítači
+ * vyjede zespodu přes rozmazané pozadí, na mobilu se vysune zprava jako další obrazovka, nahoře je lišta s postupem čtení, šipkami na další
  * a předchozí případ a křížkem. Esc, křížek i tlačítko Zpět v prohlížeči ho zavřou.
  * Stránka pod ním se nehýbe; focus zůstává uvnitř a po zavření se vrátí na tlačítko.
  */
@@ -59,7 +59,10 @@ export default function StoryReader({ index, onClose, onGo }: Props) {
   }, [mounted]);
 
   useEffect(() => {
-    if (shown) sheet.current?.querySelector<HTMLElement>('[data-close]')?.focus({ preventScroll: true });
+    if (!shown) return;
+    // na mobilu je vidět šipka zpět, na počítači křížek; zaostří se na ten viditelný
+    const visible = Array.from(sheet.current?.querySelectorAll<HTMLElement>('[data-close]') ?? []).find((b) => b.offsetParent !== null);
+    visible?.focus({ preventScroll: true });
   }, [shown]);
 
   // nový případ začíná od začátku
@@ -102,6 +105,11 @@ export default function StoryReader({ index, onClose, onGo }: Props) {
       <div className="rd__bg" onClick={onClose} aria-hidden="true" />
       <div className="rd__sheet" role="dialog" aria-modal="true" aria-label={`${c.firm}: ${cases.labels.more}`} ref={sheet}>
         <div className="rd__bar">
+          <button type="button" data-close className="rd__back" aria-label="Zpět na případy" onClick={onClose}>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19 12H5M11 6l-6 6 6 6" />
+            </svg>
+          </button>
           <FirmLogo id={c.id} />
           <span className="rd__count num">
             {i + 1} / {cases.items.length}
