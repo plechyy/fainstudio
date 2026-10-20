@@ -22,7 +22,7 @@ export default function Cases() {
           <CasesReader />
         </div>
 
-        <div className="cs__cta">
+        <div className="cs__cta cs__cta--mid">
           <a className="btn btn--primary" href={CAL_URL}>
             {cases.cta}
           </a>

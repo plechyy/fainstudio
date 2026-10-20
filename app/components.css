@@ -5122,49 +5122,48 @@ html.is-loading .seq {
   justify-items: start;
 }
 .cx-case__lead {
-  max-width: 44ch;
+  max-width: 52ch;
   margin: 0;
   color: var(--ink-2);
   font-size: 0.98rem;
   line-height: 1.55;
   text-wrap: pretty;
 }
-/* hlavní tlačítko případu: plné, v barvě případu, aby bylo jasné, že se dá kliknout */
+/* tlačítko k příběhu je jen obrys, ať nesoutěží s hlavním tlačítkem sekce */
 .cx-read {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  padding: 15px 24px 15px 26px;
-  border: 0;
+  padding: 13px 22px 13px 24px;
+  border: 1.5px solid color-mix(in oklab, var(--cc) 65%, transparent);
   border-radius: 999px;
-  background: var(--cc);
-  color: oklch(from var(--cc) clamp(0.16, calc((0.66 - l) * 60), 0.98) 0.02 h);
+  background: transparent;
+  color: var(--ink);
   font: inherit;
-  font-size: 1rem;
-  font-weight: 650;
+  font-size: 0.98rem;
+  font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 14px 34px -12px color-mix(in oklab, var(--cc) 70%, transparent);
   transition:
-    transform 250ms var(--ease-out),
-    box-shadow 250ms,
+    background-color 250ms,
+    border-color 250ms,
     gap 250ms var(--ease-out);
 }
 .cx-read svg {
   width: 18px;
   height: 18px;
   fill: none;
-  stroke: currentColor;
+  stroke: var(--cc);
   stroke-width: 2.2;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 .cx-read:hover {
   gap: 16px;
-  transform: translateY(-2px);
-  box-shadow: 0 20px 40px -12px color-mix(in oklab, var(--cc) 80%, transparent);
+  border-color: var(--cc);
+  background: color-mix(in oklab, var(--cc) 12%, transparent);
 }
 .cx-read:active {
-  transform: scale(0.97);
+  transform: scale(0.98);
 }
 .cx-read:focus-visible {
   outline: 2px solid var(--ink);
@@ -7085,3 +7084,10 @@ html.is-loading .seq {
 }
 
 
+
+/* hlavní tlačítko sekce: pod carouselem uprostřed */
+.cs__cta--mid {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(32px, 4vw, 56px);
+}

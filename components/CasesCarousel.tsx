@@ -134,7 +134,7 @@ export default function CasesCarousel({ onRead }: { onRead: (i: number) => void 
             </div>
 
             <div className="cx-case__cta">
-              <p className="cx-case__lead">{c.standfirst}</p>
+              <p className="cx-case__lead">{c.summary}</p>
               <button type="button" className="cx-read" onClick={() => onRead(i)}>
                   {L.more}
                   <svg viewBox="0 0 24 24" aria-hidden="true">
