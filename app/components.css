@@ -4930,6 +4930,8 @@ html.is-loading .seq {
 .cx__logo {
   --cc: var(--cn);
   flex-basis: 100%;
+  min-height: 4.4rem;
+  align-content: flex-start;
   margin-top: 12px;
   animation: cx-name 420ms var(--ease-out) both;
 }
@@ -4954,22 +4956,29 @@ html.is-loading .seq {
     transform: translateY(5px);
   }
 }
-.cx__segs {
+.cxp {
   grid-area: segs;
   display: flex;
   gap: 6px;
+  width: 100%;
+  height: 30px;
+  align-self: center;
 }
-.cx__seg {
+.cxp__seg {
   --cn: oklch(calc(0.8 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) + var(--co, 0)));
   flex: 1;
   min-width: 0;
-  padding: 12px 0;
+  height: 100%;
+  padding: 0;
   border: 0;
   background: none;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
-.cx__seg i {
+.cxp__seg i {
   display: block;
+  width: 100%;
   height: 3px;
   border-radius: 3px;
   background: var(--line-strong);
@@ -4978,18 +4987,18 @@ html.is-loading .seq {
     box-shadow 400ms var(--ease-out),
     transform 400ms var(--ease-out);
 }
-.cx__seg:hover i {
+.cxp__seg:hover i {
   background: var(--ink-3);
 }
-.cx__seg[data-state='done'] i {
+.cxp__seg[data-state='done'] i {
   background: color-mix(in oklab, var(--cn) 45%, var(--line-strong));
 }
-.cx__seg[data-state='now'] i {
+.cxp__seg[data-state='now'] i {
   background: var(--cn);
   box-shadow: 0 0 12px -1px color-mix(in oklab, var(--cn) 70%, transparent);
   transform: scaleY(1.6);
 }
-.cx__seg:focus-visible,
+.cxp__seg:focus-visible,
 .cx__arrow:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 2px;
@@ -6394,7 +6403,7 @@ html.is-loading .seq {
 }
 @media (min-width: 900px) {
   .cx__bar {
-    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-columns: 24rem minmax(0, 1fr);
     grid-template-areas: 'count segs';
     align-items: center;
     gap: 6px 28px;
@@ -6451,7 +6460,7 @@ html.is-loading .seq {
 /* světlý motiv: barvy jako text jsou tmavší, aby se daly přečíst */
 :root[data-theme='light'] .cx-case,
 :root[data-theme='light'] .cx__count,
-:root[data-theme='light'] .cx__seg {
+:root[data-theme='light'] .cxp__seg {
   --cc: oklch(calc(0.56 + var(--pal-adj)) calc(var(--ac-c) * 1.1) calc(var(--pal-h) + var(--co, 0)));
   --cn: var(--cc);
 }
@@ -7221,3 +7230,9 @@ html.is-loading .seq {
 
 
 
+
+@media (min-width: 640px) {
+  .cx__logo {
+    min-height: 2.6rem;
+  }
+}

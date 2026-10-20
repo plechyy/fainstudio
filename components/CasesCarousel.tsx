@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { cases } from '@/lib/content';
 import FirmLogo from './cases/FirmLogo';
+import CasesProgress from './CasesProgress';
 import Live from './cases/Live';
 import Result from './cases/Result';
 
@@ -84,26 +85,7 @@ export default function CasesCarousel({ onRead }: { onRead: (i: number) => void 
             {active + 1} z {items.length}: {items[active].firm}
           </span>
         </p>
-        {/* úseky jako v Postupu: hotové zůstanou podbarvené, aktuální svítí barvou případu */}
-        <div className="cx__segs" role="tablist" aria-label="Případy">
-          {items.map((it, i) => (
-            <button
-              type="button"
-              role="tab"
-              aria-selected={i === active}
-              aria-controls={`pripad-${it.id}`}
-              aria-label={`${i + 1}. ${it.firm}`}
-              title={it.firm}
-              className="cx__seg"
-              data-state={i < active ? 'done' : i === active ? 'now' : 'next'}
-              style={{ ['--co' as string]: it.hue }}
-              onClick={() => go(i)}
-              key={it.id}
-            >
-              <i />
-            </button>
-          ))}
-        </div>
+        <CasesProgress active={active} onGo={go} />
       </div>
 
       <div className="cx__stage">
