@@ -6316,14 +6316,6 @@ html.is-loading .seq {
 }
 
 /* poznámka pod carouselem a tlačítko */
-.cs__note {
-  max-width: 70ch;
-  margin: 26px 0 0;
-  color: var(--ink-3);
-  font-size: 0.8rem;
-  line-height: 1.55;
-  text-wrap: pretty;
-}
 .cs__cta {
   margin-top: 28px;
 }
