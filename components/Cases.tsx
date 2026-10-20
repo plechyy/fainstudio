@@ -1,6 +1,6 @@
 import { cases } from '@/lib/content';
 import { CAL_URL } from '@/lib/config';
-import CasesCarousel from './CasesCarousel';
+import CasesVariants from './CasesVariants';
 
 export default function Cases() {
   return (
@@ -19,7 +19,7 @@ export default function Cases() {
         </header>
 
         <div className="reveal">
-          <CasesCarousel />
+          <CasesVariants />
         </div>
 
         <div className="cs__cta">

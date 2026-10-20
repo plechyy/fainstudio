@@ -2,9 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Footer from '@/components/Footer';
-import FirmLogo from '@/components/cases/FirmLogo';
-import Live from '@/components/cases/Live';
-import { bodies } from '@/components/cases/articles';
+import { StoryFig, StoryHero, StoryText } from '@/components/cases/Story';
 import { CAL_URL } from '@/lib/config';
 import { cases } from '@/lib/content';
 
@@ -34,8 +32,6 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
   if (i < 0) notFound();
   const c = cases.items[i];
   const next = cases.items[(i + 1) % cases.items.length];
-  const Body = bodies[c.id];
-  const L = cases.labels;
 
   return (
     <>
@@ -49,47 +45,9 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
 
       <main className="ca" id="obsah" style={{ ['--co' as string]: c.hue }}>
         <div className="wrap">
-          <header className="ca-hero">
-            <FirmLogo id={c.id} className="fl--lg" />
-            <h1 className="ca-hero__t">{c.title}</h1>
-            <p className="ca-hero__lead">{c.standfirst}</p>
-
-            <dl className="ca-facts">
-              <div>
-                <dt>Klient</dt>
-                <dd>{c.firm}</dd>
-              </div>
-              <div>
-                <dt>Obor</dt>
-                <dd>{c.industry}</dd>
-              </div>
-              <div>
-                <dt>Co jsme postavili</dt>
-                <dd>{c.built}</dd>
-              </div>
-            </dl>
-
-            <p className="cx-res ca-res">
-              <span className="cx-res__before">
-                <small>{L.before}</small>
-                <s className="num">{c.result.before}</s>
-              </span>
-              <span className="cx-res__arrow" aria-hidden="true" />
-              <span className="cx-res__after">
-                <small>{L.after}</small>
-                <b className="num">{c.result.after}</b>
-              </span>
-              <span className="cx-res__unit">{c.result.unit}</span>
-            </p>
-          </header>
-
-          <div className="ca-fig art" style={{ ['--ac-h' as string]: `calc(var(--pal-h) + ${c.hue})` }} aria-hidden="true">
-            <Live v={c.visual} />
-          </div>
-
-          <div className="ca-prose">
-            <Body />
-          </div>
+          <StoryHero c={c} as="h1" />
+          <StoryFig c={c} />
+          <StoryText id={c.id} />
 
           <footer className="ca-end">
             <p>

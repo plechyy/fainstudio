@@ -4,7 +4,6 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { cases } from '@/lib/content';
 import FirmLogo from './cases/FirmLogo';
 import Live from './cases/Live';
-import Link from 'next/link';
 
 const L = cases.labels;
 
@@ -13,7 +12,7 @@ const L = cases.labels;
  * a záložkami na počítači). Aktivní případ hlídá IntersectionObserver; vizuál se přehraje,
  * když na případ přijdete poprvé. Žádné nekonečné smyčky ani 3D, ať to na telefonu nic nestojí.
  */
-export default function CasesCarousel() {
+export default function CasesCarousel({ onRead, hideRead = false }: { onRead: (i: number) => void; hideRead?: boolean }) {
   const items = cases.items;
   const track = useRef<HTMLDivElement>(null);
   // kam carousel právě jede: rychlé klikání na šipku počítá od cíle, ne od karty, která je ještě vidět
@@ -126,12 +125,6 @@ export default function CasesCarousel() {
                 </span>
                 <span className="cx-res__unit">{c.result.unit}</span>
               </p>
-              <Link href={`/pripady/${c.id}`} className="cx-more">
-                {L.more}
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M5 12h14M13 6l6 6-6 6" />
-                </svg>
-              </Link>
             </div>
 
             <div className="cx-case__stage">
@@ -140,20 +133,17 @@ export default function CasesCarousel() {
               </div>
             </div>
 
-            <dl className="cx-case__dl">
-                <div>
-                  <dt>{L.problem}</dt>
-                  <dd>{c.problem}</dd>
-                </div>
-                <div>
-                  <dt>{L.how}</dt>
-                  <dd>{c.how}</dd>
-                </div>
-                <div>
-                  <dt>{L.why}</dt>
-                  <dd>{c.why}</dd>
-                </div>
-            </dl>
+            <div className="cx-case__cta">
+              <p className="cx-case__lead">{c.standfirst}</p>
+              {!hideRead && (
+                <button type="button" className="cx-read" onClick={() => onRead(i)}>
+                  {L.more}
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
+                </button>
+              )}
+            </div>
 
           </article>
         ))}
