@@ -29,6 +29,12 @@ export function StoryHero({ c, as: Tag = 'h2' }: { c: CaseItem; as?: 'h1' | 'h2'
           <dt>Co jsme postavili</dt>
           <dd>{c.built}</dd>
         </div>
+        {'abroad' in c && (
+          <div>
+            <dt>Spolupráce</dt>
+            <dd>{c.abroad}</dd>
+          </div>
+        )}
       </dl>
       <div className="ca-res">
         <Result c={c} />

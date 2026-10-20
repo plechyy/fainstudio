@@ -1,13 +1,17 @@
-/* Woodline Interiér: příběh jedné smlouvy. Úryvky ze smlouvy jsou přímo v textu, poznámky u nich. */
+/* Woodline Interiors (USA): příběh jedné smlouvy. Úryvky ze smlouvy jsou přímo v textu, poznámky u nich. */
 export default function Contract() {
   return (
     <>
       <p className="ca-open">
-        Majitele Woodline Interiér stála jedna smlouva tři roky. Neměla v sobě nic podezřelého. Dodavatel dřeva ji poslal e-mailem, majitel ji přelétl,
+        Majitele Woodline Interiors stála jedna smlouva tři roky. Neměla v sobě nic podezřelého. Dodavatel dřeva ji poslal e-mailem, majitel ji přelétl,
         podepsal a zasunul do složky. O rok později zjistil, že výpovědní lhůta uplynula půl roku před tím, než si na smlouvu vzpomněl.
       </p>
 
       <h2>Jak se k nám dostal</h2>
+      <p>
+        Woodline Interiors vyrábí nábytek ve Spojených státech, takže celá spolupráce běžela na dálku: hovory přes video, živé ukázky každý týden a smlouvy v
+        angličtině. Úryvky níže jsou v překladu.
+      </p>
       <p>
         Řekl nám to bez obalu: právníka na každou smlouvu platit nechce, na to ho nemá, ale podepisovat naslepo už taky ne. Nejdřív chtěl vědět, jestli to nějak
         jde. Odpověděli jsme, že jde, ale ne tak, aby AI rozhodovala. Má smlouvu přečíst, ukázat, kde jsou rizika, a poradit, co navrhnout jinak. Rozhodnutí zůstává

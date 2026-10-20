@@ -78,6 +78,7 @@ export default function CasesCarousel({ onRead }: { onRead: (i: number) => void 
           </span>
           <span className="cx__logo" key={active}>
             <FirmLogo id={items[active].id} />
+            {'abroad' in items[active] && <small className="cx__abroad">{(items[active] as { abroad: string }).abroad}</small>}
           </span>
           <span className="sr-only" aria-live="polite">
             {active + 1} z {items.length}: {items[active].firm}

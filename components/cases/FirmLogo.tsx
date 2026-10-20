@@ -34,14 +34,16 @@ export default function FirmLogo({ id, className = '' }: { id: string; className
       );
     case 'smlouvy':
       return (
-        <span className={cls} role="img" aria-label="Woodline Interiér">
+        <span className={cls} role="img" aria-label="Woodline Interiors">
           <svg viewBox="0 0 28 28" aria-hidden="true">
-            <circle cx="14" cy="14" r="10.5" />
-            <circle cx="14" cy="14" r="6.5" />
-            <circle cx="14" cy="14" r="2.6" />
+            <circle className="fl-wl__disc" cx="14" cy="14" r="13.4" />
+            <circle className="fl-wl__ring" cx="14" cy="14" r="11.4" strokeDasharray="16 1.6 21 1.6 13 1.6 17 1.6" />
+            <circle className="fl-wl__ring" cx="14" cy="14" r="9.4" strokeDasharray="11 1.6 15 1.6 19 1.6" />
+            <circle className="fl-wl__ring" cx="14" cy="14" r="7.4" strokeDasharray="9 1.6 13 1.6 17 1.6" transform="rotate(70 14 14)" />
+            <path className="fl-wl__w" d="M5.6 8.4h3.6l2 7.4 2-6.2h1.6l2 6.2 2-7.4h3.6l-3.9 12h-3l-1.5-5-1.5 5h-3z" />
           </svg>
           <span>
-            WOODLINE<em>INTERIÉR</em>
+            WOODLINE<em>INTERIORS</em>
           </span>
         </span>
       );
