@@ -1087,11 +1087,11 @@ html.is-loading .seq {
 /* ── čísla: výsledky na sběrnici, po které běží výboj ─────────────── */
 .proof {
   --cycle: 6s;
-  /* sběrnice nese barvy všech čtyř položek, stejné jako jejich čísla */
-  --pl1: oklch(calc(0.74 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) - 38));
-  --pl2: oklch(calc(0.74 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) + 52));
-  --pl3: oklch(calc(0.74 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) + 108));
-  --pl4: oklch(calc(0.74 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) + 165));
+  /* sběrnice je jen v primární, jemně se zesvětluje a ztmavuje; bez duhy */
+  --pl1: var(--primary-deep);
+  --pl2: var(--primary);
+  --pl3: var(--primary);
+  --pl4: var(--primary-deep);
   position: relative;
   display: grid;
   gap: 40px;
@@ -4648,12 +4648,6 @@ html.is-loading .seq {
   background: color-mix(in oklab, var(--bg) 55%, white);
 }
 
-:root[data-theme='light'] .proof {
-  --pl1: oklch(calc(0.68 + var(--pal-adj)) calc(var(--ac-c) * 1.25) calc(var(--pal-h) - 38));
-  --pl2: oklch(calc(0.68 + var(--pal-adj)) calc(var(--ac-c) * 1.25) calc(var(--pal-h) + 52));
-  --pl3: oklch(calc(0.68 + var(--pal-adj)) calc(var(--ac-c) * 1.25) calc(var(--pal-h) + 108));
-  --pl4: oklch(calc(0.68 + var(--pal-adj)) calc(var(--ac-c) * 1.25) calc(var(--pal-h) + 165));
-}
 /* ── pruh o datech pod tlačítky v hero ───────────────────────────── */
 .hero__safe {
   display: flex;
