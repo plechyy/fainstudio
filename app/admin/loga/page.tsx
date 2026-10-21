@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { listFilesCached, readStored, storageStatus } from '@/lib/admin-files';
 import LogoGallery, { type Logo } from './LogoGallery';
+import { LIKES_FILE } from './likes';
 
 export const metadata: Metadata = { title: 'Loga' };
 
@@ -17,6 +18,11 @@ export default async function Page() {
   try {
     const r = await readStored(DIR, 'index.json');
     if (r) meta = JSON.parse(await new Response(r.body as BodyInit).text());
+  } catch {}
+  let likes: string[] = [];
+  try {
+    const r = await readStored(DIR, LIKES_FILE);
+    if (r) likes = JSON.parse(await new Response(r.body as BodyInit).text());
   } catch {}
   const byFile = new Map(meta.map((m) => [m.file, m]));
 
@@ -39,10 +45,10 @@ export default async function Page() {
           <h1 className="adm__title" id="lg-title">
             Loga
           </h1>
-          <p className="adm__sub">{items.length} návrhů. Kliknutím otevřete velký náhled, šipky ← → listují, Esc zavře.</p>
+          <p className="adm__sub">{items.length} návrhů. Kliknutím otevřete velký náhled, šipky ← → listují, Esc zavře. Srdíčkem (nebo klávesou L) si návrh olajkujete.</p>
         </div>
       </header>
-      {items.length ? <LogoGallery items={items} /> : <p className="adm__sub">Žádné návrhy ve složce {DIR}.</p>}
+      {items.length ? <LogoGallery items={items} initialLikes={likes} /> : <p className="adm__sub">Žádné návrhy ve složce {DIR}.</p>}
     </section>
   );
 }
