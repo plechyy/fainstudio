@@ -1,4 +1,5 @@
-/* Kreslená šestícípá hvězdička: značka FaiN Studia (navigace, favicon, sdílení). Obrys je záměrně lehce třesoucí se, jako tažený rukou; protější cípy jsou spojené přes střed, aby hvězda nevypadala jako hexagram. */
+/* Kreslená osmicípá hvězdička (doodle): značka FaiN Studia (navigace, favicon, sdílení). Vyplněná, s lehce nepravidelnými cípy a vlnitými hranami, jako rychle načrtnutá rukou.
+   STAR_STROKE je tah ve stejné barvě jako výplň, který cípy zakulatí. Předchozí varianta (obrys s paprsky) je v gitu, commit 69a3844. */
 export const STAR_D =
-  'M50.9 6.4 Q56.4 18.4 62.6 29.9 Q75.4 27.7 88.4 26.5 Q80.2 37.2 74.6 49.3 Q80.6 61.3 88.7 71.9 Q75.1 69.8 61.4 70.8 Q56.0 82.4 48.4 92.6 Q44.2 81.8 38.2 72.0 Q24.4 72.9 10.8 71.4 Q18.2 60.7 25.5 50.0 Q18.4 40.0 11.8 29.7 Q25.3 29.9 38.8 29.2 Q44.5 17.6 50.9 6.4Z M50.9 6.4 Q52.5 50 48.4 92.6 M88.4 26.5 Q48.5 50.5 10.8 71.4 M88.7 71.9 Q51.5 49.5 11.8 29.7';
-export const STAR_STROKE = 6;
+  'M47.6 2.1 Q49.9 14.9 55.4 26.8 Q67.4 20.0 78.4 11.7 Q74.1 24.4 73.1 37.8 Q82.9 41.0 91.2 47.1 Q82.7 52.5 73.4 56.5 Q79.1 69.1 85.0 81.6 Q72.6 75.2 60.0 69.4 Q57.5 83.5 54.0 97.3 Q49.7 84.7 44.8 72.3 Q33.1 76.4 21.8 81.6 Q24.7 71.0 28.0 60.5 Q17.0 54.7 4.8 52.5 Q16.9 49.1 28.6 44.7 Q19.8 33.8 11.8 22.3 Q25.9 25.1 39.2 30.9 Q43.4 16.5 47.6 2.1Z';
+export const STAR_STROKE = 4;
