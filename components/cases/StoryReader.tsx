@@ -148,7 +148,7 @@ export default function StoryReader({ index, onClose, onGo }: Props) {
         <div className="rd__scroll" ref={scroll} onScroll={onScroll}>
           <div className="ca rd__ca" key={c.id}>
             <div className="rd__in">
-              <StoryHero c={c} />
+              <StoryHero c={c} result={false} />
               <StoryFig c={c} />
               <StoryText id={c.id} />
               <footer className="ca-end">

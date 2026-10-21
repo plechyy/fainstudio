@@ -9,8 +9,8 @@ export type CaseItem = (typeof cases.items)[number];
 
 /* Dílčí kusy case study. Skládají se různě podle varianty (čtečka, rozbalení, přehled) i na samostatné stránce. */
 
-/** logo, nadpis, perex, řádek údajů a výsledek Dřív → Teď */
-export function StoryHero({ c, as: Tag = 'h2' }: { c: CaseItem; as?: 'h1' | 'h2' }) {
+/** logo, nadpis, perex, řádek údajů a (volitelně) výsledek Dřív → Teď; v popup čtečce se výsledek nezobrazuje */
+export function StoryHero({ c, as: Tag = 'h2', result = true }: { c: CaseItem; as?: 'h1' | 'h2'; result?: boolean }) {
   const L = cases.labels;
   return (
     <header className="ca-hero">
@@ -37,9 +37,11 @@ export function StoryHero({ c, as: Tag = 'h2' }: { c: CaseItem; as?: 'h1' | 'h2'
           </div>
         )}
       </dl>
-      <div className="ca-res">
-        <Result c={c} />
-      </div>
+      {result && (
+        <div className="ca-res">
+          <Result c={c} />
+        </div>
+      )}
     </header>
   );
 }
