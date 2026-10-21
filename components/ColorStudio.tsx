@@ -82,7 +82,7 @@ function normHex(v: string) {
 
 /** Favicon: kreslená hvězdička v aktuální primární barvě (přepíše odkaz na ikonu). */
 function updateFavicon(hex: string) {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="22" fill="#0f0e12"/><g transform="translate(13 13) scale(.74)"><path d="${STAR_D}" fill="none" stroke="${hex}" stroke-width="13" stroke-linejoin="round" stroke-linecap="round"/></g></svg>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="22" fill="#0f0e12"/><g transform="translate(13 13) scale(.74)"><path d="${STAR_D}" fill="none" stroke="${hex}" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"/></g></svg>`;
   let link = document.getElementById('dyn-icon') as HTMLLinkElement | null;
   if (!link) {
     link = document.createElement('link');

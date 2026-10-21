@@ -29,12 +29,12 @@ const tile = (size, round, stroke) => {
 };
 const png = (size, round, stroke) => sharp(tile(size, round, stroke), { density: 384 }).resize(size, size).png({ compressionLevel: 9 }).toBuffer();
 
-writeFileSync(join(root, 'app/icon.png'), await png(512, true, 10));
-writeFileSync(join(root, 'app/apple-icon.png'), await png(180, false, 10));
+writeFileSync(join(root, 'app/icon.png'), await png(512, true, 6.5));
+writeFileSync(join(root, 'app/apple-icon.png'), await png(180, false, 7));
 
 /* ICO s PNG uvnitř (v malých velikostech tlustší tah) */
 const sizes = [16, 32, 48];
-const imgs = await Promise.all(sizes.map((s) => png(s, true, s < 32 ? 15 : 12)));
+const imgs = await Promise.all(sizes.map((s) => png(s, true, s < 32 ? 11 : s < 48 ? 9 : 8)));
 const head = Buffer.alloc(6 + 16 * sizes.length);
 head.writeUInt16LE(0, 0);
 head.writeUInt16LE(1, 2);
