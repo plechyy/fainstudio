@@ -1087,11 +1087,11 @@ html.is-loading .seq {
 /* ── čísla: výsledky na sběrnici, po které běží výboj ─────────────── */
 .proof {
   --cycle: 6s;
-  /* sběrnice je jen v primární, jemně se zesvětluje a ztmavuje; bez duhy */
-  --pl1: var(--primary-deep);
-  --pl2: var(--primary);
-  --pl3: var(--primary);
-  --pl4: var(--primary-deep);
+  /* sběrnice nese tlumené odstíny čtyř položek (--ph1..4 v globals.css), blízké primární */
+  --pl1: oklch(0.74 var(--pc) var(--ph1));
+  --pl2: oklch(0.74 var(--pc) var(--ph2));
+  --pl3: oklch(0.74 var(--pc) var(--ph3));
+  --pl4: oklch(0.74 var(--pc) var(--ph4));
   position: relative;
   display: grid;
   gap: 40px;

@@ -204,7 +204,7 @@
   --sys-ac: oklch(calc(0.78 + var(--pal-adj)) var(--ac-c) var(--ac-h, var(--pal-h)));
 }
 
-/* Proč AI: každá karta má vlastní barvu (Přínosy / .proof už ne, ty jedou jen v primární) ze stejné palety jako scény v sekci 2
+/* Proč AI: každá karta má vlastní barvu  ze stejné palety jako scény v sekci 2
    (animace uvnitř karty ji berou jako --primary), dlaždice mozaiky střídají pět odstínů */
 .why__item,
 .wm__tile {
@@ -219,6 +219,27 @@
 .why__item:nth-child(1) { --ac-h: calc(var(--pal-h) - 38); }
 .why__item:nth-child(2) { --ac-h: var(--pal-h); }
 .why__item:nth-child(3) { --ac-h: calc(var(--pal-h) + 165); }
+/* Přínosy: čtyři blízké odstíny kolem primární a tlumená sytost, ať to není duha */
+.proof {
+  --ph1: calc(var(--primary-h) - 42);
+  --ph2: calc(var(--primary-h) - 14);
+  --ph3: calc(var(--primary-h) + 14);
+  --ph4: calc(var(--primary-h) + 42);
+  --pc: 0.09;
+}
+.proof__item {
+  --primary: oklch(0.76 var(--pc) var(--ih));
+  --primary-glow: oklch(0.76 var(--pc) var(--ih) / 0.4);
+  --primary-deep: oklch(0.6 calc(var(--pc) * 1.1) var(--ih));
+  --primary-text: var(--primary);
+}
+:root[data-theme='light'] .proof__item {
+  --primary-text: oklch(0.6 calc(var(--pc) * 1.2) var(--ih));
+}
+.proof__item:nth-child(1) { --ih: var(--ph1); }
+.proof__item:nth-child(2) { --ih: var(--ph2); }
+.proof__item:nth-child(3) { --ih: var(--ph3); }
+.proof__item:nth-child(4) { --ih: var(--ph4); }
 .wm__tile--0 { --ac-h: var(--pal-h); }
 .wm__tile--1 { --ac-h: calc(var(--pal-h) - 38); }
 .wm__tile--2 { --ac-h: calc(var(--pal-h) - 88); }
