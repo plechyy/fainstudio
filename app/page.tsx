@@ -13,7 +13,6 @@ import Cta from '@/components/Cta';
 import Footer from '@/components/Footer';
 import Enhance from '@/components/Enhance';
 import ButtonSmoke from '@/components/ButtonSmoke';
-import BrandLab from '@/components/BrandLab';
 import { homeJsonLd, ld } from '@/lib/seo';
 
 export default function Home() {
@@ -39,8 +38,6 @@ export default function Home() {
       <Footer />
       <Enhance />
       <ButtonSmoke />
-      {/* přepínání verzí loga a výběr barev: jen na localhostu (v produkčním sestavení se nevykreslí) */}
-      {process.env.NODE_ENV !== 'production' && <BrandLab />}
     </>
   );
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import logo from '@/scripts/brand/logo.json';
 import Logo from './Logo';
 
 /*
@@ -147,11 +148,9 @@ export default function Loader() {
       if (!canvas || !text || reduce) return fallback();
       const gl = canvas.getContext('webgl2', { antialias: false, alpha: true, premultipliedAlpha: true });
       if (!gl) return fallback();
-      // logo jako obrázek: viditelná verze loga z DOM, všechny tvary bíle, z nich vznikne maska pro kouř
-      const vis = [...text.querySelectorAll('svg')].find((n) => getComputedStyle(n).display !== 'none');
-      if (!vis) return fallback();
-      const vb = vis.getAttribute('viewBox') || '0 0 100 100';
-      const white = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vb}">${vis.innerHTML.replace(/class="lg-[ips]"/g, 'fill="#fff"')}</svg>`;
+      // logo jako obrázek: všechny tvary bíle, z nich vznikne maska pro kouř
+      const [bx, by, bw, bh] = logo.full.box;
+      const white = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${bx} ${by} ${bw} ${bh}">${logo.full.svg.replace(/class="lg-[ip]"/g, 'fill="#fff"')}</svg>`;
       const img = new Image();
       try {
         img.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(white)}`;
