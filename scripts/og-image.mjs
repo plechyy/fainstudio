@@ -17,7 +17,7 @@ const wm = JSON.parse(readFileSync(join(root, 'scripts/brand/wordmark.json'), 'u
 const W = 1200;
 const H = 630;
 const BG = '#0f0e12';
-const VIOLET = '#a58be6';
+const VIOLET = '#bb9e90';
 const WHITE = '#f7f2f4';
 
 /* nápis z křivek: FaiN (tučně) + Studio */
@@ -53,7 +53,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
 <defs>
   <filter id="b1" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="70"/></filter>
   <filter id="b2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="40"/></filter>
-  <radialGradient id="v" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#e3d6ff" stop-opacity=".95"/><stop offset=".55" stop-color="${VIOLET}" stop-opacity=".85"/><stop offset="1" stop-color="#6a4fc0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="v" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#f1e1d9" stop-opacity=".95"/><stop offset=".55" stop-color="${VIOLET}" stop-opacity=".85"/><stop offset="1" stop-color="#684f42" stop-opacity="0"/></radialGradient>
   <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${BG}" stop-opacity="0"/><stop offset="1" stop-color="${BG}" stop-opacity=".85"/></linearGradient>
 </defs>
 <rect width="${W}" height="${H}" fill="${BG}"/>
@@ -66,12 +66,12 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
   <ellipse cx="1090" cy="560" rx="170" ry="110" fill="url(#v)"/>
 </g>
 <rect width="${W}" height="${H}" fill="url(#fade)" opacity=".6"/>
-<text x="${W / 2}" y="170" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" font-weight="600" letter-spacing="5" fill="#cfc9dc">AI AGENTURA PRO AUTOMATIZACI FIREM</text>
+<text x="${W / 2}" y="170" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" font-weight="600" letter-spacing="5" fill="#d6cfca">AI AGENTURA PRO AUTOMATIZACI FIREM</text>
 <g transform="translate(${starX.toFixed(1)} ${(322 - STAR / 2).toFixed(1)}) scale(${(STAR / 100).toFixed(3)})"><path d="${STAR_D}" fill="${VIOLET}" stroke="${VIOLET}" stroke-width="4" stroke-linejoin="round"/></g>
 <g transform="translate(${markX.toFixed(1)} ${(markY + 0.82 * SIZE).toFixed(1)}) scale(${k})">${paths}</g>
 <text x="${W / 2}" y="${markY + 0.82 * SIZE + 100}" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="50" font-weight="700" fill="${WHITE}">Umělá inteligence, která maká za vás.</text>
-<text x="${W / 2}" y="${H - 58}" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" font-weight="500" fill="#b9b2c9">E-maily · faktury · poptávky · AI asistenti · CRM na míru</text>
-<text x="${W - 48}" y="${H - 22}" text-anchor="end" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#8f89a0">fainstudio.com</text>
+<text x="${W / 2}" y="${H - 58}" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" font-weight="500" fill="#bdb5af">E-maily · faktury · poptávky · AI asistenti · CRM na míru</text>
+<text x="${W - 48}" y="${H - 22}" text-anchor="end" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#958d87">fainstudio.com</text>
 </svg>`;
 
 const png = await sharp(Buffer.from(svg), { density: 144 }).resize(W, H).png({ compressionLevel: 9 }).toBuffer();
