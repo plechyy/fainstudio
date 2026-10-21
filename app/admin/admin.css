@@ -37,12 +37,12 @@ html:has(.adm--app) {
   --line-2: #d9d5e6;
   --card: #ffffff;
   --soft: #f6f4fb;
-  /* značka FaiN Studio: zelená z čtyřlístku (odstín 158) */
-  --a: oklch(0.6 0.15 158);
-  --a-2: oklch(0.66 0.15 178);
-  --a-ink: oklch(0.44 0.12 158);
-  --a-soft: oklch(0.95 0.035 158);
-  --brand: oklch(0.78 0.16 158);
+  /* značka FaiN Studio: pink-fialová z webu (odstín 327) */
+  --a: oklch(0.6 0.2 324);
+  --a-2: oklch(0.66 0.19 352);
+  --a-ink: oklch(0.46 0.19 324);
+  --a-soft: oklch(0.95 0.035 324);
+  --brand: oklch(0.8288 0.13 327.3);
   /* tmavý rám (panel a hlavička), přesně barvy tmavého webu */
   --d-bg: oklch(0.1668 0.0084 296.9);
   --d-deep: oklch(0.1318 0.0084 296.9);

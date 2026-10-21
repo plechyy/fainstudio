@@ -66,7 +66,7 @@
  * Barvy se mění jen tady, v hodnotách -h / -c / -l-adj níže.
  */
 :root {
-  --secondary-h: 168;
+  --secondary-h: 305.6;
   --secondary-c: 0.039;
   --secondary-l-adj: 0.0832; /* posun světlosti od základních 0,78 */
 
@@ -79,8 +79,8 @@
   --on-accent: oklch(0.2 0.02 var(--secondary-h));
 
   /* Primární barva: odstín, sytost, posun světlosti. */
-  --primary-h: 158.4; /* čtyřlístek: #0fbf7a */
-  --primary-c: 0.1626;
+  --primary-h: 297;
+  --primary-c: 0.1294;
   --primary-l-adj: -0.0674;
   --primary: oklch(calc(0.78 + var(--primary-l-adj)) var(--primary-c) var(--primary-h));
   --primary-deep: oklch(calc(0.6 + var(--primary-l-adj)) calc(var(--primary-c) * 1.15) var(--primary-h));
@@ -95,11 +95,11 @@
   /* Tmavé téma (výchozí) */
   /* Pozadí: světlost / sytost / odstín jedné barvy, ostatní neutrály jsou její odvozeniny */
   --bgd-l: 0.1668;
-  --bgd-c: 0.0095;
-  --bgd-h: 165;
+  --bgd-c: 0.0084;
+  --bgd-h: 296.9;
   --bgl-l: 0.9194;
-  --bgl-c: 0.028;
-  --bgl-h: 165;
+  --bgl-c: 0.0395;
+  --bgl-h: 280.9;
   /* tmavé karty s kouřem (před/po, srovnání, závěrečné CTA): o kus tmavší než pozadí */
   --smoke-brand: var(--primary);
   --smoke-bg: oklch(max(0.04, calc(var(--bgd-l) - 0.03)) var(--bgd-c) var(--bgd-h));
