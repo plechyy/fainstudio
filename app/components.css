@@ -3901,7 +3901,7 @@ html.is-loading .seq {
     inset 0 1px 0 oklch(1 0 0 / 0.7),
     inset 0 -14px 22px -12px oklch(calc(var(--primary-l) - 0.1) var(--primary-c) var(--primary-h) / 0.7),
     inset 0 0 0 1px oklch(1 0 0 / 0.3),
-    0 14px 34px -12px oklch(calc(var(--primary-l) - 0.1) var(--primary-c) var(--primary-h) / 0.75);
+    0 4px 10px -6px oklch(calc(var(--primary-l) - 0.1) var(--primary-c) var(--primary-h) / 0.5);
   text-shadow: 0 1px 0 oklch(1 0 0 / 0.35);
   transition: transform 160ms var(--ease-out), box-shadow 200ms;
 }
@@ -3941,7 +3941,7 @@ html.is-loading .seq {
     inset 0 1px 0 oklch(1 0 0 / 0.7),
     inset 0 -14px 20px -12px oklch(calc(var(--primary-l) - 0.15) var(--primary-c) var(--primary-h) / 0.8),
     inset 0 0 0 1px oklch(1 0 0 / 0.32),
-    0 16px 38px -12px oklch(var(--primary-l) var(--primary-c) var(--primary-h) / 0.85);
+    0 6px 14px -6px oklch(var(--primary-l) var(--primary-c) var(--primary-h) / 0.55);
 }
 .btn.btn--primary:active {
   transform: scale(0.98);
