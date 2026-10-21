@@ -86,6 +86,7 @@
   --primary-deep: oklch(calc(0.6 + var(--primary-l-adj)) calc(var(--primary-c) * 1.15) var(--primary-h));
   --primary-glow: oklch(calc(0.78 + var(--primary-l-adj)) var(--primary-c) var(--primary-h) / 0.5);
   --primary-text: var(--primary);
+  --primary-hi: color-mix(in oklab, var(--primary) 70%, white); /* horní okraj přechodu v nadpisech a číslech; dole je vždy přesně --primary */
 
   /* Bílá: čísla sekcí, hover šedých tlačítek, výběr textu. */
   --white: #f9f4f4;
