@@ -1,8 +1,8 @@
 /*
  * Náhledový obrázek pro sdílení (Open Graph / Twitter), 1200 × 630 px → public/og.png.
  *   node scripts/og-image.mjs
- * Nápis FaiN Studio je z písma loga převedeného na křivky (scripts/brand/wordmark.json),
- * kouř jsou rozmazané fialové skvrny jako v hero. Texty používají systémové písmo.
+ * Logo je z křivek (scripts/brand/logo.json),
+ * kouř jsou rozmazané zelené skvrny jako v hero. Texty používají systémové písmo.
  */
 import { createRequire } from 'node:module';
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -12,42 +12,27 @@ import { fileURLToPath } from 'node:url';
 const require = createRequire(import.meta.url);
 const sharp = require('sharp');
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const wm = JSON.parse(readFileSync(join(root, 'scripts/brand/wordmark.json'), 'utf8'));
+const { full } = JSON.parse(readFileSync(join(root, 'scripts/brand/logo.json'), 'utf8'));
 
 const W = 1200;
 const H = 630;
-const BG = '#0f0e12';
-const VIOLET = '#a58be6';
-const WHITE = '#f7f2f4';
+const BG = '#0b100e';
+const GREEN = '#0fbf7a';
+const WHITE = '#f4f8f5';
 
-/* nápis z křivek: FaiN (tučně) + Studio */
-const EM = wm.unitsPerEm;
-const SIZE = 150; // výška em v px
-const k = SIZE / EM;
-const LS = 0.01 * EM;
-const GAP = 0.14 * EM;
-let x = 0;
-let paths = '';
-const put = (text, fill, bold) => {
-  for (const ch of text) {
-    const g = wm.glyphs[ch];
-    const stroke = bold ? ` stroke="${fill}" stroke-width="${(EM / 32).toFixed(1)}" stroke-linejoin="round"` : '';
-    paths += `<path transform="translate(${x.toFixed(1)} 0)" d="${g.d}" fill="${fill}"${stroke}/>`;
-    x += g.adv + LS;
-  }
-};
-put('FaiN', WHITE, true);
-x += GAP - LS;
-put('Studio', VIOLET, false);
-const markW = (x - LS) * k;
-const markX = (W - markW) / 2;
-const markY = 250;
+/* logo (čtyřlístek + „fain studio“) z křivek, vycentrované */
+const [bx, by, bw, bh] = full.box;
+const LOGO_W = 640;
+const k = LOGO_W / bw;
+const logoSvg = full.svg.replace(/class="lg-i"/g, `fill="${WHITE}"`).replace(/class="lg-p"/g, `fill="${GREEN}"`);
+const markX = (W - LOGO_W) / 2 - bx * k;
+const markY = 176 + (bh * k) / 2 - by * k;
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
 <defs>
   <filter id="b1" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="70"/></filter>
   <filter id="b2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="40"/></filter>
-  <radialGradient id="v" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#e3d6ff" stop-opacity=".95"/><stop offset=".55" stop-color="${VIOLET}" stop-opacity=".85"/><stop offset="1" stop-color="#6a4fc0" stop-opacity="0"/></radialGradient>
+  <radialGradient id="v" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#c9f7e1" stop-opacity=".95"/><stop offset=".55" stop-color="${GREEN}" stop-opacity=".85"/><stop offset="1" stop-color="#087a4c" stop-opacity="0"/></radialGradient>
   <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${BG}" stop-opacity="0"/><stop offset="1" stop-color="${BG}" stop-opacity=".85"/></linearGradient>
 </defs>
 <rect width="${W}" height="${H}" fill="${BG}"/>
@@ -60,11 +45,11 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
   <ellipse cx="1090" cy="560" rx="170" ry="110" fill="url(#v)"/>
 </g>
 <rect width="${W}" height="${H}" fill="url(#fade)" opacity=".6"/>
-<text x="${W / 2}" y="170" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" font-weight="600" letter-spacing="5" fill="#cfc9dc">AI AGENTURA PRO AUTOMATIZACI FIREM</text>
-<g transform="translate(${markX.toFixed(1)} ${(markY + 0.82 * SIZE).toFixed(1)}) scale(${k})">${paths}</g>
-<text x="${W / 2}" y="${markY + 0.82 * SIZE + 100}" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="50" font-weight="700" fill="${WHITE}">Umělá inteligence, která maká za vás.</text>
-<text x="${W / 2}" y="${H - 58}" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" font-weight="500" fill="#b9b2c9">E-maily · faktury · poptávky · AI asistenti · CRM na míru</text>
-<text x="${W - 48}" y="${H - 22}" text-anchor="end" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#8f89a0">fainstudio.com</text>
+<text x="${W / 2}" y="170" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" font-weight="600" letter-spacing="5" fill="#c9d6d0">AI AGENTURA PRO AUTOMATIZACI FIREM</text>
+<g transform="translate(${markX.toFixed(1)} ${markY.toFixed(1)}) scale(${k.toFixed(4)})">${logoSvg}</g>
+<text x="${W / 2}" y="${250 + bh * k + 90}" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="50" font-weight="700" fill="${WHITE}">Umělá inteligence, která maká za vás.</text>
+<text x="${W / 2}" y="${H - 58}" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" font-weight="500" fill="#b3c4bc">E-maily · faktury · poptávky · AI asistenti · CRM na míru</text>
+<text x="${W - 48}" y="${H - 22}" text-anchor="end" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="19" font-weight="600" fill="#87998f">fainstudio.com</text>
 </svg>`;
 
 const png = await sharp(Buffer.from(svg), { density: 144 }).resize(W, H).png({ compressionLevel: 9 }).toBuffer();

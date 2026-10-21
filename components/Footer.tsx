@@ -1,5 +1,5 @@
 import { EMAIL, ICO, PRIVACY_URL } from '@/lib/config';
-import PaintedWordmark from './PaintedWordmark';
+import Logo from './Logo';
 
 export default function Footer() {
   return (
@@ -12,9 +12,11 @@ export default function Footer() {
         </a>
         <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
       </div>
-      {/* úplně dole: velký nápis, který se namaluje, když k němu dojedete */}
+      {/* úplně dole: velké logo jako podpis na konci stránky */}
       <div className="wrap">
-        <PaintedWordmark className="foot__paint" />
+        <div className="foot__logo reveal">
+          <Logo />
+        </div>
       </div>
     </footer>
   );

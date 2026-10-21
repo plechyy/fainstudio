@@ -1,9 +1,11 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import logo from '@/scripts/brand/logo.json';
+import Logo from './Logo';
 
 /*
- * Úvodní loading obrazovka: jen slovo „FaiN“, které se vybarvuje kouřem jako v hero.
+ * Úvodní loading obrazovka: logo (čtyřlístek a „fain studio“), které se vybarvuje kouřem jako v hero.
  * Slovo je v HTML od prvního bajtu (tmavě šedé, žádné probliknutí obsahu); WebGL ho pak
  * zleva doprava zaplní kouřem v primární barvě. Plnění jede k ~85 %, dokud se stránka
  * nenačte, pak dobarví do konce a loader zmizí. Bez JS ho schová <noscript> v layoutu,
@@ -85,7 +87,7 @@ export default function Loader() {
   const [done, setDone] = useState(false);
   const [gone, setGone] = useState(false);
   const wordRef = useRef<HTMLSpanElement>(null);
-  const textRef = useRef<HTMLSpanElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -146,15 +148,22 @@ export default function Loader() {
       if (!canvas || !text || reduce) return fallback();
       const gl = canvas.getContext('webgl2', { antialias: false, alpha: true, premultipliedAlpha: true });
       if (!gl) return fallback();
+      // logo jako obrázek: všechny tvary bíle, z nich vznikne maska pro kouř
+      const [bx, by, bw, bh] = logo.full.box;
+      const white = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${bx} ${by} ${bw} ${bh}">${logo.full.svg.replace(/class="lg-[ip]"/g, 'fill="#fff"')}</svg>`;
+      const img = new Image();
       try {
-        await document.fonts.load('700 100px FingerPaint');
-      } catch {}
+        img.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(white)}`;
+        await img.decode();
+      } catch {
+        return fallback();
+      }
 
       const dpr = Math.min(2, window.devicePixelRatio || 1);
-      const fs = parseFloat(getComputedStyle(text).fontSize);
       const rect = text.getBoundingClientRect();
-      const cssW = Math.round(rect.width + fs * 0.6);
-      const cssH = Math.round(fs * 1.7);
+      const pad = Math.round(rect.height * 0.3);
+      const cssW = Math.round(rect.width + pad * 2);
+      const cssH = Math.round(rect.height + pad * 2);
       canvas.style.width = cssW + 'px';
       canvas.style.height = cssH + 'px';
       canvas.width = Math.round(cssW * dpr);
@@ -165,11 +174,7 @@ export default function Loader() {
       tex.width = canvas.width;
       tex.height = canvas.height;
       const tx = tex.getContext('2d')!;
-      tx.font = `700 ${fs * dpr}px FingerPaint`;
-      tx.textAlign = 'center';
-      tx.textBaseline = 'alphabetic';
-      tx.fillStyle = '#fff';
-      tx.fillText('FaiN', tex.width / 2, tex.height / 2 + fs * dpr * 0.34);
+      tx.drawImage(img, pad * dpr, pad * dpr, rect.width * dpr, rect.height * dpr);
 
       const compile = (type: number, src: string) => {
         const s = gl.createShader(type)!;
@@ -242,9 +247,9 @@ export default function Loader() {
     <div className={`loader${done ? ' is-done' : ''}`} aria-hidden="true">
       <div className="loader__inner">
         <span className="loader__word" ref={wordRef}>
-          <span className="loader__text" ref={textRef}>
-            FaiN
-          </span>
+          <div className="loader__text" ref={textRef}>
+            <Logo />
+          </div>
           <canvas className="loader__canvas" ref={canvasRef} />
         </span>
       </div>

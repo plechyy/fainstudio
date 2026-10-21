@@ -33,19 +33,27 @@ html.is-loading .seq {
 }
 .loader__text {
   display: block;
-  font-family: 'FingerPaint', var(--font-display);
-  font-weight: 700;
-  font-size: clamp(4.4rem, 2.4rem + 9vw, 8.5rem);
-  line-height: 1;
-  color: color-mix(in oklab, var(--ink) 14%, var(--bg-deep));
-  transition: color 300ms;
+  width: fit-content;
+  height: clamp(3.4rem, 1.8rem + 6vw, 6.5rem);
+  transition: opacity 300ms;
+}
+.loader__text .logo-svg {
+  height: 100%;
+  width: auto;
+}
+.loader__text .logo-svg .lg-i,
+.loader__text .logo-svg .lg-p {
+  fill: color-mix(in oklab, var(--ink) 14%, var(--bg-deep));
 }
 .loader__word.is-gl .loader__text {
-  color: transparent;
+  opacity: 0;
+}
+.loader__word.is-static .loader__text .logo-svg .lg-i,
+.loader__word.is-static .loader__text .logo-svg .lg-p {
+  fill: var(--primary);
 }
 .loader__word.is-static .loader__text {
-  color: var(--primary);
-  text-shadow: 0 0 40px var(--primary-glow);
+  filter: drop-shadow(0 0 40px var(--primary-glow));
 }
 .loader__canvas {
   position: absolute;
@@ -95,19 +103,6 @@ html.is-loading .seq {
   background: transparent; /* u hero žádná výplň, žádné sklo */
   transition: max-width 460ms var(--ease-out), height 320ms var(--ease-out),
     padding 320ms var(--ease-out), background-color 280ms, box-shadow 280ms;
-}
-/* „Studio": stejná velikost jako „FaiN", ale šedé a tenčí (běžný řez místo syntetického
-   boldu; Finger Paint má jen Regular, tenčí než regular už nejde) */
-.logo__word {
-  display: inline-flex;
-  align-items: baseline; /* „Studio" sedí na stejném účaří jako „FaiN" */
-}
-.logo__sub {
-  margin-left: 0.14em;
-  font-size: 1em;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  color: var(--primary-text);
 }
 
 /* ── navigace je statická; pod ní se při scrollu rozostří obsah a k dolní hraně plynule zaostří ── */
@@ -196,15 +191,33 @@ html.is-loading .seq {
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-  font-family: 'FingerPaint', var(--font-display);
-  font-size: 1.85rem;
+  font-size: 2.3rem; /* logo má výšku 1em, takže se s tímhle číslem zmenšuje při scrollu */
   line-height: 1;
-  font-weight: 700; /* Finger Paint má jen Regular → syntetický bold */
-  letter-spacing: 0.01em;
   color: var(--ink);
-  text-shadow: 0 1px 8px oklch(0 0 0 / calc(0.5 * var(--sh)));
   margin-right: auto;
   transition: font-size 320ms var(--ease-out);
+}
+/* logo: text dědí barvu písma, čtyřlístek a „ai“ jsou v primární */
+.logo-svg {
+  display: block;
+  width: auto;
+  height: 1em;
+  overflow: visible;
+}
+.logo-svg .lg-i {
+  fill: currentColor;
+}
+.logo-svg .lg-p {
+  fill: var(--primary-text);
+}
+.foot__logo {
+  margin: clamp(28px, 5vw, 64px) auto clamp(20px, 3vw, 40px);
+  color: var(--ink);
+}
+.foot__logo .logo-svg {
+  width: min(100%, 760px);
+  height: auto;
+  margin-inline: auto;
 }
 /* ve světlém tématu je ovál světlý → bílé písmo by zmizelo, logo přejde na tmavou */
 .nav__links {
@@ -383,7 +396,7 @@ html.is-loading .seq {
     height: 56px;
   }
   .logo {
-    font-size: 1.55rem;
+    font-size: 1.9rem;
   }
   .nav__end {
     gap: 4px;
