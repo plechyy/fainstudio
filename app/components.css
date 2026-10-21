@@ -1125,7 +1125,7 @@ html.is-loading .seq {
   letter-spacing: -0.03em;
   line-height: 1.05;
   white-space: nowrap;
-  background: linear-gradient(180deg, var(--primary-hi) 0%, var(--primary) 42%);
+  background: linear-gradient(180deg, #fff 0%, var(--primary) 85%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1663,7 +1663,7 @@ html.is-loading .seq {
 .hero__accent,
 .sys-head__accent,
 .hd__accent {
-  background: linear-gradient(180deg, var(--primary-hi) 0%, var(--primary) 42%);
+  background: linear-gradient(180deg, #fff 0%, var(--primary) 85%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -3886,16 +3886,16 @@ html.is-loading .seq {
 .btn.btn--primary {
   /* stejný odstín jako barevné nadpisy: nahoře světlejší tón, dole přesně --primary */
   --primary-l: calc(0.78 + var(--primary-l-adj));
-  --b1: oklch(calc(var(--primary-l) + 0.025) var(--primary-c) var(--primary-h) / 0.97);
-  --b2: oklch(var(--primary-l) var(--primary-c) var(--primary-h) / 0.97);
+  --b1: oklch(calc(var(--primary-l) + (1 - var(--primary-l)) * 0.4) calc(var(--primary-c) * 0.9) var(--primary-h) / 0.82);
+  --b2: oklch(calc(var(--primary-l) - 0.03) var(--primary-c) var(--primary-h) / 0.8);
   /* tmavý text na světlé barvě, bílý na tmavé */
   color: oklch(from var(--primary) clamp(0.16, calc((0.66 - l) * 60), 0.98) 0.02 h);
   font-weight: 600;
   background: oklch(0.34 0.02 var(--primary-h) / 0.2);
-  -webkit-backdrop-filter: blur(18px);
-  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px) saturate(1.5) brightness(1.2);
+  backdrop-filter: blur(18px) saturate(1.5) brightness(1.2);
   box-shadow:
-    inset 0 1px 0 oklch(1 0 0 / 0.35),
+    inset 0 1px 0 oklch(1 0 0 / 0.7),
     inset 0 -14px 22px -12px oklch(calc(var(--primary-l) - 0.1) var(--primary-c) var(--primary-h) / 0.7),
     inset 0 0 0 1px oklch(1 0 0 / 0.3),
     0 14px 34px -12px oklch(calc(var(--primary-l) - 0.1) var(--primary-c) var(--primary-h) / 0.75);
@@ -3906,7 +3906,7 @@ html.is-loading .seq {
   z-index: -2;
   /* kouř pod sklem: jen tlumený, ať prosvítá a nepřebíjí barvu */
   filter: contrast(1.2);
-  opacity: 0.18;
+  opacity: 0.5;
 }
 .btn.btn--primary::before {
   content: '';
@@ -3916,7 +3916,7 @@ html.is-loading .seq {
   pointer-events: none;
   border-radius: inherit;
   background:
-    radial-gradient(120% 140% at 12% 0%, oklch(1 0 0 / 0.12) 0%, transparent 45%),
+    radial-gradient(120% 140% at 12% 0%, oklch(1 0 0 / 0.34) 0%, transparent 45%),
     linear-gradient(135deg, var(--b1) 0%, var(--b2) 100%);
 }
 .btn.btn--primary::after {
