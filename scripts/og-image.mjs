@@ -40,7 +40,13 @@ put('FaiN', WHITE, true);
 x += GAP - LS;
 put('Studio', VIOLET, false);
 const markW = (x - LS) * k;
-const markX = (W - markW) / 2;
+/* kreslená hvězdička před nápisem (lib/star.ts) */
+const STAR_D = readFileSync(join(root, 'lib/star.ts'), 'utf8').match(/STAR_D =\s*'([^']+)'/)[1];
+const STAR = 170;
+const STAR_GAP = 24;
+const totalW = STAR + STAR_GAP + markW;
+const starX = (W - totalW) / 2;
+const markX = starX + STAR + STAR_GAP;
 const markY = 250;
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
@@ -61,6 +67,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
 </g>
 <rect width="${W}" height="${H}" fill="url(#fade)" opacity=".6"/>
 <text x="${W / 2}" y="170" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" font-weight="600" letter-spacing="5" fill="#cfc9dc">AI AGENTURA PRO AUTOMATIZACI FIREM</text>
+<g transform="translate(${starX.toFixed(1)} ${(322 - STAR / 2).toFixed(1)}) scale(${(STAR / 100).toFixed(3)})"><path d="${STAR_D}" fill="none" stroke="${VIOLET}" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"/></g>
 <g transform="translate(${markX.toFixed(1)} ${(markY + 0.82 * SIZE).toFixed(1)}) scale(${k})">${paths}</g>
 <text x="${W / 2}" y="${markY + 0.82 * SIZE + 100}" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="50" font-weight="700" fill="${WHITE}">Umělá inteligence, která maká za vás.</text>
 <text x="${W / 2}" y="${H - 58}" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" font-weight="500" fill="#b9b2c9">E-maily · faktury · poptávky · AI asistenti · CRM na míru</text>

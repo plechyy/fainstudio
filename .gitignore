@@ -19,7 +19,3 @@ research_notes/
 *.mov
 *.mp4
 
-# generátor loga: lokální pomocné složky
-scripts/brand/logo-lab/.venv/
-scripts/brand/logo-lab/fonts/
-scripts/brand/logo-lab/out/

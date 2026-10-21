@@ -6,14 +6,12 @@ import { usePathname } from 'next/navigation';
 const ICONS = {
   todo: <path d="M9 11l2 2 4-4M5 4h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z" />,
   files: <path d="M3 7.5A1.5 1.5 0 0 1 4.5 6h4.2l2 2.2h8.8A1.5 1.5 0 0 1 21 9.7v8.8a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z" />,
-  logos: <path d="M12 3l2.4 5.6L20 9l-4.2 3.9L17 19l-5-3-5 3 1.2-6.1L4 9l5.6-.4z" />,
   stats: <path d="M4 20V10M10 20V4M16 20v-7M22 20H2" />,
 };
 
 const ITEMS = [
   { href: '/admin/todo', label: 'To do', icon: 'todo' },
   { href: '/admin/soubory', label: 'Soubory', icon: 'files' },
-  { href: '/admin/loga', label: 'Loga', icon: 'logos' },
   { href: '/admin/analytika', label: 'Analytika', icon: 'stats' },
 ] as const;
 
