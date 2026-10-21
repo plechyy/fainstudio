@@ -887,6 +887,13 @@ html.is-loading .seq {
   display: block;
   color: var(--accent-text);
 }
+/* širší hlavička (sekce Případy): nadpis na dva řádky a perex na šířku */
+.hd--wide {
+  max-width: min(1040px, 100%);
+}
+.hd--wide .hd__lead {
+  max-width: 78ch;
+}
 
 /* ── srovnání ────────────────────────────────────────────────────── */
 .cmp-led {

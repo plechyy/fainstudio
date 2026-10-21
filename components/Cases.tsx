@@ -6,7 +6,7 @@ export default function Cases() {
   return (
     <section className="section" id="pripady" aria-labelledby="pripady-title">
       <div className="wrap">
-        <header className="hd reveal">
+        <header className="hd hd--wide reveal">
           <p className="label shead__index" aria-hidden="true">
             <b>05</b>
             Případy
