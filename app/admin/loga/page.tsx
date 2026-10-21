@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { listFilesCached, readStored, storageStatus } from '@/lib/admin-files';
 import LogoGallery, { type Logo } from './LogoGallery';
-import { LIKES_FILE } from './likes';
+import { LIKES_DIR, LIKES_FILE } from './likes';
 
 export const metadata: Metadata = { title: 'Loga' };
 
-const DIR = 'loga/navrhy-100';
+const DIR = LIKES_DIR;
 type Meta = { title: string; note: string; pal: string; font: string; file: string };
 
 /* Návrhy loga se prohlížejí přímo tady, velké a bez stahování. Soubory zůstávají v soukromých Souborech. */
