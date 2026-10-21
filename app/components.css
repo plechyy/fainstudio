@@ -4867,7 +4867,7 @@ html.is-loading .seq {
 }
 
 /* ════════════════════════════════════════════════════════════════════
-   SEKCE 5 — případy: carousel sedmi případů. Každý má barvu loga své firmy (--bl/--bc/--bh z
+   SEKCE 5 — případy: carousel šesti případů. Každý má barvu loga své firmy (--bl/--bc/--bh z
    cases.items[].brand), jiný vizuál a jiný druh výsledku. Vizuál se přehraje, když na případ přijdete
    poprvé (.is-seen). Animuje se jen průhlednost a posun, nic 3D.
    ════════════════════════════════════════════════════════════════════ */
@@ -5014,9 +5014,6 @@ html.is-loading .seq {
 }
 .cxp__seg:hover i {
   background: var(--ink-3);
-}
-.cxp__seg[data-state='done'] i {
-  background: color-mix(in oklab, var(--cn) 45%, var(--line-strong));
 }
 .cxp__seg[data-state='now'] i {
   background: var(--cn);
@@ -6243,173 +6240,6 @@ html.is-loading .seq {
   top: 0;
 }
 
-/* 7 · upomínky: faktura, osa dnů, odcházející připomínky a razítko */
-.cz-inv__st {
-  margin-left: auto;
-  padding: 3px 10px;
-  border-radius: 999px;
-  background: oklch(0.76 0.14 25 / 0.16);
-  color: oklch(0.8 0.12 25);
-  font-size: 0.7rem;
-  font-weight: 650;
-  transition:
-    background-color 300ms,
-    color 300ms;
-}
-.cz-inv__st.is-paid {
-  background: oklch(0.8 0.14 150 / 0.18);
-  color: oklch(0.86 0.12 150);
-}
-.cz-inv__body {
-  position: relative;
-  display: grid;
-  gap: 4px;
-  padding: 16px 18px 22px;
-}
-.cz-inv__who {
-  margin: 0;
-  color: var(--ink-3);
-  font-size: 0.72rem;
-}
-.cz-inv__sum {
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-size: 1.7rem;
-  font-weight: 650;
-  word-spacing: -0.1em;
-}
-.cz-inv__axis {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 6px;
-  margin: 16px 0 0;
-  padding: 18px 0 0;
-  list-style: none;
-}
-.cz-inv__axis::before,
-.cz-inv__axis::after {
-  content: '';
-  position: absolute;
-  left: 6px;
-  right: calc(25% - 6px);
-  top: 6px;
-  height: 2px;
-  background: var(--line-strong);
-}
-.cz-inv__axis::after {
-  background: var(--ac);
-  transform: scaleX(var(--p));
-  transform-origin: left;
-  transition: transform 700ms var(--ease-out);
-}
-.cz-inv__axis li {
-  position: relative;
-  display: grid;
-  gap: 2px;
-}
-.cz-inv__axis li i {
-  position: absolute;
-  left: 0;
-  top: -18px;
-  z-index: 1;
-  width: 14px;
-  height: 14px;
-  border: 2px solid var(--line-strong);
-  border-radius: 50%;
-  background: var(--surface);
-  transition:
-    border-color 300ms,
-    background-color 300ms;
-}
-.cz-inv__axis li.is-on i {
-  border-color: var(--ac);
-}
-.cz-inv__axis li.is-paid.is-on i {
-  border-color: oklch(0.8 0.14 150);
-  background: oklch(0.8 0.14 150);
-}
-.cz-inv__axis small {
-  color: var(--ink-3);
-  font-size: 0.58rem;
-  font-weight: 650;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.cz-inv__axis span {
-  color: var(--ink-3);
-  font-size: 0.64rem;
-  line-height: 1.3;
-  transition: color 300ms;
-}
-.cz-inv__axis li.is-on span {
-  color: var(--ink);
-}
-.cz-inv__stamp {
-  position: absolute;
-  right: 18px;
-  top: 14px;
-  padding: 4px 12px;
-  border: 2px solid oklch(0.8 0.14 150);
-  border-radius: 6px;
-  color: oklch(0.86 0.12 150);
-  font-family: var(--font-display);
-  font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  opacity: 0;
-  transform: rotate(-8deg) scale(1.6);
-  transition:
-    opacity 200ms,
-    transform 380ms cubic-bezier(0.3, 1.4, 0.5, 1);
-}
-.cz-inv__stamp.is-in {
-  opacity: 1;
-  transform: rotate(-8deg);
-}
-.cz-mail {
-  right: 2%;
-  top: 4%;
-}
-.cz-mail--2 {
-  top: 16%;
-}
-.cz-mail p {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  margin: 0;
-  padding: 8px 12px;
-  border: 1px solid color-mix(in oklab, var(--ac) 45%, var(--line));
-  border-radius: 11px;
-  background: var(--surface-2);
-  color: var(--ink);
-  font-size: 0.7rem;
-  font-weight: 600;
-  white-space: nowrap;
-  box-shadow: 0 18px 30px -16px oklch(0 0 0 / calc(0.7 * var(--sh)));
-  opacity: 0;
-  transform: translate(-14px, 16px) scale(0.92);
-}
-.cz-mail p svg {
-  width: 14px;
-  height: 14px;
-  color: var(--ac);
-}
-.cz-mail.is-fly p {
-  animation: cz-mail 1300ms var(--ease-out) both;
-}
-@keyframes cz-mail {
-  0% { opacity: 0; transform: translate(-14px, 16px) scale(0.92); }
-  25%, 70% { opacity: 1; transform: none; }
-  100% { opacity: 0; transform: translate(14px, -14px) scale(0.94); }
-}
-.cz-inv__toast {
-  left: 7%;
-  bottom: -6%;
-}
-
 /* mobil: hlavička (obor, nadpis, výsledek), pod ní scéna a popis; scény se zmenší, aby se vešly */
 @media (max-width: 899px) {
   /* na mobilu se listuje prstem, šipky by jen překrývaly text */
@@ -6640,52 +6470,6 @@ html.is-loading .seq {
   stroke-linecap: butt;
   stroke-linejoin: miter;
 }
-/* SeidlServis: jeden kosodélník, vlevo SEIDL černě na červeném, vpravo SERVIS červeně na černém; písmo kurzívou (italic) ve stejném sklonu jako kosodélník, polštář jen minimální */
-.fl--upominky {
-  gap: 0;
-  font-family: var(--font-text);
-  font-size: calc(0.95rem * var(--lg));
-  font-style: italic;
-  font-weight: 800;
-  letter-spacing: 0.03em;
-  line-height: 1;
-  isolation: isolate;
-}
-.fl-sd__a,
-.fl-sd__b {
-  position: relative;
-  display: inline-block;
-  padding: 0.14em 0.5em;
-}
-/* uprostřed jen malá rezerva na šikmý střih, ať obě půlky splývají v jedno slovo */
-.fl-sd__a {
-  padding-right: 0.03em;
-}
-.fl-sd__b {
-  padding-left: 0.03em;
-}
-.fl-sd__a::before,
-.fl-sd__b::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  transform: skewX(-14deg);
-}
-.fl-sd__a {
-  color: #111;
-}
-.fl-sd__a::before {
-  background: #ef2b2d;
-}
-.fl-sd__b {
-  color: #ef2b2d;
-}
-.fl-sd__b::before {
-  background: #111;
-  box-shadow: inset 0 0 0 1px color-mix(in oklab, #ef2b2d 55%, transparent);
-}
-
 /* tlačítko pod blokem Dřív → Teď */
 .cx-more {
   justify-self: start;

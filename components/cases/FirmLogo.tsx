@@ -69,19 +69,6 @@ export default function FirmLogo({ id, className = '' }: { id: string; className
           <span>proengineers</span>
         </span>
       );
-    case 'upominky':
-      return (
-        <span className={cls} role="img" aria-label="SeidlServis">
-          <span className="fl-sd__a" aria-hidden="true">
-            SEIDL
-          </span>
-          <span className="fl-sd__b" aria-hidden="true">
-            SERVIS
-          </span>
-        </span>
-      );
-    default:
-      return null;
   }
 }
 

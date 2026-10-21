@@ -100,7 +100,7 @@ export const process = {
 };
 
 /*
- * Sekce „Případy“: carousel sedmi případů z různých oborů. Zatím jsou všechny MODELOVÉ:
+ * Sekce „Případy“: carousel šesti případů z různých oborů. Zatím jsou všechny MODELOVÉ:
  * typická firma, typické objemy a výpočet výsledku napsaný celý. Nejsou to reference klientů
  * a sekce to říká (lead, štítek na kartě, poznámka pod carouselem).
  * Až bude skutečný případ s písemným souhlasem klienta, přepiš u něj kind na 'real': štítek zmizí,
@@ -108,8 +108,8 @@ export const process = {
  * Každý případ má jiný vizuál (visual.type) a jiný druh výsledku, ať nejsou všechny stejné.
  */
 export const cases = {
-  title: 'Sedm firem.',
-  accent: 'Sedm úplně jiných řešení.',
+  title: 'Šest firem.',
+  accent: 'Šest úplně jiných řešení.',
   lead: 'Modelové případy z oborů, kde to dává největší smysl. U každého vidíte, co bylo potřeba vyřešit, jak jsme to postavili, proč zrovna takhle a co to přineslo.',
   modelLabel: 'Modelový případ',
   labels: { more: 'Jak probíhala spolupráce', less: 'Skrýt průběh', problem: 'Co bylo potřeba vyřešit', how: 'Jak jsme to vyřešili', why: 'Proč zrovna takhle', result: 'Co to přineslo', before: 'Dřív', after: 'Teď', prev: 'Předchozí případ', next: 'Další případ' },
@@ -282,37 +282,6 @@ export const cases = {
         ],
       },
       result: { before: '30 min', after: '0 min', unit: 'psaní zápisu po každé poradě', math: 'Dřív zápis ručně a úkoly v mailech. Teď zápis i úkoly hned po poradě.' },
-    },
-    {
-      id: 'upominky',
-      brand: { l: 0.63, c: 0.23, h: 27 }, // barva loga firmy
-      kind: 'model',
-      firm: 'SeidlServis',
-      title: 'Hlídání plateb: automatické upomínky a párování s bankou.',
-      standfirst: 'Faktury se platí včas a nikdo nemusí volat zákazníkům kvůli penězům. Připomínky odcházejí samy a platby se samy párují.',
-      summary: 'Systém hlídá splatnost všech faktur. Den po termínu pošle zákazníkovi přátelskou připomínku, později další s QR platbou, a každou noc páruje platby s bankou, aby neposlal upomínku na zaplacenou fakturu. Účetní dostane upozornění jen u těch, kterým je potřeba zavolat.',
-      industry: 'Autoservis',
-      built: 'Hlídání plateb a upomínky',
-      problem: 'Neuhrazené faktury hlídala účetní v Excelu, když si vzpomněla. Peníze ležely u zákazníků týdny a nikomu se nechtělo volat.',
-      how: 'Systém hlídá splatnost, posílá zdvořilé připomínky s QR platbou a zaplacené rovnou spáruje s bankou. Když ani to nepomůže, řekne účetní, komu zavolat.',
-      why: 'Většina lidí nezaplatí, protože zapomněli. Připomínka ve správnou chvíli to vyřeší bez trapného telefonátu.',
-      visual: {
-        type: 'dunning',
-        invoice: 'Faktura 2026-0412 · 8 460 Kč',
-        number: 'Faktura 2026-0412',
-        amount: '8 460 Kč',
-        customer: 'Martin Kos · servis Octavia',
-        late: 'Po splatnosti',
-        paid: 'Zaplaceno',
-        bank: { title: 'Platba přijata', sub: '8 460 Kč · spárováno s fakturou 2026-0412' },
-        steps: [
-          { d: 'Splatnost', t: '12. 10.', s: 'wait' },
-          { d: 'Den 1', t: 'Přátelská připomínka', s: 'sent' },
-          { d: 'Den 5', t: 'Připomínka s QR platbou', s: 'sent' },
-          { d: 'Den 6', t: 'Zaplaceno a spárováno', s: 'paid' },
-        ],
-      },
-      result: { before: '3 týdny', after: '6 dní', unit: 'průměrné zpoždění platby', math: 'Dřív upomínka, až když si někdo vzpomněl. Teď první připomínka den po splatnosti.' },
     },
   ],
   cta: 'Chci zjistit, co by šlo líp',

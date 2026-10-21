@@ -3,7 +3,6 @@
 import type { cases } from '@/lib/content';
 import CoachLive from './CoachLive';
 import ContractLive from './ContractLive';
-import DunningLive from './DunningLive';
 import MasterLive from './MasterLive';
 import MeetingLive from './MeetingLive';
 import PhotoLive from './PhotoLive';
@@ -26,7 +25,5 @@ export default function Live({ v }: { v: Item['visual'] }) {
       return <MasterLive v={v} />;
     case 'meeting':
       return <MeetingLive v={v} />;
-    case 'dunning':
-      return <DunningLive v={v} />;
   }
 }

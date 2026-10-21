@@ -1,7 +1,6 @@
 import type { ComponentType } from 'react';
 import Coach from './Coach';
 import Contract from './Contract';
-import Dunning from './Dunning';
 import Master from './Master';
 import Meeting from './Meeting';
 import Photo from './Photo';
@@ -15,5 +14,4 @@ export const bodies: Record<string, ComponentType> = {
   smlouvy: Contract,
   knowhow: Master,
   porady: Meeting,
-  upominky: Dunning,
 };
