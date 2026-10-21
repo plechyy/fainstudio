@@ -27,7 +27,8 @@ export async function GET(_req: Request, ctx: { params: Promise<{ path: string[]
   return new Response(body, {
     headers: {
       'Content-Type': contentType(name),
-      'Content-Length': String(file.size),
+      // Blob u soukromých souborů vrací velikost 0, takže délku nastavuje až samotný přenos
+      ...(file.size > 0 && !(file.body instanceof ReadableStream) ? { 'Content-Length': String(file.size) } : {}),
       'Content-Disposition': `${disp}; filename*=UTF-8''${encodeURIComponent(name)}`,
       'Cache-Control': 'private, no-store, max-age=0',
       'X-Content-Type-Options': 'nosniff',
