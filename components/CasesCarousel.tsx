@@ -6,6 +6,7 @@ import FirmLogo from './cases/FirmLogo';
 import CasesProgress from './CasesProgress';
 import Live from './cases/Live';
 import Result from './cases/Result';
+import { brandStyle, sceneStyle } from './cases/brand';
 
 const L = cases.labels;
 
@@ -62,7 +63,7 @@ export default function CasesCarousel({ onRead }: { onRead: (i: number) => void 
     <div className="cx">
       <div className="cx__bar">
         {/* počítadlo: velké číslo případu v jeho barvě a obor; mění se s kartou */}
-        <p className="cx__count" style={{ ['--co' as string]: items[active].hue }}>
+        <p className="cx__count" style={brandStyle(items[active].brand)}>
           <b className="num">0{active + 1}</b>
           <span className="cx__of num">/0{items.length}</span>
           <span className="cx__nav">
@@ -104,7 +105,7 @@ export default function CasesCarousel({ onRead }: { onRead: (i: number) => void 
           <article
             className={`cx-case${seen.has(i) ? ' is-seen' : ''}${i === active ? ' is-active' : ''}`}
             id={`pripad-${c.id}`}
-            style={{ ['--co' as string]: c.hue }}
+            style={brandStyle(c.brand)}
             aria-roledescription="případ"
             aria-label={`${i + 1} z ${items.length}: ${c.firm}`}
             key={c.id}
@@ -115,7 +116,7 @@ export default function CasesCarousel({ onRead }: { onRead: (i: number) => void 
             </div>
 
             <div className="cx-case__stage">
-              <div className="art" style={{ ['--ac-h' as string]: `calc(var(--pal-h) + ${c.hue})` }} aria-hidden="true">
+              <div className="art" style={sceneStyle(c.brand)} aria-hidden="true">
                 <Live v={c.visual} />
               </div>
             </div>

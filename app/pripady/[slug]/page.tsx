@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import { StoryFig, StoryHero, StoryText } from '@/components/cases/Story';
 import { CAL_URL } from '@/lib/config';
 import { cases } from '@/lib/content';
+import { brandStyle } from '@/components/cases/brand';
 
 /*
  * Stránka jednoho případu: pevná kostra (logo, nadpis, perex, řádek údajů, výsledek, živá scéna)
@@ -43,7 +44,7 @@ export default async function CasePage({ params }: { params: Promise<{ slug: str
         </div>
       </header>
 
-      <main className="ca" id="obsah" style={{ ['--co' as string]: c.hue }}>
+      <main className="ca" id="obsah" style={brandStyle(c.brand)}>
         <div className="wrap">
           <StoryHero c={c} as="h1" />
           <StoryFig c={c} />

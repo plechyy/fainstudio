@@ -6,6 +6,7 @@ import { CAL_URL } from '@/lib/config';
 import { cases } from '@/lib/content';
 import FirmLogo from './FirmLogo';
 import { StoryFig, StoryHero, StoryText } from './Story';
+import { brandStyle } from './brand';
 
 /*
  * Čtečka. Příběh se otevře jako velký list přes celou obrazovku (ne malé okno). Na počítači
@@ -111,7 +112,7 @@ export default function StoryReader({ index, onClose, onGo }: Props) {
   if (!mounted) return null;
 
   return createPortal(
-    <div className={`rd${shown ? ' is-open' : ''}`} onKeyDown={onKey} style={{ ['--co' as string]: c.hue }}>
+    <div className={`rd${shown ? ' is-open' : ''}`} onKeyDown={onKey} style={brandStyle(c.brand)}>
       <div className="rd__bg" onClick={onClose} aria-hidden="true" />
       <div className="rd__sheet" role="dialog" aria-modal="true" aria-label={`${c.firm}: ${cases.labels.more}`} ref={sheet}>
         <div className="rd__bar">

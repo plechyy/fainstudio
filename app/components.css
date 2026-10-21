@@ -4864,8 +4864,8 @@ html.is-loading .seq {
 }
 
 /* ════════════════════════════════════════════════════════════════════
-   SEKCE 5 — případy: carousel sedmi případů. Každý má barvu z palety scén (--co = posun
-   odstínu), jiný vizuál a jiný druh výsledku. Vizuál se přehraje, když na případ přijdete
+   SEKCE 5 — případy: carousel sedmi případů. Každý má barvu loga své firmy (--bl/--bc/--bh z
+   cases.items[].brand), jiný vizuál a jiný druh výsledku. Vizuál se přehraje, když na případ přijdete
    poprvé (.is-seen). Animuje se jen průhlednost a posun, nic 3D.
    ════════════════════════════════════════════════════════════════════ */
 .cx {
@@ -4881,7 +4881,7 @@ html.is-loading .seq {
   gap: 4px;
 }
 .cx__count {
-  --cn: oklch(calc(0.8 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) + var(--co, 0)));
+  --cn: oklch(max(var(--bl, 0.7), 0.72) var(--bc, 0.12) var(--bh, 300)); /* barva loga firmy */
   grid-area: count;
   display: flex;
   flex-wrap: wrap;
@@ -4987,7 +4987,7 @@ html.is-loading .seq {
   align-self: center;
 }
 .cxp__seg {
-  --cn: oklch(calc(0.8 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) + var(--co, 0)));
+  --cn: oklch(max(var(--bl, 0.7), 0.72) var(--bc, 0.12) var(--bh, 300)); /* barva loga firmy */
   flex: 1;
   min-width: 0;
   height: 100%;
@@ -5107,7 +5107,7 @@ html.is-loading .seq {
 /* jeden případ: žádná karta, žádný rámeček. Vlevo text sázený jako článek, vpravo živá scéna
    volně v prostoru jako v sekci 2. Kraj dalšího případu se jen tiše ztrácí do pozadí. */
 .cx-case {
-  --cc: oklch(calc(0.8 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) + var(--co, 0)));
+  --cc: oklch(max(var(--bl, 0.7), 0.68) var(--bc, 0.12) var(--bh, 300)); /* barva loga firmy */
   flex: 0 0 92%;
   display: grid;
   align-content: start;
@@ -6483,7 +6483,7 @@ html.is-loading .seq {
 :root[data-theme='light'] .cx-case,
 :root[data-theme='light'] .cx__count,
 :root[data-theme='light'] .cxp__seg {
-  --cc: oklch(calc(0.56 + var(--pal-adj)) calc(var(--ac-c) * 1.1) calc(var(--pal-h) + var(--co, 0)));
+  --cc: oklch(min(var(--bl, 0.56), 0.56) var(--bc, 0.12) var(--bh, 300));
   --cn: var(--cc);
 }
 
@@ -6738,7 +6738,7 @@ html.is-loading .seq {
    STRÁNKA PŘÍPADU (/pripady/<id>) — pevná kostra, tělo je u každého případu jiné
    ════════════════════════════════════════════════════════════════════ */
 .ca {
-  --cc: oklch(calc(0.8 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) + var(--co, 0)));
+  --cc: oklch(max(var(--bl, 0.7), 0.68) var(--bc, 0.12) var(--bh, 300)); /* barva loga firmy */
   overflow-x: clip;
   padding-block: clamp(28px, 5vw, 64px) clamp(60px, 8vw, 120px);
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { cases } from '@/lib/content';
+import { brandStyle } from './cases/brand';
 
 /*
  * Lišta případů (úseky jako v Postupu). Samostatný komponent: má pevnou šířku i výšku bez ohledu na to,
@@ -20,7 +21,7 @@ export default function CasesProgress({ active, onGo }: { active: number; onGo: 
           title={it.firm}
           className="cxp__seg"
           data-state={i < active ? 'done' : i === active ? 'now' : 'next'}
-          style={{ ['--co' as string]: it.hue }}
+          style={brandStyle(it.brand)}
           onClick={() => onGo(i)}
           key={it.id}
         >

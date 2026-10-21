@@ -116,7 +116,7 @@ export const cases = {
   items: [
     {
       id: 'reality',
-      hue: 52,
+      brand: { l: 0.62, c: 0.17, h: 272 }, // barva loga firmy
       kind: 'model',
       firm: 'Unica Real',
       title: 'Hlídač realitních portálů: nové nabídky od majitelů hned v mobilu makléře.',
@@ -144,7 +144,7 @@ export const cases = {
     },
     {
       id: 'kouc',
-      hue: 108,
+      brand: { l: 0.5, c: 0.07, h: 255 }, // barva loga firmy
       kind: 'model',
       firm: 'Brightline Digital',
       title: 'AI kouč obchodníků: vyhodnotí každý hovor hned po zavěšení.',
@@ -175,7 +175,7 @@ export const cases = {
     },
     {
       id: 'fotka',
-      hue: -38,
+      brand: { l: 0.6, c: 0.22, h: 27 }, // barva loga firmy
       kind: 'model',
       firm: 'Gareko',
       title: 'Předběžná cena koupelny z fotky za minutu.',
@@ -204,7 +204,7 @@ export const cases = {
     },
     {
       id: 'smlouvy',
-      hue: 222,
+      brand: { l: 0.7, c: 0.06, h: 75 }, // barva loga firmy
       kind: 'model',
       firm: 'Woodline Interiors',
       abroad: 'Zahraniční spolupráce · USA',
@@ -231,7 +231,7 @@ export const cases = {
     },
     {
       id: 'knowhow',
-      hue: -88,
+      brand: { l: 0.7, c: 0.17, h: 55 }, // barva loga firmy
       kind: 'model',
       firm: 'Strojírna Veselý',
       title: 'Asistent s know-how mistra: nováčkům odpovídá jeho slovy.',
@@ -258,7 +258,7 @@ export const cases = {
     },
     {
       id: 'porady',
-      hue: 0,
+      brand: { l: 0.7, c: 0.02, h: 220 }, // barva loga firmy
       kind: 'model',
       firm: 'Proengineers',
       title: 'AI zápisy z porad: poslechne poradu, napíše zápis a rozdá úkoly.',
@@ -285,7 +285,7 @@ export const cases = {
     },
     {
       id: 'upominky',
-      hue: 165,
+      brand: { l: 0.63, c: 0.23, h: 27 }, // barva loga firmy
       kind: 'model',
       firm: 'SeidlServis',
       title: 'Hlídání plateb: automatické upomínky a párování s bankou.',

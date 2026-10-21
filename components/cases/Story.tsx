@@ -3,6 +3,7 @@ import FirmLogo from './FirmLogo';
 import Live from './Live';
 import Result from './Result';
 import { bodies } from './articles';
+import { sceneStyle } from './brand';
 
 export type CaseItem = (typeof cases.items)[number];
 
@@ -46,7 +47,7 @@ export function StoryHero({ c, as: Tag = 'h2' }: { c: CaseItem; as?: 'h1' | 'h2'
 /** živá scéna případu v barvě případu */
 export function StoryFig({ c }: { c: CaseItem }) {
   return (
-    <div className="ca-fig art" style={{ ['--ac-h' as string]: `calc(var(--pal-h) + ${c.hue})` }} aria-hidden="true">
+    <div className="ca-fig art" style={sceneStyle(c.brand)} aria-hidden="true">
       <Live v={c.visual} />
     </div>
   );
