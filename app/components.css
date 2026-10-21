@@ -434,8 +434,10 @@ html.is-loading .seq {
 /* ── HERO ────────────────────────────────────────────────────────── */
 .hero {
   position: relative;
-  min-height: 100vh; /* hero vyplní celou první obrazovku, sekce 2 není vidět */
-  min-height: 100svh;
+  /* hero nezabírá celou obrazovku: dole vykukuje začátek další sekce, aby bylo znát, že se dá scrollovat */
+  --peek: clamp(104px, 16svh, 160px);
+  min-height: calc(100vh - var(--peek));
+  min-height: calc(100svh - var(--peek));
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1576,7 +1578,7 @@ html.is-loading .seq {
   }
   /* na mobilu zabírá hero celou obrazovku a obsah sedí přesně uprostřed */
   .hero {
-    min-height: 100svh;
+    min-height: calc(100svh - var(--peek));
     padding-block: 80px;
   }
 }
@@ -4825,7 +4827,14 @@ html.is-loading .seq {
 
 /* pod hero hned navazuje další sekce, bez velké prázdné mezery */
 .hero + .section {
-  padding-top: clamp(40px, 6vw, 80px);
+  padding-top: clamp(24px, 2.4vw, 32px);
+}
+/* hlavička první sekce je vidět hned pod hero (nečeká na scroll), jinak by v náhledu nebylo nic */
+.hero + .section .sp__left.reveal,
+.hero + .section .sys-head.reveal {
+  opacity: 1;
+  transform: none;
+  transition: none;
 }
 
 .cta-row--left {
