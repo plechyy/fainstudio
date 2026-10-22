@@ -4260,12 +4260,13 @@ html.is-loading .seq {
   border-color: var(--g);
   background: var(--g);
   color: var(--fs-on);
-  font-family: 'FingerPaint', var(--font-display);
-  font-size: 0.84rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1;
   box-shadow: 0 0 16px var(--fs-glow);
+}
+.fs-star {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  stroke: currentColor;
 }
 /* točící se prstenec kolem AI brány */
 .we__lane--ai .we__gate::after {
@@ -4406,12 +4407,9 @@ html.is-loading .seq {
   fill: var(--fs);
   filter: drop-shadow(0 0 9px var(--fs-glow));
 }
-.why-v .wf__coret {
+.why-v .wf__star {
   fill: var(--fs-on);
-  font-family: 'FingerPaint', var(--font-display);
-  font-size: 12.5px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  stroke: var(--fs-on);
 }
 .wf__draw {
   --d: clamp(0, (var(--wt) - var(--at)) * 12, 1);

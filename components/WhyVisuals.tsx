@@ -2,6 +2,7 @@
 
 import type { CSSProperties } from 'react';
 import { ico, Svg } from './systems/live/scene';
+import { STAR_D, STAR_STROKE } from '@/lib/star';
 
 /*
  * Animace pro sekci „Proč AI“. Všechny jsou nekonečné smyčky bez stmívání: konec
@@ -30,6 +31,15 @@ function Belt({ done }: { done?: boolean }) {
   );
 }
 
+/** Značka FaiN Studia (hvězdička z loga) místo písmen „FS“ v kolečku. */
+function Star() {
+  return (
+    <svg className="fs-star" viewBox="0 0 100 100" aria-hidden="true">
+      <path d={STAR_D} strokeWidth={STAR_STROKE} strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export function Efficiency() {
   return (
     <div className="we" aria-hidden="true">
@@ -39,7 +49,7 @@ export function Efficiency() {
           <span className="we__track">
             <Belt />
             <Belt done />
-            <span className="we__gate">{l.gate ? <Svg>{l.gate}</Svg> : 'FS'}</span>
+            <span className="we__gate">{l.gate ? <Svg>{l.gate}</Svg> : <Star />}</span>
           </span>
           <span className="we__rate">{l.rate}</span>
         </div>
@@ -121,9 +131,9 @@ export function Flow() {
 
       <circle className="wf__ring" cx="80" cy="80" r="21" />
       <circle className="wf__core" cx="80" cy="80" r="15" />
-      <text className="wf__coret" x="80" y="84.6">
-        FS
-      </text>
+      <g className="wf__star" transform="translate(80 80) scale(0.2) translate(-48 -50)">
+        <path d={STAR_D} strokeWidth={STAR_STROKE} strokeLinejoin="round" />
+      </g>
 
       {/* AI → dva návrhy */}
       {[53, 107].map((y, n) => (
