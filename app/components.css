@@ -1393,42 +1393,40 @@ html.is-loading .seq {
 .refs span {
   color: var(--ink-2);
 }
-/* podpis */
+/* podpis: zelený, odkryje se tahem zleva, potom se podtrhne */
 .sig {
   margin-top: 28px;
-  color: var(--secondary);
-  filter: drop-shadow(0 0 6px color-mix(in oklab, var(--secondary) 45%, transparent));
+  color: var(--primary-text);
+  filter: drop-shadow(0 0 6px var(--primary-glow));
 }
 .sig svg {
   display: block;
-  width: min(420px, 92%);
+  width: min(460px, 100%);
   height: auto;
   overflow: visible;
 }
-.sig path {
+.sig__t {
+  clip-path: inset(0 100% 0 0);
+}
+.sig__u {
   stroke: currentColor;
-  stroke-width: 2.6;
+  stroke-width: 1.8;
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
 }
-.sig__b,
-.sig__c {
-  stroke-width: 1.8;
+.sig.is-in .sig__t {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 2.2s cubic-bezier(0.5, 0, 0.3, 1);
 }
-.sig.is-in path {
-  transition: stroke-dashoffset 1.8s cubic-bezier(0.5, 0, 0.3, 1);
+.sig.is-in .sig__u {
   stroke-dashoffset: 0;
-}
-.sig.is-in .sig__b {
-  transition-delay: 1.4s;
-  transition-duration: 0.7s;
-}
-.sig.is-in .sig__c {
-  transition-delay: 1.9s;
-  transition-duration: 0.4s;
+  transition: stroke-dashoffset 0.8s cubic-bezier(0.5, 0, 0.3, 1) 1.9s;
 }
 @media (prefers-reduced-motion: reduce) {
-  .sig path {
+  .sig__t {
+    clip-path: none;
+  }
+  .sig__u {
     stroke-dashoffset: 0;
   }
 }
