@@ -14,7 +14,7 @@ export default function Contract() {
       </p>
       <p>
         Řekl nám to bez obalu: právníka na každou smlouvu platit nechce, na to ho nemá, ale podepisovat naslepo už taky ne. Nejdřív chtěl vědět, jestli to nějak
-        jde. Odpověděli jsme, že jde, ale ne tak, aby AI rozhodovala. Má smlouvu přečíst, ukázat, kde jsou rizika, a poradit, co navrhnout jinak. Rozhodnutí zůstává
+        jde. Odpověděli jsme, že jde, ale ne tak, aby rozhodoval systém. Má smlouvu přečíst, ukázat, kde jsou rizika, a poradit, co navrhnout jinak. Rozhodnutí zůstává
         na majiteli, a když je riziko vážné, na právníkovi.
       </p>
 
@@ -59,7 +59,7 @@ export default function Contract() {
       <h2>Co zůstalo na právníkovi</h2>
       <p>
         Smlouvy, ve kterých systém najde vážné riziko, jdou k právníkovi už s hotovým přehledem. Ten pak řeší jen to, co opravdu potřebuje jeho oči, a nezačíná
-        čtením od první strany. Poslední slovo má vždy majitel nebo právník, nikdy AI. To jsme si napsali do návrhu a stojí to i na každé stránce přehledu.
+        čtením od první strany. Poslední slovo má vždy majitel nebo právník, nikdy systém. To jsme si napsali do návrhu a stojí to i na každé stránce přehledu.
       </p>
 
       <h2>Co to přineslo</h2>
