@@ -125,10 +125,16 @@ html.is-loading .seq {
   z-index: -1;
   height: 112px;
   pointer-events: none;
+}
+/* Zjemnění se animuje na vrstvách, ne na rodiči: opacity na rodiči s backdrop-filter uvnitř dělá z něj
+   „backdrop root“, rozostření pak při přechodu vidí jen prázdno a navigace na chvíli probliknutí černě. */
+.nav-veil::before,
+.nav-veil i {
   opacity: 0;
   transition: opacity 320ms var(--ease-out);
 }
-.nav-veil.is-on {
+.nav-veil.is-on::before,
+.nav-veil.is-on i {
   opacity: 1;
 }
 /* barva stránky pod rozostřením: písmo navigace zůstane čitelné i nad obsahem */
@@ -180,7 +186,8 @@ html.is-loading .seq {
   mask-image: linear-gradient(to bottom, transparent 78%, #000 92%, transparent 100%);
 }
 @media (prefers-reduced-motion: reduce) {
-  .nav-veil {
+  .nav-veil::before,
+  .nav-veil i {
     transition: none;
   }
 }
