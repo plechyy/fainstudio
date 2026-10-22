@@ -99,7 +99,7 @@ export default function Process() {
         <header className="proc-head reveal">
           <p className="label shead__index" aria-hidden="true">
             <b>04</b>
-            Postup
+            Průběh spolupráce
           </p>
           <h2 className="h2 proc-head__title silver" id="postup-title">
             {process.title}

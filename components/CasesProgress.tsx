@@ -10,7 +10,7 @@ import { brandStyle } from './cases/brand';
 export default function CasesProgress({ active, onGo }: { active: number; onGo: (i: number) => void }) {
   const items = cases.items;
   return (
-    <div className="cxp" role="tablist" aria-label="Případy">
+    <div className="cxp" role="tablist" aria-label="Projekty">
       {items.map((it, i) => (
         <button
           type="button"

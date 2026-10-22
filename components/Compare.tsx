@@ -37,7 +37,7 @@ export default function Compare() {
         <header className="hd reveal">
           <p className="label shead__index" aria-hidden="true">
             <b>06</b>
-            Srovnání
+            Proč FaiN?
           </p>
           <h2 className="h2 hd__title" id="srovnani-title">
             <span className="silver silver--block">Jiné cesty to taky umí.</span>

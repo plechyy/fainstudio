@@ -9,7 +9,7 @@ export default function Cases() {
         <header className="hd hd--wide reveal">
           <p className="label shead__index" aria-hidden="true">
             <b>05</b>
-            Případy
+            Projekty
           </p>
           <h2 className="h2 hd__title" id="pripady-title">
             <span className="silver silver--block">{cases.title}</span>

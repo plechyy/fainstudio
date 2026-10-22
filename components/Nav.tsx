@@ -6,11 +6,11 @@ import Star from './Star';
 import ThemeToggle from './ThemeToggle';
 
 const LINKS = [
-  { href: '#systemy', label: 'Co zvládneme' },
+  { href: '#systemy', label: 'Co děláme' },
   { href: '#proc-ai', label: 'Proč AI' },
-  { href: '#postup', label: 'Postup' },
-  { href: '#pripady', label: 'Případy' },
-  { href: '#srovnani', label: 'Srovnání' },
+  { href: '#postup', label: 'Průběh spolupráce' },
+  { href: '#pripady', label: 'Projekty' },
+  { href: '#srovnani', label: 'Proč FaiN?' },
   { href: '#proof', label: 'Přínosy' },
   { href: '#kdo', label: 'O nás' },
   { href: '#faq', label: 'Otázky' },

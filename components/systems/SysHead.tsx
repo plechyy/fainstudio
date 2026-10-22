@@ -6,7 +6,7 @@ export default function SysHead() {
     <header className="sys-head reveal">
       <p className="label shead__index" aria-hidden="true">
         <b>02</b>
-        Co zvládneme
+        Co děláme
       </p>
       <h2 className="h2 sys-head__title" id="systemy-title">
         <span className="silver silver--block">Co vše</span>
