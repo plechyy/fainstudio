@@ -524,7 +524,7 @@ html.is-loading .seq {
 .hero__accent {
   color: var(--accent-text);
 }
-/* psaný druhý řádek: neviditelné kopie vět drží výšku, živý text leží přes ně.
+/* druhý řádek: „která“ stojí, věta za ní se otáčí jako válec a šířka řádku plynule sleduje její délku.
    Nadpis má vždy dva řádky a žádný se nezalamuje. */
 /* .display nastavuje text-wrap a přebíjí white-space, proto vyšší specificita */
 .hero .hero__title {
@@ -534,47 +534,83 @@ html.is-loading .seq {
 }
 .hero__rot {
   position: relative;
-  display: grid;
-  text-align: center;
+  display: inline-flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 0.28em;
+  white-space: nowrap;
 }
-.hero__rot-size {
+/* „která“ a tečka jsou pevné, mezera mezi nimi a otáčející se větou se nezavírá */
+.hero__rot > .hero__dot-end {
+  margin-left: -0.28em;
+}
+.hero__roll {
+  display: inline-grid;
+  text-align: left;
+  overflow: visible;
+  transition: width 720ms cubic-bezier(0.6, 0, 0.2, 1);
+}
+.hero__face {
   grid-area: 1 / 1;
-  visibility: hidden;
+  white-space: nowrap;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
-.hero__rot-live {
+/* válec: poloměr je půl výšky řádku, nový text se přivaluje zespodu, starý odjíždí nahoru */
+.hero__face.is-in {
+  animation: hero-roll-in 720ms cubic-bezier(0.6, 0, 0.2, 1) both;
+}
+.hero__face.is-out {
+  animation: hero-roll-out 720ms cubic-bezier(0.6, 0, 0.2, 1) both;
+  pointer-events: none;
+}
+@keyframes hero-roll-in {
+  from {
+    opacity: 0;
+    transform: perspective(40em) translateZ(-0.55em) rotateX(-85deg) translateZ(0.55em);
+  }
+  60% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    transform: perspective(40em) translateZ(-0.55em) rotateX(0deg) translateZ(0.55em);
+  }
+}
+@keyframes hero-roll-out {
+  from {
+    opacity: 1;
+    transform: perspective(40em) translateZ(-0.55em) rotateX(0deg) translateZ(0.55em);
+  }
+  40% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: perspective(40em) translateZ(-0.55em) rotateX(85deg) translateZ(0.55em);
+  }
+}
+/* neviditelné kopie vět: jen se z nich čte šířka */
+.hero__rot-size {
   position: absolute;
-  top: 0;
-  right: 0;
   left: 0;
+  top: 0;
+  visibility: hidden;
+  pointer-events: none;
+  white-space: nowrap;
 }
-.hero__caret {
-  display: inline-block;
-  width: 0.07em;
-  height: 0.82em;
-  /* kurzor nezabírá místo, tečka tak sedí hned za posledním písmenem */
-  margin-inline: 0.01em -0.08em;
-  vertical-align: -0.06em;
-  border-radius: 1px;
-  background: var(--primary);
-  -webkit-text-fill-color: initial;
-  box-shadow: 0 0 14px var(--primary-glow);
-}
-.hero__caret.is-idle {
-  animation: hero-caret 1s steps(1) infinite;
+.hero__rot-size > span {
+  display: block;
+  width: max-content;
 }
 /* tečka na konci řádku je pořád bílá, ať se píše cokoli */
 .hero__dot-end {
   color: var(--white-text);
   -webkit-text-fill-color: var(--white-text);
 }
-@keyframes hero-caret {
-  50% {
-    opacity: 0;
-  }
-}
 @media (prefers-reduced-motion: reduce) {
-  .hero__caret {
-    display: none;
+  .hero__roll {
+    transition: none;
   }
 }
 .hero__lead {
