@@ -28,15 +28,22 @@ export default function About() {
           </h2>
           <p className="about__text reveal">{about.lead}</p>
           <p className="about__origin reveal">{about.origin}</p>
-          {/* firma je dohledatelná ve veřejném rejstříku: jméno + IČO + odkaz do ARES */}
+          {/* firma je dohledatelná ve veřejném rejstříku: jméno + IČO, číslo je odkaz do ARES (text odkazu není vidět, jen titulek a čtečka) */}
           <p className="about__id reveal">
             <span>{about.name}</span>
             <span>
-              IČO <span className="num">{about.ico}</span>
+              IČO{' '}
+              <a
+                className="num"
+                href={`https://ares.gov.cz/ekonomicke-subjekty?ico=${about.ico}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={about.verify}
+                aria-label={`${about.ico}, ${about.verify}`}
+              >
+                {about.ico}
+              </a>
             </span>
-            <a href={`https://ares.gov.cz/ekonomicke-subjekty?ico=${about.ico}`} target="_blank" rel="noopener noreferrer">
-              {about.verify} <span aria-hidden="true">↗</span>
-            </a>
           </p>
 
           {/* Podpis: čára, která se při scrollu napíše jako perem (tahy za sebou). Obrázek, ne text; jméno je v nadpisu. */}
