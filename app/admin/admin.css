@@ -11,7 +11,7 @@ body:has(.adm) {
   background: transparent;
 }
 html:has(.adm--login) {
-  background: #f6f4fb;
+  background: oklch(0.97 0.006 var(--primary-h));
 }
 /* přihlášení: barevné přechody v pozadí jako pevná vrstva */
 .adm--login::before {
@@ -21,8 +21,8 @@ html:has(.adm--login) {
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(900px 520px at 92% -8%, #f3dcff 0%, transparent 62%),
-    radial-gradient(760px 480px at -6% 104%, #ffe1f1 0%, transparent 62%);
+    radial-gradient(900px 520px at 92% -8%, oklch(0.94 0.06 var(--primary-h)) 0%, transparent 62%),
+    radial-gradient(760px 480px at -6% 104%, oklch(0.96 0.04 calc(var(--primary-h) + 30)) 0%, transparent 62%);
 }
 /* v administraci je pod obsahem tmavý rám */
 html:has(.adm--app) {
@@ -33,28 +33,28 @@ html:has(.adm--app) {
   --ink: #17151f;
   --ink-2: #4a4758;
   --ink-3: #7b778a;
-  --line: #e8e5f0;
-  --line-2: #d9d5e6;
+  --line: oklch(0.91 0.006 var(--bgl-h));
+  --line-2: oklch(0.86 0.009 var(--bgl-h));
   --card: #ffffff;
-  --soft: #f6f4fb;
-  /* značka FaiN Studio: pink-fialová z webu (odstín 327) */
-  --a: oklch(0.6 0.2 324);
-  --a-2: oklch(0.66 0.19 352);
-  --a-ink: oklch(0.46 0.19 324);
-  --a-soft: oklch(0.95 0.035 324);
-  --brand: oklch(0.8288 0.13 327.3);
+  --soft: oklch(0.97 0.005 var(--bgl-h));
+  /* celý admin jede v primární barvě webu (--primary-h/c z globals.css) */
+  --a: oklch(0.6 var(--primary-c) var(--primary-h));
+  --a-2: oklch(0.66 calc(var(--primary-c) * 0.95) calc(var(--primary-h) + 14));
+  --a-ink: oklch(0.42 calc(var(--primary-c) * 0.6) var(--primary-h));
+  --a-soft: oklch(0.95 0.04 var(--primary-h));
+  --brand: oklch(calc(0.78 + var(--primary-l-adj)) var(--primary-c) var(--primary-h));
   /* tmavý rám (panel a hlavička), přesně barvy tmavého webu */
-  --d-bg: oklch(0.1668 0.0084 296.9);
-  --d-deep: oklch(0.1318 0.0084 296.9);
-  --d-line: oklch(0.2918 0.0124 296.9);
-  --d-ink: oklch(0.96 0.005 297);
-  --d-ink-2: oklch(0.74 0.012 297);
-  --d-ink-3: oklch(0.58 0.014 297);
+  --d-bg: oklch(var(--bgd-l) var(--bgd-c) var(--bgd-h));
+  --d-deep: oklch(calc(var(--bgd-l) - 0.035) var(--bgd-c) var(--bgd-h));
+  --d-line: oklch(calc(var(--bgd-l) + 0.125) var(--bgd-c) var(--bgd-h));
+  --d-ink: oklch(0.96 0.003 var(--bgd-h));
+  --d-ink-2: oklch(0.74 0.006 var(--bgd-h));
+  --d-ink-3: oklch(0.58 0.008 var(--bgd-h));
   --ok: #0f9d6e;
   --bad: #d92d20;
   --r: 18px;
-  --sh-1: 0 1px 2px #1b13370a, 0 1px 1px #1b13370a;
-  --sh-2: 0 1px 2px #1b13370d, 0 10px 28px -10px #1b133726;
+  --sh-1: 0 1px 2px #0000000a, 0 1px 1px #0000000a;
+  --sh-2: 0 1px 2px #0000000d, 0 10px 28px -10px #00000026;
   --ring: 0 0 0 4px color-mix(in oklab, var(--a) 22%, transparent);
 
   min-height: 100vh;
@@ -227,14 +227,12 @@ html:has(.adm--app) {
   color: var(--ink-3);
 }
 
-/* ── přihlášení: vlevo barevný panel, vpravo formulář ─────────────── */
+/* ── přihlášení: jen formulář uprostřed ─────────────────────────── */
 .adm--login {
   display: grid;
   grid-template-columns: 1fr;
+  place-items: center;
   background: transparent;
-}
-.adm__hero {
-  display: none;
 }
 .adm__panel {
   display: grid;
@@ -248,23 +246,6 @@ html:has(.adm--app) {
   border-radius: 24px;
   background: #ffffffeb;
   box-shadow: var(--sh-2);
-}
-.adm__card .adm__logo {
-  margin-bottom: 26px;
-  color: var(--ink);
-}
-.adm__card .adm__word span {
-  color: var(--a);
-}
-.adm__h1 {
-  margin-bottom: 4px;
-  font-size: 24px;
-  font-weight: 720;
-  letter-spacing: -0.025em;
-}
-.adm__lead {
-  margin-bottom: 22px;
-  color: var(--ink-3);
 }
 .adm__form {
   display: grid;
@@ -282,72 +263,6 @@ html:has(.adm--app) {
 .adm__f input {
   height: 46px;
 }
-@media (min-width: 900px) {
-  .adm--login {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-    padding: 14px;
-    gap: 14px;
-  }
-  .adm__hero {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    overflow: hidden;
-    min-height: calc(100dvh - 28px);
-    padding: 40px;
-    border-radius: 28px;
-    background: linear-gradient(150deg, oklch(0.2 0.03 305) 0%, oklch(0.3 0.12 320) 55%, oklch(0.5 0.19 335) 100%);
-    color: #fff;
-  }
-  .adm__hero::before,
-  .adm__hero::after {
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    background: #ffffff1f;
-    filter: blur(2px);
-  }
-  .adm__hero::before {
-    width: 520px;
-    height: 520px;
-    right: -160px;
-    top: -140px;
-  }
-  .adm__hero::after {
-    width: 380px;
-    height: 380px;
-    left: -120px;
-    bottom: -120px;
-    background: #ffffff17;
-  }
-  .adm__hero .adm__logo,
-  .adm__hero p,
-  .adm__hero h2 {
-    position: relative;
-    z-index: 1;
-  }
-  .adm__hero .adm__logo {
-    color: #fff;
-  }
-  .adm__hero .adm__word {
-    font-size: 32px;
-  }
-  .adm__hero h2 {
-    max-width: 14ch;
-    font-size: 40px;
-    font-weight: 720;
-    line-height: 1.08;
-    letter-spacing: -0.03em;
-  }
-  .adm__hero p {
-    margin-top: 12px;
-    max-width: 34ch;
-    color: #ffffffcc;
-    font-size: 15px;
-  }
-}
-
 /* ── rám: tmavý panel vlevo + tmavá hlavička, světlý jen hlavní obsah ── */
 .adm--app {
   display: grid;
@@ -895,12 +810,12 @@ html:has(.adm--app) {
   font-size: 12.5px;
 }
 .fl__fc[data-c='0'] {
-  --t: oklch(0.58 0.2 324);
-  --t-soft: oklch(0.95 0.035 324);
+  --t: oklch(0.58 var(--primary-c) var(--primary-h));
+  --t-soft: oklch(0.95 0.04 var(--primary-h));
 }
 .fl__fc[data-c='1'] {
-  --t: oklch(0.62 0.2 352);
-  --t-soft: oklch(0.95 0.04 352);
+  --t: oklch(0.62 calc(var(--primary-c) * 0.9) calc(var(--primary-h) + 25));
+  --t-soft: oklch(0.95 0.04 calc(var(--primary-h) + 25));
 }
 .fl__fc[data-c='2'] {
   --t: #0d9488;
