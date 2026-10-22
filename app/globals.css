@@ -207,7 +207,8 @@
 /* Proč AI: každá karta má vlastní barvu  ze stejné palety jako scény v sekci 2
    (animace uvnitř karty ji berou jako --primary), dlaždice mozaiky střídají pět odstínů */
 .why__item,
-.wm__tile {
+.wm__tile,
+.we__lane--ai .we__clip--done .we__belt i {
   --primary: oklch(calc(0.78 + var(--pal-adj)) var(--ac-c) var(--ac-h, var(--pal-h)));
   --primary-glow: oklch(calc(0.78 + var(--pal-adj)) var(--ac-c) var(--ac-h, var(--pal-h)) / 0.5);
   --primary-deep: oklch(calc(0.6 + var(--pal-adj)) calc(var(--ac-c) * 1.15) var(--ac-h, var(--pal-h)));
@@ -245,6 +246,12 @@
 .wm__tile--2 { --ac-h: calc(var(--pal-h) - 88); }
 .wm__tile--3 { --ac-h: calc(var(--pal-h) + 165); }
 .wm__tile--4 { --ac-h: calc(var(--pal-h) + 52); }
+/* hotové úkoly s AI střídají stejných pět odstínů jako dlaždice (vzor se opakuje po pěti kusech) */
+.we__lane--ai .we__clip--done .we__belt i:nth-child(5n + 1) { --ac-h: var(--pal-h); }
+.we__lane--ai .we__clip--done .we__belt i:nth-child(5n + 2) { --ac-h: calc(var(--pal-h) - 38); }
+.we__lane--ai .we__clip--done .we__belt i:nth-child(5n + 3) { --ac-h: calc(var(--pal-h) - 88); }
+.we__lane--ai .we__clip--done .we__belt i:nth-child(5n + 4) { --ac-h: calc(var(--pal-h) + 165); }
+.we__lane--ai .we__clip--done .we__belt i:nth-child(5n + 5) { --ac-h: calc(var(--pal-h) + 52); }
 
 /* Světlé téma: přepínač v navigaci (html[data-theme='light']). Tmavé je výchozí. */
 :root[data-theme='light'] {

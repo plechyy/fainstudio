@@ -12,7 +12,7 @@ import { ico, Svg } from './systems/live/scene';
 const v = (o: Record<string, string | number>) => o as CSSProperties;
 
 /* 01 Efektivita: nekonečný pás úkolů. Ručně jede pomalu, s AI čtyřikrát rychleji. */
-const TOKENS = 12;
+const TOKENS = 15; // násobek pěti kvůli opakování barev
 const LANES = [
   { id: 'hand', name: 'Ručně', rate: '1×', gate: ico.user },
   { id: 'ai', name: 'S AI', rate: '4×', gate: null },

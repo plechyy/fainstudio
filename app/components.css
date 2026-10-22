@@ -4120,6 +4120,7 @@ html.is-loading .seq {
   max-width: 320px;
 }
 .we__lane {
+  --gx: 50%; /* kde stojí brána: tady se úkoly mění z čekajících na hotové */
   display: grid;
   grid-template-columns: 40px 1fr 32px;
   align-items: center;
@@ -4145,14 +4146,17 @@ html.is-loading .seq {
   height: 1px;
   background: var(--line);
 }
+.we__lane--hand {
+  --gx: 30%;
+}
 .we__clip {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  clip-path: inset(0 0 0 50%);
+  clip-path: inset(0 0 0 var(--gx));
 }
 .we__clip--done {
-  clip-path: inset(0 50% 0 0);
+  clip-path: inset(0 calc(100% - var(--gx)) 0 0);
 }
 .we__belt {
   position: absolute;
@@ -4161,10 +4165,10 @@ html.is-loading .seq {
   display: flex;
   gap: var(--gap);
   translate: 0 -50%;
-  animation: why-belt 3.2s linear infinite;
+  animation: why-belt 16s linear infinite;
 }
 .we__lane--ai .we__belt {
-  animation-duration: 0.8s;
+  animation-duration: 4s;
 }
 .we__belt i {
   flex: none;
@@ -4183,6 +4187,7 @@ html.is-loading .seq {
   background: var(--ink-3);
 }
 .we__lane--ai .we__clip--done .we__belt i {
+  --why-on: oklch(from var(--primary) clamp(0.16, calc((0.66 - l) * 60), 0.98) 0.02 h);
   border-color: var(--primary);
   background: var(--primary);
   box-shadow: 0 0 10px var(--primary-glow);
@@ -4200,7 +4205,7 @@ html.is-loading .seq {
 }
 .we__gate {
   position: absolute;
-  left: 50%;
+  left: var(--gx);
   top: 50%;
   z-index: 2;
   display: grid;
@@ -4217,22 +4222,24 @@ html.is-loading .seq {
   width: 17px;
 }
 .we__lane--ai .we__gate {
-  border-color: var(--primary);
-  background: var(--primary);
-  color: var(--why-on);
+  /* kolečko FS je v zelené loga, ne v barvě karty */
+  --g: oklch(calc(0.78 + var(--primary-l-adj)) var(--primary-c) var(--primary-h));
+  border-color: var(--g);
+  background: var(--g);
+  color: oklch(from var(--g) clamp(0.16, calc((0.66 - l) * 60), 0.98) 0.02 h);
   font-family: 'FingerPaint', var(--font-display);
   font-size: 0.84rem;
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1;
-  box-shadow: 0 0 22px var(--primary-glow);
+  box-shadow: 0 0 22px oklch(from var(--g) l c h / 0.5);
 }
 /* točící se prstenec kolem AI brány */
 .we__lane--ai .we__gate::after {
   content: '';
   position: absolute;
   inset: -6px;
-  border: 1.5px dashed var(--primary);
+  border: 1.5px dashed var(--g);
   border-radius: 50%;
   animation: why-spin 4s linear infinite;
 }
@@ -4253,7 +4260,8 @@ html.is-loading .seq {
     transform: translateX(0);
   }
   to {
-    transform: translateX(calc(-1 * (var(--tok) + var(--gap))));
+    /* pět kusů: barevný vzor se opakuje po pěti, takže smyčka na sebe plynule navazuje */
+    transform: translateX(calc(-5 * (var(--tok) + var(--gap))));
   }
 }
 
@@ -4947,7 +4955,7 @@ html.is-loading .seq {
   margin: 0;
 }
 .cx__count > b {
-  color: var(--cn);
+  color: var(--ink);
   font-family: var(--font-display);
   font-size: clamp(2.2rem, 1.8rem + 1.6vw, 3rem);
   font-weight: 650;
@@ -5070,8 +5078,8 @@ html.is-loading .seq {
   background: var(--ink-3);
 }
 .cxp__seg[data-state='now'] i {
-  background: var(--cn);
-  box-shadow: 0 0 12px -1px color-mix(in oklab, var(--cn) 70%, transparent);
+  background: var(--ink);
+  box-shadow: 0 0 12px -1px color-mix(in oklab, var(--ink) 40%, transparent);
   transform: scaleY(1.6);
 }
 .cxp__seg:focus-visible,
