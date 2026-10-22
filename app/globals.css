@@ -161,6 +161,7 @@
   --section: clamp(88px, 12vw, 172px);
   --radius: 10px;
   --radius-pill: 999px;
+  --radius-btn: 14px; /* tlačítka: zaoblený obdélník místo oválu */
   --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
@@ -560,7 +561,7 @@ button {
   gap: 10px;
   min-height: var(--h);
   padding: 0 24px;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-btn);
   border: 0;
   /* záloha, než se canvas rozběhne / bez WebGL */
   background: linear-gradient(135deg, color-mix(in oklab, var(--secondary-deep) 45%, #050505), #050505 80%);

@@ -290,7 +290,7 @@ html.is-loading .seq {
   width: 42px;
   height: 42px;
   border: 0;
-  border-radius: 50%;
+  border-radius: var(--radius-btn);
   background: var(--chip);
   box-shadow: inset 0 1px 0 var(--glass-top), inset 0 0 0 1px var(--glass-edge-lo);
   cursor: pointer;
@@ -309,7 +309,7 @@ html.is-loading .seq {
   justify-content: center;
   height: 42px;
   padding: 0 18px;
-  border-radius: 999px;
+  border-radius: var(--radius-btn);
   /* stejné sklo jako dřívější přepínač módu */
   background: var(--chip);
   box-shadow: inset 0 1px 0 var(--glass-top), inset 0 0 0 1px var(--glass-edge-lo);
@@ -1900,7 +1900,7 @@ html.is-loading .seq {
 }
 .sc-btn {
   padding: 6px 14px;
-  border-radius: 999px;
+  border-radius: var(--radius-btn);
   background: var(--ac);
   color: oklch(from var(--ac) clamp(0.16, calc((0.66 - l) * 60), 0.98) 0.02 h);
   font-size: 0.76rem;
@@ -5309,7 +5309,7 @@ html.is-loading .seq {
   gap: 12px;
   padding: 13px 22px 13px 24px;
   border: 1.5px solid color-mix(in oklab, var(--cc) 65%, transparent);
-  border-radius: 999px;
+  border-radius: var(--radius-btn);
   background: transparent;
   color: var(--ink);
   font: inherit;
@@ -6531,7 +6531,7 @@ html.is-loading .seq {
   gap: 10px;
   padding: 11px 18px 11px 20px;
   border: 1px solid var(--line-strong);
-  border-radius: 999px;
+  border-radius: var(--radius-btn);
   background: transparent;
   color: var(--ink);
   font: inherit;
@@ -7121,3 +7121,11 @@ html.is-loading .seq {
   }
 }
 
+
+/* hero: vedlejší tlačítko bez obrysu, jen tichá výplň */
+.hero__actions .btn--ghost {
+  box-shadow: none;
+}
+.hero__actions .btn--ghost:hover {
+  box-shadow: none;
+}
