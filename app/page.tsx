@@ -13,7 +13,6 @@ import Cta from '@/components/Cta';
 import Footer from '@/components/Footer';
 import Enhance from '@/components/Enhance';
 import ButtonSmoke from '@/components/ButtonSmoke';
-import ColorStudio from '@/components/ColorStudio';
 import { homeJsonLd, ld } from '@/lib/seo';
 
 export default function Home() {
@@ -39,7 +38,6 @@ export default function Home() {
       <Footer />
       <Enhance />
       <ButtonSmoke />
-      <ColorStudio />
     </>
   );
 }

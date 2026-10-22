@@ -79,9 +79,9 @@
   --on-accent: oklch(0.2 0.02 var(--secondary-h));
 
   /* Primární barva: odstín, sytost, posun světlosti. */
-  --primary-h: 145.5;
-  --primary-c: 0.2117;
-  --primary-l-adj: -0.0148;
+  --primary-h: 144.4;
+  --primary-c: 0.2504;
+  --primary-l-adj: 0.0316;
   --primary: oklch(calc(0.78 + var(--primary-l-adj)) var(--primary-c) var(--primary-h));
   --primary-deep: oklch(calc(0.6 + var(--primary-l-adj)) calc(var(--primary-c) * 1.15) var(--primary-h));
   --primary-glow: oklch(calc(0.78 + var(--primary-l-adj)) var(--primary-c) var(--primary-h) / 0.5);
@@ -94,7 +94,7 @@
 
   /* Tmavé téma (výchozí) */
   /* Pozadí: světlost / sytost / odstín jedné barvy, ostatní neutrály jsou její odvozeniny */
-  --bgd-l: 0.252;
+  --bgd-l: 0.235;
   --bgd-c: 0;
   --bgd-h: 0;
   --bgl-l: 0.943;
