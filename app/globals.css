@@ -204,6 +204,12 @@
   --sys-ac: oklch(calc(0.78 + var(--pal-adj)) var(--ac-c) var(--ac-h, var(--pal-h)));
 }
 
+/* kolečko FS v kartách Proč AI: zelená mezi plnou primární a tlumenou kartou, jako zelené nadpisy */
+.why__item {
+  --fs: oklch(calc(0.8 + var(--primary-l-adj)) calc(var(--primary-c) * 0.72) var(--primary-h));
+  --fs-glow: oklch(calc(0.8 + var(--primary-l-adj)) calc(var(--primary-c) * 0.72) var(--primary-h) / 0.38);
+  --fs-on: oklch(0.2 0.03 var(--primary-h));
+}
 /* Proč AI: každá karta má vlastní barvu  ze stejné palety jako scény v sekci 2
    (animace uvnitř karty ji berou jako --primary), dlaždice mozaiky střídají pět odstínů */
 .why__item,

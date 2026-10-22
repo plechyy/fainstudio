@@ -4222,17 +4222,17 @@ html.is-loading .seq {
   width: 17px;
 }
 .we__lane--ai .we__gate {
-  /* kolečko FS je v zelené loga, ne v barvě karty */
-  --g: oklch(calc(0.78 + var(--primary-l-adj)) var(--primary-c) var(--primary-h));
+  /* kolečko FS je v zelené, ne v barvě karty (stejné jako ve 3. kartě) */
+  --g: var(--fs);
   border-color: var(--g);
   background: var(--g);
-  color: oklch(from var(--g) clamp(0.16, calc((0.66 - l) * 60), 0.98) 0.02 h);
+  color: var(--fs-on);
   font-family: 'FingerPaint', var(--font-display);
   font-size: 0.84rem;
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1;
-  box-shadow: 0 0 22px oklch(from var(--g) l c h / 0.5);
+  box-shadow: 0 0 16px var(--fs-glow);
 }
 /* točící se prstenec kolem AI brány */
 .we__lane--ai .we__gate::after {
@@ -4362,7 +4362,7 @@ html.is-loading .seq {
   animation: why-comet 0.9s linear infinite;
 }
 .wf__ring {
-  stroke: var(--primary);
+  stroke: var(--fs);
   stroke-width: 1.5;
   stroke-dasharray: 3 5;
   transform-box: fill-box;
@@ -4370,11 +4370,11 @@ html.is-loading .seq {
   animation: why-spin 5s linear infinite;
 }
 .wf__core {
-  fill: var(--primary);
-  filter: drop-shadow(0 0 12px var(--primary-glow));
+  fill: var(--fs);
+  filter: drop-shadow(0 0 9px var(--fs-glow));
 }
 .why-v .wf__coret {
-  fill: var(--why-on);
+  fill: var(--fs-on);
   font-family: 'FingerPaint', var(--font-display);
   font-size: 12.5px;
   font-weight: 700;
