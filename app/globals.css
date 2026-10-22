@@ -223,6 +223,9 @@
   --primary-text: var(--primary);
 }
 :root[data-theme='light'] .why__item {
+  --fs: oklch(calc(0.64 + var(--primary-l-adj)) calc(var(--primary-c) * 1.3) var(--primary-h));
+  --fs-glow: oklch(calc(0.64 + var(--primary-l-adj)) calc(var(--primary-c) * 1.3) var(--primary-h) / 0.4);
+  --fs-on: oklch(0.99 0.01 var(--primary-h));
   --primary-text: oklch(calc(0.64 + var(--pal-adj)) calc(var(--ac-c) * 1.3) var(--ac-h, var(--pal-h)));
 }
 .why__item:nth-child(1) { --ac-h: calc(var(--pal-h) - 38); }
@@ -276,6 +279,12 @@
   --line-strong: oklch(calc(var(--bgl-l) - 0.185) calc(var(--bgl-c) + 0.005) var(--bgl-h));
   --accent-text: oklch(0.46 calc(var(--secondary-c) * 1.7) var(--secondary-h));
   --primary-text: oklch(calc(0.64 + var(--primary-l-adj)) calc(var(--primary-c) * 1.3) var(--primary-h));
+  /* všechna zelená ve světlém motivu je zelená loga v navigaci (--primary-text) */
+  --primary: var(--primary-text);
+  --primary-glow: oklch(calc(0.64 + var(--primary-l-adj)) calc(var(--primary-c) * 1.3) var(--primary-h) / 0.4);
+  --primary-deep: oklch(calc(0.5 + var(--primary-l-adj)) calc(var(--primary-c) * 1.2) var(--primary-h));
+  --btn-l: calc(0.64 + var(--primary-l-adj));
+  --btn-c: calc(var(--primary-c) * 1.3);
   --smoke-brand: var(--primary);
   --smoke-bg: oklch(calc(var(--bgl-l) + 0.035) calc(var(--bgl-c) - 0.012) var(--bgl-h));
   --tick: oklch(calc(0.6 + var(--secondary-l-adj)) var(--secondary-c) var(--secondary-h));

@@ -293,10 +293,8 @@ export const compare = {
   rows: [
     { label: 'Jak dlouho to trvá', values: ['Týdny', 'Měsíce', 'Dny', 'Měsíce'] },
     { label: 'Řeší právě váš proces', values: ['Ano', 'Ano', 'Ne', 'Ano'] },
-    { label: 'Mluvíte přímo s těmi, kdo to staví', values: ['Ano', 'Ne', 'Ne', 'Ano'] },
     { label: 'Zaučení lidí v ceně', values: ['Ano', 'Někdy', 'Ne', 'Ne'] },
     { label: 'Cenu znáte po prvním hovoru', values: ['Ano', 'Ne', 'Ano', 'Někdy'] },
-    { label: 'Platíte jednorázově', values: ['Ano', 'Ano', 'Ne, paušál navždy', 'Ano'] },
     { label: 'Když skončíme, všechno zůstane vám', values: ['Ano', 'Záleží na smlouvě', 'Ne, s paušálem končí i nástroj', 'Ne, know-how odejde s ním'] },
   ],
 };
