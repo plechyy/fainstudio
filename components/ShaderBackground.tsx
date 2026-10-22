@@ -115,6 +115,8 @@ void main(){
     col = mix(col, mix(peak, vec3(1.0), 0.35), smoothstep(0.86, 1.0, d));
   }
   col = mix(col, u_bg, smoothstep(0.80, 1.5, length(p)));
+  // hero na výšku: celé pozadí o pětinu tmavší
+  if (u_sides > 0.5 && u_sides < 1.5 && portrait && u_light < 0.5) col *= 0.8;
 
   // film grain
   float gr = hash(gl_FragCoord.xy * 1.3 + fract(u_time) * 180.0);
