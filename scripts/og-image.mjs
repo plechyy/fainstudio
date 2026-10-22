@@ -17,7 +17,7 @@ const wm = JSON.parse(readFileSync(join(root, 'scripts/brand/wordmark.json'), 'u
 const W = 1200;
 const H = 630;
 const BG = '#1e1e1e';
-const VIOLET = '#25e843';
+const VIOLET = '#3cd454';
 const WHITE = '#f7f2f4';
 
 /* nápis z křivek: FaiN (tučně) + Studio */

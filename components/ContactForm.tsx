@@ -72,7 +72,7 @@ export default function ContactForm() {
         <input type="text" name="web" tabIndex={-1} autoComplete="off" value={fields.web} onChange={set('web')} />
       </label>
 
-      <button className="btn btn--primary cf__send" type="submit" disabled={state === 'sending'}>
+      <button className="btn btn--primary btn--white cf__send" type="submit" disabled={state === 'sending'}>
         {state === 'sending' ? 'Odesílám…' : 'Chci to u nás'}
       </button>
 

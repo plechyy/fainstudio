@@ -185,6 +185,9 @@ export default function ButtonSmoke() {
         gl.viewport(0, 0, w, h);
         gl.uniform2f(uRes, w, h);
         gl.uniform2f(uOff, e.fx * Math.max(0, win[0] - w), e.fy * Math.max(0, win[1] - h));
+        // tlačítko s třídou btn--white má bílý kouř místo primárního
+        if (e.btn.classList.contains('btn--white')) gl.uniform3f(uBrand, 1, 1, 1);
+        else gl.uniform3f(uBrand, brand[0], brand[1], brand[2]);
         gl.drawArrays(gl.TRIANGLES, 0, 3);
         // kopie MUSÍ proběhnout ve stejném tasku jako drawArrays (jinak je buffer prázdný)
         e.ctx.drawImage(src, 0, src.height - h, w, h, 0, 0, w, h);
