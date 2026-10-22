@@ -1,17 +1,17 @@
 /**
  * Texty webu. Hlas a pravidla jsou v TONE-OF-VOICE.md — před úpravou si je přečti.
  * Žádné pevné ceny, termíny ani počty dní: každá zakázka je jiná, cena i termín se domlouvají
- * na prvním hovoru. Nepsat ani „nejsme agentura“.
+ * na prvním hovoru. Slovu „agentura“ se vyhýbáme, píšeme, co děláme („Digitalizujeme firmy pomocí AI“).
  */
 
 export const hero = {
   // první řádek nadpisu; druhý se píše a maže (components/HeroRotate.tsx)
   // malý nadtitulek nad nadpisem: hlavní klíčová slova, viditelná a uvnitř H1
-  kicker: 'AI agentura pro digitalizaci firem',
+  kicker: 'Digitalizujeme firmy pomocí AI',
   title: 'Umělá inteligence,',
   rotateLead: 'která',
   rotate: ['šetří čas', 'maká za vás', 'šetří peníze', 'usnadňuje práci', 'je FaiN'],
-  titleSr: 'AI agentura pro digitalizaci firem. Umělá inteligence, která šetří čas, maká za vás, šetří peníze, usnadňuje práci a je FaiN.',
+  titleSr: 'Digitalizujeme firmy pomocí AI. Umělá inteligence, která šetří čas, maká za vás, šetří peníze, usnadňuje práci a je FaiN.',
   lead: 'Skoro každá firma dělá něco, co by zvládl systém. Máte nápad? Postavíme ho. Nemáte? Projdeme to spolu.',
   primary: 'Mám zájem',
   secondary: 'Co všechno umíme',
@@ -289,7 +289,7 @@ export const cases = {
 
 export const compare = {
   title: 'Jiné cesty to taky umí. Jen jinak.',
-  columns: ['FaiN Studio', 'Jiná agentura', 'Hotový nástroj', 'Vlastní vývojář'],
+  columns: ['FaiN Studio', 'Jiný dodavatel', 'Hotový nástroj', 'Vlastní vývojář'],
   rows: [
     { label: 'Jak dlouho to trvá', values: ['Týdny', 'Měsíce', 'Dny', 'Měsíce'] },
     { label: 'Řeší právě váš proces', values: ['Ano', 'Ano', 'Ne', 'Ano'] },
@@ -308,7 +308,7 @@ export const faq = [
   },
   {
     q: 'Pro koho to je? Nevíme, co by šlo zlepšit.',
-    a: 'Pro malé a střední firmy, kde se pořád něco opakuje. Jsme AI agentura a spolupracovat můžeme osobně i na dálku. Obor nerozhoduje. Na rutinu si člověk zvykne a přestane si jí všímat, takže když nevíte, co by šlo zlepšit, je to normální. Na hovoru projdeme, jak ve firmě pracujete, a ukážeme, co by mohl převzít systém. Kdybychom nic nenašli, řekneme vám to.',
+    a: 'Pro malé a střední firmy, kde se pořád něco opakuje. Spolupracovat můžeme osobně i na dálku. Obor nerozhoduje. Na rutinu si člověk zvykne a přestane si jí všímat, takže když nevíte, co by šlo zlepšit, je to normální. Na hovoru projdeme, jak ve firmě pracujete, a ukážeme, co by mohl převzít systém. Kdybychom nic nenašli, řekneme vám to.',
   },
   {
     q: 'Nahradí to někoho z našich lidí?',

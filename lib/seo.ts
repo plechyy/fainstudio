@@ -3,9 +3,9 @@
  * Jedno místo pro titulky, popisy a strukturovaná data (JSON-LD), ať se nerozjedou.
  *
  * Klíčová slova, na která web míří (pořadí = priorita):
- *   AI digitalizace · AI agentura · AI digitalizace firemních procesů · umělá inteligence pro firmy
+ *   AI digitalizace · AI studio · AI digitalizace firemních procesů · umělá inteligence pro firmy
  *   AI asistent pro firmu · AI digitalizace administrativy · zpracování faktur a dokumentů pomocí AI
- *   AI digitalizace e-mailů a poptávek · CRM a interní nástroje na míru · AI agentura
+ *   AI digitalizace e-mailů a poptávek · CRM a interní nástroje na míru · AI studio
  * Pravidlo: slova musí stát i ve viditelném textu, ne jen v metadatech.
  */
 import { about, faq, systems } from './content';
@@ -15,15 +15,15 @@ export const SITE = 'https://fainstudio.com';
 export const BRAND = 'FaiN Studio';
 
 export const seo = {
-  title: 'AI digitalizace pro firmy | AI agentura FaiN Studio',
+  title: 'Digitalizujeme firmy pomocí AI | FaiN Studio',
   description:
-    'AI agentura. Digitalizujeme firemní procesy pomocí umělé inteligence: e-maily, faktury, poptávky, dokumenty, CRM i AI asistenty na míru.',
-  ogTitle: 'AI digitalizace, která maká za vás | FaiN Studio',
+    'Digitalizujeme firmy pomocí AI: e-maily, faktury, poptávky, dokumenty, CRM i AI asistenty na míru.',
+  ogTitle: 'Umělá inteligence, která maká za vás | FaiN Studio',
   ogDescription:
     'Postavíme systém s umělou inteligencí, který převezme opakovanou práci ve vaší firmě. E-maily, faktury, poptávky, dokumenty i interní nástroje. Data zůstávají vaše.',
   keywords: [
     'AI digitalizace',
-    'AI agentura',
+    'AI studio',
     'AI digitalizace firemních procesů',
     'AI digitalizace procesů',
     'umělá inteligence pro firmy',
@@ -68,7 +68,7 @@ export function homeJsonLd() {
         name: BRAND,
         alternateName: ['FainStudio', 'FaiN'],
         description:
-          'AI agentura. Navrhujeme a stavíme systémy s umělou inteligencí, které ve firmách převezmou opakovanou práci: zpracování e-mailů, poptávek, faktur a dokumentů, CRM a interní nástroje, AI asistenty nad firemními daty a hlídání trhu.',
+          'Digitalizujeme firmy pomocí AI. Navrhujeme a stavíme systémy s umělou inteligencí, které ve firmách převezmou opakovanou práci: zpracování e-mailů, poptávek, faktur a dokumentů, CRM a interní nástroje, AI asistenty nad firemními daty a hlídání trhu.',
         slogan: 'Umělá inteligence, která maká za vás.',
         url: SITE,
         logo: `${SITE}/icon.png`,

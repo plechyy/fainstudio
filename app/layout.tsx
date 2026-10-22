@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     siteName: BRAND,
     title: seo.ogTitle,
     description: seo.ogDescription,
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'FaiN Studio: AI agentura pro digitalizaci firem' }],
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'FaiN Studio: Digitalizujeme firmy pomocí AI' }],
   },
   twitter: {
     card: 'summary_large_image',
