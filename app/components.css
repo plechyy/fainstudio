@@ -1393,7 +1393,7 @@ html.is-loading .seq {
 .refs span {
   color: var(--ink-2);
 }
-/* podpis: zelený, tahy se kreslí jeden po druhém (každý má vlastní začátek --at a délku --t) */
+/* podpis: zelený, jeden tah, který se napíše jako perem */
 .sig {
   margin-top: 28px;
   color: var(--primary-text);
@@ -1407,12 +1407,13 @@ html.is-loading .seq {
 }
 .sig__p {
   stroke: currentColor;
+  stroke-width: 2.4;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
 }
 .sig.is-in .sig__p {
   stroke-dashoffset: 0;
-  transition: stroke-dashoffset var(--t) cubic-bezier(0.4, 0, 0.5, 1) var(--at);
+  transition: stroke-dashoffset 4.4s cubic-bezier(0.45, 0.05, 0.4, 1);
 }
 @media (prefers-reduced-motion: reduce) {
   .sig__p {

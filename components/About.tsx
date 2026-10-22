@@ -1,6 +1,6 @@
 import { about } from '@/lib/content';
 import Plate from './Plate';
-import { SIGNATURE_STROKES, SIGNATURE_VIEWBOX } from '@/lib/signature';
+import { SIGNATURE_D, SIGNATURE_VIEWBOX } from '@/lib/signature';
 
 export default function About() {
   const refs = about.references.filter((r) => r.show);
@@ -36,19 +36,10 @@ export default function About() {
             </a>
           </p>
 
-          {/* Podpis: skutečný podpis, tahy se píšou jeden po druhém jako perem při scrollu. Vizuálně jen ozdoba, jméno je v nadpisu. */}
+          {/* Podpis: jeden souvislý tah, při scrollu se napíše jako perem. Vizuálně jen ozdoba, jméno je v nadpisu. */}
           <div className="sig reveal" aria-hidden="true">
             <svg viewBox={SIGNATURE_VIEWBOX} fill="none" strokeLinecap="round" strokeLinejoin="round">
-              {SIGNATURE_STROKES.map((st, i) => (
-                <path
-                  key={i}
-                  className="sig__p"
-                  pathLength={1}
-                  strokeWidth={st.w}
-                  d={st.d}
-                  style={{ ['--at' as string]: `${st.at}s`, ['--t' as string]: `${st.t}s` }}
-                />
-              ))}
+              <path className="sig__p" pathLength={1} d={SIGNATURE_D} />
             </svg>
           </div>
 
