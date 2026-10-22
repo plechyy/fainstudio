@@ -47,14 +47,9 @@ void main(){
   // stejná barevná rampa jako mrak v sekcích (hero, před/po, srovnání, CTA):
   // černá → tlumená barva → plná barva, jen s nižším stropem jasu, ať je bílý text čitelný
   float d = clamp(0.2 + 1.0 * smoothstep(0.2, 0.75, n), 0.0, 1.0);
-  vec3 peak = u_brand * 0.95;
-  vec3 lin = pow(peak, vec3(2.2));
-  float Y = dot(lin, vec3(0.2126, 0.7152, 0.0722));
-  lin *= min(1.0, 0.16 / max(Y, 1e-4));
-  peak = pow(lin, vec3(1.0 / 2.2));
-  vec3 col = u_bg;
-  col = mix(col, u_brand * 0.38, smoothstep(0.08, 0.55, d));
-  col = mix(col, peak, smoothstep(0.50, 0.92, d));
+  // kouř v barvě primární: tmavší tón → plná primární ve špičkách
+  vec3 col = mix(u_brand * 0.5, u_brand * 0.72, smoothstep(0.08, 0.55, d));
+  col = mix(col, u_brand, smoothstep(0.50, 0.92, d));
   // jemné zrno, nehýbe se každý snímek (jinak to v malém tlačítku jiskří)
   float gr = hash(floor((gl_FragCoord.xy + u_off) * 0.5));
   col += (gr - 0.5) * 0.012;
@@ -116,7 +111,28 @@ export default function ButtonSmoke() {
 
     const reduce = matchMedia('(prefers-reduced-motion: reduce)');
     const dpr = () => Math.min(devicePixelRatio || 1, 2);
-    const brand: [number, number, number] = [1, 1, 1]; // tlačítka mají bílý kouř, ne barvu značky
+    // kouř má barvu primární (--primary); čte se znovu při přepnutí motivu
+    const brand: [number, number, number] = [1, 1, 1];
+    const readBrand = () => {
+      const probe = document.createElement('span');
+      probe.style.color = 'var(--primary)';
+      document.body.appendChild(probe);
+      const css = getComputedStyle(probe).color;
+      probe.remove();
+      const cv = document.createElement('canvas');
+      cv.width = cv.height = 1;
+      const cx = cv.getContext('2d');
+      if (!cx) return;
+      cx.fillStyle = css;
+      cx.fillRect(0, 0, 1, 1);
+      const [r, g, b] = cx.getImageData(0, 0, 1, 1).data;
+      brand[0] = r / 255;
+      brand[1] = g / 255;
+      brand[2] = b / 255;
+    };
+    readBrand();
+    const themeObs = new MutationObserver(readBrand);
+    themeObs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'style'] });
     // plátno stačí velké jako největší tlačítko — každé se kreslí do levého dolního rohu
     const resize = () => {
       const d = dpr();
@@ -262,6 +278,7 @@ export default function ButtonSmoke() {
 
     return () => {
       stop();
+      themeObs.disconnect();
       io.disconnect();
       removeEventListener('resize', onResize);
       removeEventListener('scroll', onScroll);
