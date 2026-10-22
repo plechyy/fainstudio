@@ -9,20 +9,19 @@ type Combo = { d: string; t: string; w: number; ls: number };
 // d = nadpisy, t = text, w = váha nadpisů, ls = prostrkání nadpisů (em); null = písmo, které web má teď
 const COMBOS: Combo[] = [
   { d: 'Cal Sans', t: 'Inter', w: 640, ls: -0.025 },
-  { d: 'Bricolage Grotesque', t: 'Inter', w: 700, ls: -0.03 },
-  { d: 'Unbounded', t: 'Inter', w: 600, ls: -0.03 },
+  { d: 'Bricolage Grotesque', t: 'Manrope', w: 700, ls: -0.03 },
+  { d: 'Unbounded', t: 'DM Sans', w: 600, ls: -0.03 },
   { d: 'Syne', t: 'Geist', w: 700, ls: -0.03 },
   { d: 'Sora', t: 'Instrument Sans', w: 600, ls: -0.03 },
-  { d: 'Space Grotesk', t: 'Inter', w: 600, ls: -0.035 },
-  { d: 'Fraunces', t: 'Instrument Sans', w: 600, ls: -0.025 },
-  { d: 'Playfair Display', t: 'Inter', w: 600, ls: -0.02 },
-  { d: 'Instrument Serif', t: 'Geist', w: 400, ls: -0.01 },
-  { d: 'DM Serif Display', t: 'Inter', w: 400, ls: -0.01 },
-  { d: 'Outfit', t: 'Outfit', w: 600, ls: -0.025 },
-  { d: 'Lexend', t: 'Inter', w: 600, ls: -0.035 },
+  { d: 'Space Grotesk', t: 'Plus Jakarta Sans', w: 600, ls: -0.035 },
+  { d: 'Outfit', t: 'Figtree', w: 600, ls: -0.025 },
+  { d: 'Lexend', t: 'Onest', w: 600, ls: -0.035 },
   { d: 'Familjen Grotesk', t: 'Epilogue', w: 600, ls: -0.03 },
-  { d: 'Geist', t: 'Geist', w: 650, ls: -0.035 },
-  { d: 'Epilogue', t: 'Instrument Sans', w: 700, ls: -0.035 },
+  { d: 'Geist', t: 'Hanken Grotesk', w: 650, ls: -0.035 },
+  { d: 'Epilogue', t: 'Albert Sans', w: 700, ls: -0.035 },
+  { d: 'Red Hat Display', t: 'Red Hat Text', w: 700, ls: -0.03 },
+  { d: 'Schibsted Grotesk', t: 'Inter', w: 700, ls: -0.03 },
+  { d: 'Cal Sans', t: 'DM Sans', w: 640, ls: -0.025 },
 ];
 
 const stack = (name: string) => (name === 'Cal Sans' || name === 'Inter' ? null : `'Lab ${name}', system-ui, sans-serif`);

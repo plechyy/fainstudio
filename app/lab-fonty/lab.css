@@ -98,20 +98,6 @@
   unicode-range: U+0100-024F, U+1E00-1EFF;
 }
 @font-face {
-  font-family: 'Lab Fraunces';
-  src: url('/fonts/lab/fraunces-latin.woff2') format('woff2-variations');
-  font-weight: 100 900;
-  font-display: swap;
-  unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2027, U+2030-203A, U+20AC, U+2122, U+2190-2193, U+2212;
-}
-@font-face {
-  font-family: 'Lab Fraunces';
-  src: url('/fonts/lab/fraunces-latin-ext.woff2') format('woff2-variations');
-  font-weight: 100 900;
-  font-display: swap;
-  unicode-range: U+0100-024F, U+1E00-1EFF;
-}
-@font-face {
   font-family: 'Lab Syne';
   src: url('/fonts/lab/syne-latin.woff2') format('woff2-variations');
   font-weight: 100 900;
@@ -168,45 +154,144 @@
   font-display: swap;
   unicode-range: U+0100-024F, U+1E00-1EFF;
 }
+
 @font-face {
-  font-family: 'Lab Playfair Display';
-  src: url('/fonts/lab/playfair-display-latin.woff2') format('woff2-variations');
-  font-weight: 400 900;
+  font-family: 'Lab Manrope';
+  src: url('/fonts/lab/manrope-latin.woff2') format('woff2-variations');
+  font-weight: 100 900;
   font-display: swap;
   unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2027, U+2030-203A, U+20AC, U+2122, U+2190-2193, U+2212;
 }
 @font-face {
-  font-family: 'Lab Playfair Display';
-  src: url('/fonts/lab/playfair-display-latin-ext.woff2') format('woff2-variations');
-  font-weight: 400 900;
+  font-family: 'Lab Manrope';
+  src: url('/fonts/lab/manrope-latin-ext.woff2') format('woff2-variations');
+  font-weight: 100 900;
   font-display: swap;
   unicode-range: U+0100-024F, U+1E00-1EFF;
 }
 @font-face {
-  font-family: 'Lab Instrument Serif';
-  src: url('/fonts/lab/instrument-serif-latin.woff2') format('woff2');
-  font-weight: 400;
+  font-family: 'Lab DM Sans';
+  src: url('/fonts/lab/dm-sans-latin.woff2') format('woff2-variations');
+  font-weight: 100 900;
   font-display: swap;
   unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2027, U+2030-203A, U+20AC, U+2122, U+2190-2193, U+2212;
 }
 @font-face {
-  font-family: 'Lab Instrument Serif';
-  src: url('/fonts/lab/instrument-serif-latin-ext.woff2') format('woff2');
-  font-weight: 400;
+  font-family: 'Lab DM Sans';
+  src: url('/fonts/lab/dm-sans-latin-ext.woff2') format('woff2-variations');
+  font-weight: 100 900;
   font-display: swap;
   unicode-range: U+0100-024F, U+1E00-1EFF;
 }
 @font-face {
-  font-family: 'Lab DM Serif Display';
-  src: url('/fonts/lab/dm-serif-display-latin.woff2') format('woff2');
-  font-weight: 400;
+  font-family: 'Lab Plus Jakarta Sans';
+  src: url('/fonts/lab/plus-jakarta-sans-latin.woff2') format('woff2-variations');
+  font-weight: 100 900;
   font-display: swap;
   unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2027, U+2030-203A, U+20AC, U+2122, U+2190-2193, U+2212;
 }
 @font-face {
-  font-family: 'Lab DM Serif Display';
-  src: url('/fonts/lab/dm-serif-display-latin-ext.woff2') format('woff2');
-  font-weight: 400;
+  font-family: 'Lab Plus Jakarta Sans';
+  src: url('/fonts/lab/plus-jakarta-sans-latin-ext.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0100-024F, U+1E00-1EFF;
+}
+@font-face {
+  font-family: 'Lab Figtree';
+  src: url('/fonts/lab/figtree-latin.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2027, U+2030-203A, U+20AC, U+2122, U+2190-2193, U+2212;
+}
+@font-face {
+  font-family: 'Lab Figtree';
+  src: url('/fonts/lab/figtree-latin-ext.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0100-024F, U+1E00-1EFF;
+}
+@font-face {
+  font-family: 'Lab Onest';
+  src: url('/fonts/lab/onest-latin.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2027, U+2030-203A, U+20AC, U+2122, U+2190-2193, U+2212;
+}
+@font-face {
+  font-family: 'Lab Onest';
+  src: url('/fonts/lab/onest-latin-ext.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0100-024F, U+1E00-1EFF;
+}
+@font-face {
+  font-family: 'Lab Hanken Grotesk';
+  src: url('/fonts/lab/hanken-grotesk-latin.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2027, U+2030-203A, U+20AC, U+2122, U+2190-2193, U+2212;
+}
+@font-face {
+  font-family: 'Lab Hanken Grotesk';
+  src: url('/fonts/lab/hanken-grotesk-latin-ext.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0100-024F, U+1E00-1EFF;
+}
+@font-face {
+  font-family: 'Lab Albert Sans';
+  src: url('/fonts/lab/albert-sans-latin.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2027, U+2030-203A, U+20AC, U+2122, U+2190-2193, U+2212;
+}
+@font-face {
+  font-family: 'Lab Albert Sans';
+  src: url('/fonts/lab/albert-sans-latin-ext.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0100-024F, U+1E00-1EFF;
+}
+@font-face {
+  font-family: 'Lab Schibsted Grotesk';
+  src: url('/fonts/lab/schibsted-grotesk-latin.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2027, U+2030-203A, U+20AC, U+2122, U+2190-2193, U+2212;
+}
+@font-face {
+  font-family: 'Lab Schibsted Grotesk';
+  src: url('/fonts/lab/schibsted-grotesk-latin-ext.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0100-024F, U+1E00-1EFF;
+}
+@font-face {
+  font-family: 'Lab Red Hat Display';
+  src: url('/fonts/lab/red-hat-display-latin.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2027, U+2030-203A, U+20AC, U+2122, U+2190-2193, U+2212;
+}
+@font-face {
+  font-family: 'Lab Red Hat Display';
+  src: url('/fonts/lab/red-hat-display-latin-ext.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0100-024F, U+1E00-1EFF;
+}
+@font-face {
+  font-family: 'Lab Red Hat Text';
+  src: url('/fonts/lab/red-hat-text-latin.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2027, U+2030-203A, U+20AC, U+2122, U+2190-2193, U+2212;
+}
+@font-face {
+  font-family: 'Lab Red Hat Text';
+  src: url('/fonts/lab/red-hat-text-latin-ext.woff2') format('woff2-variations');
+  font-weight: 100 900;
   font-display: swap;
   unicode-range: U+0100-024F, U+1E00-1EFF;
 }
@@ -243,7 +328,7 @@
 .fontlab__same { display: flex; gap: 8px; align-items: center; cursor: pointer; }
 .fontlab__hint { margin: 0; opacity: 0.55; font-size: 12px; }
 
-/* váha a prostrkání nadpisů podle zvolené dvojice (serify nesnesou tučné syntetické písmo) */
+/* váha a prostrkání nadpisů podle zvolené dvojice */
 html[data-lab] .display,
 html[data-lab] .h2 {
   font-weight: var(--lab-dw, 640);
