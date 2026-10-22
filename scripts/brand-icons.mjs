@@ -2,7 +2,7 @@
  * Ikony webu z kreslené osmicípé hvězdičky (lib/star.ts):
  *   node scripts/brand-icons.mjs [#barva]
  * → app/icon.png (512), app/apple-icon.png (180), app/favicon.ico (16, 32, 48).
- * Výchozí barva je primární z globals.css (oklch 0.7213 0.0399 47.3 ≈ #bb9e90).
+ * Výchozí barva je primární z globals.css (oklch 0.7652 0.2117 145.5 ≈ #3cd454).
  */
 import { createRequire } from 'node:module';
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -15,8 +15,8 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const src = readFileSync(join(root, 'lib/star.ts'), 'utf8');
 const D = src.match(/STAR_D =\s*'([^']+)'/)[1];
 
-const BG = '#0f0e12';
-const COLOR = process.argv[2] || '#bb9e90';
+const BG = '#222222';
+const COLOR = process.argv[2] || '#3cd454';
 
 /* hvězdička na tmavé dlaždici; round = průhledné rohy (favicony), jinak celá plocha (iOS si rohy zaoblí sám) */
 const tile = (size, round, stroke) => {

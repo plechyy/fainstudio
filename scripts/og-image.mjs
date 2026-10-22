@@ -16,8 +16,8 @@ const wm = JSON.parse(readFileSync(join(root, 'scripts/brand/wordmark.json'), 'u
 
 const W = 1200;
 const H = 630;
-const BG = '#0f0e12';
-const VIOLET = '#bb9e90';
+const BG = '#222222';
+const VIOLET = '#3cd454';
 const WHITE = '#f7f2f4';
 
 /* nápis z křivek: FaiN (tučně) + Studio */
@@ -53,7 +53,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
 <defs>
   <filter id="b1" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="70"/></filter>
   <filter id="b2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="40"/></filter>
-  <radialGradient id="v" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#f1e1d9" stop-opacity=".95"/><stop offset=".55" stop-color="${VIOLET}" stop-opacity=".85"/><stop offset="1" stop-color="#684f42" stop-opacity="0"/></radialGradient>
+  <radialGradient id="v" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#c9f7c8" stop-opacity=".95"/><stop offset=".55" stop-color="${VIOLET}" stop-opacity=".85"/><stop offset="1" stop-color="#1d6627" stop-opacity="0"/></radialGradient>
   <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${BG}" stop-opacity="0"/><stop offset="1" stop-color="${BG}" stop-opacity=".85"/></linearGradient>
 </defs>
 <rect width="${W}" height="${H}" fill="${BG}"/>
