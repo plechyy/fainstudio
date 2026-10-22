@@ -63,16 +63,20 @@ void main(){
     c1 = vec2(A * 0.22 * sin(t*0.65), 0.12 * cos(t*0.8));
   } else if (u_sides > 0.5) {
     if (portrait) {
-      // mobil na výšku: mrak nahoře a dole místo po stranách
-      c1 = vec2(0.12*sin(t*0.65), -0.5 * (0.74 + 0.16*sin(t*0.65)));
-      c2 = vec2(0.12*cos(t*0.45 + 2.0),  0.5 * (0.74 + 0.16*cos(t*0.45 + 2.0)));
+      // mobil na výšku: jeden vodorovný pás mlhy za nadpisem, pod navigací a nad tlačítky
+      c1 = vec2(0.10*sin(t*0.65), 0.19 + 0.03*cos(t*0.8));
+      c2 = vec2(0.10*cos(t*0.45 + 2.0), 0.15 + 0.03*sin(t*0.55 + 1.0));
     } else {
       c1 = vec2(-A * (0.74 + 0.16*sin(t*0.65)), 0.30*cos(t*0.8));
       c2 = vec2( A * (0.74 + 0.16*cos(t*0.45 + 2.0)), 0.34*sin(t*0.55 + 1.0));
     }
   }
-  float g1 = exp(-dot(p - c1, p - c1) * 2.2);
-  float g2 = exp(-dot(p - c2, p - c2) * 2.7);
+  // na výšku je mrak zploštělý do pásu (jinak by zalil celou výšku úzkého displeje)
+  vec2 k = (u_sides > 0.5 && u_sides < 1.5 && portrait) ? vec2(1.0, 4.2) : vec2(1.0);
+  vec2 e1 = (p - c1) * k;
+  vec2 e2 = (p - c2) * k;
+  float g1 = exp(-dot(e1, e1) * 2.2);
+  float g2 = exp(-dot(e2, e2) * 2.7);
   // probabilistic union — překryv dvou bodů nesčítá jas
   float gm = g1 + g2 - g1*g2;
   float d = clamp(f * (0.35 + 1.6 * gm), 0.0, 1.0);
@@ -87,9 +91,15 @@ void main(){
     // Šum jen tvaruje okraje, základ mraku na obou bocích je tu VŽDY (min. 45 % šumu),
     // takže žádná strana nikdy nezmizí, když je šum zrovna slabý
     // (změřeno: na 2 h animace nejslabší moment 0.45, nikdy pod čtvrtinou jasu).
-    d = clamp(mix(0.45, 1.0, f) * (0.18 + 1.7 * gm), 0.0, 1.0);
-    float ax = portrait ? abs(gl_FragCoord.y / u_res.y - 0.5) : abs(gl_FragCoord.x / u_res.x - 0.5);
-    d *= smoothstep(0.17, 0.40, ax);
+    float base = portrait ? 0.03 : 0.18;
+    d = clamp(mix(0.45, 1.0, f) * (base + 1.7 * gm), 0.0, 1.0);
+    // na šířku zůstává střed volný pro text; na výšku mrak text přímo podkládá
+    if (!portrait) {
+      float ax = abs(gl_FragCoord.x / u_res.x - 0.5);
+      d *= smoothstep(0.17, 0.40, ax);
+    } else {
+      d *= 0.62;
+    }
   }
 
   // Strop = jasná verze brand barvy; v nejvyšších špičkách lehce k bílé (ne na plno).

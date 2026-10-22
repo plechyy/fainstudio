@@ -1628,10 +1628,55 @@ html.is-loading .seq {
   .hero__title {
     font-size: min(clamp(2.3rem, 1.1rem + 5.4vw, 3rem), calc((100vw - 2 * var(--gutter, 16px)) / 9.6));
   }
-  /* na mobilu zabírá hero celou obrazovku a obsah sedí přesně uprostřed */
+  /* Mobil: hero je jedna obrazovka. Nahoře navigace, nadpis s textem v horní polovině,
+     tlačítka a řádek o datech dole pod palcem. Volné místo se dělí mezi nadpis a tlačítka. */
   .hero {
+    --peek: 56px;
     min-height: calc(100svh - var(--peek));
-    padding-block: 80px;
+    padding-top: 104px;
+    padding-bottom: 28px;
+  }
+  .hero__inner {
+    justify-content: flex-start;
+    width: 100%;
+  }
+  .hero__title {
+    margin-top: auto;
+  }
+  .hero__lead {
+    margin-top: 20px;
+    max-width: 30ch;
+  }
+  .hero__actions {
+    margin-top: auto;
+    padding-top: 28px;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 22rem;
+    gap: 10px;
+  }
+  .hero__actions .btn {
+    justify-content: center;
+    width: 100%;
+  }
+  /* tři body o datech: ikony pod sebou v jednom sloupci, text zleva, celý blok na střed */
+  .hero__safe {
+    display: grid;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 24px;
+    font-size: 0.86rem;
+  }
+  .hero__safe li {
+    justify-self: start;
+  }
+  /* mlha tu leží za nadpisem, proto slabší zakrytí středu než na desktopu */
+  .hero-bg__mask {
+    background:
+      radial-gradient(70% 28% at 50% 42%, color-mix(in oklab, var(--bg-deep) 38%, transparent), transparent 75%),
+      linear-gradient(180deg, color-mix(in oklab, var(--bg-deep) 30%, transparent) 0%, transparent 16%, transparent 70%,
+        color-mix(in oklab, var(--bg) 55%, transparent) 86%, var(--bg) 100%);
   }
 }
 
