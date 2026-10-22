@@ -3756,6 +3756,14 @@ html.is-loading .seq {
 .sp__list {
   display: grid;
   align-content: start;
+  /* tenká linka odděluje seznam od podnadpisu */
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+@media (min-width: 900px) {
+  .sp .sys-head {
+    margin-bottom: clamp(20px, 2.4vw, 32px);
+  }
 }
 .sp__item {
   position: relative;
@@ -3853,6 +3861,16 @@ html.is-loading .seq {
   .sp__left {
     display: grid;
     align-content: start;
+  }
+  /* vizuál s textem nenatahujeme na výšku seznamu: stojí hned od horní hrany a text drží pod scénou
+     (nejvyšší scéna má 480 px, proto výška 490) */
+  .sp__right {
+    align-self: start;
+  }
+  .sp__stage {
+    flex: none;
+    height: 490px;
+    min-height: 0;
   }
 }
 @media (prefers-reduced-motion: reduce) {
