@@ -108,8 +108,8 @@ export const process = {
  * Každý případ má jiný vizuál (visual.type) a jiný druh výsledku, ať nejsou všechny stejné.
  */
 export const cases = {
-  title: 'Šest firem.',
-  accent: 'Šest úplně jiných řešení.',
+  title: 'Projekty, díky kterým',
+  accent: 'už jsou ostatní FaiN',
   lead: 'Modelové případy z oborů, kde to dává největší smysl. U každého vidíte, co bylo potřeba vyřešit, jak jsme to postavili, proč zrovna takhle a co to přineslo.',
   modelLabel: 'Modelový případ',
   labels: { more: 'Jak probíhala spolupráce', less: 'Skrýt průběh', problem: 'Co bylo potřeba vyřešit', how: 'Jak jsme to vyřešili', why: 'Proč zrovna takhle', result: 'Co to přineslo', before: 'Dřív', after: 'Teď', prev: 'Předchozí případ', next: 'Další případ' },
