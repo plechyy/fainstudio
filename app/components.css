@@ -1409,15 +1409,26 @@ html.is-loading .seq {
   -webkit-user-drag: none;
 }
 .sig__p {
-  clip-path: inset(0 100% 0 0);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 0.95;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
 }
 .sig.is-in .sig__p {
-  clip-path: inset(0 0 0 0);
-  transition: clip-path 2.4s cubic-bezier(0.5, 0, 0.3, 1);
+  animation: sig-write var(--sl) linear var(--sd) forwards;
+}
+@keyframes sig-write {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .sig__p {
-    clip-path: none;
+    stroke-dashoffset: 0;
+    animation: none !important;
   }
 }
 @media (min-width: 900px) {

@@ -1,6 +1,6 @@
 import { about } from '@/lib/content';
 import Plate from './Plate';
-import { SIGNATURE_D, SIGNATURE_VIEWBOX } from '@/lib/signature';
+import { SIGNATURE_LEN, SIGNATURE_STROKES, SIGNATURE_VIEWBOX } from '@/lib/signature';
 
 export default function About() {
   const refs = about.references.filter((r) => r.show);
@@ -36,10 +36,21 @@ export default function About() {
             </a>
           </p>
 
-          {/* Podpis: písmo převedené na křivky (obrázek, ne text), odkryje se zleva při scrollu. Vizuálně jen ozdoba, jméno je v nadpisu. */}
+          {/* Podpis: čára, která se při scrollu napíše jako perem (tahy za sebou). Obrázek, ne text; jméno je v nadpisu. */}
           <div className="sig reveal" aria-hidden="true">
             <svg viewBox={SIGNATURE_VIEWBOX}>
-              <path className="sig__p" fill="currentColor" d={SIGNATURE_D} />
+              {SIGNATURE_STROKES.map((s, i) => {
+                const before = SIGNATURE_STROKES.slice(0, i).reduce((n, t) => n + t.len, 0);
+                return (
+                  <path
+                    key={i}
+                    className="sig__p"
+                    pathLength="1"
+                    d={s.d}
+                    style={{ ['--sd' as string]: `${((before / SIGNATURE_LEN) * 3.6 + i * 0.05).toFixed(3)}s`, ['--sl' as string]: `${((s.len / SIGNATURE_LEN) * 3.6).toFixed(3)}s` }}
+                  />
+                );
+              })}
             </svg>
           </div>
 
