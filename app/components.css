@@ -6370,6 +6370,7 @@ html.is-loading .seq {
 /* světlý motiv: barvy jako text jsou tmavší, aby se daly přečíst */
 :root[data-theme='light'] .cx-case,
 :root[data-theme='light'] .cx__count,
+:root[data-theme='light'] .rd,
 :root[data-theme='light'] .cxp__seg {
   --cc: oklch(min(var(--bl, 0.56), 0.56) var(--bc, 0.12) var(--bh, 300));
   --cn: var(--cc);
@@ -6866,6 +6867,7 @@ html.is-loading .seq {
    ČTEČKA: příběh jako velký list přes celou obrazovku
    ════════════════════════════════════════════════════════════════════ */
 .rd {
+  --cc: oklch(max(var(--bl, 0.7), 0.68) var(--bc, 0.12) var(--bh, 300)); /* barva loga firmy i pro horní lištu */
   position: fixed;
   inset: 0;
   z-index: 400;
