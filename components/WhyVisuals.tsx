@@ -79,6 +79,10 @@ export function Mosaic() {
 
 /* 03 Pomocník: přečte zdroje, připraví návrhy, vy vyberete a ono to rovnou provede */
 const SRC = [26, 62, 98, 134];
+/* barvy zdrojů a výstupů jsou ze stejných pěti odstínů jako dlaždice v mozaice (--pal-h v globals.css) */
+const HUE = ['var(--pal-h)', 'calc(var(--pal-h) - 38)', 'calc(var(--pal-h) - 88)', 'calc(var(--pal-h) + 165)', 'calc(var(--pal-h) + 52)'];
+const SRC_HUE = [0, 2, 3, 1];
+const OUT_HUE = [4, 0, 2];
 const OUT = [44, 80, 116];
 
 function SrcIcon({ i, x, y }: { i: number; x: number; y: number }) {
@@ -99,7 +103,7 @@ export function Flow() {
       {/* zdroje → AI */}
       {SRC.map((y, i) => {
         return (
-          <g key={`s${y}`} className="wf__src">
+          <g key={`s${y}`} className="wf__src" style={v({ '--ac-h': HUE[SRC_HUE[i]] })}>
             <path className="wf__wire" d={`M28 ${y}C46 ${y} 48 80 64 80`} />
             <path
               className="wf__comet"
@@ -151,7 +155,7 @@ export function Flow() {
       {OUT.map((y, j) => {
         const at = 0.5 + j * 0.06;
         return (
-          <g key={`o${y}`} className="wf__out" style={v({ '--at': at })}>
+          <g key={`o${y}`} className="wf__out" style={v({ '--at': at, '--ac-h': HUE[OUT_HUE[j]] })}>
             <path className="wf__draw" d={`M200 107C226 107 228 ${y} 250 ${y}`} pathLength="1" />
             <rect className="wf__box" x="251" y={y - 11} width="22" height="22" rx="6" />
             <g className="wf__ico">

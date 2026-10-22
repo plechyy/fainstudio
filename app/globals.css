@@ -208,7 +208,9 @@
    (animace uvnitř karty ji berou jako --primary), dlaždice mozaiky střídají pět odstínů */
 .why__item,
 .wm__tile,
-.we__lane--ai .we__clip--done .we__belt i {
+.we__lane--ai .we__clip--done .we__belt i,
+.wf__src,
+.wf__out {
   --primary: oklch(calc(0.78 + var(--pal-adj)) var(--ac-c) var(--ac-h, var(--pal-h)));
   --primary-glow: oklch(calc(0.78 + var(--pal-adj)) var(--ac-c) var(--ac-h, var(--pal-h)) / 0.5);
   --primary-deep: oklch(calc(0.6 + var(--pal-adj)) calc(var(--ac-c) * 1.15) var(--ac-h, var(--pal-h)));
