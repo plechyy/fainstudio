@@ -1,0 +1,369 @@
+/* Dočasné varianty srovnání (/lab-srovnani). Po výběru se smažou. */
+
+/* přepínač */
+.cl-switch {
+  position: fixed;
+  z-index: 9999;
+  left: 12px;
+  bottom: 12px;
+  width: min(300px, calc(100vw - 24px));
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(15, 14, 18, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font: 500 13px/1.3 system-ui, sans-serif;
+  backdrop-filter: blur(12px);
+}
+.cl-switch p {
+  margin: 0;
+  font-size: 15px;
+}
+.cl-switch b {
+  color: #7be08a;
+  margin-right: 6px;
+}
+.cl-switch div {
+  display: grid;
+  gap: 6px;
+}
+.cl-switch button {
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.cl-switch button.is-on {
+  background: #fff;
+  color: #0f0e12;
+}
+.cl-switch small {
+  opacity: 0.55;
+}
+
+/* zvýraznění FaiN Studia: kouř ve sloupci (stejné ve všech variantách) */
+.cmp-smoke.cl-smoke {
+  position: relative;
+  inset: auto;
+  top: auto;
+  bottom: auto;
+  left: auto;
+  width: auto;
+  margin: -16px 0;
+  border-radius: 22px;
+  z-index: 0;
+}
+.cl-a__head > *,
+.cl-a__row > *,
+.cl-b__head > *,
+.cl-b__row > *,
+.cl-c__head > *,
+.cl-c__row > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* společné kousky */
+.cl-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.cl-mark i {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+.cl-mark--yes i {
+  background: var(--ink);
+}
+.cl-mark--yes.is-us i {
+  background: #fff;
+  box-shadow: 0 0 0 4px oklch(1 0 0 / 0.18);
+}
+.cl-mark--no i {
+  width: 12px;
+  height: 1.5px;
+  border-radius: 1px;
+  background: var(--ink-3);
+}
+.cl-mark small {
+  color: var(--ink-3);
+  font-size: 0.82rem;
+  line-height: 1.3;
+}
+.cl-text {
+  color: var(--ink-2);
+}
+
+/* ── A · tichá tabulka ───────────────────────────────────────────── */
+.cl-a {
+  display: grid;
+  grid-template-columns: minmax(180px, 1.5fr) repeat(4, minmax(0, 1fr));
+  overflow-x: auto;
+  min-width: 0;
+  padding: 16px 0;
+}
+.cl-a__head,
+.cl-a__row {
+  display: contents;
+}
+.cl-a__head > span {
+  padding: 18px 22px;
+  color: var(--ink-3);
+  font-size: 0.74rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.cl-a__head > .is-us {
+  color: var(--white-text);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+.cl-a__row > span {
+  display: flex;
+  align-items: center;
+  min-height: 74px;
+  padding: 14px 22px;
+  border-top: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 1rem;
+}
+.cl-a__row > .cl-a__label {
+  padding-left: 0;
+  font-size: 1.02rem;
+  font-weight: 500;
+}
+.cl-a__row > .is-us {
+  border-top-color: oklch(1 0 0 / 0.14);
+  color: var(--white-text);
+  font-weight: 600;
+}
+.cl-a__row > .is-us .cl-text {
+  color: var(--white-text);
+}
+
+/* ── B · odpověď a poznámky ──────────────────────────────────────── */
+.cl-b {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.25fr);
+  padding: 16px 0;
+}
+.cl-b__head,
+.cl-b__row {
+  display: contents;
+}
+.cl-b__head > span {
+  padding: 18px 28px;
+  color: var(--ink-3);
+  font-size: 0.74rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.cl-b__head > .is-us {
+  color: var(--white-text);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+.cl-b__row > * {
+  display: flex;
+  align-items: center;
+  min-height: 92px;
+  padding: 16px 28px;
+  border-top: 1px solid var(--line);
+}
+.cl-b__label {
+  padding-left: 0 !important;
+  color: var(--ink);
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+.cl-b__us {
+  border-top-color: oklch(1 0 0 / 0.14) !important;
+  color: var(--white-text);
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 1.2rem + 1.3vw, 2.5rem);
+  font-weight: 620;
+  letter-spacing: -0.02em;
+}
+.cl-b__others {
+  display: grid;
+  align-content: center;
+  gap: 4px;
+  margin: 0;
+  list-style: none;
+}
+.cl-b__others li {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+.cl-b__who {
+  color: var(--ink-3);
+}
+.cl-b__others li > span:last-child {
+  color: var(--ink-2);
+  text-align: right;
+}
+.cl-b__others .is-no {
+  color: var(--ink-3);
+}
+.cl-b__others .is-yes {
+  color: var(--ink);
+}
+
+/* ── C · souboj ──────────────────────────────────────────────────── */
+.cl-c__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+.cl-c__tabs button {
+  padding: 10px 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-2);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 550;
+  cursor: pointer;
+  transition: background-color 160ms, color 160ms, border-color 160ms;
+}
+.cl-c__tabs button:hover {
+  color: var(--ink);
+  border-color: var(--ink-3);
+}
+.cl-c__tabs button.is-on {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg);
+}
+.cl-c__board {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, 1fr);
+  padding: 16px 0;
+}
+.cl-c__head,
+.cl-c__row {
+  display: contents;
+}
+.cl-c__head > span {
+  padding: 18px 28px;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+}
+.cl-c__head > .is-us {
+  color: var(--white-text);
+}
+.cl-c__head > .is-them {
+  color: var(--ink-2);
+  text-align: right;
+}
+.cl-c__row > * {
+  display: flex;
+  align-items: center;
+  min-height: 86px;
+  padding: 16px 28px;
+  border-top: 1px solid var(--line);
+}
+.cl-c__us {
+  border-top-color: oklch(1 0 0 / 0.14) !important;
+  color: var(--white-text);
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.1rem + 1vw, 2.1rem);
+  font-weight: 620;
+  letter-spacing: -0.02em;
+}
+.cl-c__label {
+  justify-content: center;
+  color: var(--ink-2);
+  font-size: 0.98rem;
+  line-height: 1.3;
+  text-align: center;
+}
+.cl-c__them {
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4px;
+  text-align: right;
+}
+.cl-c__them b {
+  color: var(--ink-3);
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 1rem + 0.8vw, 1.8rem);
+  font-weight: 560;
+  letter-spacing: -0.02em;
+}
+.cl-c__them b.is-yes {
+  color: var(--ink);
+}
+.cl-c__them small {
+  color: var(--ink-3);
+  font-size: 0.82rem;
+  line-height: 1.3;
+}
+
+/* malé obrazovky: kouř zůstává, tabulky se zúží a jde je posunout do strany */
+@media (max-width: 899px) {
+  .cl-a {
+    grid-template-columns: 150px repeat(4, 130px);
+  }
+  .cl-b {
+    grid-template-columns: 1fr;
+  }
+  .cl-b__head,
+  .cl-b__row {
+    display: block;
+  }
+  .cmp-smoke.cl-smoke {
+    display: none;
+  }
+  .cl-b__row {
+    margin-bottom: 14px;
+    padding: 14px 18px;
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+  }
+  .cl-b__row > * {
+    min-height: 0;
+    padding: 6px 0;
+    border: 0;
+  }
+  .cl-b__head {
+    display: none;
+  }
+  .cl-c__board {
+    grid-template-columns: 1fr 1fr;
+  }
+  .cl-c__head > span:nth-child(2),
+  .cl-c__label {
+    display: none;
+  }
+  .cl-c__row > * {
+    min-height: 64px;
+    padding: 12px 16px;
+  }
+  .cl-c__head > span {
+    padding: 14px 16px;
+  }
+}
