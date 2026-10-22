@@ -66,7 +66,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
   <ellipse cx="1090" cy="560" rx="170" ry="110" fill="url(#v)"/>
 </g>
 <rect width="${W}" height="${H}" fill="url(#fade)" opacity=".6"/>
-<text x="${W / 2}" y="170" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" font-weight="600" letter-spacing="5" fill="#d6cfca">AI AGENTURA PRO AUTOMATIZACI FIREM</text>
+<text x="${W / 2}" y="170" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" font-weight="600" letter-spacing="5" fill="#d6cfca">AI AGENTURA PRO DIGITALIZACI FIREM</text>
 <g transform="translate(${starX.toFixed(1)} ${(322 - STAR / 2).toFixed(1)}) scale(${(STAR / 100).toFixed(3)})"><path d="${STAR_D}" fill="${VIOLET}" stroke="${VIOLET}" stroke-width="4" stroke-linejoin="round"/></g>
 <g transform="translate(${markX.toFixed(1)} ${(markY + 0.82 * SIZE).toFixed(1)}) scale(${k})">${paths}</g>
 <text x="${W / 2}" y="${markY + 0.82 * SIZE + 100}" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="50" font-weight="700" fill="${WHITE}">Umělá inteligence, která maká za vás.</text>

@@ -3,9 +3,9 @@
  * Jedno místo pro titulky, popisy a strukturovaná data (JSON-LD), ať se nerozjedou.
  *
  * Klíčová slova, na která web míří (pořadí = priorita):
- *   AI automatizace · AI agentura · automatizace firemních procesů · umělá inteligence pro firmy
- *   AI asistent pro firmu · automatizace administrativy · zpracování faktur a dokumentů pomocí AI
- *   automatizace e-mailů a poptávek · CRM a interní nástroje na míru · AI agentura
+ *   AI digitalizace · AI agentura · AI digitalizace firemních procesů · umělá inteligence pro firmy
+ *   AI asistent pro firmu · AI digitalizace administrativy · zpracování faktur a dokumentů pomocí AI
+ *   AI digitalizace e-mailů a poptávek · CRM a interní nástroje na míru · AI agentura
  * Pravidlo: slova musí stát i ve viditelném textu, ne jen v metadatech.
  */
 import { about, faq, systems } from './content';
@@ -15,24 +15,24 @@ export const SITE = 'https://fainstudio.com';
 export const BRAND = 'FaiN Studio';
 
 export const seo = {
-  title: 'AI automatizace pro firmy | AI agentura FaiN Studio',
+  title: 'AI digitalizace pro firmy | AI agentura FaiN Studio',
   description:
-    'AI agentura. Automatizujeme firemní procesy pomocí umělé inteligence: e-maily, faktury, poptávky, dokumenty, CRM i AI asistenty na míru.',
-  ogTitle: 'AI automatizace, která maká za vás | FaiN Studio',
+    'AI agentura. Digitalizujeme firemní procesy pomocí umělé inteligence: e-maily, faktury, poptávky, dokumenty, CRM i AI asistenty na míru.',
+  ogTitle: 'AI digitalizace, která maká za vás | FaiN Studio',
   ogDescription:
     'Postavíme systém s umělou inteligencí, který převezme opakovanou práci ve vaší firmě. E-maily, faktury, poptávky, dokumenty i interní nástroje. Data zůstávají vaše.',
   keywords: [
-    'AI automatizace',
+    'AI digitalizace',
     'AI agentura',
-    'automatizace firemních procesů',
-    'automatizace procesů',
+    'AI digitalizace firemních procesů',
+    'AI digitalizace procesů',
     'umělá inteligence pro firmy',
     'AI pro firmy',
     'AI asistent pro firmu',
-    'automatizace administrativy',
+    'AI digitalizace administrativy',
     'zpracování faktur AI',
     'zpracování dokumentů',
-    'automatizace e-mailů',
+    'AI digitalizace e-mailů',
     'zpracování poptávek',
     'CRM na míru',
     'interní nástroje na míru',
@@ -42,12 +42,12 @@ export const seo = {
 
 /** Témata, kterým rozumíme (schema.org knowsAbout): pro vyhledávače i AI asistenty. */
 const KNOWS = [
-  'AI automatizace',
-  'Automatizace firemních procesů',
+  'AI digitalizace',
+  'AI digitalizace firemních procesů',
   'Umělá inteligence pro firmy',
   'AI asistenti a chatboti nad firemními daty',
   'Zpracování faktur a dokumentů pomocí AI',
-  'Automatizace e-mailů a poptávek',
+  'AI digitalizace e-mailů a poptávek',
   'CRM a interní nástroje na míru',
   'Sběr a monitoring dat z webu',
   'Webové aplikace a rezervační systémy',
@@ -88,14 +88,14 @@ export function homeJsonLd() {
         },
         hasOfferCatalog: {
           '@type': 'OfferCatalog',
-          name: 'AI automatizace a systémy na míru',
+          name: 'AI digitalizace a systémy na míru',
           itemListElement: systems.items.map((s) => ({
             '@type': 'Offer',
             itemOffered: {
               '@type': 'Service',
               name: s.name,
               description: s.text,
-              serviceType: 'AI automatizace',
+              serviceType: 'AI digitalizace',
               provider: { '@id': ORG_ID },
               areaServed: { '@type': 'Country', name: 'Česko' },
             },
@@ -106,7 +106,7 @@ export function homeJsonLd() {
         '@type': 'Person',
         '@id': PERSON_ID,
         name: NAME,
-        jobTitle: 'Zakladatel, AI automatizace',
+        jobTitle: 'Zakladatel, AI digitalizace',
         worksFor: { '@id': ORG_ID },
         email: EMAIL,
         knowsAbout: KNOWS,

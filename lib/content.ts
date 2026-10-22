@@ -7,11 +7,11 @@
 export const hero = {
   // první řádek nadpisu; druhý se píše a maže (components/HeroRotate.tsx)
   // malý nadtitulek nad nadpisem: hlavní klíčová slova, viditelná a uvnitř H1
-  kicker: 'AI agentura pro automatizaci firem',
+  kicker: 'AI agentura pro digitalizaci firem',
   title: 'Umělá inteligence,',
   rotateLead: 'která',
   rotate: ['šetří čas', 'maká za vás', 'šetří peníze', 'usnadňuje práci', 'je FaiN'],
-  titleSr: 'AI agentura pro automatizaci firem. Umělá inteligence, která šetří čas, maká za vás, šetří peníze, usnadňuje práci a je FaiN.',
+  titleSr: 'AI agentura pro digitalizaci firem. Umělá inteligence, která šetří čas, maká za vás, šetří peníze, usnadňuje práci a je FaiN.',
   lead: 'Skoro každá firma dělá něco, co by zvládl systém. Máte nápad? Postavíme ho. Nemáte? Projdeme to spolu.',
   primary: 'Mám zájem',
   secondary: 'Co všechno umíme',
@@ -39,7 +39,7 @@ export const systems = {
     },
     {
       id: 'procesy',
-      name: 'Automatizace procesů',
+      name: 'AI digitalizace procesů',
       short: 'Procesy',
       text: 'Jedním klikem spustíte celý řetězec kroků napříč nástroji, které už používáte. Smlouvy, účty, objednávky i maily se rozjedou samy a vy vidíte, co je hotové.',
     },
@@ -303,8 +303,8 @@ export const compare = {
 
 export const faq = [
   {
-    q: 'Co je AI automatizace?',
-    a: 'Systém, který za vás dělá opakovanou práci a přitom rozumí textu. Přečte e-mail, fakturu nebo poptávku, pochopí, co v ní je, a podle toho jedná. Běžná automatizace jen přesouvá data podle pevných pravidel. S umělou inteligencí zvládne i práci, ke které byl dřív potřeba člověk.',
+    q: 'Co je AI digitalizace?',
+    a: 'Systém, který za vás dělá opakovanou práci a přitom rozumí textu. Přečte e-mail, fakturu nebo poptávku, pochopí, co v ní je, a podle toho jedná. Běžná digitalizace jen přesouvá data podle pevných pravidel. S umělou inteligencí zvládne i práci, ke které byl dřív potřeba člověk.',
   },
   {
     q: 'Pro koho to je? Nevíme, co by šlo zlepšit.',
@@ -340,7 +340,7 @@ export const about = {
   name: 'Matyáš Plecháč',
   ico: '21019011',
   verify: 'Ověřit v ARES',
-  text: 'Stavíme automatizace, interní nástroje, sběr dat a weby. Od prvního hovoru až po předání se s vámi bavíme my, bez prostředníků.',
+  text: 'Stavíme AI digitalizaci, interní nástroje, sběr dat a weby. Od prvního hovoru až po předání se s vámi bavíme my, bez prostředníků.',
   /*
    * REFERENCE — ZATÍM SKRYTÉ.
    * Nezobrazovat, dokud zadavatel nemá od každého klienta písemný souhlas
