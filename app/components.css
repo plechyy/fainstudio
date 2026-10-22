@@ -1380,12 +1380,12 @@ html.is-loading .seq {
   font-size: 0.86rem;
 }
 .about__id a {
-  color: inherit;
+  color: var(--primary-text);
+  font-weight: 600;
   text-decoration: none;
 }
 .about__id a:hover,
 .about__id a:focus-visible {
-  color: var(--primary-text);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
