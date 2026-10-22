@@ -9,8 +9,8 @@ export default function SysHead() {
         Co děláme
       </p>
       <h2 className="h2 sys-head__title" id="systemy-title">
-        <span className="silver silver--block">Co vše</span>
-        <span className="sys-head__accent">zvládneme udělat.</span>
+        <span className="silver silver--block">Příklady toho,</span>
+        <span className="sys-head__accent">co všechno jde.</span>
       </h2>
       <p className="sys-head__lead">{systems.lead}</p>
     </header>

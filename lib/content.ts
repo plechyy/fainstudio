@@ -28,7 +28,7 @@ export const proof = {
 };
 
 export const systems = {
-  title: 'Co vše zvládneme udělat',
+  title: 'Příklady toho, co všechno jde',
   lead: 'Tohle je jen ochutnávka. Jestli se to dá udělat systémem, uděláme to. A když ne, řekneme vám to rovnou.',
   items: [
     {
