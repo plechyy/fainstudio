@@ -575,12 +575,13 @@ html.is-loading .seq {
   animation: hero-roll-out 720ms cubic-bezier(0.6, 0, 0.2, 1) both;
   pointer-events: none;
 }
+/* starý text se hned rozplyne dřív, než se stihne znatelně sklopit; nový se vyjasní, až když dojíždí */
 @keyframes hero-roll-in {
   from {
     opacity: 0;
-    transform: perspective(40em) translateZ(-0.55em) rotateX(-85deg) translateZ(0.55em);
+    transform: perspective(40em) translateZ(-0.55em) rotateX(-60deg) translateZ(0.55em);
   }
-  60% {
+  55% {
     opacity: 1;
   }
   to {
@@ -593,12 +594,12 @@ html.is-loading .seq {
     opacity: 1;
     transform: perspective(40em) translateZ(-0.55em) rotateX(0deg) translateZ(0.55em);
   }
-  40% {
-    opacity: 1;
+  45% {
+    opacity: 0;
   }
   to {
     opacity: 0;
-    transform: perspective(40em) translateZ(-0.55em) rotateX(85deg) translateZ(0.55em);
+    transform: perspective(40em) translateZ(-0.55em) rotateX(60deg) translateZ(0.55em);
   }
 }
 /* neviditelné kopie vět: jen se z nich čte šířka */
