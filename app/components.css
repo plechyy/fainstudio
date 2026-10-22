@@ -4785,32 +4785,13 @@ html.is-loading .seq {
   text-underline-offset: 3px;
 }
 
-/* ── FAQ: každá otázka má svou barvu; brnknutí přes struny a jemný hover ── */
+/* ── FAQ: bez barev; jen jemný posun otázky při najetí a vyplněná ikona u otevřené ── */
 .faq__item {
-  --fo: 0;
-  --fc: oklch(calc(0.8 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) + var(--fo)));
   transition: background-color 220ms;
-}
-.faq__item:nth-child(1) { --fo: -38; }
-.faq__item:nth-child(2) { --fo: 52; }
-.faq__item:nth-child(3) { --fo: 165; }
-.faq__item:nth-child(4) { --fo: 108; }
-.faq__item:nth-child(5) { --fo: -88; }
-.faq__item:nth-child(6) { --fo: 0; }
-.faq__item:nth-child(7) { --fo: 222; }
-.faq__item:nth-child(8) { --fo: 140; }
-.faq__item:nth-child(9) { --fo: 75; }
-.faq__item:hover {
-  background: linear-gradient(90deg, color-mix(in oklab, var(--fc) 7%, transparent), transparent 70%);
 }
 .faq summary:hover .faq__icon {
   border-color: var(--ink-3);
   background: transparent;
-}
-.faq__item[open] .faq__q,
-.faq__item[open] summary:hover .faq__q {
-  color: var(--fc);
-  animation: none;
 }
 .faq__item[open] .faq__icon,
 .faq__item[open] summary:hover .faq__icon {
@@ -4821,26 +4802,6 @@ html.is-loading .seq {
 .faq__item[open] .faq__icon::before,
 .faq__item[open] .faq__icon::after {
   background: var(--bg);
-}
-@property --fk {
-  syntax: '<number>';
-  inherits: false;
-  initial-value: 0;
-}
-@media (prefers-reduced-motion: no-preference) {
-  /* barva se k otázce přelévá plynule: míchá se jediné číslo --fk (0 až 1) a ne dvě barvy po klíčových snímcích,
-     takže nikde neskočí a nebliká. Vlna putuje po otázkách s malým zpožděním. */
-  .faq__q {
-    --step: 0.9s;
-    color: color-mix(in oklab, var(--fc) calc(var(--fk) * 100%), var(--ink));
-    animation: faq-pluck calc(var(--n, 7) * var(--step)) ease-in-out infinite;
-    animation-delay: calc(var(--d, 0) * var(--step) * -1);
-  }
-}
-@keyframes faq-pluck {
-  0%, 100% { --fk: 0; }
-  25%, 45% { --fk: 1; }
-  70% { --fk: 0; }
 }
 
 /* ── hero: nadtitulek s klíčovými slovy (je součástí H1) ─────────── */
