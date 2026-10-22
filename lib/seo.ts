@@ -17,10 +17,10 @@ export const BRAND = 'FaiN Studio';
 export const seo = {
   title: 'Digitalizujeme firmy pomocí AI | FaiN Studio',
   description:
-    'Digitalizujeme firmy pomocí AI: e-maily, faktury, poptávky, dokumenty, CRM i AI asistenty na míru.',
+    'Digitalizujeme firmy pomocí AI. Navrhneme a postavíme systémy na míru, které za vás převezmou opakovanou práci. Data zůstávají vaše.',
   ogTitle: 'Umělá inteligence, která maká za vás | FaiN Studio',
   ogDescription:
-    'Postavíme systém s umělou inteligencí, který převezme opakovanou práci ve vaší firmě. E-maily, faktury, poptávky, dokumenty i interní nástroje. Data zůstávají vaše.',
+    'Digitalizujeme firmy pomocí umělé inteligence. Systémy na míru, které převezmou opakovanou práci. Data zůstávají vaše.',
   keywords: [
     'AI digitalizace',
     'AI studio',

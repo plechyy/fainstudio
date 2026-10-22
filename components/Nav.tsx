@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { CAL_URL } from '@/lib/config';
-import Star from './Star';
+import NavLogo from './NavLogo';
 import ThemeToggle from './ThemeToggle';
 
 const LINKS = [
@@ -108,10 +108,7 @@ export default function Nav() {
       </div>
       <div className="nav__pill">
         <a className="logo" href="#top" aria-label="FaiN Studio, na začátek stránky">
-          <Star className="logo__star" />
-          <span className="logo__word">
-            FaiN<span className="logo__sub">Studio</span>
-          </span>
+          <NavLogo />
         </a>
 
         <nav className="nav__links" aria-label="Hlavní" onMouseLeave={() => setHover(null)}>
