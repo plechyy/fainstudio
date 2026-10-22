@@ -140,6 +140,77 @@
   unicode-range: U+0100-024F, U+1E00-1EFF;
 }
 
+@font-face {
+  font-family: 'Lab Outfit';
+  src: url('/fonts/lab/outfit-latin.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2027, U+2030-203A, U+20AC, U+2122, U+2190-2193, U+2212;
+}
+@font-face {
+  font-family: 'Lab Outfit';
+  src: url('/fonts/lab/outfit-latin-ext.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0100-024F, U+1E00-1EFF;
+}
+@font-face {
+  font-family: 'Lab Lexend';
+  src: url('/fonts/lab/lexend-latin.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2027, U+2030-203A, U+20AC, U+2122, U+2190-2193, U+2212;
+}
+@font-face {
+  font-family: 'Lab Lexend';
+  src: url('/fonts/lab/lexend-latin-ext.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0100-024F, U+1E00-1EFF;
+}
+@font-face {
+  font-family: 'Lab Playfair Display';
+  src: url('/fonts/lab/playfair-display-latin.woff2') format('woff2-variations');
+  font-weight: 400 900;
+  font-display: swap;
+  unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2027, U+2030-203A, U+20AC, U+2122, U+2190-2193, U+2212;
+}
+@font-face {
+  font-family: 'Lab Playfair Display';
+  src: url('/fonts/lab/playfair-display-latin-ext.woff2') format('woff2-variations');
+  font-weight: 400 900;
+  font-display: swap;
+  unicode-range: U+0100-024F, U+1E00-1EFF;
+}
+@font-face {
+  font-family: 'Lab Instrument Serif';
+  src: url('/fonts/lab/instrument-serif-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2027, U+2030-203A, U+20AC, U+2122, U+2190-2193, U+2212;
+}
+@font-face {
+  font-family: 'Lab Instrument Serif';
+  src: url('/fonts/lab/instrument-serif-latin-ext.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0100-024F, U+1E00-1EFF;
+}
+@font-face {
+  font-family: 'Lab DM Serif Display';
+  src: url('/fonts/lab/dm-serif-display-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0020-007E, U+00A0-00FF, U+2010-2027, U+2030-203A, U+20AC, U+2122, U+2190-2193, U+2212;
+}
+@font-face {
+  font-family: 'Lab DM Serif Display';
+  src: url('/fonts/lab/dm-serif-display-latin-ext.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0100-024F, U+1E00-1EFF;
+}
+
 .fontlab {
   position: fixed;
   z-index: 9999;
@@ -171,3 +242,24 @@
 .fontlab__list button.is-on { background: #fff; color: #0f0e12; }
 .fontlab__same { display: flex; gap: 8px; align-items: center; cursor: pointer; }
 .fontlab__hint { margin: 0; opacity: 0.55; font-size: 12px; }
+
+/* váha a prostrkání nadpisů podle zvolené dvojice (serify nesnesou tučné syntetické písmo) */
+html[data-lab] .display,
+html[data-lab] .h2 {
+  font-weight: var(--lab-dw, 640);
+  letter-spacing: var(--lab-ls, -0.025em);
+  font-synthesis: none;
+}
+.fontlab__list { max-height: 46vh; overflow: auto; }
+.fontlab__list button small { opacity: 0.6; margin-left: 4px; }
+.fontlab__nav { display: flex; gap: 8px; }
+.fontlab__nav button {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
