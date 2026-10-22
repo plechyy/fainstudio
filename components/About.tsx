@@ -1,6 +1,6 @@
 import { about } from '@/lib/content';
 import Plate from './Plate';
-import { SIGNATURE_D, SIGNATURE_VIEWBOX } from '@/lib/signature';
+import { SIGNATURE_SKEW, SIGNATURE_STROKES, SIGNATURE_VIEWBOX } from '@/lib/signature';
 
 export default function About() {
   const refs = about.references.filter((r) => r.show);
@@ -36,11 +36,14 @@ export default function About() {
             </a>
           </p>
 
-          {/* Podpis: písmo Allura převedené na křivky, odkryje se tahem zleva při scrollu. Vizuálně jen ozdoba, jméno je v nadpisu. */}
+          {/* Podpis: ručně kreslená čmáranice (SVG), vykreslí se tahem při scrollu. Vizuálně jen ozdoba, jméno je v nadpisu. */}
           <div className="sig reveal" aria-hidden="true">
-            <svg viewBox={SIGNATURE_VIEWBOX} fill="none" strokeLinecap="round">
-              <path className="sig__t" d={SIGNATURE_D} fill="currentColor" />
-              <path className="sig__u" pathLength={1000} d="M24 46 C170 38 380 38 578 28" />
+            <svg viewBox={SIGNATURE_VIEWBOX} fill="none" strokeLinecap="round" strokeLinejoin="round">
+              <g transform={SIGNATURE_SKEW}>
+                {SIGNATURE_STROKES.map((st, i) => (
+                  <path key={i} className={`sig__p sig__p--${i}`} pathLength={1000} strokeWidth={st.w} d={st.d} />
+                ))}
+              </g>
             </svg>
           </div>
 
