@@ -4801,22 +4801,23 @@ html.is-loading .seq {
   background: linear-gradient(90deg, color-mix(in oklab, var(--fc) 7%, transparent), transparent 70%);
 }
 .faq summary:hover .faq__icon {
-  border-color: color-mix(in oklab, var(--fc) 70%, transparent);
-  background: color-mix(in oklab, var(--fc) 12%, transparent);
+  border-color: var(--ink-3);
+  background: transparent;
 }
 .faq__item[open] .faq__q,
 .faq__item[open] summary:hover .faq__q {
   color: var(--fc);
   animation: none;
 }
-.faq__item[open] .faq__icon {
-  background: var(--fc);
-  border-color: var(--fc);
-  box-shadow: 0 0 16px -4px var(--fc);
+.faq__item[open] .faq__icon,
+.faq__item[open] summary:hover .faq__icon {
+  background: var(--ink);
+  border-color: var(--ink);
+  box-shadow: none;
 }
 .faq__item[open] .faq__icon::before,
 .faq__item[open] .faq__icon::after {
-  background: oklch(0.2 0.03 var(--pal-h));
+  background: var(--bg);
 }
 @property --fk {
   syntax: '<number>';
