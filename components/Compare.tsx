@@ -1,36 +1,44 @@
+import type { CSSProperties } from 'react';
 import { compare } from '@/lib/content';
+import { STAR_D, STAR_STROKE } from '@/lib/star';
 import ShaderBackground from './ShaderBackground';
 
-const good = (v: string) => v === 'Ano' || v.startsWith('Do ');
-const bad = (v: string) => v.startsWith('Ne') && v !== 'Někdy';
+const isYes = (v: string) => v === 'Ano';
+const isNo = (v: string) => v.startsWith('Ne') && v !== 'Někdy';
+const at = (row: number, col: number): CSSProperties => ({ gridRow: row, gridColumn: col });
 
-/** Hodnota buňky: Ano = fajfka, Ne = křížek (slovo jen pro čtečky), ostatní zůstává textem */
-function Val({ v }: { v: string }) {
-  if (v === 'Ano') {
+/** Značka buňky: u FaiN Studia hvězdička, u ostatních fajfka, „ne“ je pomlčka (důvod malým písmem), ostatní zůstává slovy */
+function Mark({ v, us }: { v: string; us?: boolean }) {
+  if (isYes(v)) {
     return (
-      <span className="cmp-val">
-        <svg className="cmp-ico cmp-ico--yes" viewBox="0 0 16 16" width="18" height="18" aria-hidden="true">
-          <path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" />
-        </svg>
+      <span className={`cmp-mark ${us ? 'cmp-mark--star' : 'cmp-mark--yes'}`}>
+        {us ? (
+          <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+            <path d={STAR_D} fill="currentColor" stroke="currentColor" strokeWidth={STAR_STROKE} strokeLinejoin="round" />
+          </svg>
+        ) : (
+          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+            <path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        )}
         <span className="sr-only">Ano</span>
       </span>
     );
   }
-  if (bad(v)) {
+  if (isNo(v)) {
     const rest = v.replace(/^Ne,?\s*/, '');
     return (
-      <span className="cmp-val">
-        <svg className="cmp-ico cmp-ico--no" viewBox="0 0 16 16" width="18" height="18" aria-hidden="true">
-          <path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" />
-        </svg>
-        <span className={rest ? 'cmp-val__rest' : 'sr-only'}>{rest || 'Ne'}</span>
+      <span className="cmp-mark cmp-mark--no">
+        <i aria-hidden="true" />
+        {rest ? <small>{rest}</small> : <span className="sr-only">Ne</span>}
       </span>
     );
   }
-  return <span className="cmp-val">{v}</span>;
+  return <span className="cmp-text">{v}</span>;
 }
 
 export default function Compare() {
+  const rows = compare.rows;
   return (
     <section className="section" id="srovnani" aria-labelledby="srovnani-title">
       <div className="wrap">
@@ -45,36 +53,30 @@ export default function Compare() {
           </h2>
         </header>
 
-        <div className="cmp-table reveal">
-          <div className="cmp-smoke" aria-hidden="true">
+        <div className="cmpx reveal" role="table" aria-label={compare.title}>
+          <div className="cmp-smoke" style={{ gridColumn: 2, gridRow: `1 / span ${rows.length + 1}` }} aria-hidden="true">
             <ShaderBackground bgVar="--smoke-bg" brandVar="--primary" phase={95} />
           </div>
-          <table>
-            <caption className="sr-only">{compare.title}</caption>
-            <thead>
-              <tr>
-                <td />
-                {compare.columns.map((c, i) => (
-                  <th scope="col" className={i === 0 ? 'us' : undefined} key={c}>
-                    {i === 0 && <span className="cmp-led" aria-hidden="true" />}
-                    {c}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {compare.rows.map((r) => (
-                <tr key={r.label}>
-                  <th scope="row">{r.label}</th>
-                  {r.values.map((v, i) => (
-                    <td className={`${i === 0 ? 'us ' : ''}${good(v) || i === 0 ? 'yes' : ''}`.trim() || undefined} key={i}>
-                      <Val v={v} />
-                    </td>
-                  ))}
-                </tr>
+          <div className="cmpx__head" role="row">
+            <span role="columnheader" style={at(1, 1)} />
+            {compare.columns.map((c, i) => (
+              <span role="columnheader" className={i === 0 ? 'is-us' : undefined} style={at(1, i + 2)} key={c}>
+                {c}
+              </span>
+            ))}
+          </div>
+          {rows.map((r, ri) => (
+            <div className="cmpx__row" role="row" key={r.label}>
+              <span role="rowheader" className="cmpx__label" style={at(ri + 2, 1)}>
+                {r.label}
+              </span>
+              {r.values.map((v, i) => (
+                <span role="cell" className={i === 0 ? 'is-us' : undefined} style={at(ri + 2, i + 2)} key={i}>
+                  <Mark v={v} us={i === 0} />
+                </span>
               ))}
-            </tbody>
-          </table>
+            </div>
+          ))}
         </div>
 
         <div className="cmp-cards">
@@ -85,16 +87,13 @@ export default function Compare() {
                   <ShaderBackground bgVar="--smoke-bg" brandVar="--primary" phase={95} />
                 </div>
               )}
-              <h3 className="cmp-card__title">
-                {ci === 0 && <span className="cmp-led" aria-hidden="true" />}
-                {c}
-              </h3>
+              <h3 className="cmp-card__title">{c}</h3>
               <dl>
                 {compare.rows.map((r) => (
                   <div className="cmp-card__row" key={r.label}>
                     <dt>{r.label}</dt>
-                    <dd className={good(r.values[ci]) ? 'yes' : undefined}>
-                      <Val v={r.values[ci]} />
+                    <dd>
+                      <Mark v={r.values[ci]} us={ci === 0} />
                     </dd>
                   </div>
                 ))}

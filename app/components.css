@@ -944,43 +944,6 @@ html.is-loading .seq {
 }
 
 /* ── srovnání ────────────────────────────────────────────────────── */
-.cmp-led {
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  margin-right: 10px;
-  vertical-align: middle;
-  background: var(--secondary);
-  box-shadow: 0 0 8px var(--secondary);
-}
-.cmp-val {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-.cmp-ico {
-  flex: none;
-  width: 15px;
-  height: 15px;
-}
-.cmp-ico--yes {
-  color: var(--primary-text);
-}
-/* ve sloupci FainStudio fajfka na kouři téže barvy: světlejší tón, ať je vidět */
-.us .cmp-ico--yes {
-  color: color-mix(in oklab, var(--primary) 30%, white);
-}
-.cmp-ico--no {
-  color: oklch(0.62 0.02 var(--secondary-h));
-}
-.cmp-val__rest {
-  color: var(--ink-3);
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-.cmp-table {
-  display: none;
-}
 /* kouř jako podkres sloupce FainStudio */
 .cmp-smoke {
   position: absolute;
@@ -1019,9 +982,9 @@ html.is-loading .seq {
 }
 .cmp-card {
   padding: 22px;
-  border: 1px solid var(--line-strong);
+  border: 1px solid var(--line);
   border-radius: 18px;
-  background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface) 100%);
+  background: transparent;
 }
 .cmp-card.us {
   border-color: transparent;
@@ -1050,8 +1013,12 @@ html.is-loading .seq {
   font-weight: 600;
   text-align: right;
 }
-.cmp-card.us dd.yes {
-  color: var(--accent-text);
+.cmp-card.us {
+  --us-ink: var(--white-text);
+}
+.cmp-card.us .cmp-mark--yes,
+.cmp-card.us .cmp-text {
+  color: var(--us-ink);
 }
 .cmp-note {
   margin-top: 22px;
@@ -1062,74 +1029,106 @@ html.is-loading .seq {
   .cmp-cards {
     display: none;
   }
-  .cmp-table {
-    display: block;
-    position: relative;
-    padding: 12px 0;
-    border: 1px solid var(--line-strong);
-    border-radius: 20px;
-    background: linear-gradient(180deg, var(--surface) 0%, var(--sunk) 100%);
+}
+/* srovnání: tichá tabulka bez rámečku, jen tenké linky mezi řádky; sloupec FaiN Studia je na kouři */
+.cmpx {
+  display: none;
+  --us-ink: var(--white-text);
+}
+@media (min-width: 900px) {
+  .cmpx {
+    display: grid;
+    grid-template-columns: minmax(200px, 1.5fr) repeat(4, minmax(0, 1fr));
+    padding: 16px 0;
   }
-  table {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    table-layout: fixed;
-  }
-  th,
-  td {
-    text-align: left;
-    padding: 18px 22px;
-    border-bottom: 1px solid var(--line);
-    vertical-align: middle;
-  }
-  thead th {
-    padding-top: 28px;
-    padding-bottom: 22px;
-    font-family: var(--font-display);
-    font-size: var(--step-1);
-    font-weight: 620;
-    letter-spacing: -0.015em;
-    border-bottom-color: var(--line-strong);
-  }
-  tbody th {
-    font-weight: 500;
-    color: var(--ink);
-    width: 28%;
-    padding-left: 32px;
-  }
-  td {
-    color: var(--ink-2);
-  }
-  tbody tr:last-child th,
-  tbody tr:last-child td {
-    border-bottom: 0;
-  }
-  /* sloupec FainStudio: zvednutý, v modré, jako by byl pod proudem */
-  .us {
-    color: var(--ink);
-    font-weight: 600;
-    border-bottom-color: var(--line);
-  }
-  thead .us {
-    position: relative;
-    color: var(--accent-text);
-  }
-  tbody tr:last-child td.us {
-    border-bottom: 0;
-  }
-  td.us.yes {
-    color: var(--accent-text);
-  }
-  tbody tr {
-    transition: background-color 120ms;
-  }
-  tbody tr:hover td:not(.us),
-  tbody tr:hover th {
-    background: color-mix(in oklab, var(--ink) 3%, transparent);
-  }
+}
+.cmpx__head,
+.cmpx__row {
+  display: contents;
+}
+.cmpx__head > *,
+.cmpx__row > * {
+  position: relative;
+  z-index: 1;
+}
+.cmpx__head > span {
+  padding: 18px 22px;
+  color: var(--ink-3);
+  font-size: 0.74rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.cmpx__head > .is-us {
+  color: var(--us-ink);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+.cmpx__row > * {
+  display: flex;
+  align-items: center;
+  min-height: 74px;
+  padding: 14px 22px;
+  border-top: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 1rem;
+}
+.cmpx__row > .cmpx__label {
+  padding-left: 0;
+  font-size: 1.02rem;
+  font-weight: 500;
+}
+.cmpx__row > .is-us {
+  border-top-color: oklch(1 0 0 / 0.14);
+  color: var(--us-ink);
+  font-weight: 600;
+}
+.cmpx .cmp-smoke {
+  position: relative;
+  inset: auto;
+  top: auto;
+  bottom: auto;
+  left: auto;
+  width: auto;
+  margin: -16px 0;
+  border-radius: 22px;
+  z-index: 0;
+}
+/* značky: FaiN má hvězdičku, ostatní fajfku, „ne“ je pomlčka, ostatní zůstává slovy */
+.cmp-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.cmp-mark svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+}
+.cmp-mark--yes {
+  color: var(--ink);
+}
+.cmp-mark--star {
+  color: var(--us-ink);
+}
+.cmp-mark--no i {
+  width: 12px;
+  height: 1.5px;
+  border-radius: 1px;
+  background: var(--ink-3);
+}
+.cmp-mark small {
+  color: var(--ink-3);
+  font-size: 0.82rem;
+  line-height: 1.3;
+}
+.cmp-text {
+  color: var(--ink-2);
+}
+.cmpx .is-us .cmp-text {
+  color: var(--us-ink);
 }
 
 /* ── čísla: výsledky na sběrnici, po které běží výboj ─────────────── */
@@ -4620,9 +4619,6 @@ html.is-loading .seq {
 :root[data-theme='light'] .cmp-card.us {
   box-shadow: 0 0 0 1px var(--line-strong), 0 30px 70px -34px oklch(0 0 0 / 0.14);
 }
-:root[data-theme='light'] .us .cmp-ico--yes {
-  color: var(--primary-deep);
-}
 
 /* světlý motiv: závěrečná karta a formulář */
 :root[data-theme='light'] .cta__text,
@@ -4657,9 +4653,6 @@ html.is-loading .seq {
 :root[data-theme='light'] .cf textarea:focus {
   background: #fff;
 }
-:root[data-theme='light'] thead .us {
-  color: var(--ink);
-}
 :root[data-theme='light'] .cf__note {
   color: var(--ink-2);
 }
@@ -4679,17 +4672,12 @@ html.is-loading .seq {
 :root[data-theme='light'] .cmp-smoke::after {
   background: color-mix(in oklab, var(--smoke-bg) 32%, transparent);
 }
-:root[data-theme='light'] td.us,
-:root[data-theme='light'] td.us.yes {
-  color: var(--ink);
+:root[data-theme='light'] .cmpx,
+:root[data-theme='light'] .cmp-card.us {
+  --us-ink: var(--ink);
 }
-@media (min-width: 900px) {
-  :root[data-theme='light'] .cmp-table {
-    background: color-mix(in oklab, var(--bg) 55%, white);
-  }
-}
-:root[data-theme='light'] .cmp-card:not(.us) {
-  background: color-mix(in oklab, var(--bg) 55%, white);
+:root[data-theme='light'] .cmpx__row > .is-us {
+  border-top-color: var(--line);
 }
 
 /* ── pruh o datech pod tlačítky v hero ───────────────────────────── */
@@ -7087,3 +7075,4 @@ html.is-loading .seq {
     min-height: 2.6rem;
   }
 }
+
