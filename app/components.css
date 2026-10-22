@@ -3903,6 +3903,10 @@ html.is-loading .seq {
     height: 490px;
     min-height: 0;
   }
+  /* místo pro nejdelší popisek, ať sekce při přepínání neposkakuje */
+  .sp__copy {
+    min-height: 14.5rem;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .sp__stage,
