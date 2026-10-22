@@ -13,7 +13,7 @@ const LINKS = [
   { href: '#srovnani', label: 'Proč FaiN?' },
   { href: '#proof', label: 'Přínosy' },
   { href: '#kdo', label: 'O nás' },
-  { href: '#faq', label: 'Otázky' },
+  { href: '#faq', label: 'FAQ' },
 ];
 // sekce bez položky v menu: když je uprostřed obrazovky, nesvítí nic
 const NO_LINK = ['rezervace', 'paticka'];
