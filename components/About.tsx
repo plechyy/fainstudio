@@ -36,10 +36,10 @@ export default function About() {
             </a>
           </p>
 
-          {/* Podpis: jeden souvislý tah, při scrollu se napíše jako perem. Vizuálně jen ozdoba, jméno je v nadpisu. */}
+          {/* Podpis: písmo převedené na křivky (obrázek, ne text), odkryje se zleva při scrollu. Vizuálně jen ozdoba, jméno je v nadpisu. */}
           <div className="sig reveal" aria-hidden="true">
-            <svg viewBox={SIGNATURE_VIEWBOX} fill="none" strokeLinecap="round" strokeLinejoin="round">
-              <path className="sig__p" pathLength={1} d={SIGNATURE_D} />
+            <svg viewBox={SIGNATURE_VIEWBOX}>
+              <path className="sig__p" fill="currentColor" d={SIGNATURE_D} />
             </svg>
           </div>
 

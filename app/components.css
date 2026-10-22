@@ -1393,31 +1393,32 @@ html.is-loading .seq {
 .refs span {
   color: var(--ink-2);
 }
-/* podpis: zelený, jeden tah, který se napíše jako perem */
+/* podpis: zelený obrázek (křivky, ne text), bez záře, nejde označit ani přetáhnout; odkryje se zleva */
 .sig {
   margin-top: 28px;
   color: var(--primary-text);
-  filter: drop-shadow(0 0 5px var(--primary-glow));
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
 .sig svg {
   display: block;
-  width: min(380px, 100%);
+  width: min(400px, 100%);
   height: auto;
   overflow: visible;
+  pointer-events: none;
+  -webkit-user-drag: none;
 }
 .sig__p {
-  stroke: currentColor;
-  stroke-width: 2.4;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
+  clip-path: inset(0 100% 0 0);
 }
 .sig.is-in .sig__p {
-  stroke-dashoffset: 0;
-  transition: stroke-dashoffset 4.4s cubic-bezier(0.45, 0.05, 0.4, 1);
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 2.4s cubic-bezier(0.5, 0, 0.3, 1);
 }
 @media (prefers-reduced-motion: reduce) {
   .sig__p {
-    stroke-dashoffset: 0;
+    clip-path: none;
   }
 }
 @media (min-width: 900px) {
