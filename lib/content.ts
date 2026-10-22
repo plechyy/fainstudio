@@ -338,7 +338,12 @@ export const about = {
   name: 'Matyáš Plecháč',
   ico: '21019011',
   verify: 'Ověřit v ARES',
-  text: 'Stavíme AI digitalizaci, interní nástroje, sběr dat a weby. Od prvního hovoru až po předání se s vámi bavíme my, bez prostředníků.',
+  title: 'Nejdřív vám porozumíme.',
+  accent: 'Pak to postavíme.',
+  // krátký popis pro vyhledávače (strukturovaná data)
+  text: 'Stavíme AI digitalizaci, interní nástroje, sběr dat a weby podle toho, jak vaše firma opravdu funguje.',
+  lead: 'Víme, že jsme dobří, a ne z reklamy, ale z toho, co po nás zůstává u klientů. Neprodáváme hotové nástroje, do kterých se musíte vejít. Pracujeme podle toho, jak funguje vaše firma, protože přidaná hodnota není v technologii. Je v tom, že pochopíme vaše procesy, najdeme, kde se ztrácí nejvíc času, a postavíme systém, který lidé opravdu používají.',
+  origin: 'Celé to začalo otázkou, kterou jsme slyšeli pořád dokola: „Nešlo by tohle udělat líp?“ Šlo.',
   /*
    * REFERENCE — ZATÍM SKRYTÉ.
    * Nezobrazovat, dokud zadavatel nemá od každého klienta písemný souhlas

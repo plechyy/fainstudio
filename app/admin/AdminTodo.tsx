@@ -15,7 +15,7 @@ const GROUPS: { id: string; name: string; from: string; items: Item[] }[] = [
     from: '7 → 9',
     items: [
       { id: 'logos', t: 'Skutečná loga klientů se souhlasem (jinak pás log odstranit)' },
-      { id: 'photo', t: 'Fotka do sekce „Kdo to staví“ (teď je tam zástupný rámeček)' },
+      { id: 'photo', t: 'Fotka do sekce „O nás“ (teď je tam zástupný rámeček)' },
       { id: 'case', t: 'Jedna skutečná případovka: co bylo ručně, co dělá systém, kolik hodin týdně odpadlo' },
       { id: 'form', t: 'Ověřit formulář: RESEND_API_KEY, CONTACT_TO, CONTACT_FROM ve Vercelu a poslat zkušební zprávu' },
     ],

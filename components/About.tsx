@@ -20,14 +20,17 @@ export default function About() {
 
         <div className="about__copy">
           <p className="label shead__index reveal" aria-hidden="true">
-            <b>08</b>Kdo to staví
+            <b>08</b>O nás
           </p>
           <h2 className="h2 reveal" id="kdo-title">
-            {about.name}
+            <span className="silver silver--block">{about.title}</span>
+            <span className="hd__accent">{about.accent}</span>
           </h2>
-          <p className="about__text reveal">{about.text}</p>
+          <p className="about__text reveal">{about.lead}</p>
+          <p className="about__origin reveal">{about.origin}</p>
           {/* firma je dohledatelná ve veřejném rejstříku: jméno + IČO + odkaz do ARES */}
           <p className="about__id reveal">
+            <span>{about.name}</span>
             <span>
               IČO <span className="num">{about.ico}</span>
             </span>
@@ -47,7 +50,7 @@ export default function About() {
                     className="sig__p"
                     pathLength="1"
                     d={s.d}
-                    style={{ ['--sd' as string]: `${((before / SIGNATURE_LEN) * 3.6 + i * 0.05).toFixed(3)}s`, ['--sl' as string]: `${((s.len / SIGNATURE_LEN) * 3.6).toFixed(3)}s` }}
+                    style={{ ['--sd' as string]: `${((before / SIGNATURE_LEN) * 1.8 + i * 0.025).toFixed(3)}s`, ['--sl' as string]: `${((s.len / SIGNATURE_LEN) * 1.8).toFixed(3)}s` }}
                   />
                 );
               })}
