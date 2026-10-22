@@ -4878,6 +4878,19 @@ html.is-loading .seq {
   user-select: none;
 }
 
+/* Odkazy z menu: sekce má nahoře velký polštář, ten se při skoku přeskočí, ať je pod navigací hned nadpis a ne prázdno.
+   --sec-pt je horní polštář sekce (scroll-padding-top 90px na html počítá s výškou navigace). */
+.section {
+  --sec-pt: var(--section);
+  scroll-margin-top: calc(24px - var(--sec-pt));
+}
+.section--tight {
+  --sec-pt: calc(var(--section) / 2);
+}
+.hero + .section {
+  --sec-pt: clamp(24px, 2.4vw, 32px);
+}
+
 /* pod hero hned navazuje další sekce, bez velké prázdné mezery */
 .hero + .section {
   padding-top: clamp(24px, 2.4vw, 32px);
