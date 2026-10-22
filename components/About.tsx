@@ -1,6 +1,6 @@
 import { about } from '@/lib/content';
 import Plate from './Plate';
-import { SIGNATURE_SKEW, SIGNATURE_STROKES, SIGNATURE_VIEWBOX } from '@/lib/signature';
+import { SIGNATURE_D, SIGNATURE_VIEWBOX } from '@/lib/signature';
 
 export default function About() {
   const refs = about.references.filter((r) => r.show);
@@ -36,14 +36,10 @@ export default function About() {
             </a>
           </p>
 
-          {/* Podpis: ručně kreslená čmáranice (SVG), vykreslí se tahem při scrollu. Vizuálně jen ozdoba, jméno je v nadpisu. */}
+          {/* Podpis: skutečný podpis převedený na křivky, odkryje se zleva při scrollu. Vizuálně jen ozdoba, jméno je v nadpisu. */}
           <div className="sig reveal" aria-hidden="true">
-            <svg viewBox={SIGNATURE_VIEWBOX} fill="none" strokeLinecap="round" strokeLinejoin="round">
-              <g transform={SIGNATURE_SKEW}>
-                {SIGNATURE_STROKES.map((st, i) => (
-                  <path key={i} className={`sig__p sig__p--${i}`} pathLength={1000} strokeWidth={st.w} d={st.d} />
-                ))}
-              </g>
+            <svg viewBox={SIGNATURE_VIEWBOX}>
+              <path className="sig__t" fill="currentColor" d={SIGNATURE_D} />
             </svg>
           </div>
 
