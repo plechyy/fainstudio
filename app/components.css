@@ -3770,13 +3770,16 @@ html.is-loading .seq {
   background: none;
   border: 0;
   cursor: pointer;
-  transition: color 180ms;
+  transform-origin: left center;
+  transition: color 200ms, transform 280ms var(--ease-out);
 }
 .sp__item:hover {
   color: var(--ink-2);
 }
+/* vybraná položka: bez rámečku, jen se zabarví do barvy své scény a o kousek povyroste */
 .sp__item[aria-selected='true'] {
-  color: var(--ink);
+  color: var(--sys-ac, var(--secondary));
+  transform: scale(1.08);
 }
 /* každá položka má vlevo tečku v barvě své scény; u vybrané se natáhne ve svislou značku */
 .sp__item::before {
@@ -3804,23 +3807,6 @@ html.is-loading .seq {
   margin-top: 0;
   opacity: 1;
   box-shadow: 0 0 10px var(--sys-ac, var(--secondary));
-}
-.sp__item[aria-selected='true']::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  padding: 1px;
-  border-radius: 16px;
-  background: linear-gradient(
-    150deg,
-    color-mix(in oklab, var(--sys-ac, var(--secondary)) 70%, transparent) 0%,
-    color-mix(in oklab, var(--sys-ac, var(--secondary)) 36%, transparent) 42%,
-    color-mix(in oklab, var(--sys-ac, var(--secondary)) 12%, transparent) 100%
-  );
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
-  pointer-events: none;
 }
 .sp__right {
   display: flex;
