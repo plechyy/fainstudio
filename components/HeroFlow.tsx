@@ -29,8 +29,8 @@ const ROW_B: Task[] = [
 ];
 
 function Row({ tasks, done, slow }: { tasks: Task[]; done?: boolean; slow?: boolean }) {
-  // seznam dvakrát za sebou → pás jede dokola bez švu
-  const all = [...tasks, ...tasks];
+  // seznam čtyřikrát za sebou: pás posouvá o polovinu (dvě sady), takže je vždy plný i na širokém displeji a jede dokola bez švu
+  const all = [...tasks, ...tasks, ...tasks, ...tasks];
   return (
     <div className={`hf__row${slow ? ' hf__row--slow' : ''}`}>
       {all.map((t, k) => (
@@ -63,8 +63,6 @@ export default function HeroFlow() {
         <Row tasks={ROW_B} done slow />
       </div>
       <svg className="hf__star" viewBox="-6 -6 112 112">
-        {/* kotouč v barvě pozadí schová místo, kde se lístek mění */}
-        <circle className="hf__disc" cx="50" cy="50" r="56" />
         <path d={STAR_D} strokeWidth={STAR_STROKE} strokeLinejoin="round" />
       </svg>
     </div>

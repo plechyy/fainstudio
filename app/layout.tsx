@@ -46,12 +46,12 @@ export const viewport: Viewport = {
   viewportFit: 'cover', // na ploše uložený web jde až pod stavový řádek
 };
 
-// Nastaví uložený motiv (výchozí je světlý) a odstín primární barvy před prvním vykreslením → nic neprobliká.
-const noFlash = `(function(){try{var d=document.documentElement;var t=localStorage.getItem('theme')==='dark'?'dark':'light';d.dataset.theme=t;var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==='light'?'#f2f0ec':'#1e1e1e';var h=localStorage.getItem('primary-h');if(h&&!isNaN(+h))d.style.setProperty('--primary-h',h);}catch(e){}})();`;
+// Web je jen ve světlém motivu. Skript obnoví primární barvu vybranou v pickeru před prvním vykreslením → nic neprobliká.
+const noFlash = `(function(){try{var d=document.documentElement;var g=JSON.parse(localStorage.getItem('brand-primary-vars')||'null');if(g){for(var k in g){d.style.setProperty(k,g[k]);}}}catch(e){}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="cs" suppressHydrationWarning>
+    <html lang="cs" data-theme="light" suppressHydrationWarning>
       <head>
         <link rel="preload" href="/fonts/finger-paint-logo.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/cal-sans-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />

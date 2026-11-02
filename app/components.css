@@ -1609,43 +1609,6 @@
 }
 
 
-/* ── přepínač motivu ───────────────────────────────────────────── */
-.theme-toggle {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 42px;
-  height: 42px;
-  border: 0;
-  border-radius: 50%;
-  background: var(--chip);
-  color: var(--ink);
-  cursor: pointer;
-  box-shadow: inset 0 1px 0 var(--glass-top), inset 0 0 0 1px var(--glass-edge-lo);
-  transition: background-color 140ms, transform 160ms var(--ease-out);
-}
-.theme-toggle:hover {
-  background: var(--chip-hover);
-  transform: rotate(12deg);
-}
-.theme-toggle--nav {
-  display: none;
-}
-.theme-toggle--menu {
-  width: 100%;
-  height: 44px;
-  border-radius: 12px;
-  margin-top: 8px;
-}
-@media (min-width: 1100px) {
-  .theme-toggle--nav {
-    display: grid;
-  }
-  .theme-toggle--menu {
-    display: none;
-  }
-}
-
 :root[data-theme='light'] .logo {
   text-shadow: none;
 }
@@ -7155,19 +7118,23 @@
 }
 /* vlevo od hvězdy jen ruční práce, vpravo jen hotová */
 .hf__layer--raw {
-  clip-path: inset(0 50% 0 0);
+  -webkit-mask-image: linear-gradient(90deg, #000 calc(50% - 110px), transparent calc(50% - 30px));
+  mask-image: linear-gradient(90deg, #000 calc(50% - 110px), transparent calc(50% - 30px));
 }
 .hf__layer--done {
-  clip-path: inset(0 0 0 50%);
+  -webkit-mask-image: linear-gradient(90deg, transparent calc(50% + 30px), #000 calc(50% + 110px));
+  mask-image: linear-gradient(90deg, transparent calc(50% + 30px), #000 calc(50% + 110px));
 }
 .hf__row {
   display: flex;
   width: max-content;
-  animation: hf-run 52s linear infinite;
+  /* záporné zpoždění: pás je už rozjetý, když se stránka otevře */
+  animation: hf-run 34s linear -13s infinite;
 }
 .hf__row--slow {
   margin-left: -120px; /* druhá řada je posunutá, ať lístky nejdou pod sebou */
-  animation-duration: 68s;
+  animation-duration: 44s;
+  animation-delay: -27s;
 }
 @keyframes hf-run {
   from {
@@ -7240,21 +7207,11 @@
   height: var(--star);
   margin: calc(var(--star) / -2) 0 0 calc(var(--star) / -2);
   overflow: visible;
-  animation: hf-spin 40s linear infinite;
-}
-.hf__disc {
-  /* tónovaný kotouč: „stroj“, do kterého práce vjede a vyjede hotová */
-  fill: color-mix(in oklab, var(--primary) 22%, var(--bg));
 }
 .hf__star path {
   fill: var(--primary);
   stroke: var(--primary);
   stroke-width: 4;
-}
-@keyframes hf-spin {
-  to {
-    transform: rotate(360deg);
-  }
 }
 @media (max-width: 560px) {
   .hf {
@@ -7280,8 +7237,7 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hf__row,
-  .hf__star {
+  .hf__row {
     animation: none;
   }
 }
