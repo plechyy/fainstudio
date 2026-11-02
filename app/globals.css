@@ -79,9 +79,9 @@
   --on-accent: oklch(0.2 0.02 var(--secondary-h));
 
   /* Primární barva: odstín, sytost, posun světlosti. */
-  --primary-h: 145.5;
-  --primary-c: 0.2117;
-  --primary-l-adj: -0.0148;
+  --primary-h: 84;
+  --primary-c: 0.16;
+  --primary-l-adj: 0;
   --primary: oklch(calc(0.78 + var(--primary-l-adj)) var(--primary-c) var(--primary-h));
   --primary-deep: oklch(calc(0.6 + var(--primary-l-adj)) calc(var(--primary-c) * 1.15) var(--primary-h));
   --primary-glow: oklch(calc(0.78 + var(--primary-l-adj)) var(--primary-c) var(--primary-h) / 0.5);
@@ -97,9 +97,9 @@
   --bgd-l: 0.235;
   --bgd-c: 0;
   --bgd-h: 0;
-  --bgl-l: 0.943;
-  --bgl-c: 0.0051;
-  --bgl-h: 145.5;
+  --bgl-l: 0.955;
+  --bgl-c: 0.006;
+  --bgl-h: 84;
   /* tmavé karty s kouřem (před/po, srovnání, závěrečné CTA): o kus tmavší než pozadí */
   --smoke-brand: var(--primary);
   --smoke-bg: oklch(max(0.04, calc(var(--bgd-l) - 0.03)) var(--bgd-c) var(--bgd-h));
@@ -161,7 +161,7 @@
   --section: clamp(88px, 12vw, 172px);
   --radius: 10px;
   --radius-pill: 999px;
-  --radius-btn: 14px; /* tlačítka: zaoblený obdélník místo oválu */
+  --radius-btn: 999px; /* tlačítka: kulatá (ovál) */
   --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
@@ -182,8 +182,13 @@
   --ac-glow: oklch(calc(0.78 + var(--pal-adj)) var(--ac-c) var(--ac-h, var(--pal-h)) / 0.5);
   --ac-text: var(--ac);
 }
+:root[data-theme='light'] {
+  /* na bílém pozadí musí být barvy scén tmavší a sytější, pastely tam mizí */
+  --pal-adj: -0.12;
+  --ac-c: 0.16;
+}
 :root[data-theme='light'] .art {
-  --ac-text: oklch(calc(0.56 + var(--pal-adj)) calc(var(--ac-c) * 1.1) var(--ac-h, var(--pal-h)));
+  --ac-text: oklch(calc(0.68 + var(--pal-adj)) calc(var(--ac-c) * 1.1) var(--ac-h, var(--pal-h)));
 }
 .art--poptavky,
 .sys-ac--poptavky { --ac-h: calc(var(--pal-h) - 38); }
@@ -224,10 +229,10 @@
   --primary-text: var(--primary);
 }
 :root[data-theme='light'] .why__item {
-  --fs: oklch(calc(0.64 + var(--primary-l-adj)) calc(var(--primary-c) * 1.3) var(--primary-h));
-  --fs-glow: oklch(calc(0.64 + var(--primary-l-adj)) calc(var(--primary-c) * 1.3) var(--primary-h) / 0.4);
+  --fs: oklch(calc(0.75 + var(--primary-l-adj)) calc(var(--primary-c) * 0.98) calc(var(--primary-h) - 3));
+  --fs-glow: oklch(calc(0.75 + var(--primary-l-adj)) calc(var(--primary-c) * 0.98) calc(var(--primary-h) - 3) / 0.4);
   --fs-on: oklch(0.99 0.01 var(--primary-h));
-  --primary-text: oklch(calc(0.64 + var(--pal-adj)) calc(var(--ac-c) * 1.3) var(--ac-h, var(--pal-h)));
+  --primary-text: oklch(calc(0.76 + var(--pal-adj)) calc(var(--ac-c) * 1.3) var(--ac-h, var(--pal-h)));
 }
 .why__item:nth-child(1) { --ac-h: calc(var(--pal-h) - 38); }
 .why__item:nth-child(2) { --ac-h: var(--pal-h); }
@@ -279,13 +284,13 @@
   --line: oklch(calc(var(--bgl-l) - 0.085) calc(var(--bgl-c) + 0.003) var(--bgl-h));
   --line-strong: oklch(calc(var(--bgl-l) - 0.185) calc(var(--bgl-c) + 0.005) var(--bgl-h));
   --accent-text: oklch(0.46 calc(var(--secondary-c) * 1.7) var(--secondary-h));
-  --primary-text: oklch(calc(0.64 + var(--primary-l-adj)) calc(var(--primary-c) * 1.3) var(--primary-h));
-  /* všechna zelená ve světlém motivu je zelená loga v navigaci (--primary-text) */
+  --primary-text: oklch(calc(0.75 + var(--primary-l-adj)) calc(var(--primary-c) * 0.98) calc(var(--primary-h) - 3));
+  /* ve světlém motivu je primární o kus tmavší a teplejší zlatá, ať na bílé nebledne */
   --primary: var(--primary-text);
-  --primary-glow: oklch(calc(0.64 + var(--primary-l-adj)) calc(var(--primary-c) * 1.3) var(--primary-h) / 0.4);
-  --primary-deep: oklch(calc(0.5 + var(--primary-l-adj)) calc(var(--primary-c) * 1.2) var(--primary-h));
-  --btn-l: calc(0.64 + var(--primary-l-adj));
-  --btn-c: calc(var(--primary-c) * 1.3);
+  --primary-glow: oklch(calc(0.75 + var(--primary-l-adj)) calc(var(--primary-c) * 0.98) calc(var(--primary-h) - 3) / 0.4);
+  --primary-deep: oklch(calc(0.6 + var(--primary-l-adj)) calc(var(--primary-c) * 1.05) calc(var(--primary-h) - 6));
+  --btn-l: calc(0.79 + var(--primary-l-adj));
+  --btn-c: var(--primary-c);
   --smoke-brand: var(--primary);
   --smoke-bg: oklch(calc(var(--bgl-l) + 0.035) calc(var(--bgl-c) - 0.012) var(--bgl-h));
   --tick: oklch(calc(0.6 + var(--secondary-l-adj)) var(--secondary-c) var(--secondary-h));

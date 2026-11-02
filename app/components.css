@@ -1,61 +1,3 @@
-/* ── loading obrazovka ───────────────────────────────────────────── */
-html.is-loading {
-  overflow: hidden;
-}
-html.is-loading .seq {
-  animation-play-state: paused; /* hero se rozjede až po zmizení loaderu */
-}
-.loader {
-  position: fixed;
-  inset: 0;
-  z-index: 200;
-  display: grid;
-  place-items: center;
-  background: var(--bg-deep);
-  transition: opacity 400ms var(--ease-out), visibility 0s linear 400ms;
-}
-.loader.is-done {
-  opacity: 0;
-  visibility: hidden;
-}
-.loader__inner {
-  display: grid;
-  justify-items: center;
-  transition: transform 600ms var(--ease-out);
-}
-.loader.is-done .loader__inner {
-  transform: scale(1.05);
-}
-/* slovo: v HTML od prvního bajtu jako tmavě šedý nápis, WebGL ho vybarví kouřem */
-.loader__word {
-  position: relative;
-  display: inline-block;
-}
-.loader__text {
-  display: block;
-  font-family: 'FingerPaint', var(--font-display);
-  font-weight: 700;
-  font-size: clamp(4.4rem, 2.4rem + 9vw, 8.5rem);
-  line-height: 1;
-  color: color-mix(in oklab, var(--ink) 14%, var(--bg-deep));
-  transition: color 300ms;
-}
-.loader__word.is-gl .loader__text {
-  color: transparent;
-}
-.loader__word.is-static .loader__text {
-  color: var(--primary);
-  text-shadow: 0 0 40px var(--primary-glow);
-}
-.loader__canvas {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  filter: drop-shadow(0 0 28px var(--primary-glow));
-}
-
 /* ── utility ─────────────────────────────────────────────────────── */
 .sr-only {
   position: absolute;
@@ -461,17 +403,10 @@ html.is-loading .seq {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-top: calc(clamp(40px, 9vw, 110px) + 78px);
-  padding-bottom: clamp(14px, 3vh, 28px); /* pás log sedí úplně dole */
+  padding-top: calc(clamp(32px, 5vw, 76px) + 72px);
+  padding-bottom: clamp(14px, 3vh, 28px); /* pás práce s hvězdou sedí úplně dole */
   overflow: clip;
   isolation: isolate;
-}
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  overflow: hidden;
 }
 .hero-canvas {
   position: absolute;
@@ -484,37 +419,6 @@ html.is-loading .seq {
   display: none;
 }
 /* Fallback bez WebGL / než se canvas rozběhne: statická amber mlha. */
-.hero-bg__fallback {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(46% 52% at 64% 44%, var(--primary-glow), transparent 68%),
-    radial-gradient(40% 46% at 34% 62%, color-mix(in oklab, var(--primary) 30%, transparent), transparent 72%),
-    var(--bg-deep);
-}
-/* Čitelnost textu + bezešvé napojení na zbytek stránky. */
-.hero-bg__mask {
-  position: absolute;
-  inset: 0;
-  /* silnější maska uprostřed, kde leží titulek — text se nemá ztratit v mlze */
-  background:
-    radial-gradient(55% 45% at 50% 46%, color-mix(in oklab, var(--bg-deep) 70%, transparent), transparent 70%),
-    linear-gradient(180deg, color-mix(in oklab, var(--bg-deep) 40%, transparent) 0%, transparent 22%, transparent 42%,
-      color-mix(in oklab, var(--bg) 12%, transparent) 52%, color-mix(in oklab, var(--bg) 34%, transparent) 62%,
-      color-mix(in oklab, var(--bg) 62%, transparent) 74%, color-mix(in oklab, var(--bg) 86%, transparent) 86%,
-      color-mix(in oklab, var(--bg) 97%, transparent) 94%, var(--bg) 100%);
-}
-/* Jemné filmové zrno přes celé pozadí (funguje i jako textura fallbacku). */
-.hero-bg__grain {
-  position: absolute;
-  inset: 0;
-  opacity: 0.5;
-  mix-blend-mode: overlay;
-  -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
-  mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
 .hero__inner {
   text-align: center;
   display: flex;
@@ -635,7 +539,7 @@ html.is-loading .seq {
   flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
-  margin-top: 36px;
+  margin-top: 30px;
 }
 .hero__down {
   color: var(--white-text);
@@ -1701,13 +1605,6 @@ html.is-loading .seq {
   }
   .hero__safe li {
     justify-self: start;
-  }
-  /* mlha tu leží za nadpisem, proto slabší zakrytí středu než na desktopu */
-  .hero-bg__mask {
-    background:
-      radial-gradient(70% 28% at 50% 42%, color-mix(in oklab, var(--bg-deep) 38%, transparent), transparent 75%),
-      linear-gradient(180deg, color-mix(in oklab, var(--bg-deep) 30%, transparent) 0%, transparent 16%, transparent 70%,
-        color-mix(in oklab, var(--bg) 55%, transparent) 86%, var(--bg) 100%);
   }
 }
 
@@ -4768,7 +4665,7 @@ html.is-loading .seq {
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px 26px;
-  margin: 40px 0 0;
+  margin: 28px 0 0;
   padding: 0;
   list-style: none;
   font-size: 0.9rem;
@@ -4898,7 +4795,6 @@ html.is-loading .seq {
 .wm,
 .wf,
 .paint,
-.loader,
 .ab__mono {
   -webkit-user-select: none;
   user-select: none;
@@ -7184,4 +7080,208 @@ html.is-loading .seq {
     inset 0 -14px 20px -12px oklch(0.7 0 0 / 0.8),
     inset 0 0 0 1px oklch(1 0 0 / 0.5),
     0 6px 14px -6px oklch(1 0 0 / 0.5);
+}
+
+/* ── posuvník primární barvy (roh obrazovky) ─────────────────────── */
+.ps {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: color-mix(in oklab, var(--bg-deep) 82%, transparent);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  box-shadow: inset 0 0 0 1px var(--line-strong), 0 8px 24px -12px oklch(0 0 0 / 0.3);
+}
+.ps__dot {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 0 1px var(--line-strong);
+}
+.ps__range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: min(180px, 42vw);
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, oklch(0.75 0.17 0), oklch(0.8 0.17 60), oklch(0.82 0.19 120), oklch(0.8 0.17 180), oklch(0.72 0.17 240), oklch(0.7 0.2 300), oklch(0.75 0.17 360));
+  cursor: pointer;
+}
+.ps__range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid oklch(0.3 0 0);
+  box-shadow: 0 1px 4px oklch(0 0 0 / 0.35);
+}
+.ps__range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid oklch(0.3 0 0);
+}
+
+/* ── hero: pás práce, který projde hvězdou a vyjde hotový ─────────── */
+.hf {
+  --chip-h: 50px;
+  --star: 190px;
+  position: relative;
+  height: calc(2 * var(--chip-h) + 16px + 2 * 30px);
+  margin-top: clamp(24px, 4vh, 44px);
+  /* okraje pásu se ztrácejí do pozadí */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  pointer-events: none;
+}
+.hf__layer {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  gap: 16px;
+  overflow: hidden;
+}
+/* vlevo od hvězdy jen ruční práce, vpravo jen hotová */
+.hf__layer--raw {
+  clip-path: inset(0 50% 0 0);
+}
+.hf__layer--done {
+  clip-path: inset(0 0 0 50%);
+}
+.hf__row {
+  display: flex;
+  width: max-content;
+  animation: hf-run 52s linear infinite;
+}
+.hf__row--slow {
+  margin-left: -120px; /* druhá řada je posunutá, ať lístky nejdou pod sebou */
+  animation-duration: 68s;
+}
+@keyframes hf-run {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.hf__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: var(--chip-h);
+  margin-right: 16px;
+  padding: 0 20px 0 12px;
+  border-radius: 999px;
+  font-family: var(--font-text);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+.hf__ico,
+.hf__tick {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+}
+.hf__ico svg,
+.hf__tick svg {
+  width: 16px;
+  height: 16px;
+}
+/* ruční práce: šedá, nakřivo, každý lístek jinak */
+.hf__layer--raw .hf__chip {
+  background: color-mix(in oklab, var(--ink) 7%, var(--bg));
+  color: var(--ink-2);
+}
+.hf__layer--raw .hf__ico {
+  color: var(--ink-3);
+}
+.hf__layer--raw .hf__chip[data-k='0'] { transform: translateY(-5px) rotate(-3deg); }
+.hf__layer--raw .hf__chip[data-k='1'] { transform: translateY(4px) rotate(2.5deg); }
+.hf__layer--raw .hf__chip[data-k='2'] { transform: translateY(-2px) rotate(-1.5deg); }
+.hf__layer--raw .hf__chip[data-k='3'] { transform: translateY(6px) rotate(3.5deg); }
+.hf__layer--raw .hf__chip[data-k='4'] { transform: translateY(-4px) rotate(-2.5deg); }
+/* hotová práce: rovně, se zlatou fajfkou */
+.hf__layer--done .hf__chip {
+  background: color-mix(in oklab, var(--primary) 20%, var(--bg));
+  color: var(--ink);
+  font-weight: 600;
+}
+.hf__tick {
+  background: var(--primary);
+  color: oklch(0.2 0.03 var(--primary-h));
+}
+.hf__tick svg {
+  stroke-width: 2.6;
+}
+/* hvězda přesně na švu; kolem ní lem v barvě pozadí, ať lístky pod ní mizí čistě */
+.hf__star {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--star);
+  height: var(--star);
+  margin: calc(var(--star) / -2) 0 0 calc(var(--star) / -2);
+  overflow: visible;
+  animation: hf-spin 40s linear infinite;
+}
+.hf__disc {
+  /* tónovaný kotouč: „stroj“, do kterého práce vjede a vyjede hotová */
+  fill: color-mix(in oklab, var(--primary) 22%, var(--bg));
+}
+.hf__star path {
+  fill: var(--primary);
+  stroke: var(--primary);
+  stroke-width: 4;
+}
+@keyframes hf-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (max-width: 560px) {
+  .hf {
+    --chip-h: 38px;
+    --star: 112px;
+    margin-top: 28px;
+    margin-inline: calc(var(--gutter, 16px) * -1);
+  }
+  .hf__chip {
+    font-size: 0.82rem;
+    padding: 0 14px 0 8px;
+    margin-right: 12px;
+  }
+  .hf__ico,
+  .hf__tick {
+    width: 22px;
+    height: 22px;
+  }
+  .hf__ico svg,
+  .hf__tick svg {
+    width: 13px;
+    height: 13px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hf__row,
+  .hf__star {
+    animation: none;
+  }
 }

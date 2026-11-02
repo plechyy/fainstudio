@@ -1,4 +1,3 @@
-import Loader from '@/components/Loader';
 import Nav from '@/components/Nav';
 import Hero from '@/components/Hero';
 import Systems from '@/components/Systems';
@@ -13,6 +12,7 @@ import Cta from '@/components/Cta';
 import Footer from '@/components/Footer';
 import Enhance from '@/components/Enhance';
 import ButtonSmoke from '@/components/ButtonSmoke';
+import PrimarySlider from '@/components/PrimarySlider';
 import { homeJsonLd, ld } from '@/lib/seo';
 
 export default function Home() {
@@ -20,7 +20,6 @@ export default function Home() {
     <>
       {/* strukturovaná data: firma, služby, autor, FAQ (pro Google, Seznam i AI asistenty) */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: ld(homeJsonLd()) }} />
-      <Loader />
       <span id="top" />
       <Nav />
       <main id="obsah">
@@ -38,6 +37,7 @@ export default function Home() {
       <Footer />
       <Enhance />
       <ButtonSmoke />
+      <PrimarySlider />
     </>
   );
 }

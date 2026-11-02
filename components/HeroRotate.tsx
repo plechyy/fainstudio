@@ -51,26 +51,11 @@ export default function HeroRotate({ lead, phrases }: { lead: string; phrases: s
       later(step, HOLD_MS + ROLL_MS);
     };
 
-    // začíná se, až zmizí úvodní loader, a první věta mezitím stojí celá
-    const root = document.documentElement;
-    const go = () => later(step, HOLD_MS);
-    let mo: MutationObserver | undefined;
-    if (root.classList.contains('is-loading')) {
-      mo = new MutationObserver(() => {
-        if (!root.classList.contains('is-loading')) {
-          mo?.disconnect();
-          go();
-        }
-      });
-      mo.observe(root, { attributes: true, attributeFilter: ['class'] });
-    } else {
-      go();
-    }
+    later(step, HOLD_MS);
 
     return () => {
       stopped = true;
       clearTimeout(timer);
-      mo?.disconnect();
     };
   }, [phrases]);
 

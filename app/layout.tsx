@@ -38,16 +38,16 @@ export const metadata: Metadata = {
 };
 
 // přesná barva pozadí webu — lišta iOS pak na stránku navazuje bez šedého pruhu
-const BG_DARK = '#1e1e1e';
+const BG_LIGHT = '#f2f0ec';
 
 export const viewport: Viewport = {
-  themeColor: BG_DARK,
-  colorScheme: 'dark',
+  themeColor: BG_LIGHT,
+  colorScheme: 'light',
   viewportFit: 'cover', // na ploše uložený web jde až pod stavový řádek
 };
 
-// Obnoví uložený motiv před prvním vykreslením → nic neprobliká.
-const noFlash = `(function(){try{var d=document.documentElement;if(location.pathname==='/')d.classList.add('is-loading');var t=localStorage.getItem('theme')==='light'?'light':'dark';d.dataset.theme=t;var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==='light'?'#fcfaf6':'#1e1e1e';}catch(e){}})();`;
+// Nastaví uložený motiv (výchozí je světlý) a odstín primární barvy před prvním vykreslením → nic neprobliká.
+const noFlash = `(function(){try{var d=document.documentElement;var t=localStorage.getItem('theme')==='dark'?'dark':'light';d.dataset.theme=t;var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==='light'?'#f2f0ec':'#1e1e1e';var h=localStorage.getItem('primary-h');if(h&&!isNaN(+h))d.style.setProperty('--primary-h',h);}catch(e){}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -60,9 +60,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: noFlash }} />
       </head>
       <body>
-        <noscript>
-          <style>{'.loader{display:none!important}html.is-loading{overflow:auto!important}'}</style>
-        </noscript>
         {children}
       </body>
     </html>

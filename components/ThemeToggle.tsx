@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-/* Přepínač světlého / tmavého motivu. Výběr se pamatuje; výchozí je tmavý (layout.tsx ho nastaví před vykreslením). */
+/* Přepínač světlého / tmavého motivu. Výběr se pamatuje; výchozí je světlý (layout.tsx ho nastaví před vykreslením). */
 export default function ThemeToggle({ className = '' }: { className?: string }) {
   const [light, setLight] = useState(false);
 
@@ -15,7 +15,7 @@ export default function ThemeToggle({ className = '' }: { className?: string }) 
     document.documentElement.dataset.theme = next;
     // lišta prohlížeče na iOS má držet barvu pozadí
     const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
-    if (meta) meta.content = next === 'light' ? '#fcfaf6' : '#1e1e1e';
+    if (meta) meta.content = next === 'light' ? '#f2f0ec' : '#1e1e1e';
     try {
       localStorage.setItem('theme', next);
     } catch {}

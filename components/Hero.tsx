@@ -1,18 +1,11 @@
 import { CAL_URL } from '@/lib/config';
 import { hero } from '@/lib/content';
 import HeroRotate from './HeroRotate';
-import ShaderBackground from './ShaderBackground';
+import HeroFlow from './HeroFlow';
 
 export default function Hero() {
   return (
     <section className="hero" aria-labelledby="hero-title">
-      <div className="hero-bg" aria-hidden="true">
-        <div className="hero-bg__fallback" />
-        <ShaderBackground sides brandVar="--primary" />
-        <div className="hero-bg__mask" />
-        <div className="hero-bg__grain" />
-      </div>
-
       <div className="wrap hero__inner">
         <h1 id="hero-title" className="display hero__title seq seq--rise-only" style={{ ['--i' as string]: 1 }}>
           <span className="sr-only">{hero.titleSr}</span>
@@ -62,6 +55,8 @@ export default function Hero() {
           </li>
         </ul>
       </div>
+
+      <HeroFlow />
     </section>
   );
 }
