@@ -1055,11 +1055,6 @@
 /* ── čísla: výsledky na sběrnici, po které běží výboj ─────────────── */
 .proof {
   --cycle: 6s;
-  /* sběrnice nese tlumené odstíny čtyř položek (--ph1..4 v globals.css), blízké primární */
-  --pl1: oklch(0.74 var(--pc) var(--ph1));
-  --pl2: oklch(0.74 var(--pc) var(--ph2));
-  --pl3: oklch(0.74 var(--pc) var(--ph3));
-  --pl4: oklch(0.74 var(--pc) var(--ph4));
   position: relative;
   display: grid;
   gap: 40px;
@@ -1075,14 +1070,10 @@
   top: 4px;
   bottom: 4px;
   width: 2px;
-  background: linear-gradient(180deg, var(--pl1), var(--pl2), var(--pl3), var(--pl4));
+  background: var(--line-strong);
 }
-/* měkká záře stejné linky, k jejímu konci silnější */
 .proof::after {
-  width: 6px;
-  left: 2px;
-  filter: blur(6px);
-  opacity: 0.55;
+  display: none;
 }
 .proof__item {
   position: relative;
@@ -1096,11 +1087,7 @@
   letter-spacing: -0.03em;
   line-height: 1.05;
   white-space: nowrap;
-  background: linear-gradient(180deg, color-mix(in oklab, var(--primary) 55%, white) 0%, var(--primary) 62%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: var(--primary);
+  color: var(--ink);
 }
 .proof__label::before {
   content: '';
@@ -1108,8 +1095,7 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--primary);
-  box-shadow: 0 0 10px var(--primary-glow);
+  background: var(--ink);
 }
 .proof__pre {
   font-size: 0.42em;
@@ -1148,11 +1134,7 @@
     bottom: auto;
     width: auto;
     height: 2px;
-    background: linear-gradient(90deg, var(--pl1), var(--pl2), var(--pl3), var(--pl4));
-  }
-  .proof::after {
-    top: 1px;
-    height: 6px;
+    background: var(--line-strong);
   }
 }
 
@@ -1628,13 +1610,6 @@
 
 :root[data-theme='light'] .logo {
   text-shadow: none;
-}
-:root[data-theme='light'] .proof__value {
-  background: linear-gradient(180deg, color-mix(in oklab, var(--primary-text) 90%, white) 0%, var(--primary-text) 55%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: var(--primary-text);
 }
 
 /* mobil, sekce Postup: text nad kouřem vždy čitelný (nic se nedimuje, kouř je tlumenější) */
@@ -3770,7 +3745,10 @@
   /* vizuál s textem nenatahujeme na výšku seznamu: stojí hned od horní hrany a text drží pod scénou
      (nejvyšší scéna má 480 px, proto výška 490) */
   .sp__right {
-    align-self: start;
+    align-self: stretch;
+    /* svislá linka mezi seznamem a vizuálem */
+    border-left: 1px solid var(--line);
+    padding-left: clamp(28px, 3.4vw, 52px);
   }
   .sp__stage {
     flex: none;
@@ -3780,6 +3758,9 @@
   /* místo pro nejdelší popisek, ať sekce při přepínání neposkakuje */
   .sp__copy {
     min-height: 14.5rem;
+    /* vodorovná linka mezi vizuálem a popisem */
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
   }
 }
 @media (prefers-reduced-motion: reduce) {
