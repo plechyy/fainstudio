@@ -38,16 +38,13 @@ export const metadata: Metadata = {
 };
 
 // přesná barva pozadí webu — lišta iOS pak na stránku navazuje bez šedého pruhu
-const BG_LIGHT = '#f2f0ec';
+const BG_LIGHT = '#f4efee';
 
 export const viewport: Viewport = {
   themeColor: BG_LIGHT,
   colorScheme: 'light',
   viewportFit: 'cover', // na ploše uložený web jde až pod stavový řádek
 };
-
-// Web je jen ve světlém motivu. Skript obnoví primární barvu vybranou v pickeru před prvním vykreslením → nic neprobliká.
-const noFlash = `(function(){try{var d=document.documentElement;var g=JSON.parse(localStorage.getItem('brand-primary-vars')||'null');if(g){for(var k in g){d.style.setProperty(k,g[k]);}}}catch(e){}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -57,7 +54,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preload" href="/fonts/cal-sans-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/figtree-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <script dangerouslySetInnerHTML={{ __html: noFlash }} />
       </head>
       <body>
         {children}

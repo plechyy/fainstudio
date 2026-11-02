@@ -769,7 +769,7 @@
 }
 .step[data-state='done'] .step__tick {
   background: var(--primary);
-  color: oklch(0.2 0.03 var(--primary-h));
+  color: oklch(from var(--primary) clamp(0.16, calc((0.66 - l) * 60), 0.98) 0.02 h);
 }
 .step__name {
   font-family: var(--font-display);
@@ -7040,153 +7040,6 @@
     0 6px 14px -6px oklch(1 0 0 / 0.5);
 }
 
-/* ── výběr primární barvy (roh obrazovky) ────────────────────────── */
-.cpk {
-  position: fixed;
-  right: 16px;
-  bottom: 16px;
-  z-index: 60;
-  display: grid;
-  justify-items: end;
-  gap: 10px;
-  font-family: var(--font-text);
-}
-.cpk__toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  height: 44px;
-  padding: 0 18px 0 8px;
-  border: 0;
-  border-radius: 999px;
-  background: var(--ink);
-  color: var(--bg);
-  font: inherit;
-  font-size: 0.92rem;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 10px 30px -12px oklch(0 0 0 / 0.45);
-  transition: transform 160ms var(--ease-out);
-}
-.cpk__toggle:hover {
-  transform: translateY(-1px);
-}
-.cpk__dot {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  box-shadow: inset 0 0 0 2px oklch(1 0 0 / 0.35);
-}
-.cpk__panel {
-  width: min(300px, calc(100vw - 32px));
-  padding: 14px;
-  border-radius: 20px;
-  background: var(--ink);
-  color: var(--bg);
-  box-shadow: 0 24px 60px -20px oklch(0 0 0 / 0.5);
-  display: grid;
-  gap: 14px;
-  animation: cpk-in 200ms var(--ease-out);
-}
-@keyframes cpk-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px) scale(0.98);
-  }
-}
-.cpk__presets {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 8px;
-}
-.cpk__sw {
-  aspect-ratio: 1;
-  border: 0;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: transform 140ms var(--ease-out), box-shadow 140ms;
-}
-.cpk__sw:hover {
-  transform: scale(1.12);
-}
-.cpk__sw[aria-selected='true'] {
-  box-shadow: 0 0 0 2px var(--ink), 0 0 0 4px var(--bg);
-}
-.cpk__pick {
-  display: grid;
-  gap: 10px;
-}
-.cpk__sv {
-  position: relative;
-  height: 140px;
-  border-radius: 12px;
-  background:
-    linear-gradient(to top, #000, transparent),
-    linear-gradient(to right, #fff, hsl(calc(var(--cp-h) * 1deg) 100% 50%));
-  cursor: crosshair;
-  touch-action: none;
-}
-.cpk__hue {
-  position: relative;
-  height: 14px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00);
-  cursor: pointer;
-  touch-action: none;
-}
-.cpk__thumb {
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  margin: -9px 0 0 -9px;
-  border-radius: 50%;
-  border: 2px solid #fff;
-  box-shadow: 0 1px 4px oklch(0 0 0 / 0.5);
-  pointer-events: none;
-}
-.cpk__thumb--h {
-  top: 50%;
-  background: transparent;
-}
-.cpk__hex {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.82rem;
-  opacity: 0.85;
-}
-.cpk__hex input {
-  flex: 1;
-  height: 34px;
-  padding: 0 10px;
-  border: 0;
-  border-radius: 10px;
-  background: oklch(1 0 0 / 0.1);
-  color: inherit;
-  font: inherit;
-  font-size: 0.9rem;
-  font-variant-numeric: tabular-nums;
-}
-.cpk__actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-.cpk__btn {
-  height: 36px;
-  border: 0;
-  border-radius: 999px;
-  background: oklch(1 0 0 / 0.12);
-  color: inherit;
-  font: inherit;
-  font-size: 0.84rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-.cpk__btn:hover {
-  background: oklch(1 0 0 / 0.2);
-}
-
 /* ── hero: pás práce, který projde hvězdou a vyjde hotový ─────────── */
 .hf {
   --chip-h: 50px;
@@ -7284,7 +7137,7 @@
 }
 .hf__tick {
   background: var(--primary);
-  color: oklch(0.2 0.03 var(--primary-h));
+  color: oklch(from var(--primary) clamp(0.16, calc((0.66 - l) * 60), 0.98) 0.02 h);
 }
 .hf__tick svg {
   stroke-width: 2.6;
