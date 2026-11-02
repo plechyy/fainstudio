@@ -1017,7 +1017,7 @@
   border-radius: 22px;
   z-index: 0;
 }
-/* značky: FaiN má hvězdičku, ostatní fajfku, „ne“ je pomlčka, ostatní zůstává slovy */
+/* značky: fajfka u všech (u FaiN tučnější), „ne“ je pomlčka, ostatní zůstává slovy */
 .cmp-mark {
   display: inline-flex;
   align-items: center;

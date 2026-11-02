@@ -1,26 +1,19 @@
 import type { CSSProperties } from 'react';
 import { compare } from '@/lib/content';
-import { STAR_D, STAR_STROKE } from '@/lib/star';
 import ShaderBackground from './ShaderBackground';
 
 const isYes = (v: string) => v === 'Ano';
 const isNo = (v: string) => v.startsWith('Ne') && v !== 'Někdy';
 const at = (row: number, col: number): CSSProperties => ({ gridRow: row, gridColumn: col });
 
-/** Značka buňky: u FaiN Studia hvězdička, u ostatních fajfka, „ne“ je pomlčka (důvod malým písmem), ostatní zůstává slovy */
+/** Značka buňky: fajfka (u FaiN Studia o něco tučnější), „ne“ je pomlčka (důvod malým písmem), ostatní zůstává slovy */
 function Mark({ v, us }: { v: string; us?: boolean }) {
   if (isYes(v)) {
     return (
       <span className={`cmp-mark ${us ? 'cmp-mark--star' : 'cmp-mark--yes'}`}>
-        {us ? (
-          <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
-            <path d={STAR_D} fill="currentColor" stroke="currentColor" strokeWidth={STAR_STROKE} strokeLinejoin="round" />
-          </svg>
-        ) : (
-          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-            <path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        )}
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" strokeWidth={us ? 2.2 : 1.8} strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
         <span className="sr-only">Ano</span>
       </span>
     );
