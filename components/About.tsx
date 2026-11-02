@@ -1,5 +1,4 @@
 import { about } from '@/lib/content';
-import Plate from './Plate';
 import { SIGNATURE_LEN, SIGNATURE_STROKES, SIGNATURE_VIEWBOX } from '@/lib/signature';
 
 export default function About() {
@@ -7,16 +6,19 @@ export default function About() {
   return (
     <section className="section" id="kdo" aria-labelledby="kdo-title">
       <div className="wrap about">
-        <Plate className="about__photo reveal" fig="Obr. 08" caption="Portrét">
-          {/*
-            ZÁSTUPNÝ PRVEK. Nahradit fotkou:
-            public/media/matyas.webp (+ .jpg), 960 × 1200 px (4:5), max 200 KB.
-          */}
-          <div className="about__ph">
-            <span className="label">Sem patří fotka</span>
-            <span>Portrét 4 : 5, 960 × 1200 px, přirozené světlo, pohled do kamery.</span>
-          </div>
-        </Plate>
+        <figure className="about__photo reveal">
+          <picture>
+            <source srcSet="/media/matyas.webp" type="image/webp" />
+            <img
+              src="/media/matyas.jpg"
+              width={960}
+              height={1200}
+              alt={`${about.name} u notebooku v tmavé pracovně`}
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
+        </figure>
 
         <div className="about__copy">
           <p className="label shead__index reveal" aria-hidden="true">
