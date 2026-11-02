@@ -92,10 +92,10 @@ export const process = {
   title: 'Čtyři kroky. Žádné zbytečné schůzky.',
   lead: 'Každý krok končí něčím, co si můžete hned vyzkoušet. Ne slibem.',
   steps: [
-    { name: 'Úvodní hovor', text: 'Nemusíte vědět, co chcete. To zjistíme spolu. Z hovoru odcházíte s tím, co vám systém přinese.' },
-    { name: 'Návrh', text: 'Černé na bílém: co systém udělá, co od vás potřebujeme, kdy bude hotovo a kolik to bude stát. Podpis, záloha a jedeme.' },
-    { name: 'Stavíme po týdnech', text: 'Každý týden dostanete živou ukázku. Vyzkoušíte ji, řeknete, co jinak, a další týden to máte. Žádné čekání na velké odhalení.' },
-    { name: 'Zaučení a spuštění', text: 'Vaše lidi to naučíme, napojíme to na vaše nástroje a pustíme do provozu. Od té chvíle to maká za vás.' },
+    { name: 'Úvodní hovor', get: 'Jasno, co vám systém přinese', text: 'Nemusíte vědět, co chcete. To zjistíme spolu. Z hovoru odcházíte s tím, co vám systém přinese.' },
+    { name: 'Návrh', get: 'Návrh s cenou a termínem', text: 'Černé na bílém: co systém udělá, co od vás potřebujeme, kdy bude hotovo a kolik to bude stát. Podpis, záloha a jedeme.' },
+    { name: 'Stavíme po týdnech', get: 'Živá ukázka každý týden', text: 'Každý týden dostanete živou ukázku. Vyzkoušíte ji, řeknete, co jinak, a další týden to máte. Žádné čekání na velké odhalení.' },
+    { name: 'Zaučení a spuštění', get: 'Systém, který maká za vás', text: 'Vaše lidi to naučíme, napojíme to na vaše nástroje a pustíme do provozu. Od té chvíle to maká za vás.' },
   ],
 };
 

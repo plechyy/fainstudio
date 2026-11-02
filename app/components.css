@@ -647,33 +647,12 @@
   }
 }
 
-/* ── postup: časová osa (linka + čtvercové uzly), mrak za nadpisem ── */
+/* ── postup: zlatá linka s hvězdou, pod kroky lístky s výsledkem ── */
 .proc-section {
   position: relative;
   isolation: isolate;
-  /* odstup od tlačítka nad sekcí: kouř nesmí začínat hned pod ním */
   margin-top: clamp(56px, 9vw, 140px);
   padding-bottom: clamp(24px, 3.4vw, 54px);
-}
-.proc-bg {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.75;
-  /* mrak žije za nadpisem a k řadě kroků se plynule rozpustí */
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 16%, #000 42%, transparent 72%);
-  mask-image: linear-gradient(180deg, transparent 0%, #000 16%, #000 42%, transparent 72%);
-}
-/* čitelnost nadpisu: tmavší jádro přímo za textem (jako maska v hero) */
-.proc-bg::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(34% 22% at 50% 30%, color-mix(in oklab, var(--bg) 78%, transparent), transparent 75%);
-}
-.proc-bg canvas.is-fallback {
-  display: none;
 }
 .proc-head {
   display: grid;
@@ -712,24 +691,11 @@
 .step__bar {
   position: relative;
   display: block;
-  height: 3px;
+  height: 4px;
   margin-bottom: 18px;
   border-radius: 3px;
   background: var(--line);
   overflow: visible;
-}
-/* každý krok má svou barvu ze stejné palety jako systémy a otázky */
-.step {
-  --sc: oklch(calc(0.8 + var(--pal-adj)) var(--ac-c) calc(var(--pal-h) + var(--so, 0)));
-}
-.step:nth-child(1) { --so: -38; }
-.step:nth-child(2) { --so: 52; }
-.step:nth-child(3) { --so: 165; }
-.step:nth-child(4) { --so: 108; }
-.step:nth-child(5) { --so: -88; }
-.step:nth-child(6) { --so: 222; }
-.step__bar {
-  background: color-mix(in oklab, var(--sc) 16%, var(--line));
 }
 .step__fill {
   position: absolute;
@@ -737,15 +703,11 @@
   border-radius: inherit;
   transform-origin: left;
   transform: scaleX(0);
-  background: linear-gradient(90deg, color-mix(in oklab, var(--sc) 70%, transparent), var(--sc));
+  background: var(--primary);
 }
-.step[data-state='done'] .step__fill {
-  transform: none;
-  background: color-mix(in oklab, var(--sc) 85%, transparent);
-}
+.step[data-state='done'] .step__fill,
 .step[data-state='now'] .step__fill {
   transform: none;
-  box-shadow: 0 0 14px -2px color-mix(in oklab, var(--sc) 70%, transparent);
 }
 .step__fill[data-run] {
   animation: step-fill var(--step) linear both;
@@ -753,6 +715,61 @@
 @keyframes step-fill {
   from { transform: scaleX(0); }
   to { transform: scaleX(1); }
+}
+.step__star {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  overflow: visible;
+  pointer-events: none;
+  animation: hf-spin 12s linear infinite;
+}
+.step__star[data-run] {
+  animation: step-star var(--step) linear both, hf-spin 12s linear infinite;
+}
+@keyframes step-star {
+  from { left: 0%; }
+  to { left: 100%; }
+}
+.step__get {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  padding: 7px 14px 7px 7px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--ink) 6%, var(--bg));
+  color: var(--ink-3);
+  font-size: 0.86rem;
+  font-weight: 600;
+  transition: background-color 400ms var(--ease-out), color 400ms var(--ease-out);
+}
+.step__tick {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--ink) 10%, var(--bg));
+  color: transparent;
+  transition: background-color 400ms var(--ease-out), color 400ms var(--ease-out);
+}
+.step__tick svg {
+  width: 13px;
+  height: 13px;
+  stroke-width: 2.8;
+}
+.step[data-state='done'] .step__get {
+  background: color-mix(in oklab, var(--primary) 20%, var(--bg));
+  color: var(--ink);
+}
+.step[data-state='done'] .step__tick {
+  background: var(--primary);
+  color: oklch(0.2 0.03 var(--primary-h));
 }
 .step__name {
   font-family: var(--font-display);
@@ -1622,9 +1639,6 @@
 
 /* mobil, sekce Postup: text nad kouřem vždy čitelný (nic se nedimuje, kouř je tlumenější) */
 @media (max-width: 899px) {
-  .proc-bg {
-    opacity: 0.45;
-  }
   .proc-head__lead,
   .step[data-state] .step__text {
     color: color-mix(in oklab, var(--ink) 92%, transparent);
@@ -7304,10 +7318,13 @@
   margin: calc(var(--star) / -2) 0 0 calc(var(--star) / -2);
   overflow: visible;
 }
-.hf__star path {
-  fill: var(--primary);
-  stroke: var(--primary);
-  stroke-width: 4;
+.hf__star {
+  animation: hf-spin 40s linear infinite;
+}
+@keyframes hf-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 @media (max-width: 560px) {
   .hf {
@@ -7333,7 +7350,23 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hf__row {
+  .hf__row,
+  .hf__star,
+  .step__star {
     animation: none;
   }
+}
+
+/* hvězda: zlatá výplň se zakulacenými cípy a bílý obrys kolem (dvě vrstvy: bílá tlustší, zlatá nad ní) */
+.star-o {
+  fill: #fff;
+  stroke: #fff;
+  stroke-width: 15;
+  stroke-linejoin: round;
+}
+.star-f {
+  fill: var(--primary);
+  stroke: var(--primary);
+  stroke-width: 7;
+  stroke-linejoin: round;
 }

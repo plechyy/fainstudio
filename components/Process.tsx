@@ -2,11 +2,13 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { process } from '@/lib/content';
-import ShaderBackground from './ShaderBackground';
+import { STAR_D } from '@/lib/star';
+import { ico, Svg } from './systems/live/scene';
 
 /*
- * Postup jako „načítání“: nad každým krokem jeden úsek progress baru (jako příběhy na
- * sociálních sítích). Úseky se plní jeden po druhém, právě plněný krok je rozsvícený,
+ * Postup jako „načítání“: nad každým krokem jeden úsek zlaté linky, po které jede hvězda
+ * (stejná jako v heru). Úseky se plní jeden po druhém, právě plněný krok je rozsvícený,
+ * pod každým krokem je lístek s tím, co z něj máte, a u hotových se rozsvítí fajfka;
  * hotové zůstanou plné, budoucí čekají ztlumené. Po posledním krátká pauza a znovu.
  * Najetí / fokus na krok ho podrží. Reduced motion: všechno plné a rozsvícené.
  */
@@ -92,9 +94,6 @@ export default function Process() {
 
   return (
     <section className="section proc-section" id="postup" aria-labelledby="postup-title">
-      <div className="proc-bg" aria-hidden="true">
-        <ShaderBackground center phase={70} brandVar="--primary" />
-      </div>
       <div className="wrap">
         <header className="proc-head reveal">
           <p className="label shead__index" aria-hidden="true">
@@ -151,9 +150,32 @@ export default function Process() {
                     }
                     onAnimationEnd={!mobile && state === 'now' && held === null ? next : undefined}
                   />
+                  {/* hvězda jede po lince na čele postupu (jako v heru) */}
+                  {state === 'now' && (
+                    <svg
+                      key={mobile ? 'scroll' : `star-${active}-${held ?? 'x'}`}
+                      className="step__star"
+                      viewBox="-6 -6 112 112"
+                      data-run={!mobile && held === null ? '' : undefined}
+                      style={
+                        mobile
+                          ? { left: `${p * 100}%` }
+                          : { animationPlayState: playing ? 'running' : 'paused', left: held === null ? undefined : '100%' }
+                      }
+                    >
+                      <path className="star-o" d={STAR_D} />
+                      <path className="star-f" d={STAR_D} />
+                    </svg>
+                  )}
                 </span>
                 <h3 className="step__name">{s.name}</h3>
                 <p className="step__text">{s.text}</p>
+                <span className="step__get">
+                  <span className="step__tick" aria-hidden="true">
+                    <Svg>{ico.check}</Svg>
+                  </span>
+                  {s.get}
+                </span>
               </li>
             );
           })}

@@ -1,7 +1,7 @@
 'use client';
 
 import { ico, Svg } from './systems/live/scene';
-import { STAR_D, STAR_STROKE } from '@/lib/star';
+import { STAR_D } from '@/lib/star';
 
 /*
  * Pozadí hera: pás běžné firemní práce, který jede zleva doprava a projde zlatou hvězdou (značka FaiN).
@@ -63,7 +63,8 @@ export default function HeroFlow() {
         <Row tasks={ROW_B} done slow />
       </div>
       <svg className="hf__star" viewBox="-6 -6 112 112">
-        <path d={STAR_D} strokeWidth={STAR_STROKE} strokeLinejoin="round" />
+        <path className="star-o" d={STAR_D} />
+        <path className="star-f" d={STAR_D} />
       </svg>
     </div>
   );
