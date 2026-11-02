@@ -3746,9 +3746,18 @@
      (nejvyšší scéna má 480 px, proto výška 490) */
   .sp__right {
     align-self: stretch;
-    /* svislá linka mezi seznamem a vizuálem */
-    border-left: 1px solid var(--line);
+    position: relative;
     padding-left: clamp(28px, 3.4vw, 52px);
+  }
+  /* svislá linka mezi seznamem a vizuálem; dole se zalomí (.sp__bend) a vede k tlačítku */
+  .sp__right::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 54px; /* výška tlačítka: dál pokračuje zalomení */
+    width: 1px;
+    background: var(--line);
   }
   .sp__stage {
     flex: none;
@@ -3756,6 +3765,24 @@
     min-height: 0;
   }
   /* místo pro nejdelší popisek, ať sekce při přepínání neposkakuje */
+  /* tlačítko je na desktopu uvnitř pravého sloupce, na konci svislé linky; samostatný řádek pod sekcí se skryje */
+  .sys-cta {
+    display: none;
+  }
+  .sp__end {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin: 0 0 0 calc(-1 * clamp(28px, 3.4vw, 52px));
+  }
+  .sp__bend {
+    flex: 1;
+    height: 27px;
+    border-left: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    border-bottom-left-radius: 22px;
+  }
   .sp__copy {
     min-height: 14.5rem;
     /* vodorovná linka mezi vizuálem a popisem */

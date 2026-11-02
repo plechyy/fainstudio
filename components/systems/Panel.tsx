@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { systems } from '@/lib/content';
+import { systems, cta } from '@/lib/content';
+import { CAL_URL } from '@/lib/config';
 import Artifact from './Artifact';
 import Carousel from './Carousel';
 import SysHead from './SysHead';
@@ -83,6 +84,13 @@ export default function Panel() {
         <div className="sp__copy" key={`c${active}`}>
           <h3 className="sp__title">{s.name}</h3>
           <p className="sp__text">{s.text}</p>
+        </div>
+        {/* svislá linka se dole zalomí a vede k tlačítku */}
+        <div className="sp__end">
+          <span className="sp__bend" aria-hidden="true" />
+          <a className="btn btn--primary" href={CAL_URL}>
+            {cta.priceButton}
+          </a>
         </div>
       </div>
     </div>

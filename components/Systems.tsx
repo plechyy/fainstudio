@@ -50,7 +50,9 @@ export default function Systems() {
       <div className="wrap">
         <Panel />
 
-        <CtaRow label="Mám zájem" align="right" />
+        <div className="sys-cta">
+          <CtaRow label="Mám zájem" align="right" />
+        </div>
       </div>
     </section>
   );
